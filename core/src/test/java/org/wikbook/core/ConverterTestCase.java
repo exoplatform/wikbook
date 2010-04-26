@@ -74,6 +74,11 @@ public class ConverterTestCase extends TestCase
       }
    }
 
+   public void testHorizontalRule() throws Exception
+   {
+      doTest("/horizontalrule");
+   }
+
    public void testSection() throws Exception
    {
       doTest("/section");

@@ -521,7 +521,6 @@ public class XDOMTransformer implements Listener
 
    public void onHorizontalLine(Map<String, String> parameters)
    {
-      throw new UnsupportedOperationException();
    }
 
    public void onEmptyLines(int count)
