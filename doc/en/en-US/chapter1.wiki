@@ -1,9 +1,3 @@
-Wikbook is a set of tools for efficiently writing docbook documentation. For this purpose several choices have been
-made that are explained below
-
-* The Docbook system can produce high quality documents with different outputs.
-* Documentation written in wiki language is a good trade off between document richness and simplicity
-
 = Document syntax =
 
 Wiki syntaxes are not unique, Wikbook relies on an external framework used at the hear of XWiki that is able to make
@@ -24,4 +18,7 @@ there is no such concept in the docbook system and horizontal rule are simply ig
 
 = Wiki macros =
 
-Explain what a macro is.
+A wiki macro is way to complete the wiki syntax. Wiki syntax is usually not enough to express some ideas and a wiki
+macro provides a way to plug new behavior into a wiki syntax.
+
+Wikbook makes use of wiki macro to integrate specific docbook features.

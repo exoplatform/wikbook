@@ -1,4 +1,20 @@
-The preface
+Wikbook is a set of tools for efficiently writing docbook documentation. For this purpose several choices have been
+made that are explained below
+
+* The Docbook system can produce high quality documents with different outputs.
+* Documentation written in wiki language is a good trade off between document richness and simplicity
+
+Wikbook aims also to provide exclusive features that makes documentation easier to write. The perfect example we like
+ to give is the inclusion of Java^^tm^^ source code at the heart of the documentation as it allows to have always up to
+ date example that stay in sync with the documentation. The goal is to make the documentation easier to write and maintain.
+
+Wikbook is also a lab to experiment new things and we are sure that it will get richer over time. We hope that people
+will find Wikbook interesting to write their documentation, experiment new ideas and contribute them.
+
+Wikbook aims to be open and does not want to lock users into a proprietary system. The proof is that Wikbook is based on the
+open Docbook format.
+
+{{important}}This document is a work in progress and will get richer over time.{{/important}}
 
 = Introduction =
 
@@ -8,6 +24,6 @@ The preface
 
 {{include document="chapter2.wiki" /}}
 
-= Build integration =
+= Project integration =
 
 {{include document="chapter3.wiki" /}}

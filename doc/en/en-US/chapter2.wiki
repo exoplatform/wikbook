@@ -1,8 +1,6 @@
-= How to write documentation =
-
 Wiki concepts are naturally mapped onto docbook concepts.
 
-== Document structure ==
+= Document structure =
 
 A book is structured into chapters and each chapter is structured into sections. A wiki document provides a syntax
 for creating nested sections with different levels. The book structure can naturally leverage the wiki document
@@ -28,15 +26,15 @@ structure with the following rules:
 {{note}}All wiki sections don't have to be explicitely declared, it is possible to //omit// the declaration of a section. When it
 occurs, implicit docbook section will be created with no title.{{/note}}
 
-== Document content ==
+= Document content =
 
 The content of a book can be seen as a collection of content, each content can be categorized into blocks
 or rich text. Rich text can either be simple text or it can be made richer, like a word in bold. A block contains
 usually rich text and gives a meaning to the text, the most natural block is the paragraph.
 
-=== Rich text ===
+== Rich text ==
 
-==== Emphasis ====
+=== Emphasis ===
 
 The following syntax can be used to put the emphasis for creating richtext
 
@@ -50,7 +48,7 @@ The following syntax can be used to put the emphasis for creating richtext
 |{{{##monospaced##}}}|##monospaced##
 |{{{{{code}}inlineCode(){{/code}}}}}|{{code}}inlineCode(){{/code}}
 
-==== Links ====
+=== Links ===
 
 We can distinguish two kinds of links. A link can reference a target inside the document such as an anchor or a section or
 it can reference an URL.
@@ -79,7 +77,7 @@ A [[link>>#foo]] to an anchor {{anchor id=foo /}}
 |The [[FooBar>>http://www.foobar.com]] site
 |Send a mail to [[mailto:foo@bar.com]]
 
-=== Verbatim text ===
+== Verbatim text ==
 
 Verbatim escapes the wiki syntax and is useful for citing wiki in a wiki document. It is useful for creating document
 such as this documentation.
@@ -93,9 +91,9 @@ such as this documentation.
 <para>[foo>>#bar]</para>
 {{/code}})))
 
-=== Blocks ===
+== Blocks ==
 
-==== Paragraphs ====
+=== Paragraphs ===
 
 Unlike docbook, wiki paragraphs are implicitely defined, the general rule is that any text content that does not
 contain wiki instruction is one paragraph. The wikbook system creates docbook paragraphs when it is required. The simplest
@@ -128,7 +126,7 @@ The second paragraph of the section 2.
 </chapter>
 {{/code}})))
 
-==== Lists ====
+=== Lists ===
 
 It is easy to create lists in wiki syntax, whereas the docbook XML is very tedious. Several types of lists are
 possible such as bullet or ordered list.
@@ -178,7 +176,7 @@ It is possible to configure also the list style according to the docbook capabil
 ** uperroman
 ** arabicindic
 
-==== Tables ====
+=== Tables ===
 
 Tables are mapped to the docbook tables, here are a few examples
 
@@ -237,12 +235,12 @@ the usage of nested tables or lists.
 {{note}}This document makes an extensive usage of this feature.{{/note}}
 {{warning}}Inside a complex content block, the usage of structural elements such as section is not allowed.{{/warning}}
 
-==== Images ====
+=== Images ===
 
 Images can be displayed a block elements. Image display can be parameterized for all output but it is possible to
 target a specific output with a prefix. The //fo// prefix affects the PDF output and the //html// targets the
 HTML content. More details about docbook images parameterization can be found in the docbook
-[[imagedata>>http://www.docbook.org/tdg/en/html/imagedata.html]] reference. 
+[[imagedata>>http://www.docbook.org/tdg/en/html/imagedata.html]] reference.
 
 (% title="Image example" %)
 |((({{code}}
@@ -252,7 +250,7 @@ HTML content. More details about docbook images parameterization can be found in
 [[image:images/controller.png||title="The controller" align="center" html:scale="50" fo:width="50mm]]
 )))
 
-==== Admonitions ====
+=== Admonitions ===
 
 (% title="Admonitions" %)
 |Note|{{{{{note}}Some noticeable text{{/note}}}}}|((({{note}}some noticeable text{{/note}})))
@@ -261,7 +259,7 @@ HTML content. More details about docbook images parameterization can be found in
 |Caution|{{{{{caution}}beware!!!{{/caution}}}}}|((({{caution}}beware!!!{{/caution}})))
 |Important|{{{{{important}}something important{{/important}}}}}|((({{important}}something important{{/important}})))
 
-==== Special blocks ====
+=== Special blocks ===
 
 A set of special blocks are available, they allow to give a special representation to the emboddied text.
 
@@ -303,7 +301,7 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
 -rw-r--r--  1 julien  staff  4090 Apr 26 15:09 wikbook.core.iml
 {{/screen}})))
 
-=== Definition list ===
+== Definition list ==
 
 Wiki definition lists are managed as docbook variable lists.
 
@@ -337,7 +335,7 @@ Wiki definition lists are managed as docbook variable lists.
 </variablelist>
 {{/code}})))
 
-=== Modularization ===
+== Modularization ==
 
 The //include// macro is a good way to provide modularization of a complex document.
 
