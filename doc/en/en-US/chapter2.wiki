@@ -40,6 +40,7 @@ usually rich text and gives a meaning to the text, the most natural block is the
 
 The following syntax can be used to put the emphasis for creating richtext
 
+(% title="Text emphasis" %)
 |{{{**bold**}}}|**bold**
 |{{{//italic//}}}|//italic//
 |{{{__underline__}}}|__underline__
@@ -49,6 +50,36 @@ The following syntax can be used to put the emphasis for creating richtext
 |{{{##monospaced##}}}|##monospaced##
 |{{{{{code}}inlineCode(){{/code}}}}}|{{code}}inlineCode(){{/code}}
 
+==== Links ====
+
+We can distinguish two kinds of links. A link can reference a target inside the document such as an anchor or a section or
+it can reference an URL.
+
+The anchor macro plays an important role in internal links as it specifies the potential target of a link. Any internal
+link should reference a valid anchor inside the document. An anchor can be placed anywhere in text but it can also be present
+in a section title.
+
+(% title="Document links" %)
+|((({{code}}
+= Chapter 1 {{anchor id=chapter_1 /}} =
+A [[link>>#chapter_1]] to the chapter 1
+The [[#chapter_1]] can be linked
+A [[link>>#foo]] to an anchor {{anchor id=foo /}}
+{{/code}})))|((({{code language=xml indent=2}}
+<chapter>
+  <title>Chapter 1</title>
+  <para>A <link linkend="chapter_1">link</link> to the chapter 1</para>
+  <para>The <xref linkend="chapter_1"/> can be linked</para>
+  <para>A <link linkend="foo">link</link> to an anchor</para>
+</chapter>
+{{/code}})))
+
+(% title="External links" %)
+|The [[http://www.foobar.com]] site
+|The [[FooBar>>http://www.foobar.com]] site
+|Send a mail to [[mailto:foo@bar.com]]
+
+
 === Blocks ===
 
 ==== Paragraphs ====
@@ -57,6 +88,7 @@ Unlike docbook, wiki paragraphs are implicitely defined, the general rule is tha
 contain wiki instruction is one paragraph. The wikbook system creates docbook paragraphs when it is required. The simplest
 example is that any content in a section is a paragraph.
 
+(% title="Paragraph generation" %)
 |((({{code}}
 = Chapter 1 =
 The paragraph of the chapter 1.
@@ -83,4 +115,112 @@ The second paragraph of the section 2.
 </chapter>
 {{/code}})))
 
-===
+==== Lists ====
+
+It is easy to create lists in wiki syntax, whereas the docbook XML is very tedious. Several types of lists are
+possible such as bullet or ordered list.
+
+(% title="List examples" %)
+|((({{code}}
+* item 1
+** item 1.1
+** item 1.2
+* item 2{{/code}})))|(((
+* item 1
+** item 1.1
+** item 1.2
+* item 2)))
+|((({{code}}
+1. item 1
+11. item 1.1
+11. item 1.2
+1. item 2{{/code}})))|(((
+1. item 1
+11. item 1.1
+11. item 1.2
+1. item 2)))
+|((({{code}}
+(% style="upperroman" %)
+1. item 1
+11. item 1.1
+11. item 1.2
+1. item 2{{/code}})))|(((
+(% style="upperroman" %)
+1. item 1
+11. item 1.1
+11. item 1.2
+1. item 2)))
+
+It is possible to configure also the list style according to the docbook capabilities.
+
+* Bullet style
+** disc
+** circle
+** square
+* Numbering style
+** arabic
+** loweralpha
+** loweroman
+** upperalpha
+** uperroman
+** arabicindic
+
+==== Tables ====
+
+Tables are mapped to the docbook tables, here are a few examples
+
+(% title="Table examples" %)
+|((({{code}}
+|1|2|3
+|4|5|6
+{{/code}})))|(((
+|1|2|3
+|4|5|6
+)))
+|((({{code}}
+|=1|=2|=3
+|4|5|6
+{{/code}})))|(((
+|=1|=2|=3
+|4|5|6
+)))
+|((({{code}}
+|1|2|3
+|=4|=5|=6
+{{/code}})))|(((
+|1|2|3
+|=4|=5|=6
+)))
+|((({{code}}
+(% title="the table" %)
+|1|2|3
+|4|5|6
+{{/code}})))|(((
+(% title="the table" %)
+|1|2|3
+|4|5|6
+)))
+
+==== Images ====
+
+Images can be displayed a block elements. Image display can be parameterized for all output but it is possible to
+target a specific output with a prefix. The //fo// prefix affects the PDF output and the //html// targets the
+HTML content. More details about docbook images parameterization can be found in the docbook
+[[imagedata>>http://www.docbook.org/tdg/en/html/imagedata.html]] reference. 
+
+(% title="Image example" %)
+|((({{code}}
+[[image:images/controller.png||title="The controller" align="center" html:scale="50" fo:width="50mm]]
+{{/code}})))
+|(((
+[[image:images/controller.png||title="The controller" align="center" html:scale="50" fo:width="50mm]]
+)))
+
+==== Admonitions ====
+
+(% title="Admonitions" %)
+|Note|{{{{{note}}Some noticeable text{{/note}}}}}|((({{note}}some noticeable text{{/note}})))
+|Warning|{{{{{warning}}you should not do that{{/warning}}}}}|((({{warning}}you should not do that{{/warning}})))
+|Tip|{{{{{tip}}a usefull tip{{/tip}}}}}|((({{tip}}a usefull tip{{/tip}})))
+|Caution|{{{{{caution}}beware!!!{{/caution}}}}}|((({{caution}}beware!!!{{/caution}})))
+|Important|{{{{{important}}something important{{/important}}}}}|((({{important}}something important{{/important}})))

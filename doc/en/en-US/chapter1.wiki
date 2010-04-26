@@ -18,3 +18,7 @@ syntaxes are recognized:
 * [[TWiki>>http://twiki.org/cgi-bin/view/TWiki/TextFormattingFAQ]]
 
 For the purpose of simplicity, the Wikbook documentation uses the XWiki 2.0 syntax.
+
+= Wiki macros =
+
+Explain what a macro is.
