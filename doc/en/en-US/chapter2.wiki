@@ -187,6 +187,7 @@ Tables are mapped to the docbook tables, here are a few examples
 |1|2|3
 |4|5|6
 {{/code}})))|(((
+(% title="A simple table" %)
 |1|2|3
 |4|5|6
 )))
@@ -194,6 +195,7 @@ Tables are mapped to the docbook tables, here are a few examples
 |=1|=2|=3
 |4|5|6
 {{/code}})))|(((
+(% title="A table with a row header" %)
 |=1|=2|=3
 |4|5|6
 )))
@@ -201,15 +203,16 @@ Tables are mapped to the docbook tables, here are a few examples
 |1|2|3
 |=4|=5|=6
 {{/code}})))|(((
+(% title="A table with a row footer" %)
 |1|2|3
 |=4|=5|=6
 )))
 |((({{code}}
-(% title="the table" %)
+(% title="The table" %)
 |1|2|3
 |4|5|6
 {{/code}})))|(((
-(% title="the table" %)
+(% title="The table" %)
 |1|2|3
 |4|5|6
 )))
@@ -280,10 +283,31 @@ are available that makes it very powerful
 |((({{code}}{{code language=xml indent=2}}<valid><formatted/></valid>{{/code}}{{/code}})))
 |((({{code language=xml indent=2}}<valid><formatted/></valid>{{/code}})))
 
+The //screen// macro creates a docbook screen XML element to display anything related to the computer screen:
+
+(% title="A screen example" %)
+|((({{code}}{{screen}}
+julien:core julien$ ls -l
+total 24
+-rw-r--r--  1 julien  staff  1878 Apr 26 15:08 pom.xml
+drwxr-xr-x  5 julien  staff   170 Apr 26 15:08 src
+drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
+-rw-r--r--  1 julien  staff  4090 Apr 26 15:09 wikbook.core.iml
+{{/screen}}{{/code}})))
+|((({{screen}}
+julien:core julien$ ls -l
+total 24
+-rw-r--r--  1 julien  staff  1878 Apr 26 15:08 pom.xml
+drwxr-xr-x  5 julien  staff   170 Apr 26 15:08 src
+drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
+-rw-r--r--  1 julien  staff  4090 Apr 26 15:09 wikbook.core.iml
+{{/screen}})))
+
 === Definition list ===
 
 Wiki definition lists are managed as docbook variable lists.
 
+(% title="Definition lists" %)
 |(((
 {{code}}
 ; term
