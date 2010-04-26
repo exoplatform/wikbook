@@ -12,7 +12,7 @@
   <artifactId>wikbook.doc</artifactId>
   <packaging>jar</packaging>
 
-  <name>Wikbook example</name>
+  <name>Wikbook documentation</name>
 
   <dependencies>
     <dependency>
