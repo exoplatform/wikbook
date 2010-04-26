@@ -5,7 +5,7 @@
   <parent>
     <artifactId>wikbook.parent</artifactId>
     <groupId>org.wikbook</groupId>
-    <version>1.0-GA-SNAPSHOT</version>
+    <version>0.9-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -18,7 +18,7 @@
     <dependency>
       <groupId>org.wikbook</groupId>
       <artifactId>wikbook.apt</artifactId>
-      <version>1.0-GA-SNAPSHOT</version>
+      <version>0.9-SNAPSHOT</version>
     </dependency>
 
     <dependency>

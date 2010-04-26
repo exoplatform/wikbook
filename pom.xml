@@ -7,7 +7,7 @@
   <groupId>org.wikbook</groupId>
   <artifactId>wikbook.parent</artifactId>
   <packaging>pom</packaging>
-  <version>1.0-GA-SNAPSHOT</version>
+  <version>0.9-SNAPSHOT</version>
 
   <name>Wikbook parent</name>
   <description>The Wikbook project</description>
