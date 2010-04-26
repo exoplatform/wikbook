@@ -7,3 +7,7 @@ The preface
 = How-to =
 
 {{include document="chapter2.wiki" /}}
+
+= Build integration =
+
+{{include document="chapter3.wiki" /}}

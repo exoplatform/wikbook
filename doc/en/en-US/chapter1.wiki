@@ -19,6 +19,9 @@ syntaxes are recognized:
 
 For the purpose of simplicity, the Wikbook documentation uses the XWiki 2.0 syntax.
 
+Wikbook attempts to fully leverage the wiki syntax, however the horizontal rule wiki syntax is not supported. Indeed
+there is no such concept in the docbook system and horizontal rule are simply ignored.
+
 = Wiki macros =
 
 Explain what a macro is.

@@ -79,6 +79,19 @@ A [[link>>#foo]] to an anchor {{anchor id=foo /}}
 |The [[FooBar>>http://www.foobar.com]] site
 |Send a mail to [[mailto:foo@bar.com]]
 
+=== Verbatim text ===
+
+Verbatim escapes the wiki syntax and is useful for citing wiki in a wiki document. It is useful for creating document
+such as this documentation.
+
+(% title="Verbatim text" %)
+|(((
+{{code}}
+{{{[foo>>#bar]}}}
+{{/code}})))|(((
+{{code language=xml indent=2}}
+<para>[foo>>#bar]</para>
+{{/code}})))
 
 === Blocks ===
 
@@ -201,6 +214,26 @@ Tables are mapped to the docbook tables, here are a few examples
 |4|5|6
 )))
 
+By default a table expects inline content, that means that any content inside the table will not be interpreted as wiki
+text but as normal text. It is possible to change that behavior with the usage of the {{{(((...)))}}} block allowing
+the usage of nested tables or lists.
+
+(% title="A list inside a table" %)
+|((({{code}}
+|(((
+* item 1
+* item 2
+)))
+{{/code}})))|(((
+|(((
+* item 1
+* item 2
+)))
+)))
+
+{{note}}This document makes an extensive usage of this feature.{{/note}}
+{{warning}}Inside a complex content block, the usage of structural elements such as section is not allowed.{{/warning}}
+
 ==== Images ====
 
 Images can be displayed a block elements. Image display can be parameterized for all output but it is possible to
@@ -224,3 +257,69 @@ HTML content. More details about docbook images parameterization can be found in
 |Tip|{{{{{tip}}a usefull tip{{/tip}}}}}|((({{tip}}a usefull tip{{/tip}})))
 |Caution|{{{{{caution}}beware!!!{{/caution}}}}}|((({{caution}}beware!!!{{/caution}})))
 |Important|{{{{{important}}something important{{/important}}}}}|((({{important}}something important{{/important}})))
+
+==== Special blocks ====
+
+A set of special blocks are available, they allow to give a special representation to the emboddied text.
+
+The //code// macro creates a docbook programlisting XML element to display anything related to code. Special features
+are available that makes it very powerful
+
+* XML code can be validated and pretty printed with a configuration indentation
+* External Java code can be embedded inside the document
+
+(% title="A simple code example" %)
+|((({{code}}{{code}}x = x + 1{{/code}}{{/code}})))
+|((({{code}}x = x + 1{{/code}})))
+
+(% title="Simple XML validation" %)
+|((({{code}}{{code language=xml}}<valid/>{{/code}}{{/code}})))
+|((({{code language=xml}}<valid/>{{/code}})))
+
+(% title="XML pretty printted" %)
+|((({{code}}{{code language=xml indent=2}}<valid><formatted/></valid>{{/code}}{{/code}})))
+|((({{code language=xml indent=2}}<valid><formatted/></valid>{{/code}})))
+
+=== Definition list ===
+
+Wiki definition lists are managed as docbook variable lists.
+
+|(((
+{{code}}
+; term
+: definition
+{{/code}})))|(((
+{{code language=xml indent=2}}
+<variablelist>
+  <varlistentry>
+    <term>term</term>
+    <listitem>definition</listitem>
+  </varlistentry>
+</variablelist>
+{{/code}})))
+|(((
+{{code}}
+(% title="the title" %)
+; term
+: definition
+{{/code}})))|(((
+{{code language=xml indent=2}}
+<variablelist>
+  <title>the title</title>
+  <varlistentry>
+    <term>term</term>
+    <listitem>definition</listitem>
+  </varlistentry>
+</variablelist>
+{{/code}})))
+
+=== Modularization ===
+
+The //include// macro is a good way to provide modularization of a complex document.
+
+{{example title="Document embedding"}}
+{{code}}{{include document="embedded.wiki" /}}{{/code}}
+{{/example}}
+
+{{important}}Embedding does a special treatment to sections: when a document is embedded, its section are reconsidered with respect
+to the most inner section embedding the document.{{/important}}
