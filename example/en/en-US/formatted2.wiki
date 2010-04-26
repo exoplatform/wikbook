@@ -1,3 +1,0 @@
-{{code language=xml indent=3}}
-<a><b><c>This XML should be property indented with a value of 3</c></b></a>
-{{/code}}

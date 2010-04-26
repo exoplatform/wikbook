@@ -1,4 +1,0 @@
-{{code language="java"}}
-public class FooBar {
-}
-{{/code}}

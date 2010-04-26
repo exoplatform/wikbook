@@ -1,3 +1,0 @@
-{{code language=xml}}
-<somexml>That XML should be correctly rendered</somexml>
-{{/code}}
