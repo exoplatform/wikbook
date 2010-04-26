@@ -60,6 +60,7 @@
     <module>core</module>
     <module>maven</module>
     <module>example</module>
+    <module>doc</module>
   </modules>
 
 </project>

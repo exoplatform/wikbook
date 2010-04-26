@@ -1,0 +1,86 @@
+= How to write documentation =
+
+Wiki concepts are naturally mapped onto docbook concepts.
+
+== Document structure ==
+
+A book is structured into chapters and each chapter is structured into sections. A wiki document provides a syntax
+for creating nested sections with different levels. The book structure can naturally leverage the wiki document
+structure with the following rules:
+
+* Top level section correspond to book chapters
+* Other wiki sections correspond to book sections
+
+|(((
+{{code}}
+= Section 1 =
+== Section 2 ==
+{{/code}})))|(((
+{{code language=xml indent=2}}
+<chapter>
+  <title>Section 1</title>
+  <section>
+    <title>Section 2</title>
+  </section>
+</chapter>
+{{/code}})))
+
+{{note}}All wiki sections don't have to be explicitely declared, it is possible to //omit// the declaration of a section. When it
+occurs, implicit docbook section will be created with no title.{{/note}}
+
+== Document content ==
+
+The content of a book can be seen as a collection of content, each content can be categorized into blocks
+or rich text. Rich text can either be simple text or it can be made richer, like a word in bold. A block contains
+usually rich text and gives a meaning to the text, the most natural block is the paragraph.
+
+=== Rich text ===
+
+==== Emphasis ====
+
+The following syntax can be used to put the emphasis for creating richtext
+
+|{{{**bold**}}}|**bold**
+|{{{//italic//}}}|//italic//
+|{{{__underline__}}}|__underline__
+|{{{,,subscript,,}}}|,,subscript,,
+|{{{^^upperscript^^}}}|^^upperscript^^
+|{{{--strikethrough--}}}|--strikethrough--
+|{{{##monospaced##}}}|##monospaced##
+|{{{{{code}}inlineCode(){{/code}}}}}|{{code}}inlineCode(){{/code}}
+
+=== Blocks ===
+
+==== Paragraphs ====
+
+Unlike docbook, wiki paragraphs are implicitely defined, the general rule is that any text content that does not
+contain wiki instruction is one paragraph. The wikbook system creates docbook paragraphs when it is required. The simplest
+example is that any content in a section is a paragraph.
+
+|((({{code}}
+= Chapter 1 =
+The paragraph of the chapter 1.
+== Section 1 ==
+The paragraph of the section 1.
+== Section 2 ==
+The first paragraph of the section 2.
+
+The second paragraph of the section 2.
+{{/code}})))|(((
+{{code language=xml indent=2}}
+<chapter>
+  <title>Chapter 1</title>
+  <para>The paragraph of the chapter 1.</para>
+  <section>
+    <title>Section 1</title>
+    <para>The paragraph of the section 1.</para>
+  </section>
+  <section>
+    <title>Section 2</title>
+    <para>The first paragraph of the section 2.</para>
+    <para>The second paragraph of the section 2.</para>
+  </section>
+</chapter>
+{{/code}})))
+
+===

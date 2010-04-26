@@ -1,0 +1,20 @@
+Wikbook is a set of tools for efficiently writing docbook documentation. For this purpose several choices have been
+made that are explained below
+
+* The Docbook system can produce high quality documents with different outputs.
+* Documentation written in wiki language is a good trade off between document richness and simplicity
+
+= Document syntax =
+
+Wiki syntaxes are not unique, Wikbook relies on an external framework used at the hear of XWiki that is able to make
+wiki syntaxes coexist. Any wiki syntax recognized by this framework can be used for documentation writing. The following
+syntaxes are recognized:
+
+* [[XWiki 1.0 and 2.0>>http://platform.xwiki.org/xwiki/bin/view/Main/XWikiSyntax]]
+* [[Creole>>http://www.wikicreole.org/wiki/Creole1.0]]
+* [[JSP Wiki>>http://www.jspwiki.org/wiki/TextFormattingRules]]
+* [[Media Wiki>>http://ang.wikipedia.org/wiki/Wikipedia:How_to_edit_a_page#The_wiki_markup]]
+* [[Confluence>>http://www.atlassian.com/software/confluence/]]
+* [[TWiki>>http://twiki.org/cgi-bin/view/TWiki/TextFormattingFAQ]]
+
+For the purpose of simplicity, the Wikbook documentation uses the XWiki 2.0 syntax.
