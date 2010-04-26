@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.wikbook</groupId>
+  <artifactId>wikbook.parent</artifactId>
+  <packaging>pom</packaging>
+  <version>1.0-GA-SNAPSHOT</version>
+
+  <name>Wikbook parent</name>
+  <description>The Wikbook project</description>
+  <url>todo</url>
+
+  <organization>
+    <name>eXo Platform SAS</name>
+    <url>http://www.exoplatform.com</url>
+  </organization>
+
+  <licenses>
+    <license>
+      <name>LGPL, version 2.1</name>
+      <url>http://www.opensource.org/licenses/lgpl-license.php</url>
+    </license>
+  </licenses>
+
+  <distributionManagement>
+    <repository>
+      <id>repository.exoplatform.org</id>
+      <url>${wikbook.releases.repo.url}</url>
+    </repository>
+    <snapshotRepository>
+      <id>repository.exoplatform.org</id>
+      <url>${wikbook.snapshots.repo.url}</url>
+    </snapshotRepository>
+  </distributionManagement>
+
+  <repositories>
+    <repository>
+      <id>xwiki</id>
+      <url>http://maven.xwiki.org/releases</url>
+    </repository>
+    <repository>
+      <id>javaparser</id>
+      <url>http://javaparser.googlecode.com/svn/maven2/</url>
+    </repository>
+  </repositories>
+
+  <properties>
+    <maven.compiler.target>1.5</maven.compiler.target>
+    <maven.compiler.source>1.5</maven.compiler.source>
+    <wikbook.version>${project.version}</wikbook.version>
+    <wikbook.releases.repo.url>http://repository.exoplatform.org/content/repositories/wikbook-releases/</wikbook.releases.repo.url>
+    <wikbook.snapshots.repo.url>http://repository.exoplatform.org/content/repositories/wikbook-snapshots/</wikbook.snapshots.repo.url>
+  </properties>
+
+  <modules>
+    <module>apt</module>
+    <module>core</module>
+    <module>maven</module>
+    <module>example</module>
+  </modules>
+
+</project>

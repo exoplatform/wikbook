@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <variablelist>
+      <varlistentry>
+        <term>term</term>
+        <listitem>definition</listitem>
+      </varlistentry>
+    </variablelist>
+    <variablelist>
+          <title>the title</title>
+          <varlistentry>
+            <term>term</term>
+            <listitem>definition</listitem>
+          </varlistentry>
+        </variablelist>
+  </preface>
+</book>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <itemizedlist>
+      <listitem>a</listitem>
+      <listitem>b</listitem>
+    </itemizedlist>
+    <para>
+      <example>* a
+* b
+</example>
+    </para>
+  </preface>
+</book>

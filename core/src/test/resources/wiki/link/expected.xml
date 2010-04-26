@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <para>
+      <xref linkend="name"/>
+      <ulink url="http://www.google.com">http://www.google.com</ulink>
+      <email>foo@bar.com</email>
+      <link linkend="name">label</link>
+      <ulink url="http://www.google.com">label</ulink>
+    </para>
+  </preface>
+</book>

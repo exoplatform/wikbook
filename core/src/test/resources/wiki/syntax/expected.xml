@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <chapter>
+    <title>foo</title>
+    <para>foo content</para>
+    <section>
+      <title>bar</title>
+      <para>bar content</para>
+    </section>
+  </chapter>
+</book>

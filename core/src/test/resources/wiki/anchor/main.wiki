@@ -1,0 +1,2 @@
+= Foo {{anchor id=foo /}}Bar =
+{{anchor id=bar /}}

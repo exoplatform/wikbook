@@ -1,0 +1,14 @@
+= section1 =
+{{include document="fragment1.wiki" /}}
+== section2 ==
+{{include document="fragment1.wiki" /}}
+= section3 =
+a
+{{include document="fragment1.wiki" /}}
+= section4 =
+{{include document="fragment2.wiki" /}}
+== section5 ==
+{{include document="fragment2.wiki" /}}
+= section6 =
+a
+{{include document="fragment2.wiki" /}}

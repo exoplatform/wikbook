@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <para>
+      <informalfigure>
+        <mediaobject>
+          <imageobject role="fo">
+            <imagedata fileref="img.png" format="PNG"/>
+          </imageobject>
+          <imageobject role="html">
+            <imagedata fileref="img.png" format="PNG"/>
+          </imageobject>
+        </mediaobject>
+      </informalfigure>
+      <figure>
+        <title>the title</title>
+        <mediaobject>
+          <imageobject role="fo">
+            <imagedata fileref="img.png" format="PNG" scalefit="1" width="10"/>
+          </imageobject>
+          <imageobject role="html">
+            <imagedata fileref="img.png" format="PNG" scalefit="0" width="10"/>
+          </imageobject>
+        </mediaobject>
+      </figure>
+    </para>
+  </preface>
+</book>

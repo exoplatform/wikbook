@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <chapter id="foo">
+    <title>Foo Bar</title>
+    <para>
+      <anchor id="bar"/>
+    </para>
+  </chapter>
+</book>

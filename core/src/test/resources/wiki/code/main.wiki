@@ -1,0 +1,2 @@
+{{code}}content{{/code}}
+{{code language=java id=org.wikbook.FooClass}}{{/code}}

@@ -1,0 +1,4 @@
+{{include document="fragment.wiki" /}}
+{{example}}
+{{include document="fragment.wiki" syntax="verbatim" /}}
+{{/example}}

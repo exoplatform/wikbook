@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <note>
+      <para>note_value</para>
+    </note>
+    <important>
+      <para>important_value</para>
+    </important>
+    <tip>
+      <para>tip_value</para>
+    </tip>
+    <caution>
+      <para>caution_value</para>
+    </caution>
+    <warning>
+      <para>warning_value</para>
+    </warning>
+  </preface>
+</book>

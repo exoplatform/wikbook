@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <table>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>a</entry>
+            <entry>b</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>a</entry>
+            <entry>b</entry>
+          </row>
+        </thead>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>a</entry>
+            <entry>b</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>c</entry>
+            <entry>d</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>a</entry>
+            <entry>b</entry>
+          </row>
+        </tbody>
+        <tfoot>
+          <row>
+            <entry>c</entry>
+            <entry>d</entry>
+          </row>
+        </tfoot>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="2">
+        <thead>
+          <row>
+            <entry>a</entry>
+            <entry>b</entry>
+          </row>
+        </thead>
+        <tbody>
+          <row>
+            <entry>c</entry>
+            <entry>d</entry>
+          </row>
+        </tbody>
+        <tfoot>
+          <row>
+            <entry>e</entry>
+            <entry>f</entry>
+          </row>
+        </tfoot>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="2">
+        <tbody>
+          <row>
+            <entry>a</entry>
+          </row>
+          <row>
+            <entry>b</entry>
+            <entry>c</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <table>
+      <title>foo_title</title>
+      <tgroup cols="1">
+        <tbody>
+          <row>
+            <entry>a</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </preface>
+</book>

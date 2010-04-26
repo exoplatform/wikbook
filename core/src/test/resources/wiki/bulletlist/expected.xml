@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <itemizedlist>
+      <listitem>a</listitem>
+      <listitem>
+        <itemizedlist>
+          <listitem>b</listitem>
+          <listitem>
+            <itemizedlist>
+              <listitem>c</listitem>
+            </itemizedlist>
+          </listitem>
+        </itemizedlist>
+      </listitem>
+      <listitem>d</listitem>
+    </itemizedlist>
+    <itemizedlist mark="square">
+      <listitem>a</listitem>
+    </itemizedlist>
+  </preface>
+</book>

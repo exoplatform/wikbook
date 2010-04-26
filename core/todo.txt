@@ -1,0 +1,15 @@
+- {{docbook}} macro
+- use xwiki synthetic ID when no anchor is provided in header
+- master.xml really in docbook
+- better property support
+- some kind of entities would be great too
+
+Resources:
+- http://platform.xwiki.org/xwiki/bin/view/Features/Annotations
+- http://code.xwiki.org/xwiki/bin/view/Macros/IdMacro
+- http://code.xwiki.org/xwiki/bin/view/Macros/SnippetMacro
+- http://platform.xwiki.org/xwiki/bin/view/Main/XWikiSyntax
+- http://infohost.nmt.edu/tcc/help/pubs/docbref/docbref.pdf
+- http://platform.xwiki.org/xwiki/bin/view/Main/XWikiSyntax
+- http://code.xwiki.org/xwiki/bin/view/Modules/RenderingModule
+- http://svn.xwiki.org/svnroot/xwiki/platform/core/trunk/xwiki-rendering/xwiki-rendering-tests/src/test/resources/

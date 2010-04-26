@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <table>
+      <tgroup cols="1">
+        <tbody>
+          <row>
+            <entry>
+              <para>a</para>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="1">
+        <tbody>
+          <row>
+            <entry>
+              <itemizedlist>
+                <listitem>a</listitem>
+              </itemizedlist>
+            </entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+  </preface>
+</book>

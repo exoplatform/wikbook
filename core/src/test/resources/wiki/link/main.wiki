@@ -1,0 +1,5 @@
+[[#name]]
+[[http://www.google.com]]
+[[mailto:foo@bar.com]]
+[[label>>#name]]
+[[label>>http://www.google.com]]
