@@ -19,29 +19,27 @@
 
 package org.wikbook.apt;
 
-import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.util.TreePath;
-import com.sun.source.util.Trees;
 import org.wikbook.apt.annotations.Documented;
 import org.wikbook.apt.model.Catalog;
 
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
+import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
 import javax.tools.FileObject;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardLocation;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -55,9 +53,6 @@ public class WikbookProcessor extends AbstractProcessor
 {
 
    /** . */
-   private Trees trees;
-
-   /** . */
    private ProcessingEnvironment pe;
 
    /** . */
@@ -66,14 +61,17 @@ public class WikbookProcessor extends AbstractProcessor
    /** . */
    private Set<StringPair> processed;
 
+   /** . */
+   private Messager messager;
+
    public void init(ProcessingEnvironment pe)
    {
       super.init(pe);
 
       //
-      this.trees = Trees.instance(pe);
       this.pe = pe;
       this.processed = new HashSet<StringPair>();
+      this.messager = pe.getMessager();
    }
 
    @Override
@@ -93,9 +91,32 @@ public class WikbookProcessor extends AbstractProcessor
       {
          originatingElts.add(e);
          Documented documented = e.getAnnotation(Documented.class);
-         TreePath tp = trees.getPath(e);
-         CompilationUnitTree cut = tp.getCompilationUnit();
-         JavaFileObject src = cut.getSourceFile();
+
+         //
+         JavaFileObject src;
+         try
+         {
+            ClassLoader cl = Thread.currentThread().getContextClassLoader();
+            Class<?> treesClass = cl.loadClass("com.sun.source.util.Trees");
+            Method instanceMethod = treesClass.getMethod("instance", ProcessingEnvironment.class);
+            Method getPathMethod = treesClass.getMethod("getPath", Element.class);
+            Class<?> treePathClass = cl.loadClass("com.sun.source.util.TreePath");
+            Method getCompilationUnitMethod = treePathClass.getMethod("getCompilationUnit");
+            Class<?> compilationUnitTreeClass = cl.loadClass("com.sun.source.tree.CompilationUnitTree");
+            Method getSourceFile = compilationUnitTreeClass.getMethod("getSourceFile");
+
+            //
+            Object trees = instanceMethod.invoke(null, pe);
+            Object treePath = getPathMethod.invoke(trees, e);
+            Object compilationUnitTree = getCompilationUnitMethod.invoke(treePath);
+            src = (JavaFileObject)getSourceFile.invoke(compilationUnitTree);
+         }
+         catch (Exception ex)
+         {
+            messager.printMessage(Diagnostic.Kind.ERROR, "Could not process element", e);
+            ex.printStackTrace();
+            return true;
+         }
 
          //
          String fragmentId = documented.id();
