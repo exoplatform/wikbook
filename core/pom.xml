@@ -13,11 +13,6 @@
   <name>Wikbook core</name>
 
   <dependencies>
-    <dependency>
-      <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.apt</artifactId>
-      <version>0.9.1-SNAPSHOT</version>
-    </dependency>
 
     <dependency>
       <groupId>org.wikbook</groupId>

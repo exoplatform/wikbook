@@ -65,7 +65,6 @@
 
   <modules>
     <module>codesource</module>
-    <module>apt</module>
     <module>core</module>
     <module>maven</module>
     <module>doc</module>

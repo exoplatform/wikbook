@@ -19,13 +19,10 @@
 
 package org.wikbook;
 
-import org.wikbook.apt.annotations.Documented;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-@Documented(id = "org.wikbook.FooClass")
 public class FooClass
 {
 
