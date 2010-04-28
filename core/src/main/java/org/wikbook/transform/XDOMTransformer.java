@@ -20,10 +20,7 @@
 package org.wikbook.transform;
 
 import org.w3c.dom.Document;
-import org.wikbook.ResourceType;
 import org.wikbook.WikletContext;
-import org.wikbook.apt.model.Catalog;
-import org.wikbook.apt.model.Fragment;
 import org.wikbook.codesource.BodySource;
 import org.wikbook.codesource.CodeSourceBuilder;
 import org.wikbook.codesource.TypeSource;
@@ -68,13 +65,10 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -115,9 +109,6 @@ public class XDOMTransformer implements Listener
    private final WikletContext context;
 
    /** . */
-   private final Catalog catalog;
-   
-   /** . */
    private DocbookContext bookContext;
 
    /** . */
@@ -125,17 +116,7 @@ public class XDOMTransformer implements Listener
 
    public XDOMTransformer(WikletContext context) throws IOException, ClassNotFoundException
    {
-      Catalog catalog = new Catalog();
-      for (URL url : context.resolveResources(ResourceType.CATALOG, "catalog.ser"))
-      {
-         ObjectInputStream in = new ObjectInputStream(url.openStream());
-         Catalog urlCatalog = (Catalog)in.readObject();
-         catalog.merge(urlCatalog);
-      }
-
-      //
       this.context = context;
-      this.catalog = catalog;
    }
 
    public DocbookElement transform(XDOM dom)
@@ -331,19 +312,6 @@ public class XDOMTransformer implements Listener
                {
                   e.printStackTrace();
                }
-            }
-
-            // Replace content if fragment
-            String fragmentId = macroParameters.get("id");
-            if (fragmentId != null)
-            {
-               List<Fragment> fragments = catalog.getFragment(fragmentId);
-               StringBuilder builder = new StringBuilder();
-               for (Fragment fragment : fragments)
-               {
-                  builder.append(fragment.getContent());
-               }
-               content = builder.toString();
             }
 
             //

@@ -29,33 +29,7 @@ annotation. The annotation can target:
 * A constructor
 * A field
 
-The annotation has an optional parameter {{code}}id{{/code}} that is used to identify the annotated target. If no explicit identifier
-is expressed then the class full qualified name is used.
-
-It is allowed to annotate several targets with the same identifier, in that situation the various targets will all be recalled
-at once in the documentation. Note that the {{code}}@Documented{{/code}} annotation will not be present in the compiled jar
-file because it is only used at compilation time and is not usefull after that phase of the build.
-
-{{code}}
-@Documented(id = "TheClass")
-public class MyClass {
-}
-{{/code}}
-
-The wiki documentation contains the following code macro.
-
-{{{
-{{code fqn="TheClass" /}}
-}}}
-
-Creates that code in the documentation
-
-{{code language=xml indent=2}}
-<programlisting><![CDATA[
-public class MyClass {
-}
-]]></programlisting>
-{{/code}}
+todo
 
 = Maven plugins =
 
