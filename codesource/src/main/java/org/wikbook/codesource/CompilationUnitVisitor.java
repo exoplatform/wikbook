@@ -31,6 +31,8 @@ import japa.parser.ast.body.EnumDeclaration;
 import japa.parser.ast.body.FieldDeclaration;
 import japa.parser.ast.body.JavadocComment;
 import japa.parser.ast.body.MethodDeclaration;
+import japa.parser.ast.body.VariableDeclarator;
+import japa.parser.ast.body.VariableDeclaratorId;
 import japa.parser.ast.expr.NameExpr;
 import japa.parser.ast.expr.QualifiedNameExpr;
 import japa.parser.ast.visitor.GenericVisitorAdapter;
@@ -202,7 +204,8 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       List<BodySource> blah = v.stack.removeLast();
 
       //
-      LinkedHashMap<MethodKey, MethodSource> methods = new LinkedHashMap<MethodKey, MethodSource>();
+      LinkedHashMap<MemberKey, MethodSource> methods = new LinkedHashMap<MemberKey, MethodSource>();
+      LinkedHashMap<String, FieldSource> fields = new LinkedHashMap<String, FieldSource>();
       for (BodySource bodySource : blah)
       {
          if (bodySource instanceof MethodSource)
@@ -210,14 +213,22 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
             MethodSource methodSource = (MethodSource)bodySource;
             methods.put(methodSource.key, methodSource);
          }
+         else if (bodySource instanceof FieldSource)
+         {
+            FieldSource fieldSource = (FieldSource)bodySource;
+            fields.put(fieldSource.getName(), fieldSource);
+         }
       }
 
       //
       TypeSource typeSource = new TypeSource(
          fqn,
          methods,
+         fields,
          v.clip(n),
          v.javaDoc(n));
+
+      //
       v.types.add(typeSource);
 
       //
@@ -236,7 +247,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       Signature signature = v.constructorSignatures.next();
       String constructorClip = v.clip(n);
       MethodSource methodSource = new MethodSource(
-         new MethodKey(n.getName(), signature),
+         new MemberKey(n.getName(), signature),
          constructorClip,
          v.javaDoc(n));
       v.stack.getLast().addLast(methodSource);
@@ -246,6 +257,20 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(FieldDeclaration n, Visit v)
    {
+      if (n.getVariables().size() == 1)
+      {
+         VariableDeclarator declarator = n.getVariables().get(0);
+         VariableDeclaratorId id = declarator.getId();
+         FieldSource fieldSource = new FieldSource(
+            id.getName(),
+            v.clip(n),
+            v.javaDoc(n));
+         v.stack.getLast().addLast(fieldSource);
+      }
+      else
+      {
+         throw new UnsupportedOperationException("todo");
+      }
       return super.visit(n, v);
    }
 
@@ -255,7 +280,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       Signature signature = v.methodSignatures.next();
       String methodClip = v.clip(n);
       MethodSource methodSource = new MethodSource(
-         new MethodKey(n.getName(), signature),
+         new MemberKey(n.getName(), signature),
          methodClip,
          v.javaDoc(n));
       v.stack.getLast().addLast(methodSource);

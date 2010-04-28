@@ -23,50 +23,6 @@ package org.wikbook.codesource;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class MethodSource extends MemberSource
+public abstract class MemberSource extends BodySource
 {
-
-   /** . */
-   final MemberKey key;
-
-   /** . */
-   private final String clip;
-
-   /** . */
-   private final String javaDoc;
-
-   public MethodSource(MemberKey key, String clip, String javaDoc)
-   {
-      if (key == null)
-      {
-         throw new NullPointerException();
-      }
-      if (clip == null)
-      {
-         throw new NullPointerException();
-      }
-      this.key = key;
-      this.clip = clip;
-      this.javaDoc = javaDoc;
-   }
-
-   public String getJavaDoc()
-   {
-      return javaDoc;
-   }
-
-   public String getClip()
-   {
-      return clip;
-   }
-
-   public String getName()
-   {
-      return key.name;
-   }
-
-   public Signature getSignature()
-   {
-      return key.signature;
-   }
 }

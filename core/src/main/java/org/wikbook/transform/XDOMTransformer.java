@@ -365,9 +365,9 @@ public class XDOMTransformer implements Listener
 
          //
          BodySource blah;
-         if (l.getMethodKey() != null)
+         if (l.getMember() != null)
          {
-            blah = source.findMethod(l.getMethodKey());
+            blah = source.findMember(l.getMember());
          }
          else
          {

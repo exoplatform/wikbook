@@ -23,11 +23,11 @@ package org.wikbook.codesource;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class MethodSource extends MemberSource
+public class FieldSource extends MemberSource
 {
 
    /** . */
-   final MemberKey key;
+   private final String name;
 
    /** . */
    private final String clip;
@@ -35,24 +35,16 @@ public class MethodSource extends MemberSource
    /** . */
    private final String javaDoc;
 
-   public MethodSource(MemberKey key, String clip, String javaDoc)
+   public FieldSource(String name, String clip, String javaDoc)
    {
-      if (key == null)
-      {
-         throw new NullPointerException();
-      }
-      if (clip == null)
-      {
-         throw new NullPointerException();
-      }
-      this.key = key;
+      this.name = name;
       this.clip = clip;
       this.javaDoc = javaDoc;
    }
 
-   public String getJavaDoc()
+   public String getName()
    {
-      return javaDoc;
+      return name;
    }
 
    public String getClip()
@@ -60,13 +52,8 @@ public class MethodSource extends MemberSource
       return clip;
    }
 
-   public String getName()
+   public String getJavaDoc()
    {
-      return key.name;
-   }
-
-   public Signature getSignature()
-   {
-      return key.signature;
+      return javaDoc;
    }
 }

@@ -27,6 +27,11 @@ public class Foo
 {
 
    /**
+    * The juu String.
+    */
+   private String juu = null;
+
+   /**
     * Empty constructor.
     */
    public Foo()

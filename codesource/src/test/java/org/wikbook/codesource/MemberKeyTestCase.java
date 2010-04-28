@@ -25,7 +25,7 @@ import junit.framework.TestCase;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class MethodKeyTestCase extends TestCase
+public class MemberKeyTestCase extends TestCase
 {
 
    public void testBad()
@@ -38,7 +38,7 @@ public class MethodKeyTestCase extends TestCase
    {
       try
       {
-         MethodKey.parse(member);
+         MemberKey.parse(member);
          fail("Should never have been able to build " + member);
       }
       catch (CodeSourceException ignore)
@@ -48,16 +48,16 @@ public class MethodKeyTestCase extends TestCase
 
    public void testOK()
    {
-      assertEquals(MethodKey.create("a"), MethodKey.parse("a"));
-      assertEquals(MethodKey.create("a"), MethodKey.parse("a()"));
-      assertEquals(MethodKey.create("a"), MethodKey.parse("a(  )"));
-      assertEquals(MethodKey.create("a", "java.lang.String"), MethodKey.parse("a(java.lang.String)"));
-      assertEquals(MethodKey.create("a", "java.lang.String"), MethodKey.parse("a( java.lang.String)"));
-      assertEquals(MethodKey.create("a", "java.lang.String"), MethodKey.parse("a(java.lang.String )"));
-      assertEquals(MethodKey.create("a", "java.lang.String"), MethodKey.parse("a( java.lang.String )"));
-      assertEquals(MethodKey.create("a", "java.lang.String", "java.lang.Integer"), MethodKey.parse("a(java.lang.String,java.lang.Integer)"));
-      assertEquals(MethodKey.create("a", "java.lang.String", "java.lang.Integer"), MethodKey.parse("a(java.lang.String, java.lang.Integer)"));
-      assertEquals(MethodKey.create("a", "java.lang.String", "java.lang.Integer"), MethodKey.parse("a(java.lang.String ,java.lang.Integer)"));
-      assertEquals(MethodKey.create("a", "java.lang.String", "java.lang.Integer"), MethodKey.parse("a(java.lang.String , java.lang.Integer)"));
+      assertEquals(MemberKey.createField("a"), MemberKey.parse("a"));
+      assertEquals(MemberKey.createMethod("a"), MemberKey.parse("a()"));
+      assertEquals(MemberKey.createMethod("a"), MemberKey.parse("a(  )"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a(java.lang.String)"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a( java.lang.String)"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a(java.lang.String )"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a( java.lang.String )"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String,java.lang.Integer)"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String, java.lang.Integer)"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String ,java.lang.Integer)"));
+      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String , java.lang.Integer)"));
    }
 }

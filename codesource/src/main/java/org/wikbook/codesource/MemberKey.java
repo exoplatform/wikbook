@@ -19,10 +19,8 @@
 
 package org.wikbook.codesource;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -31,21 +29,26 @@ import java.util.regex.Pattern;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public final class MethodKey
+public final class MemberKey
 {
 
-   public static MethodKey create(String name, String... parameterTypes)
+   public static MemberKey createField(String name)
    {
-      return new MethodKey(name, new Signature(Arrays.asList(parameterTypes)));
+      return new MemberKey(name, null);
    }
 
-   public static MethodKey parse(String member)
+   public static MemberKey createMethod(String name, String... parameterTypes)
+   {
+      return new MemberKey(name, new Signature(Arrays.asList(parameterTypes)));
+   }
+
+   public static MemberKey parse(String member)
    {
       Pattern pattern = Pattern.compile(
          "^\\s*" +
             "([^\\(\\)]+)" +
             "(\\(" +
-            "([^\\(\\)]+)?" +
+            "([^\\(\\)]*)?" +
             "\\))?" +
             "\\s*$");
       Matcher matcher = pattern.matcher(member);
@@ -53,21 +56,22 @@ public final class MethodKey
       {
          throw new CodeSourceException(member + " is not a member");
       }
-      List<String> parameterTypes = Collections.emptyList();
+      Signature signature = null;
       String name = matcher.group(1);
-      if (matcher.groupCount() > 1)
+
+      String signatureString = matcher.group(3);
+      if (signatureString != null)
       {
-         String signatureString = matcher.group(3);
-         if (signatureString != null)
+         List<String> parameterTypes = Collections.emptyList();
+         signatureString = signatureString.trim();
+         if (signatureString.length() > 0)
          {
-            signatureString = signatureString.trim();
-            if (signatureString.length() > 0)
-            {
-               parameterTypes = Arrays.asList(signatureString.split("\\s*,\\s*"));
-            }
+            parameterTypes = Arrays.asList(signatureString.split("\\s*,\\s*"));
          }
+         signature = new Signature(parameterTypes);
       }
-      return new MethodKey(name, new Signature(parameterTypes));
+
+      return new MemberKey(name, signature);
    }
 
    /** . */
@@ -76,13 +80,9 @@ public final class MethodKey
    /** . */
    final Signature signature;
 
-   MethodKey(String name, Signature signature)
+   MemberKey(String name, Signature signature)
    {
       if (name == null)
-      {
-         throw new NullPointerException();
-      }
-      if (signature == null)
       {
          throw new NullPointerException();
       }
@@ -105,10 +105,10 @@ public final class MethodKey
       {
          return true;
       }
-      if (o instanceof MethodKey)
+      if (o instanceof MemberKey)
       {
-         MethodKey that = (MethodKey)o;
-         return name.equals(that.name) && signature.equals(that.signature);
+         MemberKey that = (MemberKey)o;
+         return name.equals(that.name) && (signature == null ? that.signature == null : signature.equals(that.signature));
       }
       return false;
    }

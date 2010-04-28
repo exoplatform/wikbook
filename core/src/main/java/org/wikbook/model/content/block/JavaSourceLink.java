@@ -19,9 +19,7 @@
 
 package org.wikbook.model.content.block;
 
-import org.wikbook.codesource.MethodKey;
-
-import java.util.regex.Pattern;
+import org.wikbook.codesource.MemberKey;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -31,20 +29,20 @@ public class JavaSourceLink
 {
 
    /** . */
-   private final MethodKey methodKey;
+   private final String member;
 
    /** . */
    private final String fqn;
 
-   private JavaSourceLink(MethodKey methodKey, String fqn)
+   private JavaSourceLink(String member, String fqn)
    {
-      this.methodKey = methodKey;
+      this.member = member;
       this.fqn = fqn;
    }
 
-   public MethodKey getMethodKey()
+   public String getMember()
    {
-      return methodKey;
+      return member;
    }
 
    public String getFQN()
@@ -54,43 +52,21 @@ public class JavaSourceLink
 
    public static JavaSourceLink parse(String s)
    {
-
-      MethodKey methodKey;
+      String member;
       String fqn;
       int poundPos = s.indexOf('#');
       if (poundPos == -1)
       {
-         methodKey = null;
+         member = null;
          fqn = s;
       }
       else
       {
-         String member = s.substring(poundPos + 1);
-         methodKey = MethodKey.parse(member);
+         member = s.substring(poundPos + 1);
          fqn = s.substring(0, poundPos);
       }
 
-/*
-      String[] pkg;
-      String clazz;
-      int lastDotPos = fqn.lastIndexOf('.');
-      if (lastDotPos == -1)
-      {
-         pkg = new String[0];
-         clazz = fqn;
-      }
-      else
-      {
-         pkg = fqn.substring(0, lastDotPos).split("\\.");
-         clazz = fqn.substring(lastDotPos + 1);
-      }
-
       //
-*/
-
-
-
-
-      return new JavaSourceLink(methodKey, fqn);
+      return new JavaSourceLink(member, fqn);
    }
 }

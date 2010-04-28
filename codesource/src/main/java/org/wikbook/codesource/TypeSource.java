@@ -32,7 +32,10 @@ public class TypeSource extends BodySource
    private final String name;
 
    /** . */
-   private final LinkedHashMap<MethodKey, MethodSource> methods;
+   private final LinkedHashMap<MemberKey, MethodSource> methods;
+
+   /** . */
+   private final LinkedHashMap<String, FieldSource> fields;
 
    /** . */
    private final String clip;
@@ -40,10 +43,11 @@ public class TypeSource extends BodySource
    /** . */
    private final String javaDoc;
 
-   TypeSource(String name, LinkedHashMap<MethodKey, MethodSource> methods, String clip, String javaDoc)
+   TypeSource(String name, LinkedHashMap<MemberKey, MethodSource> methods, LinkedHashMap<String, FieldSource> fields, String clip, String javaDoc)
    {
       this.name = name;
       this.methods = methods;
+      this.fields = fields;
       this.clip = clip;
       this.javaDoc = javaDoc;
    }
@@ -63,37 +67,31 @@ public class TypeSource extends BodySource
       return clip;
    }
 
-   public MethodSource findMethod(String member)
+   public MemberSource findMember(String member)
    {
       if (member == null)
       {
          throw new NullPointerException();
       }
-      return findMethod(MethodKey.parse(member));
-   }
 
-   public MethodSource findMethod(MethodKey key)
-   {
-      if (key == null)
+      //
+      MemberKey key = MemberKey.parse(member);
+
+      //
+      if (key.signature == null)
       {
-         throw new NullPointerException();
+         FieldSource field = fields.get(key.name);
+         if (field != null)
+         {
+            return field;
+         }
+         else
+         {
+            key = new MemberKey(key.name, new Signature());
+         }
       }
 
       //
-      return methods.get(key);
-   }
-
-   public MethodSource findMethod(String methodName, Signature signature)
-   {
-      if (methodName == null)
-      {
-         throw new NullPointerException();
-      }
-      if (signature == null)
-      {
-         throw new NullPointerException();
-      }
-      MethodKey key = new MethodKey(methodName, signature);
       return methods.get(key);
    }
 

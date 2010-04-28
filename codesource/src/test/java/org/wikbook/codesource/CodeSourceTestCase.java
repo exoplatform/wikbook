@@ -38,9 +38,19 @@ public class CodeSourceTestCase extends TestCase
       fooSource = builder.buildClass(Foo.class.getName());
    }
 
+   public void testFieldClip()
+   {
+      FieldSource fieldSource = (FieldSource)fooSource.findMember("juu");
+      assertNotNull(fieldSource);
+      assertEquals("   private String juu = null;\n", fieldSource.getClip());
+      assertEquals("   /**\n" +
+         "    * The juu String.\n" +
+         "    */\n", fieldSource.getJavaDoc());
+   }
+
    public void testMethodClip()
    {
-      MethodSource methodSource = fooSource.findMethod("bar");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("bar");
       assertNotNull(methodSource);
       assertEquals("   public void bar()\n" +
          "   {\n" +
@@ -52,7 +62,7 @@ public class CodeSourceTestCase extends TestCase
 
    public void testConstructorClip()
    {
-      MethodSource methodSource = fooSource.findMethod("Foo");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("Foo");
       assertNotNull(methodSource);
       assertEquals("   public Foo()\n" +
          "   {\n" +
@@ -66,6 +76,11 @@ public class CodeSourceTestCase extends TestCase
    {
       assertEquals("public class Foo\n" +
          "{\n" +
+         "\n" +
+         "   /**\n" +
+         "    * The juu String.\n" +
+         "    */\n" +
+         "   private String juu = null;\n" +
          "\n" +
          "   /**\n" +
          "    * Empty constructor.\n" +
@@ -98,7 +113,7 @@ public class CodeSourceTestCase extends TestCase
 
    public void testMethodLookup1()
    {
-      MethodSource methodSource = fooSource.findMethod("bar");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("bar");
       assertNotNull(methodSource);
       assertEquals("bar", methodSource.getName());
       assertEquals(new Signature(), methodSource.getSignature());
@@ -106,7 +121,7 @@ public class CodeSourceTestCase extends TestCase
 
    public void testMethodLookup2()
    {
-      MethodSource methodSource = fooSource.findMethod("bar()");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("bar()");
       assertNotNull(methodSource);
       assertEquals("bar", methodSource.getName());
       assertEquals(new Signature(), methodSource.getSignature());
@@ -114,7 +129,7 @@ public class CodeSourceTestCase extends TestCase
 
    public void testMethodLookup3()
    {
-      MethodSource methodSource = fooSource.findMethod("bar(byte[])");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("bar(byte[])");
       assertNotNull(methodSource);
       assertEquals("bar", methodSource.getName());
       assertEquals(new Signature("byte[]"), methodSource.getSignature());
@@ -122,7 +137,7 @@ public class CodeSourceTestCase extends TestCase
 
    public void testMethodLookup4()
    {
-      MethodSource methodSource = fooSource.findMethod("bar(java.lang.String)");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("bar(java.lang.String)");
       assertNotNull(methodSource);
       assertEquals("bar", methodSource.getName());
       assertEquals(new Signature("java.lang.String"), methodSource.getSignature());
@@ -130,7 +145,7 @@ public class CodeSourceTestCase extends TestCase
 
    public void testMethodConstructorLookup1()
    {
-      MethodSource methodSource = fooSource.findMethod("Foo()");
+      MethodSource methodSource = (MethodSource)fooSource.findMember("Foo()");
       assertNotNull(methodSource);
       assertEquals("Foo", methodSource.getName());
       assertEquals(new Signature(), methodSource.getSignature());
