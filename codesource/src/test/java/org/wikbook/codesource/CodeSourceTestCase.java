@@ -150,4 +150,30 @@ public class CodeSourceTestCase extends TestCase
       assertEquals("Foo", methodSource.getName());
       assertEquals(new Signature(), methodSource.getSignature());
    }
+
+   public void testNoSource()
+   {
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      try
+      {
+         builder.buildClass("DoesNotExists");
+         fail();
+      }
+      catch (CodeSourceException expected)
+      {
+      }
+   }
+
+   public void testNoClass()
+   {
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      try
+      {
+         builder.buildClass("org.wikbook.codesource.Uncompiled");
+         fail();
+      }
+      catch (CodeSourceException expected)
+      {
+      }
+   }
 }

@@ -105,10 +105,16 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
    }
 
-   Visit visit(String compilationUnitPath) throws IOException, ParseException
+   Visit visit(String compilationUnitPath) throws IOException, ParseException, CodeSourceException
    {
       ClassLoader cl = Thread.currentThread().getContextClassLoader();
       InputStream cuis = cl.getResourceAsStream(compilationUnitPath);
+
+      //
+      if (cuis == null)
+      {
+         throw new CodeSourceException("Compilation path cannot be located " + compilationUnitPath);
+      }
 
       //
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -158,9 +164,16 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       String fqn = (v.pkg.length() == 0 ? "" : (v.pkg + ".")) + n.getName();
 
       //
+      InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fqn.replace(".", "/") + ".class");
+      if (in == null)
+      {
+         throw new CodeSourceException("Cannot locate class file for fqn " + fqn);   
+      }
+
+      //
       try
       {
-         InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fqn.replace(".", "/") + ".class");
+
          ClassFile cf = ClassFile.readFrom(in);
 
          //
@@ -195,7 +208,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
       catch (IOException e)
       {
-         e.printStackTrace();
+         throw new CodeSourceException("Could not load class " + fqn, e);
       }
 
       //
