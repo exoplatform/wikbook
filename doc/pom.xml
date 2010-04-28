@@ -12,20 +12,11 @@
 
   <name>Wikbook documentation</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.apt</artifactId>
-      <version>0.9.1-SNAPSHOT</version>
-    </dependency>
-  </dependencies>
-
   <build>
        <plugins>
           <plugin>
             <groupId>org.wikbook</groupId>
             <artifactId>wikbook.maven</artifactId>
-            <version>0.9.1-SNAPSHOT</version>
             <executions>
               <execution>
                 <phase>prepare-package</phase>

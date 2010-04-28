@@ -63,6 +63,31 @@
     <autoVersionSubmodules>true</autoVersionSubmodules>
   </properties>
 
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.codesource</artifactId>
+        <version>0.9.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.core</artifactId>
+        <version>0.9.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.maven</artifactId>
+        <version>0.9.1-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.doc</artifactId>
+        <version>0.9.1-SNAPSHOT</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
   <modules>
     <module>codesource</module>
     <module>core</module>

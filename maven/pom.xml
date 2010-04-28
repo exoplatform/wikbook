@@ -28,7 +28,6 @@
     <dependency>
       <groupId>org.wikbook</groupId>
       <artifactId>wikbook.core</artifactId>
-      <version>0.9.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>

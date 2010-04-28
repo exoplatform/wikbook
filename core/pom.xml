@@ -17,7 +17,6 @@
     <dependency>
       <groupId>org.wikbook</groupId>
       <artifactId>wikbook.codesource</artifactId>
-      <version>0.9.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>
