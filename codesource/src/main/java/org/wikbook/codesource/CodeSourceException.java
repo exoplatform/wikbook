@@ -17,30 +17,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook;
-
-import org.wikbook.apt.annotations.Documented;
+package org.wikbook.codesource;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-@Documented(id = "org.wikbook.FooClass")
-public class FooClass
+public class CodeSourceException extends RuntimeException
 {
-
-   // Some comment
-
-   /**
-    * Constructor
-    */
-   public FooClass() {
-      // Yeah comment 
-   }
-
-   public void foo(String s)
+   public CodeSourceException()
    {
-      // The foo
    }
 
+   public CodeSourceException(String s)
+   {
+      super(s);
+   }
+
+   public CodeSourceException(String s, Throwable throwable)
+   {
+      super(s, throwable);
+   }
+
+   public CodeSourceException(Throwable throwable)
+   {
+      super(throwable);
+   }
 }

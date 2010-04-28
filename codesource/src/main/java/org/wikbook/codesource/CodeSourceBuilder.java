@@ -17,30 +17,44 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook;
+package org.wikbook.codesource;
 
-import org.wikbook.apt.annotations.Documented;
+import java.util.Collection;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-@Documented(id = "org.wikbook.FooClass")
-public class FooClass
+public class CodeSourceBuilder 
 {
-
-   // Some comment
-
-   /**
-    * Constructor
-    */
-   public FooClass() {
-      // Yeah comment 
-   }
-
-   public void foo(String s)
+   public TypeSource buildClass(String fqn) throws CodeSourceException
    {
-      // The foo
+      Collection<TypeSource> types = buildCompilationUnit(fqn.replace(".", "/") + ".java");
+      for (TypeSource type : types)
+      {
+         if (type.getName().equals(fqn))
+         {
+            return type;
+         }
+      }
+      return null;
    }
 
+   public Collection<TypeSource> buildCompilationUnit(String compilationUnitPath) throws CodeSourceException
+   {
+      if (compilationUnitPath == null)
+      {
+         throw new NullPointerException();
+      }
+      try
+      {
+         CompilationUnitVisitor visitor = new CompilationUnitVisitor();
+         CompilationUnitVisitor.Visit visit = visitor.visit(compilationUnitPath);
+         return visit.types;
+      }
+      catch (Exception e)
+      {
+         throw new CodeSourceException(e);
+      }
+   }
 }

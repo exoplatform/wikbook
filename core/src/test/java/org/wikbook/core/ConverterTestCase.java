@@ -244,4 +244,9 @@ public class ConverterTestCase extends TestCase
    {
       doTest("/exampleinclude");
    }
+
+   public void testJavaSource() throws Exception
+   {
+      doTest("/javasource");
+   }
 }

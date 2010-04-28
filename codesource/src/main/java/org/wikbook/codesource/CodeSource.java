@@ -17,30 +17,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook;
-
-import org.wikbook.apt.annotations.Documented;
+package org.wikbook.codesource;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-@Documented(id = "org.wikbook.FooClass")
-public class FooClass
+public class CodeSource
 {
-
-   // Some comment
-
-   /**
-    * Constructor
-    */
-   public FooClass() {
-      // Yeah comment 
-   }
-
-   public void foo(String s)
-   {
-      // The foo
-   }
-
 }

@@ -17,30 +17,31 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook;
+package org.wikbook.model.content.block;
 
-import org.wikbook.apt.annotations.Documented;
+import org.wikbook.codesource.BodySource;
+import org.wikbook.xml.ElementEmitter;
+import org.wikbook.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-@Documented(id = "org.wikbook.FooClass")
-public class FooClass
+public class JavaSourceElement extends BlockElement
 {
 
-   // Some comment
+   /** . */
+   private final BodySource source;
 
-   /**
-    * Constructor
-    */
-   public FooClass() {
-      // Yeah comment 
-   }
-
-   public void foo(String s)
+   public JavaSourceElement(BodySource source)
    {
-      // The foo
+      this.source = source;
    }
 
+   @Override
+   public void writeTo(XMLEmitter xml)
+   {
+      ElementEmitter programListingXML = xml.element("programlisting");
+      programListingXML.content(source.getClip());
+   }
 }

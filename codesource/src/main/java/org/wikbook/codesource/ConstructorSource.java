@@ -17,30 +17,51 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook;
-
-import org.wikbook.apt.annotations.Documented;
+package org.wikbook.codesource;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-@Documented(id = "org.wikbook.FooClass")
-public class FooClass
+public class ConstructorSource extends BodySource
 {
 
-   // Some comment
+   /** . */
+   final Signature signature;
 
-   /**
-    * Constructor
-    */
-   public FooClass() {
-      // Yeah comment 
-   }
+   /** . */
+   private final String clip;
 
-   public void foo(String s)
+   /** . */
+   private final String javaDoc;
+
+   public ConstructorSource(Signature signature, String clip, String javaDoc)
    {
-      // The foo
+      if (signature == null)
+      {
+         throw new NullPointerException();
+      }
+      if (clip == null)
+      {
+         throw new NullPointerException();
+      }
+      this.signature = signature;
+      this.clip = clip;
+      this.javaDoc = javaDoc;
    }
 
+   public String getJavaDoc()
+   {
+      return javaDoc;
+   }
+
+   public String getClip()
+   {
+      return clip;
+   }
+
+   public Signature getSignature()
+   {
+      return signature;
+   }
 }
