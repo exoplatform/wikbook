@@ -3,7 +3,8 @@
   <preface>
     <title>Preface</title>
     <programlisting>content</programlisting>
-    <programlisting>   /**
+    <programlisting>before
+   /**
     * The foo method.
     *
     * @param s the method argument
@@ -12,7 +13,7 @@
    {
       // The foo
    }
-</programlisting>
+after</programlisting>
     <programlisting>&lt;foo&gt;&lt;/foo&gt;</programlisting>
     <programlisting>&lt;foo/&gt;
 </programlisting>

@@ -43,7 +43,7 @@ public class ProgramListingElement extends BlockElement
 {
 
    private static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
-      "\\{" + "@(include|javadoc)\\s+([^\\s]+)" + "\\}"
+      "\\{" + "@(include|javadoc)\\s+([^\\s]+)" + "\\s*\\}"
    );
 
    /** . */
@@ -124,6 +124,7 @@ public class ProgramListingElement extends BlockElement
 
    public static String parse(String s)
    {
+      int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
       StringBuffer sb = new StringBuffer();
       while (matcher.find())
@@ -136,30 +137,38 @@ public class ProgramListingElement extends BlockElement
          CodeSourceBuilder builder = new CodeSourceBuilder();
 
          //
-         TypeSource source = builder.buildClass(l.getFQN());
+         TypeSource typeSource = builder.buildClass(l.getFQN());
 
          //
-         BodySource blah;
+         BodySource source;
          if (l.getMember() != null)
          {
-            blah = source.findMember(l.getMember());
+            source = typeSource.findMember(l.getMember());
          }
          else
          {
-            blah = source;
+            source = typeSource;
          }
+
+         //
+         sb.append(s, prev, matcher.start());
 
          //
          if ("include".equals(matcher.group(1)))
          {
-            matcher.appendReplacement(sb, blah.getClip());
+            sb.append(source.getClip());
          }
-         else if ("javadoc".equals(matcher.group(1)) && blah.getJavaDoc() != null)
+         else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
-            matcher.appendReplacement(sb, blah.getJavaDoc());
+            String javadoc = source.getJavaDoc();
+            sb.append(javadoc);
          }
+
+         //
+         prev = matcher.end();
+
       }
-      matcher.appendTail(sb);
+      sb.append(s, prev, s.length());
       return sb.toString();
    }
 }
