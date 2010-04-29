@@ -3,6 +3,7 @@
 - master.xml really in docbook
 - better property support
 - some kind of entities would be great too
+- on the fly SVG rasterization
 
 Resources:
 - http://platform.xwiki.org/xwiki/bin/view/Features/Annotations
