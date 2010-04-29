@@ -1,6 +1,7 @@
 {{code}}content{{/code}}
 {{code language=java}}
-{@javadoc org.wikbook.FooClass#foo(java.lang.String)}{@include org.wikbook.FooClass#foo(java.lang.String)}
+{@javadoc org.wikbook.FooClass#foo(java.lang.String)}
+{@include org.wikbook.FooClass#foo(java.lang.String)}
 {{/code}}
 {{code language=xml}}<foo></foo>{{/code}}
 {{code language=xml indent=2}}<foo></foo>{{/code}}

@@ -92,7 +92,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
 
          // Get offset of the fragment
          int from = sb.getOffset(node.getBeginLine() - 1, 0);
-         int to = sb.getOffset(node.getEndLine(), 0);
+         int to = sb.getOffset(node.getEndLine() - 1, node.getEndColumn());
 
          // Get relevant chars
          return source.substring(from, to);

@@ -42,10 +42,10 @@ public class CodeSourceTestCase extends TestCase
    {
       FieldSource fieldSource = (FieldSource)fooSource.findMember("juu");
       assertNotNull(fieldSource);
-      assertEquals("   private String juu = null;\n", fieldSource.getClip());
+      assertEquals("   private String juu = null;", fieldSource.getClip());
       assertEquals("   /**\n" +
          "    * The juu String.\n" +
-         "    */\n", fieldSource.getJavaDoc());
+         "    */", fieldSource.getJavaDoc());
    }
 
    public void testMethodClip()
@@ -54,10 +54,10 @@ public class CodeSourceTestCase extends TestCase
       assertNotNull(methodSource);
       assertEquals("   public void bar()\n" +
          "   {\n" +
-         "   }\n", methodSource.getClip());
+         "   }", methodSource.getClip());
       assertEquals("   /**\n" +
          "    * Bar method.\n" +
-         "    */\n", methodSource.getJavaDoc());
+         "    */", methodSource.getJavaDoc());
    }
 
    public void testConstructorClip()
@@ -66,10 +66,10 @@ public class CodeSourceTestCase extends TestCase
       assertNotNull(methodSource);
       assertEquals("   public Foo()\n" +
          "   {\n" +
-         "   }\n", methodSource.getClip());
+         "   }", methodSource.getClip());
       assertEquals("   /**\n" +
          "    * Empty constructor.\n" +
-         "    */\n", methodSource.getJavaDoc());
+         "    */", methodSource.getJavaDoc());
    }
 
    public void testClassClip()
@@ -104,11 +104,11 @@ public class CodeSourceTestCase extends TestCase
          "   {\n" +
          "   }\n" +
          "\n" +
-         "}\n", fooSource.getClip());
+         "}", fooSource.getClip());
       assertEquals("/**\n" +
          " * @author <a href=\"mailto:julien.viet@exoplatform.com\">Julien Viet</a>\n" +
          " * @version $Revision$\n" +
-         " */\n", fooSource.getJavaDoc());
+         " */", fooSource.getJavaDoc());
    }
 
    public void testMethodLookup1()
