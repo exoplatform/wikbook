@@ -21,9 +21,6 @@ package org.wikbook.transform;
 
 import org.w3c.dom.Document;
 import org.wikbook.WikletContext;
-import org.wikbook.codesource.BodySource;
-import org.wikbook.codesource.CodeSourceBuilder;
-import org.wikbook.codesource.TypeSource;
 import org.wikbook.model.DocbookContext;
 import org.wikbook.model.DocbookElement;
 import org.wikbook.model.content.block.AdmonitionElement;
@@ -32,8 +29,6 @@ import org.wikbook.model.content.block.DOMElement;
 import org.wikbook.model.content.block.ExampleElement;
 import org.wikbook.model.content.block.GroupElement;
 import org.wikbook.model.content.block.ImageElement;
-import org.wikbook.model.content.block.JavaSourceElement;
-import org.wikbook.model.content.block.JavaSourceLink;
 import org.wikbook.model.content.block.ListElement;
 import org.wikbook.model.content.block.ListItemElement;
 import org.wikbook.model.content.block.ParagraphElement;
@@ -317,33 +312,6 @@ public class XDOMTransformer implements Listener
             //
             book.merge(new ProgramListingElement(language, indent, content));
          }
-      }
-      else if ("javasource".equals(id))
-      {
-         String link = macroParameters.get("link");
-
-         //
-         JavaSourceLink l = JavaSourceLink.parse(link);
-
-         //
-         CodeSourceBuilder builder = new CodeSourceBuilder();
-
-         //
-         TypeSource source = builder.buildClass(l.getFQN());
-
-         //
-         BodySource blah;
-         if (l.getMember() != null)
-         {
-            blah = source.findMember(l.getMember());
-         }
-         else
-         {
-            blah = source;
-         }
-
-
-         book.merge(new JavaSourceElement(blah));
       }
       else if ("example".equals(id))
       {

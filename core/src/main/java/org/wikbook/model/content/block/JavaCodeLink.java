@@ -19,29 +19,52 @@
 
 package org.wikbook.model.content.block;
 
-import org.wikbook.codesource.BodySource;
-import org.wikbook.xml.ElementEmitter;
-import org.wikbook.xml.XMLEmitter;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class JavaSourceElement extends BlockElement
+public class JavaCodeLink
 {
 
    /** . */
-   private final BodySource source;
+   private final String member;
 
-   public JavaSourceElement(BodySource source)
+   /** . */
+   private final String fqn;
+
+   private JavaCodeLink(String member, String fqn)
    {
-      this.source = source;
+      this.member = member;
+      this.fqn = fqn;
    }
 
-   @Override
-   public void writeTo(XMLEmitter xml)
+   public String getMember()
    {
-      ElementEmitter programListingXML = xml.element("programlisting");
-      programListingXML.content(source.getClip());
+      return member;
+   }
+
+   public String getFQN()
+   {
+      return fqn;
+   }
+
+   public static JavaCodeLink parse(String s)
+   {
+      String member;
+      String fqn;
+      int poundPos = s.indexOf('#');
+      if (poundPos == -1)
+      {
+         member = null;
+         fqn = s;
+      }
+      else
+      {
+         member = s.substring(poundPos + 1);
+         fqn = s.substring(0, poundPos);
+      }
+
+      //
+      return new JavaCodeLink(member, fqn);
    }
 }

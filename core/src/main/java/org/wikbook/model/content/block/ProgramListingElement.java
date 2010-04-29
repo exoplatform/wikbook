@@ -19,6 +19,9 @@
 
 package org.wikbook.model.content.block;
 
+import org.wikbook.codesource.BodySource;
+import org.wikbook.codesource.CodeSourceBuilder;
+import org.wikbook.codesource.TypeSource;
 import org.wikbook.xml.ElementEmitter;
 import org.wikbook.xml.OutputFormat;
 import org.wikbook.xml.XML;
@@ -29,6 +32,8 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -36,6 +41,10 @@ import java.io.StringWriter;
  */
 public class ProgramListingElement extends BlockElement
 {
+
+   private static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
+      "\\{" + "@(include|javadoc)\\s+([^\\s]+)" + "\\}"
+   );
 
    /** . */
    private final String language;
@@ -101,13 +110,56 @@ public class ProgramListingElement extends BlockElement
             programListingXML.content(bilto, true);
             break;
          case JAVA:
-            // programListing.withAttribute("role", "JAVA");
 
             //
-            programListingXML.content(bilto);
+            bilto = parse(bilto);
+
+            //
+            programListingXML.content(bilto, true);
 
             //
             break;
       }
+   }
+
+   public static String parse(String s)
+   {
+      Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
+      StringBuffer sb = new StringBuffer();
+      while (matcher.find())
+      {
+
+         //
+         JavaCodeLink l = JavaCodeLink.parse(matcher.group(2));
+
+         //
+         CodeSourceBuilder builder = new CodeSourceBuilder();
+
+         //
+         TypeSource source = builder.buildClass(l.getFQN());
+
+         //
+         BodySource blah;
+         if (l.getMember() != null)
+         {
+            blah = source.findMember(l.getMember());
+         }
+         else
+         {
+            blah = source;
+         }
+
+         //
+         if ("include".equals(matcher.group(1)))
+         {
+            matcher.appendReplacement(sb, blah.getClip());
+         }
+         else if ("javadoc".equals(matcher.group(1)) && blah.getJavaDoc() != null)
+         {
+            matcher.appendReplacement(sb, blah.getJavaDoc());
+         }
+      }
+      matcher.appendTail(sb);
+      return sb.toString();
    }
 }

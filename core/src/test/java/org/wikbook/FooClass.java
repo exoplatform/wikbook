@@ -35,6 +35,11 @@ public class FooClass
       // Yeah comment 
    }
 
+   /**
+    * The foo method.
+    *
+    * @param s the method argument
+    */
    public void foo(String s)
    {
       // The foo
