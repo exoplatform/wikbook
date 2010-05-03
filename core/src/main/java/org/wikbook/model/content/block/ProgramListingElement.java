@@ -122,23 +122,36 @@ public class ProgramListingElement extends BlockElement
       }
    }
 
+   /** . */
+   private static final String WHITE_NON_CR = "[ \t\\x0B\f\r]";
+
+   /** . */
+   private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([^>]+)>" + WHITE_NON_CR + "*");
+
+   private static void parse2(String s, XMLEmitter elt)
+   {
+      TextArea ta = new TextArea(s);
+
+      Matcher matcher = LINE_COMMENT.matcher(s);
+      int prev = 0;
+      while (matcher.find())
+      {
+         elt.content(ta.clip(ta.position(prev), ta.position(matcher.start())), true);
+         elt.element("co").withAttribute("id", matcher.group(1)).withAttribute("linkends", matcher.group(1));
+         prev = matcher.end();
+      }
+      elt.content(ta.clip(ta.position(prev)), true);
+   }
+
    public static void parse(String s, XMLEmitter elt)
    {
       int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
       while (matcher.find())
       {
-
-         //
          JavaCodeLink l = JavaCodeLink.parse(matcher.group(2));
-
-         //
          CodeSourceBuilder builder = new CodeSourceBuilder();
-
-         //
          TypeSource typeSource = builder.buildClass(l.getFQN());
-
-         //
          BodySource source;
          if (l.getMember() != null)
          {
@@ -150,19 +163,11 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         elt.content(s.substring(prev, matcher.start()), true);
+         parse2(s.substring(prev, matcher.start()), elt);
 
          //
          if ("include".equals(matcher.group(1)))
          {
-/*
-            TextArea a = new TextArea(source.getClip());
-            for (Anchor anchor : source.getAnchors())
-            {
-               a.insert(anchor.getPosition(), "<co id=\"" + anchor.getId() + "\" linkends=\"condition\"/>");
-            }
-            elt.content(a.getText(), true);
-*/
             Position previous = Position.get(0, 0);
             TextArea ta = new TextArea(source.getClip());
             for (Anchor anchor : source.getAnchors())
@@ -181,8 +186,9 @@ public class ProgramListingElement extends BlockElement
 
          //
          prev = matcher.end();
-
       }
-      elt.content(s.substring(prev), true);
+
+      //
+      parse2(s.substring(prev), elt);
    }
 }

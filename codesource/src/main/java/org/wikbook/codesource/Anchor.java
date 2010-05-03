@@ -21,12 +21,17 @@ package org.wikbook.codesource;
 
 import org.wikbook.text.Position;
 
+import java.util.regex.Pattern;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
 public class Anchor
 {
+
+   /** The anchor pattern for a line comment. */
+   public static final Pattern LINE_COMMENT = Pattern.compile("^\\s*<([^>]+)>\\s*$");
 
    /** . */
    private final String id;

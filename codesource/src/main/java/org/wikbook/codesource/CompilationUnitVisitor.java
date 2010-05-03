@@ -56,7 +56,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -67,9 +66,6 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
 
    static class Visit
    {
-
-      /** The anchor pattern. */
-      private static final Pattern CALL_OUT = Pattern.compile("^\\s*<([^>]+)>\\s*$");
 
       /** The current compilation unit. */
       private final CompilationUnit compilationUnit;
@@ -142,7 +138,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
             if (comment instanceof LineComment)
             {
                String c = comment.getContent();
-               Matcher matcher = CALL_OUT.matcher(c);
+               Matcher matcher = Anchor.LINE_COMMENT.matcher(c);
                if (matcher.matches())
                {
                   Position anchorStart = Position.get(comment.getBeginLine() - 1, comment.getBeginColumn() - 1);

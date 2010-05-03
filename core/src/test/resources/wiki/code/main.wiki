@@ -10,3 +10,8 @@ after
 {{code language=java}}
 {@include org.wikbook.CodeWithAnchors#foo()}
 {{/code}}
+{{code language=java}}
+a
+// <0>
+b // <1>
+{{/code}}
