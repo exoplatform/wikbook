@@ -19,24 +19,30 @@
 
 package org.wikbook.codesource;
 
+import junit.framework.TestCase;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class MemberSource extends BodySource
+public class AnchorTestCase extends TestCase
 {
 
-   /** . */
-   TypeSource type;
-
-   protected MemberSource(Clip clip, String javaDoc)
+   public void testAnchor1()
    {
-      super(clip, javaDoc);
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      TypeSource ts = builder.buildClass(Bar.class.getName());
+      assertEquals("public class Bar\n" +
+         "{\n" +
+         "\n" +
+         "\n" +
+         "   public void foo()\n" +
+         "   {\n" +
+         "\n" +
+         "      int a = 0;\n" +
+         "      int b = 4;\n" +
+         "   }\n" +
+         "}", ts.getClip());
    }
 
-   @Override
-   protected TypeSource getType()
-   {
-      return type;
-   }
 }

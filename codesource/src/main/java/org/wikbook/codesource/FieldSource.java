@@ -27,33 +27,18 @@ public class FieldSource extends MemberSource
 {
 
    /** . */
-   private final String name;
+   final String name;
 
-   /** . */
-   private final String clip;
-
-   /** . */
-   private final String javaDoc;
-
-   public FieldSource(String name, String clip, String javaDoc)
+   public FieldSource(String name, Clip clip, String javaDoc)
    {
+      super(clip, javaDoc);
+
+      //
       this.name = name;
-      this.clip = clip;
-      this.javaDoc = javaDoc;
    }
 
    public String getName()
    {
       return name;
-   }
-
-   public String getClip()
-   {
-      return clip;
-   }
-
-   public String getJavaDoc()
-   {
-      return javaDoc;
    }
 }

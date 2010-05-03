@@ -23,20 +23,53 @@ package org.wikbook.codesource;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class MemberSource extends BodySource
+public final class Coordinate
 {
 
-   /** . */
-   TypeSource type;
-
-   protected MemberSource(Clip clip, String javaDoc)
+   public static Coordinate get(int line, int column)
    {
-      super(clip, javaDoc);
+      return new Coordinate(line, column);
+   }
+
+   /** . */
+   final int line;
+
+   /** . */
+   final int column;
+
+   private Coordinate(int line, int column)
+   {
+      if (line < 0)
+      {
+         throw new IllegalArgumentException();
+      }
+      if (column < 0)
+      {
+         throw new IllegalArgumentException();
+      }
+      this.line = line;
+      this.column = column;
+   }
+
+   public int getLine()
+   {
+      return line;
+   }
+
+   public int getColumn()
+   {
+      return column;
    }
 
    @Override
-   protected TypeSource getType()
+   public int hashCode()
    {
-      return type;
+      return (line + 1) * (column + 1);
+   }
+
+   @Override
+   public boolean equals(Object o)
+   {
+      return (o == this) || (o instanceof Coordinate && line == ((Coordinate)o).line && column == ((Coordinate)o).column);
    }
 }

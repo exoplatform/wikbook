@@ -23,20 +23,38 @@ package org.wikbook.codesource;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class MemberSource extends BodySource
+public class Anchor
 {
 
    /** . */
-   TypeSource type;
+   private final String id;
 
-   protected MemberSource(Clip clip, String javaDoc)
+   /** . */
+   private final Coordinate position;
+
+   public Anchor(String id, Coordinate position)
    {
-      super(clip, javaDoc);
+      if (id == null)
+      {
+         throw new NullPointerException();
+      }
+      if (position == null)
+      {
+         throw new NullPointerException();
+      }
+
+      //
+      this.id = id;
+      this.position = position;
    }
 
-   @Override
-   protected TypeSource getType()
+   public String getId()
    {
-      return type;
+      return id;
+   }
+
+   public Coordinate getPosition()
+   {
+      return position;
    }
 }

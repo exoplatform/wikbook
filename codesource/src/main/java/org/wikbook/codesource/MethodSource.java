@@ -29,35 +29,17 @@ public class MethodSource extends MemberSource
    /** . */
    final MemberKey key;
 
-   /** . */
-   private final String clip;
 
-   /** . */
-   private final String javaDoc;
-
-   public MethodSource(MemberKey key, String clip, String javaDoc)
+   public MethodSource(MemberKey key, Clip clip, String javaDoc)
    {
+      super(clip, javaDoc);
+
+      //
       if (key == null)
       {
          throw new NullPointerException();
       }
-      if (clip == null)
-      {
-         throw new NullPointerException();
-      }
       this.key = key;
-      this.clip = clip;
-      this.javaDoc = javaDoc;
-   }
-
-   public String getJavaDoc()
-   {
-      return javaDoc;
-   }
-
-   public String getClip()
-   {
-      return clip;
    }
 
    public String getName()

@@ -23,11 +23,11 @@ package org.wikbook.codesource;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-class StringClipper
+public class StringClipper
 {
 
    /** . */
-   private final String s;
+   final String s;
 
    public StringClipper(String s)
    {
@@ -38,35 +38,81 @@ class StringClipper
       this.s = s;
    }
 
-   public String clip(int fromLine, int fromColumn, int toLine, int toColumn)
+   public String clip(Clip clip)
    {
-      int from = getOffset(fromLine, fromColumn);
-      int to = getOffset(toLine, toColumn);
-      if (from > to)
+      return clip(clip.getFrom(), clip.getTo());
+   }
+
+   public Coordinate getLength()
+   {
+      return getCoordinates(s.length());
+   }
+
+   public String clip(Coordinate from)
+   {
+      int _from = getOffset(from);
+      int _to = s.length();
+      if (_from > _to)
       {
          throw new IllegalArgumentException("Wrong clipping coordinates");
       }
-      return s.substring(from, to);
+      return s.substring(_from, _to);
+   }
+
+   public String clip(Coordinate from, Coordinate to)
+   {
+      int _from = getOffset(from);
+      int _to = getOffset(to);
+      if (_from > _to)
+      {
+         throw new IllegalArgumentException("Wrong clipping coordinates");
+      }
+      return s.substring(_from, _to);
+   }
+
+   public Coordinate getCoordinates(int offset)
+   {
+      if (offset < 0)
+      {
+         throw new IllegalArgumentException();
+      }
+      if (offset > s.length())
+      {
+         throw new IllegalArgumentException();
+      }
+      int line = 0;
+      int column = 0;
+      for (int i = 0;i < offset;i++)
+      {
+         char c = s.charAt(i);
+         if (c == '\n')
+         {
+            column = 0;
+            line++;
+         }
+         else
+         {
+            column++;
+         }
+      }
+      return Coordinate.get(line, column);
    }
 
    /**
     * Returns the offset of the line / column coordinates. 
     *
-    * @param lineOffset the line offset
-    * @param columnOffset the column offset
+    * @param coord the coordinate
     * @return the string offset
     */
-   public int getOffset(int lineOffset, int columnOffset)
+   public int getOffset(Coordinate coord)
    {
-      if (lineOffset < 0)
+      if (coord == null)
       {
-         throw new IllegalArgumentException("Line offset cannot be negative: " + lineOffset);
-      }
-      if (columnOffset < 0)
-      {
-         throw new IllegalArgumentException("Column offset cannot be negative: " + columnOffset);
+         throw new NullPointerException();
       }
       int offset = 0;
+      int lineOffset = coord.line;
+      int columnOffset = coord.column;
       while (true)
       {
          if (lineOffset == 0 && columnOffset == 0)

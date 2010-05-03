@@ -19,6 +19,9 @@
 
 package org.wikbook.codesource;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
@@ -26,8 +29,45 @@ package org.wikbook.codesource;
 public abstract class BodySource
 {
 
-   public abstract String getJavaDoc();
+   /** . */
+   private final Clip clip;
 
-   public abstract String getClip();
+   /** . */
+   private final String javaDoc;
 
+   protected BodySource(Clip clip, String javaDoc)
+   {
+      if (clip == null)
+      {
+         throw new NullPointerException();
+      }
+
+      //
+      this.clip = clip;
+      this.javaDoc = javaDoc;
+   }
+
+   public final String getClip()
+   {
+      return getType().source.clip(clip);
+   }
+
+   public final String getJavaDoc()
+   {
+      return javaDoc;
+   }
+
+   public final Collection<Anchor> getAnchors()
+   {
+      ArrayList<Anchor> anchors = new ArrayList<Anchor>();
+      TypeSource type = getType();
+      for (Anchor anchor : type.anchors)
+      {
+
+         anchors.add(anchor);
+      }
+      return anchors;
+   }
+
+   protected abstract TypeSource getType();
 }

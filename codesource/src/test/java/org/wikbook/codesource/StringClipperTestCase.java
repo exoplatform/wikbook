@@ -33,7 +33,7 @@ public class StringClipperTestCase extends TestCase
       StringClipper sb = new StringClipper("");
       try
       {
-         sb.getOffset(-1, 0);
+         sb.getOffset(Coordinate.get(-1, 0));
          fail();
       }
       catch (IllegalArgumentException ignore)
@@ -41,7 +41,7 @@ public class StringClipperTestCase extends TestCase
       }
       try
       {
-         sb.getOffset(0, -1);
+         sb.getOffset(Coordinate.get(0, -1));
          fail();
       }
       catch (IllegalArgumentException ignore)
@@ -49,30 +49,39 @@ public class StringClipperTestCase extends TestCase
       }
    }
 
+   public void testGetCoordinates()
+   {
+      StringClipper b = new StringClipper("a\nb");
+      assertEquals(Coordinate.get(0, 0), b.getCoordinates(0));
+      assertEquals(Coordinate.get(0, 1), b.getCoordinates(1));
+      assertEquals(Coordinate.get(1, 0), b.getCoordinates(2));
+      assertEquals(Coordinate.get(1, 1), b.getCoordinates(3));
+   }
+
    public void testOffset()
    {
       StringClipper b = new StringClipper("a\nb");
-      assertEquals(0, b.getOffset(0, 0));
-      assertEquals(1, b.getOffset(0, 1));
-      assertEquals(1, b.getOffset(0, 2));
-      assertEquals(2, b.getOffset(1, 0));
-      assertEquals(3, b.getOffset(1, 1));
-      assertEquals(3, b.getOffset(1, 2));
-      assertEquals(3, b.getOffset(2, 0));
+      assertEquals(0, b.getOffset(Coordinate.get(0, 0)));
+      assertEquals(1, b.getOffset(Coordinate.get(0, 1)));
+      assertEquals(1, b.getOffset(Coordinate.get(0, 2)));
+      assertEquals(2, b.getOffset(Coordinate.get(1, 0)));
+      assertEquals(3, b.getOffset(Coordinate.get(1, 1)));
+      assertEquals(3, b.getOffset(Coordinate.get(1, 2)));
+      assertEquals(3, b.getOffset(Coordinate.get(2, 0)));
    }
 
    public void testClip()
    {
       StringClipper b = new StringClipper("a\nb");
-      assertEquals("", b.clip(0, 0, 0 ,0));
-      assertEquals("a", b.clip(0, 0, 0 ,1));
-      assertEquals("a", b.clip(0, 0, 0 ,2));
-      assertEquals("a\n", b.clip(0, 0, 1 ,0));
-      assertEquals("a\nb", b.clip(0, 0, 1 ,1));
-      assertEquals("a\nb", b.clip(0, 0, 1 ,2));
-      assertEquals("\nb", b.clip(0, 1, 1 ,2));
-      assertEquals("\nb", b.clip(0, 2, 1 ,2));
-      assertEquals("b", b.clip(1, 0, 1 ,2));
-      assertEquals("", b.clip(1, 1, 1 ,2));
+      assertEquals("", b.clip(Coordinate.get(0, 0), Coordinate.get(0 ,0)));
+      assertEquals("a", b.clip(Coordinate.get(0, 0), Coordinate.get(0 ,1)));
+      assertEquals("a", b.clip(Coordinate.get(0, 0), Coordinate.get(0 ,2)));
+      assertEquals("a\n", b.clip(Coordinate.get(0, 0), Coordinate.get(1 ,0)));
+      assertEquals("a\nb", b.clip(Coordinate.get(0, 0), Coordinate.get(1 ,1)));
+      assertEquals("a\nb", b.clip(Coordinate.get(0, 0), Coordinate.get(1 ,2)));
+      assertEquals("\nb", b.clip(Coordinate.get(0, 1), Coordinate.get(1 ,2)));
+      assertEquals("\nb", b.clip(Coordinate.get(0, 2), Coordinate.get(1 ,2)));
+      assertEquals("b", b.clip(Coordinate.get(1, 0), Coordinate.get(1 ,2)));
+      assertEquals("", b.clip(Coordinate.get(1, 1), Coordinate.get(1 ,2)));
    }
 }

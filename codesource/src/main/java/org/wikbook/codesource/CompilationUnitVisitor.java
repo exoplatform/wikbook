@@ -21,7 +21,9 @@ package org.wikbook.codesource;
 
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
+import japa.parser.ast.Comment;
 import japa.parser.ast.CompilationUnit;
+import japa.parser.ast.LineComment;
 import japa.parser.ast.Node;
 import japa.parser.ast.PackageDeclaration;
 import japa.parser.ast.body.BodyDeclaration;
@@ -47,9 +49,11 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.TreeMap;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -58,11 +62,15 @@ import java.util.List;
 class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnitVisitor.Visit>
 {
 
-   /** . */
-   private CodeSourceBuilder builder;
-
    static class Visit
    {
+
+      /** The anchor pattern. */
+      private static final Pattern CALL_OUT = Pattern.compile("^\\s*<([^>]+)>\\s*$");
+
+      /** The current compilation unit. */
+      private final CompilationUnit compilationUnit;
+
       /** . */
       final LinkedList<LinkedList<BodySource>> stack = new LinkedList<LinkedList<BodySource>>();
 
@@ -79,20 +87,120 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       final List<TypeSource> types = new ArrayList<TypeSource>();
 
       /** . */
-      private final String source;
+      private String source;
 
-      private Visit(String source)
+      /** . */
+      private final List<Anchor> anchors = new LinkedList<Anchor>();
+
+      /** . */
+      private final StringClipper sb;
+
+      /** . */
+      private final String finalSource;
+
+      private static class InternalAnchor
       {
+
+         /** . */
+         private final String id;
+
+         /** . */
+         private final int from;
+
+         /** . */
+         private final int to;
+
+         private InternalAnchor(String id, int from, int to)
+         {
+            this.id = id;
+            this.from = from;
+            this.to = to;
+         }
+      }
+
+      private Visit(String source) throws ParseException
+      {
+         // Build the initial unit
+         CompilationUnit unit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
+
+         // Compute the number of lines
+         int height = 0;
+         for (int pos = 0;pos != -1; pos = source.indexOf(pos, '\n'))
+         {
+            height++;
+         }
+
+         // Handle all single line comment matching an anchor
+         // Build a sorted map
+         TreeMap<Integer, InternalAnchor> anchors = new TreeMap<Integer, InternalAnchor>();
+         StringClipper clipper = new StringClipper(source);
+         for (Comment comment : unit.getComments())
+         {
+            if (comment instanceof LineComment)
+            {
+               String c = comment.getContent();
+               Matcher matcher = CALL_OUT.matcher(c);
+               if (matcher.matches())
+               {
+                  Coordinate anchorStart = Coordinate.get(comment.getBeginLine() - 1, comment.getBeginColumn() - 1);
+                  Coordinate anchorEnd = Coordinate.get(comment.getEndLine() - 1, comment.getEndColumn() - 1);
+                  int from = clipper.getOffset(anchorStart);
+                  int to = clipper.getOffset(anchorEnd);
+                  anchors.put(from, new InternalAnchor(matcher.group(1), from, to));
+               }
+            }
+         }
+
+         // Rebuild the source code
+         LinkedList<Clip> clips = new LinkedList<Clip>();
+         Coordinate previous = Coordinate.get(0, 0);
+         for (InternalAnchor anchor : anchors.values())
+         {
+            //
+            Coordinate foo = clipper.getCoordinates(anchor.from);
+
+            // Build the clipping coordinate
+            String aaaa = clipper.clip(Coordinate.get(foo.line, 0), foo);
+            int column = foo.column;
+            for (int i = aaaa.length() - 1;i >= 0;i--)
+            {
+               if (aaaa.charAt(i) != ' ')
+               {
+                  break;
+               }
+               column = i;
+            }
+
+            //
+            Coordinate a = Coordinate.get(foo.line, column);
+
+            //
+            clips.addLast(Clip.get(previous, a));
+
+            // THIS IS NOT GREAT BUT IT IS OK FOR NOW
+            previous = Coordinate.get(foo.line, 100000);
+         }
+         clips.addLast(Clip.get(previous, clipper.getLength()));
+
+         // Build the final string
+         StringBuilder builder = new StringBuilder();
+         for (Clip clip : clips)
+         {
+            builder.append(clipper.clip(clip));
+         }
+
+         //
+         this.compilationUnit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
          this.source = source;
+         this.sb = new StringClipper(source);
+         this.finalSource = builder.toString();
       }
 
       private String clip(Node node)
       {
-         StringClipper sb = new StringClipper(source);
-
          // Get offset of the fragment
-         int from = sb.getOffset(node.getBeginLine() - 1, 0);
-         int to = sb.getOffset(node.getEndLine() - 1, node.getEndColumn());
+         int from = sb.getOffset(Coordinate.get(node.getBeginLine() - 1, 0));
+         int to = sb.getOffset(Coordinate.get(node.getEndLine() - 1, node.getEndColumn()));
 
          // Get relevant chars
          return source.substring(from, to);
@@ -102,6 +210,11 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       {
          JavadocComment doc = node.getJavaDoc();
          return doc != null ? clip(doc) : null;
+      }
+
+      private void accept(CompilationUnitVisitor visitor)
+      {
+         compilationUnit.accept(visitor, this);
       }
    }
 
@@ -129,10 +242,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       Visit visit = new Visit(s);
 
       //
-      CompilationUnit cu = JavaParser.parse(new ByteArrayInputStream(s.getBytes()));
-
-      //
-      cu.accept(this, visit);
+      visit.accept(this);
 
       //
       return visit;
@@ -212,34 +322,32 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
 
       //
-      v.stack.addLast(new LinkedList<BodySource>());
+      v.stack.addLast(new LinkedList<BodySource>());  
       Void ret = super.visit(n, v);
       List<BodySource> blah = v.stack.removeLast();
 
       //
-      LinkedHashMap<MemberKey, MethodSource> methods = new LinkedHashMap<MemberKey, MethodSource>();
-      LinkedHashMap<String, FieldSource> fields = new LinkedHashMap<String, FieldSource>();
+      TypeSource typeSource = new TypeSource(
+         new StringClipper(v.finalSource),
+         fqn,
+         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
+         v.javaDoc(n),
+         null);
+
+      //
       for (BodySource bodySource : blah)
       {
          if (bodySource instanceof MethodSource)
          {
             MethodSource methodSource = (MethodSource)bodySource;
-            methods.put(methodSource.key, methodSource);
+            typeSource.addMethod(methodSource);
          }
          else if (bodySource instanceof FieldSource)
          {
             FieldSource fieldSource = (FieldSource)bodySource;
-            fields.put(fieldSource.getName(), fieldSource);
+            typeSource.addField(fieldSource);
          }
       }
-
-      //
-      TypeSource typeSource = new TypeSource(
-         fqn,
-         methods,
-         fields,
-         v.clip(n),
-         v.javaDoc(n));
 
       //
       v.types.add(typeSource);
@@ -258,10 +366,9 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    public Void visit(ConstructorDeclaration n, Visit v)
    {
       Signature signature = v.constructorSignatures.next();
-      String constructorClip = v.clip(n);
       MethodSource methodSource = new MethodSource(
          new MemberKey(n.getName(), signature),
-         constructorClip,
+         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
          v.javaDoc(n));
       v.stack.getLast().addLast(methodSource);
       return super.visit(n, v);
@@ -276,7 +383,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          VariableDeclaratorId id = declarator.getId();
          FieldSource fieldSource = new FieldSource(
             id.getName(),
-            v.clip(n),
+            Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
             v.javaDoc(n));
          v.stack.getLast().addLast(fieldSource);
       }
@@ -291,10 +398,9 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    public Void visit(MethodDeclaration n, Visit v)
    {
       Signature signature = v.methodSignatures.next();
-      String methodClip = v.clip(n);
       MethodSource methodSource = new MethodSource(
          new MemberKey(n.getName(), signature),
-         methodClip,
+         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
          v.javaDoc(n));
       v.stack.getLast().addLast(methodSource);
       return super.visit(n, v);

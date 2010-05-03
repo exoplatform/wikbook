@@ -20,6 +20,7 @@
 package org.wikbook.codesource;
 
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -27,6 +28,9 @@ import java.util.LinkedHashMap;
  */
 public class TypeSource extends BodySource
 {
+
+   /** . */
+   final StringClipper source;
 
    /** . */
    private final String name;
@@ -38,18 +42,42 @@ public class TypeSource extends BodySource
    private final LinkedHashMap<String, FieldSource> fields;
 
    /** . */
-   private final String clip;
+   final List<Anchor> anchors;
 
-   /** . */
-   private final String javaDoc;
-
-   TypeSource(String name, LinkedHashMap<MemberKey, MethodSource> methods, LinkedHashMap<String, FieldSource> fields, String clip, String javaDoc)
+   TypeSource(StringClipper source, String name, Clip clip, String javaDoc, List<Anchor> anchors)
    {
+      super(clip, javaDoc);
+
+      //
+      this.source = source;
       this.name = name;
-      this.methods = methods;
-      this.fields = fields;
-      this.clip = clip;
-      this.javaDoc = javaDoc;
+      this.methods = new LinkedHashMap<MemberKey, MethodSource>();
+      this.fields = new LinkedHashMap<String, FieldSource>();
+      this.anchors = anchors;
+   }
+
+   void addMethod(MethodSource method)
+   {
+      if (method.type != null)
+      {
+         throw new IllegalArgumentException();
+      }
+
+      //
+      methods.put(method.key, method);
+      method.type = this;
+   }
+
+   void addField(FieldSource field)
+   {
+      if (field.type != null)
+      {
+         throw new IllegalArgumentException();
+      }
+
+      //
+      fields.put(field.name, field);
+      field.type = this;
    }
 
    public String getName()
@@ -57,14 +85,10 @@ public class TypeSource extends BodySource
       return name;
    }
 
-   public String getJavaDoc()
+   @Override
+   protected TypeSource getType()
    {
-      return javaDoc;
-   }
-
-   public String getClip()
-   {
-      return clip;
+      return this;
    }
 
    public MemberSource findMember(String member)

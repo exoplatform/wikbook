@@ -23,20 +23,14 @@ package org.wikbook.codesource;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class MemberSource extends BodySource
+public class Bar
 {
+   // <0>
 
-   /** . */
-   TypeSource type;
-
-   protected MemberSource(Clip clip, String javaDoc)
+   public void foo()
    {
-      super(clip, javaDoc);
-   }
-
-   @Override
-   protected TypeSource getType()
-   {
-      return type;
+      // <1>
+      int a = 0;
+      int b = 4; // <2>
    }
 }
