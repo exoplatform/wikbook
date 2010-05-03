@@ -157,7 +157,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          for (InternalAnchor anchor : anchors.values())
          {
             //
-            Coordinate foo = clipper.getCoordinates(anchor.from);
+            Coordinate foo = clipper.getPosition(anchor.from);
 
             // Build the clipping coordinate
             String aaaa = clipper.clip(Coordinate.get(foo.line, 0), foo);
@@ -187,6 +187,12 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          for (Clip clip : clips)
          {
             builder.append(clipper.clip(clip));
+         }
+
+         //
+         for (InternalAnchor ia : anchors.values())
+         {
+            this.anchors.add(new Anchor(ia.id, clipper.getPosition(ia.from)));
          }
 
          //
@@ -327,12 +333,25 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       List<BodySource> blah = v.stack.removeLast();
 
       //
+      Clip typeClip = Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn());
+
+      //
+      LinkedList<Anchor> anchors = new LinkedList<Anchor>();
+      for (Anchor anchor : v.anchors)
+      {
+         if (typeClip.contains(anchor.getPosition()))
+         {
+            anchors.add(anchor);
+         }
+      }
+
+      //
       TypeSource typeSource = new TypeSource(
          new StringClipper(v.finalSource),
          fqn,
-         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
+         typeClip,
          v.javaDoc(n),
-         null);
+         anchors);
 
       //
       for (BodySource bodySource : blah)

@@ -45,7 +45,7 @@ public class StringClipper
 
    public Coordinate getLength()
    {
-      return getCoordinates(s.length());
+      return getPosition(s.length());
    }
 
    public String clip(Coordinate from)
@@ -70,7 +70,7 @@ public class StringClipper
       return s.substring(_from, _to);
    }
 
-   public Coordinate getCoordinates(int offset)
+   public Coordinate getPosition(int offset)
    {
       if (offset < 0)
       {

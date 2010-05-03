@@ -21,6 +21,7 @@ package org.wikbook.codesource;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -57,14 +58,17 @@ public abstract class BodySource
       return javaDoc;
    }
 
-   public final Collection<Anchor> getAnchors()
+   public final List<Anchor> getAnchors()
    {
       ArrayList<Anchor> anchors = new ArrayList<Anchor>();
       TypeSource type = getType();
       for (Anchor anchor : type.anchors)
       {
-
-         anchors.add(anchor);
+         Coordinate relative = clip.getRelative(anchor.getPosition());
+         if (relative != null)
+         {
+            anchors.add(new Anchor(anchor.getId(), relative));
+         }
       }
       return anchors;
    }

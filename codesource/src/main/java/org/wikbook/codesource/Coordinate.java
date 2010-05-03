@@ -72,4 +72,10 @@ public final class Coordinate
    {
       return (o == this) || (o instanceof Coordinate && line == ((Coordinate)o).line && column == ((Coordinate)o).column);
    }
+
+   @Override
+   public String toString()
+   {
+      return "Coordinate[line=" + line + ",column=" + column + "]";
+   }
 }

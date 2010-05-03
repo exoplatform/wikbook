@@ -52,10 +52,10 @@ public class StringClipperTestCase extends TestCase
    public void testGetCoordinates()
    {
       StringClipper b = new StringClipper("a\nb");
-      assertEquals(Coordinate.get(0, 0), b.getCoordinates(0));
-      assertEquals(Coordinate.get(0, 1), b.getCoordinates(1));
-      assertEquals(Coordinate.get(1, 0), b.getCoordinates(2));
-      assertEquals(Coordinate.get(1, 1), b.getCoordinates(3));
+      assertEquals(Coordinate.get(0, 0), b.getPosition(0));
+      assertEquals(Coordinate.get(0, 1), b.getPosition(1));
+      assertEquals(Coordinate.get(1, 0), b.getPosition(2));
+      assertEquals(Coordinate.get(1, 1), b.getPosition(3));
    }
 
    public void testOffset()

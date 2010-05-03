@@ -56,6 +56,22 @@ public class Clip
       this.to = to;
    }
 
+   public Coordinate getRelative(Coordinate absolute)
+   {
+      if (absolute == null)
+      {
+         throw new NullPointerException();
+      }
+      if (contains(absolute))
+      {
+         return Coordinate.get(absolute.line - from.line, absolute.column);
+      }
+      else
+      {
+         return null;
+      }
+   }
+
    public boolean contains(Coordinate position)
    {
       if (position == null)

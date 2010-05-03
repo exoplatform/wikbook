@@ -21,6 +21,8 @@ package org.wikbook.codesource;
 
 import junit.framework.TestCase;
 
+import java.util.List;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
@@ -45,4 +47,30 @@ public class AnchorTestCase extends TestCase
          "}", ts.getClip());
    }
 
+   public void testAnchorFromType()
+   {
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      TypeSource ts = builder.buildClass(Bar.class.getName());
+      List<Anchor> anchors = ts.getAnchors();
+      assertEquals(3, anchors.size());
+      assertEquals("0", anchors.get(0).getId());
+      assertEquals(Coordinate.get(2, 3), anchors.get(0).getPosition());
+      assertEquals("1", anchors.get(1).getId());
+      assertEquals(Coordinate.get(6, 6), anchors.get(1).getPosition());
+      assertEquals("2", anchors.get(2).getId());
+      assertEquals(Coordinate.get(8, 17), anchors.get(2).getPosition());
+   }
+
+   public void testAnchorFromMethod()
+   {
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      TypeSource ts = builder.buildClass(Bar.class.getName());
+      MethodSource ms = (MethodSource)ts.findMember("foo()");
+      List<Anchor> anchors = ms.getAnchors();
+      assertEquals(2, anchors.size());
+      assertEquals("1", anchors.get(0).getId());
+      assertEquals(Coordinate.get(2, 6), anchors.get(0).getPosition());
+      assertEquals("2", anchors.get(1).getId());
+      assertEquals(Coordinate.get(4, 17), anchors.get(1).getPosition());
+   }
 }
