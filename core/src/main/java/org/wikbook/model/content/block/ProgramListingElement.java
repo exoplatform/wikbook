@@ -19,9 +19,12 @@
 
 package org.wikbook.model.content.block;
 
+import org.wikbook.codesource.Anchor;
 import org.wikbook.codesource.BodySource;
 import org.wikbook.codesource.CodeSourceBuilder;
 import org.wikbook.codesource.TypeSource;
+import org.wikbook.text.Position;
+import org.wikbook.text.TextArea;
 import org.wikbook.xml.ElementEmitter;
 import org.wikbook.xml.OutputFormat;
 import org.wikbook.xml.XML;
@@ -112,21 +115,17 @@ public class ProgramListingElement extends BlockElement
          case JAVA:
 
             //
-            bilto = parse(bilto);
-
-            //
-            programListingXML.content(bilto, true);
+            parse(bilto, programListingXML);
 
             //
             break;
       }
    }
 
-   public static String parse(String s)
+   public static void parse(String s, XMLEmitter elt)
    {
       int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
-      StringBuffer sb = new StringBuffer();
       while (matcher.find())
       {
 
@@ -151,24 +150,39 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         sb.append(s, prev, matcher.start());
+         elt.content(s.substring(prev, matcher.start()), true);
 
          //
          if ("include".equals(matcher.group(1)))
          {
-            sb.append(source.getClip());
+/*
+            TextArea a = new TextArea(source.getClip());
+            for (Anchor anchor : source.getAnchors())
+            {
+               a.insert(anchor.getPosition(), "<co id=\"" + anchor.getId() + "\" linkends=\"condition\"/>");
+            }
+            elt.content(a.getText(), true);
+*/
+            Position previous = Position.get(0, 0);
+            TextArea ta = new TextArea(source.getClip());
+            for (Anchor anchor : source.getAnchors())
+            {
+               elt.content(ta.clip(previous, anchor.getPosition()));
+               elt.element("co").withAttribute("id", anchor.getId()).withAttribute("linkends", "condition");
+               previous = anchor.getPosition();
+            }
+            elt.content(ta.clip(previous));
          }
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
             String javadoc = source.getJavaDoc();
-            sb.append(javadoc);
+            elt.content(javadoc, true);
          }
 
          //
          prev = matcher.end();
 
       }
-      sb.append(s, prev, s.length());
-      return sb.toString();
+      elt.content(s.substring(prev), true);
    }
 }

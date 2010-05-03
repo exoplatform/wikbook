@@ -38,6 +38,30 @@ public class TextArea
       this.s = s;
    }
 
+   public String clip(Position from, Position to)
+   {
+      int _from = offset(from);
+      int _to = offset(to);
+      if (_from > _to)
+      {
+         throw new IllegalArgumentException("Wrong clipping Positions");
+      }
+
+      //
+      Position __to = position(_to);
+      StringBuffer sb = new StringBuffer();
+      sb.append(s.substring(_from, _to));
+
+      // Pad with the necessary
+      for (int c = __to.column; c < to.column;c++)
+      {
+         sb.append(' ');
+      }
+
+      //
+      return sb.toString();
+   }
+
    public TextArea insert(Position position, CharSequence seq)
    {
       int offset = offset(Position.get(position.line, 0));
@@ -96,17 +120,6 @@ public class TextArea
    {
       int _from = offset(from);
       int _to = s.length();
-      if (_from > _to)
-      {
-         throw new IllegalArgumentException("Wrong clipping Positions");
-      }
-      return s.substring(_from, _to);
-   }
-
-   public String clip(Position from, Position to)
-   {
-      int _from = offset(from);
-      int _to = offset(to);
       if (_from > _to)
       {
          throw new IllegalArgumentException("Wrong clipping Positions");

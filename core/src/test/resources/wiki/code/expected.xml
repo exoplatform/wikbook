@@ -15,7 +15,13 @@
    }
 after</programlisting>
     <programlisting>&lt;foo&gt;&lt;/foo&gt;</programlisting>
-    <programlisting>&lt;foo/&gt;
-</programlisting>
+    <programlisting>&lt;foo/&gt;</programlisting>
+    <programlisting>   public void foo()
+   {
+      for (int i = 0;i &lt; 1000;i++)
+      {
+         System.out.println(i); <co id="0" linkends="condition"/>
+      }
+   }</programlisting>
   </preface>
 </book>
