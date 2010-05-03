@@ -20,10 +20,6 @@
 package org.wikbook.codesource;
 
 import org.wikbook.text.Clip;
-import org.wikbook.text.Position;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -58,21 +54,6 @@ public abstract class BodySource
    public final String getJavaDoc()
    {
       return javaDoc;
-   }
-
-   public final List<Anchor> getAnchors()
-   {
-      ArrayList<Anchor> anchors = new ArrayList<Anchor>();
-      TypeSource type = getType();
-      for (Anchor anchor : type.anchors)
-      {
-         Position relative = clip.getRelative(anchor.getPosition());
-         if (relative != null)
-         {
-            anchors.add(new Anchor(anchor.getId(), relative));
-         }
-      }
-      return anchors;
    }
 
    protected abstract TypeSource getType();

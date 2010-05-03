@@ -19,11 +19,9 @@
 
 package org.wikbook.model.content.block;
 
-import org.wikbook.codesource.Anchor;
 import org.wikbook.codesource.BodySource;
 import org.wikbook.codesource.CodeSourceBuilder;
 import org.wikbook.codesource.TypeSource;
-import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
 import org.wikbook.xml.ElementEmitter;
 import org.wikbook.xml.OutputFormat;
@@ -128,7 +126,7 @@ public class ProgramListingElement extends BlockElement
    /** . */
    private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([^>]+)>" + WHITE_NON_CR + "*");
 
-   private static void parse2(String s, XMLEmitter elt)
+   private static void printJavaSource(String s, XMLEmitter elt)
    {
       TextArea ta = new TextArea(s);
 
@@ -143,7 +141,7 @@ public class ProgramListingElement extends BlockElement
       elt.content(ta.clip(ta.position(prev)), true);
    }
 
-   public static void parse(String s, XMLEmitter elt)
+   private static void parse(String s, XMLEmitter elt)
    {
       int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
@@ -163,20 +161,12 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         parse2(s.substring(prev, matcher.start()), elt);
+         printJavaSource(s.substring(prev, matcher.start()), elt);
 
          //
          if ("include".equals(matcher.group(1)))
          {
-            Position previous = Position.get(0, 0);
-            TextArea ta = new TextArea(source.getClip());
-            for (Anchor anchor : source.getAnchors())
-            {
-               elt.content(ta.clip(previous, anchor.getPosition()));
-               elt.element("co").withAttribute("id", anchor.getId()).withAttribute("linkends", anchor.getId());
-               previous = anchor.getPosition();
-            }
-            elt.content(ta.clip(previous));
+            printJavaSource(source.getClip(), elt);
          }
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
@@ -189,6 +179,6 @@ public class ProgramListingElement extends BlockElement
       }
 
       //
-      parse2(s.substring(prev), elt);
+      printJavaSource(s.substring(prev), elt);
    }
 }

@@ -44,10 +44,7 @@ public class TypeSource extends BodySource
    /** . */
    private final LinkedHashMap<String, FieldSource> fields;
 
-   /** . */
-   final List<Anchor> anchors;
-
-   TypeSource(TextArea source, String name, Clip clip, String javaDoc, List<Anchor> anchors)
+   TypeSource(TextArea source, String name, Clip clip, String javaDoc)
    {
       super(clip, javaDoc);
 
@@ -56,7 +53,6 @@ public class TypeSource extends BodySource
       this.name = name;
       this.methods = new LinkedHashMap<MemberKey, MethodSource>();
       this.fields = new LinkedHashMap<String, FieldSource>();
-      this.anchors = anchors;
    }
 
    void addMethod(MethodSource method)

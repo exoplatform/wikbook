@@ -21,9 +21,7 @@ package org.wikbook.codesource;
 
 import japa.parser.JavaParser;
 import japa.parser.ParseException;
-import japa.parser.ast.Comment;
 import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.LineComment;
 import japa.parser.ast.Node;
 import japa.parser.ast.PackageDeclaration;
 import japa.parser.ast.body.BodyDeclaration;
@@ -54,8 +52,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.TreeMap;
-import java.util.regex.Matcher;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -89,116 +85,17 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       private String source;
 
       /** . */
-      private final List<Anchor> anchors = new LinkedList<Anchor>();
-
-      /** . */
       private final TextArea sb;
-
-      /** . */
-      private final String finalSource;
-
-      private static class InternalAnchor
-      {
-
-         /** . */
-         private final String id;
-
-         /** . */
-         private final int from;
-
-         /** . */
-         private final int to;
-
-         private InternalAnchor(String id, int from, int to)
-         {
-            this.id = id;
-            this.from = from;
-            this.to = to;
-         }
-      }
 
       private Visit(String source) throws ParseException
       {
          // Build the initial unit
          CompilationUnit unit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
 
-         // Compute the number of lines
-         int height = 0;
-         for (int pos = 0;pos != -1; pos = source.indexOf(pos, '\n'))
-         {
-            height++;
-         }
-
-         // Handle all single line comment matching an anchor
-         // Build a sorted map
-         TreeMap<Integer, InternalAnchor> anchors = new TreeMap<Integer, InternalAnchor>();
-         TextArea clipper = new TextArea(source);
-         for (Comment comment : unit.getComments())
-         {
-            if (comment instanceof LineComment)
-            {
-               String c = comment.getContent();
-               Matcher matcher = Anchor.LINE_COMMENT.matcher(c);
-               if (matcher.matches())
-               {
-                  Position anchorStart = Position.get(comment.getBeginLine() - 1, comment.getBeginColumn() - 1);
-                  Position anchorEnd = Position.get(comment.getEndLine() - 1, comment.getEndColumn() - 1);
-                  int from = clipper.offset(anchorStart);
-                  int to = clipper.offset(anchorEnd);
-                  anchors.put(from, new InternalAnchor(matcher.group(1), from, to));
-               }
-            }
-         }
-
-         // Rebuild the source code
-         LinkedList<Clip> clips = new LinkedList<Clip>();
-         Position previous = Position.get(0, 0);
-         for (InternalAnchor anchor : anchors.values())
-         {
-            //
-            Position foo = clipper.position(anchor.from);
-
-            // Build the clipping coordinate
-            String aaaa = clipper.clip(Position.get(foo.getLine(), 0), foo);
-            int column = foo.getColumn();
-            for (int i = aaaa.length() - 1;i >= 0;i--)
-            {
-               if (aaaa.charAt(i) != ' ')
-               {
-                  break;
-               }
-               column = i;
-            }
-
-            //
-            Position a = Position.get(foo.getLine(), column);
-
-            //
-            clips.addLast(Clip.get(previous, a));
-
-            // THIS IS NOT GREAT BUT IT IS OK FOR NOW
-            previous = Position.get(foo.getLine(), 100000);
-         }
-         clips.addLast(Clip.get(previous, clipper.length()));
-
-         // Build the final string
-         StringBuilder builder = new StringBuilder();
-         for (Clip clip : clips)
-         {
-            builder.append(clipper.clip(clip));
-         }
-
-         //
-         for (InternalAnchor ia : anchors.values())
-         {
-            this.anchors.add(new Anchor(ia.id, clipper.position(ia.from)));
-         }
-
          //
          this.compilationUnit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
          this.source = source;
          this.sb = new TextArea(source);
-         this.finalSource = builder.toString();
       }
 
       private String clip(Node node)
@@ -335,22 +232,11 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       Clip typeClip = Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn());
 
       //
-      LinkedList<Anchor> anchors = new LinkedList<Anchor>();
-      for (Anchor anchor : v.anchors)
-      {
-         if (typeClip.contains(anchor.getPosition()))
-         {
-            anchors.add(anchor);
-         }
-      }
-
-      //
       TypeSource typeSource = new TypeSource(
-         new TextArea(v.finalSource),
+         new TextArea(v.source),
          fqn,
          typeClip,
-         v.javaDoc(n),
-         anchors);
+         v.javaDoc(n));
 
       //
       for (BodySource bodySource : blah)

@@ -23,5 +23,9 @@ after</programlisting>
          System.out.println(i); <co id="0" linkends="0"/>
       }
    }</programlisting>
+    <programlisting>a
+<co id="0" linkends="0"/>
+b <co id="1" linkends="1"/>
+    </programlisting>
   </preface>
 </book>
