@@ -19,6 +19,8 @@
 
 package org.wikbook.codesource;
 
+import org.wikbook.text.Clip;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$

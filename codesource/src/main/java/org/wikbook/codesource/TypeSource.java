@@ -19,6 +19,9 @@
 
 package org.wikbook.codesource;
 
+import org.wikbook.text.Clip;
+import org.wikbook.text.TextArea;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 
@@ -30,7 +33,7 @@ public class TypeSource extends BodySource
 {
 
    /** . */
-   final StringClipper source;
+   final TextArea source;
 
    /** . */
    private final String name;
@@ -44,7 +47,7 @@ public class TypeSource extends BodySource
    /** . */
    final List<Anchor> anchors;
 
-   TypeSource(StringClipper source, String name, Clip clip, String javaDoc, List<Anchor> anchors)
+   TypeSource(TextArea source, String name, Clip clip, String javaDoc, List<Anchor> anchors)
    {
       super(clip, javaDoc);
 

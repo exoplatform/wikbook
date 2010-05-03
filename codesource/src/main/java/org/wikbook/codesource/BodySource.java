@@ -19,8 +19,10 @@
 
 package org.wikbook.codesource;
 
+import org.wikbook.text.Clip;
+import org.wikbook.text.Position;
+
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -64,7 +66,7 @@ public abstract class BodySource
       TypeSource type = getType();
       for (Anchor anchor : type.anchors)
       {
-         Coordinate relative = clip.getRelative(anchor.getPosition());
+         Position relative = clip.getRelative(anchor.getPosition());
          if (relative != null)
          {
             anchors.add(new Anchor(anchor.getId(), relative));

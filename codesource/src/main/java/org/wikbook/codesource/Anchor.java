@@ -19,6 +19,8 @@
 
 package org.wikbook.codesource;
 
+import org.wikbook.text.Position;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
@@ -30,9 +32,9 @@ public class Anchor
    private final String id;
 
    /** . */
-   private final Coordinate position;
+   private final Position position;
 
-   public Anchor(String id, Coordinate position)
+   public Anchor(String id, Position position)
    {
       if (id == null)
       {
@@ -53,7 +55,7 @@ public class Anchor
       return id;
    }
 
-   public Coordinate getPosition()
+   public Position getPosition()
    {
       return position;
    }

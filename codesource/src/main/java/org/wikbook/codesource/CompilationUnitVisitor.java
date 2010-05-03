@@ -42,6 +42,9 @@ import org.cojen.classfile.ClassFile;
 import org.cojen.classfile.MethodDesc;
 import org.cojen.classfile.MethodInfo;
 import org.cojen.classfile.TypeDesc;
+import org.wikbook.text.Clip;
+import org.wikbook.text.Position;
+import org.wikbook.text.TextArea;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -93,7 +96,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       private final List<Anchor> anchors = new LinkedList<Anchor>();
 
       /** . */
-      private final StringClipper sb;
+      private final TextArea sb;
 
       /** . */
       private final String finalSource;
@@ -133,7 +136,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          // Handle all single line comment matching an anchor
          // Build a sorted map
          TreeMap<Integer, InternalAnchor> anchors = new TreeMap<Integer, InternalAnchor>();
-         StringClipper clipper = new StringClipper(source);
+         TextArea clipper = new TextArea(source);
          for (Comment comment : unit.getComments())
          {
             if (comment instanceof LineComment)
@@ -142,10 +145,10 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
                Matcher matcher = CALL_OUT.matcher(c);
                if (matcher.matches())
                {
-                  Coordinate anchorStart = Coordinate.get(comment.getBeginLine() - 1, comment.getBeginColumn() - 1);
-                  Coordinate anchorEnd = Coordinate.get(comment.getEndLine() - 1, comment.getEndColumn() - 1);
-                  int from = clipper.getOffset(anchorStart);
-                  int to = clipper.getOffset(anchorEnd);
+                  Position anchorStart = Position.get(comment.getBeginLine() - 1, comment.getBeginColumn() - 1);
+                  Position anchorEnd = Position.get(comment.getEndLine() - 1, comment.getEndColumn() - 1);
+                  int from = clipper.offset(anchorStart);
+                  int to = clipper.offset(anchorEnd);
                   anchors.put(from, new InternalAnchor(matcher.group(1), from, to));
                }
             }
@@ -153,15 +156,15 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
 
          // Rebuild the source code
          LinkedList<Clip> clips = new LinkedList<Clip>();
-         Coordinate previous = Coordinate.get(0, 0);
+         Position previous = Position.get(0, 0);
          for (InternalAnchor anchor : anchors.values())
          {
             //
-            Coordinate foo = clipper.getPosition(anchor.from);
+            Position foo = clipper.position(anchor.from);
 
             // Build the clipping coordinate
-            String aaaa = clipper.clip(Coordinate.get(foo.line, 0), foo);
-            int column = foo.column;
+            String aaaa = clipper.clip(Position.get(foo.getLine(), 0), foo);
+            int column = foo.getColumn();
             for (int i = aaaa.length() - 1;i >= 0;i--)
             {
                if (aaaa.charAt(i) != ' ')
@@ -172,15 +175,15 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
             }
 
             //
-            Coordinate a = Coordinate.get(foo.line, column);
+            Position a = Position.get(foo.getLine(), column);
 
             //
             clips.addLast(Clip.get(previous, a));
 
             // THIS IS NOT GREAT BUT IT IS OK FOR NOW
-            previous = Coordinate.get(foo.line, 100000);
+            previous = Position.get(foo.getLine(), 100000);
          }
-         clips.addLast(Clip.get(previous, clipper.getLength()));
+         clips.addLast(Clip.get(previous, clipper.length()));
 
          // Build the final string
          StringBuilder builder = new StringBuilder();
@@ -192,21 +195,21 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          //
          for (InternalAnchor ia : anchors.values())
          {
-            this.anchors.add(new Anchor(ia.id, clipper.getPosition(ia.from)));
+            this.anchors.add(new Anchor(ia.id, clipper.position(ia.from)));
          }
 
          //
          this.compilationUnit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
          this.source = source;
-         this.sb = new StringClipper(source);
+         this.sb = new TextArea(source);
          this.finalSource = builder.toString();
       }
 
       private String clip(Node node)
       {
          // Get offset of the fragment
-         int from = sb.getOffset(Coordinate.get(node.getBeginLine() - 1, 0));
-         int to = sb.getOffset(Coordinate.get(node.getEndLine() - 1, node.getEndColumn()));
+         int from = sb.offset(Position.get(node.getBeginLine() - 1, 0));
+         int to = sb.offset(Position.get(node.getEndLine() - 1, node.getEndColumn()));
 
          // Get relevant chars
          return source.substring(from, to);
@@ -347,7 +350,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
 
       //
       TypeSource typeSource = new TypeSource(
-         new StringClipper(v.finalSource),
+         new TextArea(v.finalSource),
          fqn,
          typeClip,
          v.javaDoc(n),
