@@ -168,7 +168,7 @@ public class ProgramListingElement extends BlockElement
             for (Anchor anchor : source.getAnchors())
             {
                elt.content(ta.clip(previous, anchor.getPosition()));
-               elt.element("co").withAttribute("id", anchor.getId()).withAttribute("linkends", "condition");
+               elt.element("co").withAttribute("id", anchor.getId()).withAttribute("linkends", anchor.getId());
                previous = anchor.getPosition();
             }
             elt.content(ta.clip(previous));
