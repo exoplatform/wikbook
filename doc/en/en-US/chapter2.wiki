@@ -283,13 +283,6 @@ are available that makes it very powerful
 
 The //screen// macro creates a docbook screen XML element to display anything related to the computer screen:
 
-{{code language=java}}
-public void foo()
-{
-   System.out.println("This is going to the output"); // <1> Prints a line of text
-}
-{{/code}}
-
 (% title="A screen example" %)
 |((({{code}}{{screen}}
 julien:core julien$ ls -l
@@ -307,6 +300,23 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 15:08 src
 drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
 -rw-r--r--  1 julien  staff  4090 Apr 26 15:09 wikbook.core.iml
 {{/screen}})))
+
+==== Callouts ====
+
+Callouts are useful for creating a set of references that refers to a block of code. At the moment they are only
+available for Java^^tm^^ language. A callout is declared inside a code block using comments in special format.
+
+(% title="Code with a callout list" %)
+|((({{code}}{{code language=java}}public void foo()
+{
+   System.out.println("This is going to the output"); // <1> A callout
+}
+{{/code}}{{/code}})))
+|((({{code language=java}}public void foo()
+{
+   System.out.println("This is going to the output"); // <1> A callout
+}
+{{/code}})))
 
 == Definition list ==
 
