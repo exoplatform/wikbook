@@ -40,7 +40,12 @@ public class XML
 
    public static String serialize(Document document) throws TransformerException
    {
-      Transformer transformer = createTransformer(new OutputFormat(2, true));
+      return serialize(document, new OutputFormat(2, true));
+   }
+
+   public static String serialize(Document document, OutputFormat format) throws TransformerException
+   {
+      Transformer transformer = createTransformer(format);
       StringWriter writer = new StringWriter();
       StreamResult result = new StreamResult(writer);
       transformer.transform(new DOMSource(document), result);

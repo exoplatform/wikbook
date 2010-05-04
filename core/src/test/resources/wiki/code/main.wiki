@@ -15,3 +15,11 @@ a
 // <0>
 b // <1> a call out
 {{/code}}
+
+
+{{code language=java}}
+public void foo()
+{
+   System.out.println("This is going to the output"); // <1> Prints a line of text
+}
+{{/code}}

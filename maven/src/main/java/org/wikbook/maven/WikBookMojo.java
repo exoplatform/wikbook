@@ -27,15 +27,20 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
+import org.w3c.dom.Document;
 import org.wikbook.Person;
 import org.wikbook.ResourceType;
 import org.wikbook.WikletContext;
 import org.wikbook.WikletConverter;
+import org.wikbook.xml.OutputFormat;
+import org.wikbook.xml.XML;
 
+import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamResult;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -206,24 +211,45 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       File destination = new File(destinationDirectory, destinationFileName);
 
       //
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
+      DOMResult dom = new DOMResult();
 
       //
-      converter.convert(sourceFileName, result);
+      converter.convert(sourceFileName, dom);
 
       //
+      Document document = (Document)dom.getNode();
+
+      //
+      FileWriter out = null;
       try
       {
-         FileOutputStream out = new FileOutputStream(destination);
-         out.write(baos.toByteArray());
+         String expectedXML = XML.serialize(document, new OutputFormat(null, false,
+            "-//OASIS//DTD DocBook XML V4.5//EN",
+            "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
+            ));
+         out = new FileWriter(destination);
+         out.write(expectedXML);
          out.close();
       }
-      catch (IOException e)
+      catch (Exception e)
       {
          MojoFailureException mfe = new MojoFailureException("Could not create destination file");
          mfe.initCause(e);
          throw mfe;
+      }
+      finally
+      {
+         if (out != null)
+         {
+            try
+            {
+               out.close();
+            }
+            catch (IOException e)
+            {
+               e.printStackTrace();
+            }
+         }
       }
    }
 
