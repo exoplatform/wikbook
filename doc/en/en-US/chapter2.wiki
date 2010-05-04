@@ -306,7 +306,7 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
 Callouts are useful for creating a set of references that refers to a block of code. At the moment they are only
 available for Java^^tm^^ language. A callout is declared inside a code block using comments in special format.
 
-(% title="Code with a callout list" %)
+(% title="A simple callout" %)
 |((({{code}}{{code language=java}}public void foo()
 {
    System.out.println("This is going to the output"); // <1> A callout
@@ -316,6 +316,27 @@ available for Java^^tm^^ language. A callout is declared inside a code block usi
 {
    System.out.println("This is going to the output"); // <1> A callout
 }
+{{/code}})))
+
+Callout anchor don't have to be mixed with the related text, a simple declaration without any text will just
+create an anchor. Somewhere else in the code base, the callout text can be declared by adding an equals sign
+between the right angle bracket and the text. As a consequence, several lines can be referenced with the
+same callout.
+
+(% title="A callout anchor and its text" %)
+|((({{code}}{{code language=java}}public void foo()
+{
+   int a = 0; // <1>
+   int b = 0; // <1>
+}
+// <1> = An assignment
+{{/code}}{{/code}})))
+|((({{code language=java}}public void foo()
+{
+   int a = 0; // <1>
+   int b = 0; // <1>
+}
+// <1> = An assignment
 {{/code}})))
 
 == Definition list ==

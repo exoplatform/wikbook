@@ -33,9 +33,13 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -50,7 +54,7 @@ public class ProgramListingElement extends BlockElement
    private static final String WHITE_NON_CR = "[ \t\\x0B\f\r]";
 
    /** . */
-   private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([^>]*)>" + "([^\n]*)");
+   private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([0-9]+)>" + WHITE_NON_CR + "*(=)?([^\n]*)");
 
    /** . */
    private static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
@@ -74,22 +78,6 @@ public class ProgramListingElement extends BlockElement
       this.language = language;
       this.indent = indent;
       this.content = content;
-   }
-
-   private static class Callout
-   {
-
-      /** . */
-      private final String id;
-
-      /** . */
-      private final String text;
-
-      private Callout(String id, String text)
-      {
-         this.id = id;
-         this.text = text;
-      }
    }
 
    @Override
@@ -142,16 +130,31 @@ public class ProgramListingElement extends BlockElement
             break;
          case JAVA:
 
+            // TreeMap will sort by callout id
+            TreeMap<String, Callout> callouts = new TreeMap<String, Callout>();
+
             //
-            List<Callout> callouts = parse(bilto, programListingXML);
+            parse(bilto, programListingXML, callouts);
 
             //
             if (callouts.size() > 0)
             {
                ElementEmitter calloutListXML = programListingCoXML.element("calloutlist");
-               for (Callout callout : callouts)
+               for (Map.Entry<String, Callout> callout : callouts.entrySet())
                {
-                  calloutListXML.element("callout").withAttribute("arearefs", callout.id).element("para").content(callout.text, true);
+                  if (callout.getValue().text != null)
+                  {
+                     StringBuffer sb = new StringBuffer();
+                     for (String coId : callout.getValue().ids)
+                     {
+                        if (sb.length() > 0)
+                        {
+                           sb.append(" ");
+                        }
+                        sb.append(coId);
+                     }
+                     calloutListXML.element("callout").withAttribute("arearefs", sb.toString()).element("para").content(callout.getValue().text, true);
+                  }
                }
             }
 
@@ -160,40 +163,51 @@ public class ProgramListingElement extends BlockElement
       }
    }
 
-   private static List<Callout> printJavaSource(String s, XMLEmitter programListingElt)
+   private void printJavaSource(String s, XMLEmitter programListingElt, Map<String, Callout> callouts)
    {
-      List<Callout> callouts = new LinkedList<Callout>();
       TextArea ta = new TextArea(s);
+      Random random = new Random();
 
       Matcher matcher = LINE_COMMENT.matcher(s);
       int prev = 0;
       while (matcher.find())
       {
-         String id = "" + random.nextLong(); // For now OK
+         String id = matcher.group(1);
 
          //
          programListingElt.content(ta.clip(ta.position(prev), ta.position(matcher.start())), true);
-         programListingElt.element("co").withAttribute("id", id);
-         prev = matcher.end();
+
+         //
+         Callout callout = callouts.get(id);
+         if (callout == null)
+         {
+            callout = new Callout();
+            callouts.put(id, callout);
+         }
+
+         //
+         if (!"=".equals(matcher.group(2)))
+         {
+            String coId = "" + Math.abs(random.nextLong());
+            callout.ids.add(coId);
+            programListingElt.element("co").withAttribute("id", coId);
+         }
 
          // Determine if we have callout text associated
-         String text = matcher.group(2);
+         String text = matcher.group(3);
          if (!text.matches("\\s*"))
          {
-            callouts.add(new Callout(id, text.trim()));
+            callout.text = text.trim();
          }
+
+         // Iterate to next
+         prev = matcher.end();
       }
       programListingElt.content(ta.clip(ta.position(prev)), true);
-
-      //
-      return callouts;
    }
 
-   private static List<Callout> parse(String s, XMLEmitter programListingElt)
+   private void parse(String s, XMLEmitter programListingElt, Map<String, Callout> callouts)
    {
-      LinkedList<Callout> callouts = new LinkedList<Callout>();
-
-      //
       int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
       while (matcher.find())
@@ -212,12 +226,12 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         callouts.addAll(printJavaSource(s.substring(prev, matcher.start()), programListingElt));
+         printJavaSource(s.substring(prev, matcher.start()), programListingElt, callouts);
 
          //
          if ("include".equals(matcher.group(1)))
          {
-            callouts.addAll(printJavaSource(source.getClip(), programListingElt));
+            printJavaSource(source.getClip(), programListingElt, callouts);
          }
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
@@ -230,9 +244,18 @@ public class ProgramListingElement extends BlockElement
       }
 
       //
-      callouts.addAll(printJavaSource(s.substring(prev), programListingElt));
-
-      //
-      return callouts;
+      printJavaSource(s.substring(prev), programListingElt, callouts);
    }
+
+   private static class Callout
+   {
+
+      /** . */
+      private String text;
+
+      /** . */
+      private final LinkedList<String> ids = new LinkedList<String>();
+
+   }
+
 }

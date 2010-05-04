@@ -12,11 +12,10 @@ after
 {{/code}}
 {{code language=java}}
 a
-// <0>
-b // <1> a call out
+// <1>
+b // <0> a call out
+// <1> = a second callout
 {{/code}}
-
-
 {{code language=java}}
 public void foo()
 {
