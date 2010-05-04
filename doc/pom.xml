@@ -96,7 +96,8 @@
                    <formats>
                        <format>
                            <formatName>pdf</formatName>
-                           <stylesheetResource>classpath://fo/docbook.xsl</stylesheetResource>
+                           <!--<stylesheetResource>classpath://fo/docbook.xsl</stylesheetResource>-->
+                           <stylesheetResource>file:${project.build.directory}/classes/pdf.xsl</stylesheetResource>
                            <finalName>book.pdf</finalName>
                        </format>
                        <format>
