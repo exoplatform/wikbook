@@ -33,6 +33,31 @@
             </configuration>
           </plugin>
 
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unpack</id>
+                <phase>generate-resources</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>net.sf.docbook</groupId>
+                      <artifactId>docbook</artifactId>
+                      <version>1.74.0</version>
+                      <outputDirectory>${project.build.directory}/docbook/staging/images</outputDirectory>
+                      <includes>images/**/*</includes>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
            <plugin>
                <groupId>org.jboss.maven.plugins</groupId>
                <artifactId>maven-jdocbook-plugin</artifactId>

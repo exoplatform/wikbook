@@ -33,6 +33,9 @@ import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -43,9 +46,19 @@ import java.util.regex.Pattern;
 public class ProgramListingElement extends BlockElement
 {
 
+   /** . */
+   private static final String WHITE_NON_CR = "[ \t\\x0B\f\r]";
+
+   /** . */
+   private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([^>]*)>" + "([^\n]*)");
+
+   /** . */
    private static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
       "\\{" + "@(include|javadoc)\\s+([^\\s]+)" + "\\s*\\}"
    );
+
+   /** . */
+   private static final Random random = new Random();
 
    /** . */
    private final String language;
@@ -63,10 +76,27 @@ public class ProgramListingElement extends BlockElement
       this.content = content;
    }
 
+   private static class Callout
+   {
+
+      /** . */
+      private final String id;
+
+      /** . */
+      private final String text;
+
+      private Callout(String id, String text)
+      {
+         this.id = id;
+         this.text = text;
+      }
+   }
+
    @Override
    public void writeTo(XMLEmitter xml)
    {
-      ElementEmitter programListingXML = xml.element("programlisting");
+      ElementEmitter programListingCoXML = xml.element("programlistingco");
+      ElementEmitter programListingXML = programListingCoXML.element("programlisting");
       CodeLanguage codeLanguage = CodeLanguage.UNKNOWN;
       if (language != null)
       {
@@ -113,36 +143,57 @@ public class ProgramListingElement extends BlockElement
          case JAVA:
 
             //
-            parse(bilto, programListingXML);
+            List<Callout> callouts = parse(bilto, programListingXML);
+
+            //
+            if (callouts.size() > 0)
+            {
+               ElementEmitter calloutListXML = programListingCoXML.element("calloutlist");
+               for (Callout callout : callouts)
+               {
+                  calloutListXML.element("callout").withAttribute("arearefs", callout.id).element("para").content(callout.text, true);
+               }
+            }
 
             //
             break;
       }
    }
 
-   /** . */
-   private static final String WHITE_NON_CR = "[ \t\\x0B\f\r]";
-
-   /** . */
-   private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([^>]+)>" + WHITE_NON_CR + "*");
-
-   private static void printJavaSource(String s, XMLEmitter elt)
+   private static List<Callout> printJavaSource(String s, XMLEmitter programListingElt)
    {
+      List<Callout> callouts = new LinkedList<Callout>();
       TextArea ta = new TextArea(s);
 
       Matcher matcher = LINE_COMMENT.matcher(s);
       int prev = 0;
       while (matcher.find())
       {
-         elt.content(ta.clip(ta.position(prev), ta.position(matcher.start())), true);
-         elt.element("co").withAttribute("id", matcher.group(1)).withAttribute("linkends", matcher.group(1));
+         String id = "" + random.nextLong(); // For now OK
+
+         //
+         programListingElt.content(ta.clip(ta.position(prev), ta.position(matcher.start())), true);
+         programListingElt.element("co").withAttribute("id", id);
          prev = matcher.end();
+
+         // Determine if we have callout text associated
+         String text = matcher.group(2);
+         if (!text.matches("\\s*"))
+         {
+            callouts.add(new Callout(id, text.trim()));
+         }
       }
-      elt.content(ta.clip(ta.position(prev)), true);
+      programListingElt.content(ta.clip(ta.position(prev)), true);
+
+      //
+      return callouts;
    }
 
-   private static void parse(String s, XMLEmitter elt)
+   private static List<Callout> parse(String s, XMLEmitter programListingElt)
    {
+      LinkedList<Callout> callouts = new LinkedList<Callout>();
+
+      //
       int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
       while (matcher.find())
@@ -161,17 +212,17 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         printJavaSource(s.substring(prev, matcher.start()), elt);
+         callouts.addAll(printJavaSource(s.substring(prev, matcher.start()), programListingElt));
 
          //
          if ("include".equals(matcher.group(1)))
          {
-            printJavaSource(source.getClip(), elt);
+            callouts.addAll(printJavaSource(source.getClip(), programListingElt));
          }
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
             String javadoc = source.getJavaDoc();
-            elt.content(javadoc, true);
+            programListingElt.content(javadoc, true);
          }
 
          //
@@ -179,6 +230,9 @@ public class ProgramListingElement extends BlockElement
       }
 
       //
-      printJavaSource(s.substring(prev), elt);
+      callouts.addAll(printJavaSource(s.substring(prev), programListingElt));
+
+      //
+      return callouts;
    }
 }

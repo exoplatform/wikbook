@@ -283,6 +283,13 @@ are available that makes it very powerful
 
 The //screen// macro creates a docbook screen XML element to display anything related to the computer screen:
 
+{{code language=java}}
+public void foo()
+{
+   System.out.println("This is going to the output"); // <1> Prints a line of text
+}
+{{/code}}
+
 (% title="A screen example" %)
 |((({{code}}{{screen}}
 julien:core julien$ ls -l
