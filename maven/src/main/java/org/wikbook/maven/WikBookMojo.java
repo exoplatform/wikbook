@@ -19,8 +19,6 @@
 
 package org.wikbook.maven;
 
-import org.apache.maven.artifact.Artifact;
-import org.apache.maven.artifact.DependencyResolutionRequiredException;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Developer;
 import org.apache.maven.plugin.AbstractMojo;
@@ -46,6 +44,7 @@ import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
 
@@ -101,14 +100,50 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
     * @required
     * @readonly
     */
-   protected MavenSession session;
+   private MavenSession session;
 
    /**
     * @parameter expression="${plugin.artifacts}"
     * @required
     * @readonly
     */
-   protected List pluginArtifacts;
+   private List pluginArtifacts;
+
+   /**
+    * The source directories containing the sources to be compiled.
+    *
+    * @parameter default-value="${project.compileSourceRoots}"
+    * @required
+    * @readonly
+    */
+   private List<String> compileSourceRoots;
+
+   /**
+    * Project classpath.
+    *
+    * @parameter default-value="${project.compileClasspathElements}"
+    * @required
+    * @readonly
+    */
+   private List<String> compileClasspathElements;
+
+   /**
+    * The source directories containing the sources to be compiled.
+    *
+    * @parameter default-value="${project.testCompileSourceRoots}"
+    * @required
+    * @readonly
+    */
+   private List<String> testCompileSourceRoots;
+
+   /**
+    * Project classpath.
+    *
+    * @parameter default-value="${project.testClasspathElements}"
+    * @required
+    * @readonly
+    */
+   private List<String> testClasspathElements;
 
    public File getSourceDirectory()
    {
@@ -292,32 +327,39 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
             }
             break;
          case JAVA:
-            List<URL> urls = new ArrayList<URL>();
-            for (Artifact artifact : (List<Artifact>)pluginArtifacts){
-               urls.add(artifact.getFile().toURI().toURL());
+/*
+            List<Artifact> artifacts = new ArrayList<Artifact>();
+            for (Artifact artifact : (List<Artifact>)session.getCurrentProject().getCompileArtifacts()){
+               artifacts.add(artifact);
             }
+            for (Artifact artifact : (List<Artifact>)session.getCurrentProject().getTestArtifacts()){
+               artifacts.add(artifact);
+            }
+*/
 
             //
-            try
-            {
-               List<?> dirs = new ArrayList();
-               dirs.addAll(session.getCurrentProject().getCompileSourceRoots());
-               dirs.addAll(session.getCurrentProject().getTestCompileSourceRoots());
-               dirs.addAll(session.getCurrentProject().getCompileClasspathElements());
-
-               //
-               for (String elt : (List<String>)dirs)
-               {
-                  File eltFile = new File(elt);
-                  if (eltFile.exists() && eltFile.isDirectory())
-                  {
-                     urls.add(eltFile.toURI().toURL());
-                  }
-               }
+            LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
+/*
+            for (Artifact artifact : artifacts){
+               urls.add(artifact.getFile().toURI().toURL());
             }
-            catch (DependencyResolutionRequiredException e)
+*/
+
+            //
+            List<String> dirs = new ArrayList<String>();
+            dirs.addAll(compileSourceRoots);
+            dirs.addAll(compileClasspathElements);
+            dirs.addAll(testCompileSourceRoots);
+            dirs.addAll(testClasspathElements);
+
+            //
+            for (String elt : dirs)
             {
-               e.printStackTrace();
+               File eltFile = new File(elt);
+               if (eltFile.exists())
+               {
+                  urls.add(eltFile.toURI().toURL());
+               }
             }
 
             //

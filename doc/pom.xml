@@ -12,6 +12,14 @@
 
   <name>Wikbook documentation</name>
 
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>3.7</version>
+    </dependency>
+  </dependencies>
+
   <build>
        <plugins>
           <plugin>
