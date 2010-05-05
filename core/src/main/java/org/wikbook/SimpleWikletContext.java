@@ -102,17 +102,15 @@ public class SimpleWikletContext implements WikletContext
       File resolved;
       switch (type)
       {
-         case WIKI_SOURCE:
+         case WIKI:
             resolved = new File(base, id);
             if (resolved != null && resolved.isFile())
             {
                return Arrays.asList(resolved.toURI().toURL());
             }
             break;
-         case JAVA_SOURCE:
-            throw new UnsupportedOperationException();
-         case CATALOG:
-            Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources("catalog.ser");
+         case JAVA:
+            Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(id);
             List<URL> streams = new ArrayList<URL>();
             while (urls.hasMoreElements())
             {

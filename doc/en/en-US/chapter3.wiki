@@ -21,6 +21,10 @@ jar file itself.
 {{/code}}
 {{/example}}
 
+{{code language=java}}
+{@include org.wikbook.doc.AnObject}
+{{/code}}
+
 A code catalog is created from annotated Java^^tm^^ code when it is annotated with the {{code}}@org.wikbook.apt.annotation.Documented{{/code}}
 annotation. The annotation can target:
 

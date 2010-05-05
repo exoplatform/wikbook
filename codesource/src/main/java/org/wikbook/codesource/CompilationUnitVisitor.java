@@ -89,10 +89,6 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
 
       private Visit(String source) throws ParseException
       {
-         // Build the initial unit
-         CompilationUnit unit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
-
-         //
          this.compilationUnit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
          this.source = source;
          this.sb = new TextArea(source);
@@ -120,10 +116,18 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
    }
 
+
+   /** . */
+   private final CodeSourceBuilder builder;
+
+   CompilationUnitVisitor(CodeSourceBuilder builder)
+   {
+      this.builder = builder;
+   }
+
    Visit visit(String compilationUnitPath) throws IOException, ParseException, CodeSourceException
    {
-      ClassLoader cl = Thread.currentThread().getContextClassLoader();
-      InputStream cuis = cl.getResourceAsStream(compilationUnitPath);
+      InputStream cuis = builder.context.getResource(compilationUnitPath);
 
       //
       if (cuis == null)
@@ -176,7 +180,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       String fqn = (v.pkg.length() == 0 ? "" : (v.pkg + ".")) + n.getName();
 
       //
-      InputStream in = Thread.currentThread().getContextClassLoader().getResourceAsStream(fqn.replace(".", "/") + ".class");
+      InputStream in = builder.context.getResource(fqn.replace(".", "/") + ".class");
       if (in == null)
       {
          throw new CodeSourceException("Cannot locate class file for fqn " + fqn);   

@@ -177,7 +177,7 @@ public class WikiLoader
     */
    private Reader _load(String id) throws IOException
    {
-      URL main = context.resolveResource(ResourceType.WIKI_SOURCE, id);
+      URL main = context.resolveResource(ResourceType.WIKI, id);
       return Utils.read(main);
    }
 

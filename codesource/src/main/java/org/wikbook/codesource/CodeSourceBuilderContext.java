@@ -17,15 +17,17 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook;
+package org.wikbook.codesource;
+
+import java.io.InputStream;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public enum ResourceType
+public interface CodeSourceBuilderContext
 {
 
-   WIKI, JAVA
+   InputStream getResource(String path); 
 
 }

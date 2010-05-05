@@ -19,8 +19,11 @@
 
 package org.wikbook.model.content.block;
 
+import org.wikbook.ResourceType;
+import org.wikbook.WikletContext;
 import org.wikbook.codesource.BodySource;
 import org.wikbook.codesource.CodeSourceBuilder;
+import org.wikbook.codesource.CodeSourceBuilderContext;
 import org.wikbook.codesource.TypeSource;
 import org.wikbook.text.TextArea;
 import org.wikbook.xml.ElementEmitter;
@@ -31,10 +34,11 @@ import org.wikbook.xml.XMLEmitter;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
+import java.net.URL;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -73,8 +77,12 @@ public class ProgramListingElement extends BlockElement
    /** . */
    private final String content;
 
-   public ProgramListingElement(String language, Integer indent, String content)
+   /** . */
+   private final WikletContext context;
+
+   public ProgramListingElement(WikletContext context, String language, Integer indent, String content)
    {
+      this.context = context;
       this.language = language;
       this.indent = indent;
       this.content = content;
@@ -213,7 +221,25 @@ public class ProgramListingElement extends BlockElement
       while (matcher.find())
       {
          JavaCodeLink l = JavaCodeLink.parse(matcher.group(2));
-         CodeSourceBuilder builder = new CodeSourceBuilder();
+         CodeSourceBuilder builder = new CodeSourceBuilder(new CodeSourceBuilderContext()
+         {
+            public InputStream getResource(String path)
+            {
+               try
+               {
+                  List<URL> list = context.resolveResources(ResourceType.JAVA, path);
+                  if (list.size() > 0)
+                  {
+                     return list.get(0).openStream();
+                  }
+               }
+               catch (IOException e)
+               {
+                  e.printStackTrace();
+               }
+               return null;
+            }
+         });
          TypeSource typeSource = builder.buildClass(l.getFQN());
          BodySource source;
          if (l.getMember() != null)

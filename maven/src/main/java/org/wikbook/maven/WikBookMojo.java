@@ -36,10 +36,7 @@ import org.wikbook.xml.OutputFormat;
 import org.wikbook.xml.XML;
 
 import javax.xml.transform.dom.DOMResult;
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
@@ -287,14 +284,14 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
    {
       switch (type)
       {
-         case WIKI_SOURCE:
+         case WIKI:
             File f = new File(sourceDirectory, id);
             if (f.exists() && f.isFile())
             {
                return Arrays.asList(f.toURI().toURL());
             }
             break;
-         case CATALOG:
+         case JAVA:
             List<URL> urls = new ArrayList<URL>();
             for (Artifact artifact : (List<Artifact>)pluginArtifacts){
                urls.add(artifact.getFile().toURI().toURL());
@@ -303,10 +300,19 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
             //
             try
             {
-               for (String elt : (List<String>)session.getCurrentProject().getCompileClasspathElements())
+               List<?> dirs = new ArrayList();
+               dirs.addAll(session.getCurrentProject().getCompileSourceRoots());
+               dirs.addAll(session.getCurrentProject().getTestCompileSourceRoots());
+               dirs.addAll(session.getCurrentProject().getCompileClasspathElements());
+
+               //
+               for (String elt : (List<String>)dirs)
                {
                   File eltFile = new File(elt);
-                  urls.add(eltFile.toURI().toURL());
+                  if (eltFile.exists() && eltFile.isDirectory())
+                  {
+                     urls.add(eltFile.toURI().toURL());
+                  }
                }
             }
             catch (DependencyResolutionRequiredException e)

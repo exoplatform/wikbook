@@ -19,6 +19,7 @@
 
 package org.wikbook.codesource;
 
+import java.io.InputStream;
 import java.util.Collection;
 
 /**
@@ -27,6 +28,30 @@ import java.util.Collection;
  */
 public class CodeSourceBuilder 
 {
+
+   /** . */
+   final CodeSourceBuilderContext context;
+
+   public CodeSourceBuilder(CodeSourceBuilderContext context)
+   {
+      if (context == null)
+      {
+         throw new NullPointerException();
+      }
+      this.context = context;
+   }
+
+   public CodeSourceBuilder()
+   {
+      this(new CodeSourceBuilderContext()
+      {
+         public InputStream getResource(String path)
+         {
+            return Thread.currentThread().getContextClassLoader().getResourceAsStream(path);
+         }
+      });
+   }
+
    public TypeSource buildClass(String fqn) throws CodeSourceException
    {
       Collection<TypeSource> types = buildCompilationUnit(fqn.replace(".", "/") + ".java");
@@ -48,7 +73,7 @@ public class CodeSourceBuilder
       }
       try
       {
-         CompilationUnitVisitor visitor = new CompilationUnitVisitor();
+         CompilationUnitVisitor visitor = new CompilationUnitVisitor(this);
          CompilationUnitVisitor.Visit visit = visitor.visit(compilationUnitPath);
          return visit.types;
       }
