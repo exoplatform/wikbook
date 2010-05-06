@@ -66,9 +66,6 @@ public class ProgramListingElement extends BlockElement
    );
 
    /** . */
-   private static final Random random = new Random();
-
-   /** . */
    private final String language;
 
    /** . */
