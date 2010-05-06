@@ -19,6 +19,7 @@
 
 package org.wikbook.maven;
 
+import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
 import org.apache.maven.model.Developer;
 import org.apache.maven.plugin.AbstractMojo;
@@ -47,6 +48,7 @@ import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -327,23 +329,7 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
             }
             break;
          case JAVA:
-/*
-            List<Artifact> artifacts = new ArrayList<Artifact>();
-            for (Artifact artifact : (List<Artifact>)session.getCurrentProject().getCompileArtifacts()){
-               artifacts.add(artifact);
-            }
-            for (Artifact artifact : (List<Artifact>)session.getCurrentProject().getTestArtifacts()){
-               artifacts.add(artifact);
-            }
-*/
-
-            //
             LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
-/*
-            for (Artifact artifact : artifacts){
-               urls.add(artifact.getFile().toURI().toURL());
-            }
-*/
 
             //
             List<String> dirs = new ArrayList<String>();
@@ -360,6 +346,12 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
                {
                   urls.add(eltFile.toURI().toURL());
                }
+            }
+
+            //
+            for (Artifact artifact : (Set<Artifact>)session.getCurrentProject().getDependencyArtifacts())
+            {
+               urls.add(artifact.getFile().toURI().toURL());
             }
 
             //
