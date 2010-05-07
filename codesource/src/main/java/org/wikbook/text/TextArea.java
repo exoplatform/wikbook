@@ -101,6 +101,11 @@ public class TextArea
       return this;
    }
 
+   public TextArea remove(Position from, Position to)
+   {
+      return this;
+   }
+
    public String getText()
    {
       return s;

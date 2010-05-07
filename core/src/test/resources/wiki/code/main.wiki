@@ -14,11 +14,19 @@ after
 a
 // <1>
 b // <0> a call out
-// <1> = a second callout
+// =1= a second callout
 {{/code}}
 {{code language=java}}
 public void foo()
 {
    System.out.println("This is going to the output"); // <1> Prints a line of text
 }
+{{/code}}
+{{code language=java}}
+public void foo()
+{
+   int a = 0; // <1>
+   int b = 0; // <1>
+}
+// =1= An assignment
 {{/code}}

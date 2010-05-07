@@ -329,14 +329,14 @@ same callout.
    int a = 0; // <1>
    int b = 0; // <1>
 }
-// <1> = An assignment
+// =1= An assignment
 {{/code}}{{/code}})))
 |((({{code language=java}}public void foo()
 {
    int a = 0; // <1>
    int b = 0; // <1>
 }
-// <1> = An assignment
+// =1= An assignment
 {{/code}})))
 
 == Definition list ==

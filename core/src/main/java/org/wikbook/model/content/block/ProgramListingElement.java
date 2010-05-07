@@ -55,7 +55,19 @@ public class ProgramListingElement extends BlockElement
 {
 
    /** . */
-   private static final String WHITE_NON_CR = "[ \t\\x0B\f\r]";
+   public static final String WHITE_NON_CR = "[ \t\\x0B\f\r]";
+
+   /** . */
+   public static final Pattern CALLOUT_ANCHOR_PATTERN = Pattern.compile(
+      "//" + WHITE_NON_CR + "*" + "<([0-9]+)>" + "(.*)", Pattern.MULTILINE);
+
+   /** . */
+   public static final Pattern CALLOUT_DEF_PATTERN = Pattern.compile(
+      WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "=([0-9]+)=" + WHITE_NON_CR + "(\\S.*)", Pattern.MULTILINE);
+
+   /** . */
+   public static final Pattern BLOCK_ANCHOR_PATTERN = Pattern.compile(
+      WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-[0-9]+-" + WHITE_NON_CR + ".*", Pattern.MULTILINE);
 
    /** . */
    private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([0-9]+)>" + WHITE_NON_CR + "*(=)?([^\n]*)");
@@ -170,10 +182,39 @@ public class ProgramListingElement extends BlockElement
 
    private void printJavaSource(String s, XMLEmitter programListingElt, Map<String, Callout> callouts)
    {
+      // Process all callout definitions
+      Matcher coDefMatcher = CALLOUT_DEF_PATTERN.matcher(s);
+      int pre = 0;
+      StringBuilder buf = new StringBuilder();
+      while (coDefMatcher.find())
+      {
+         String id = coDefMatcher.group(1);
+         String text = coDefMatcher.group(2).trim();
+
+         //
+         buf.append(s, pre, coDefMatcher.start());
+
+         //
+         Callout callout = callouts.get(id);
+         if (callout == null)
+         {
+            callout = new Callout();
+            callouts.put(id, callout);
+         }
+
+         // We override
+         callout.text = text;
+
+         //
+         pre = coDefMatcher.end();
+      }
+      buf.append(s, pre, s.length());
+      s = buf.toString();
+
+      //
       TextArea ta = new TextArea(s);
       Random random = new Random();
-
-      Matcher matcher = LINE_COMMENT.matcher(s);
+      Matcher matcher = CALLOUT_ANCHOR_PATTERN.matcher(s);
       int prev = 0;
       while (matcher.find())
       {
@@ -191,15 +232,12 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         if (!"=".equals(matcher.group(2)))
-         {
-            String coId = "" + Math.abs(random.nextLong());
-            callout.ids.add(coId);
-            programListingElt.element("co").withAttribute("id", coId);
-         }
+         String coId = "" + Math.abs(random.nextLong());
+         callout.ids.add(coId);
+         programListingElt.element("co").withAttribute("id", coId);
 
          // Determine if we have callout text associated
-         String text = matcher.group(3);
+         String text = matcher.group(2);
          if (!text.matches("\\s*"))
          {
             callout.text = text.trim();
