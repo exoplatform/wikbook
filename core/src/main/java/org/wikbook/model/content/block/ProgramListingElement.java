@@ -59,15 +59,15 @@ public class ProgramListingElement extends BlockElement
 
    /** . */
    public static final Pattern CALLOUT_ANCHOR_PATTERN = Pattern.compile(
-      "//" + WHITE_NON_CR + "*" + "<([0-9]+)>" + "(.*)", Pattern.MULTILINE);
+      "//" + WHITE_NON_CR + "*" + "<([0-9]+)>" + "(.*)$", Pattern.MULTILINE);
 
    /** . */
    public static final Pattern CALLOUT_DEF_PATTERN = Pattern.compile(
-      WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "=([0-9]+)=" + WHITE_NON_CR + "(\\S.*)", Pattern.MULTILINE);
+      "^" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "=([0-9]+)=" + WHITE_NON_CR + "(\\S.*)$", Pattern.MULTILINE);
 
    /** . */
-   public static final Pattern BLOCK_ANCHOR_PATTERN = Pattern.compile(
-      WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-[0-9]+-" + WHITE_NON_CR + ".*", Pattern.MULTILINE);
+   public static final Pattern SEPARATOR_PATTERN = Pattern.compile(
+      "^" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*$", Pattern.MULTILINE);
 
    /** . */
    private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([0-9]+)>" + WHITE_NON_CR + "*(=)?([^\n]*)");
