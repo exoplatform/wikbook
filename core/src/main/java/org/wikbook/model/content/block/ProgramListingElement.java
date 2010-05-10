@@ -39,10 +39,12 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -70,7 +72,15 @@ public class ProgramListingElement extends BlockElement
       "^" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*$", Pattern.MULTILINE);
 
    /** . */
-   private static final Pattern LINE_COMMENT = Pattern.compile("//\\s*<([0-9]+)>" + WHITE_NON_CR + "*(=)?([^\n]*)");
+   public static final Pattern EMPTY_LINE_PATTERN = Pattern.compile("^" + WHITE_NON_CR + "*$", Pattern.MULTILINE);
+
+   /** . */
+   public static final Pattern BILTO = Pattern.compile(
+      "^(?:" +
+         "(?:" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*)" +
+         "|" +
+         "(?:" + WHITE_NON_CR +  "*)" +
+      ")$", Pattern.MULTILINE);
 
    /** . */
    private static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
@@ -89,7 +99,11 @@ public class ProgramListingElement extends BlockElement
    /** . */
    private final WikletContext context;
 
-   public ProgramListingElement(WikletContext context, String language, Integer indent, String content)
+   public ProgramListingElement(
+      WikletContext context,
+      String language,
+      Integer indent,
+      String content)
    {
       this.context = context;
       this.language = language;
@@ -178,6 +192,52 @@ public class ProgramListingElement extends BlockElement
             //
             break;
       }
+   }
+
+   private void printJavaSource(
+      String s,
+      XMLEmitter programListingElt,
+      Map<String, Callout> callouts,
+      Set<Integer> chunkIds)
+   {
+      Matcher chunkMatcher = BILTO.matcher(s);
+
+      //
+      String chunkId = null;
+      int pre = 0;
+      while (true)
+      {
+         String chunk;
+         String nextChunkId;
+         boolean done = chunkMatcher.find();
+         if (done)
+         {
+            chunk = s.substring(pre, chunkMatcher.start());
+            nextChunkId = chunkMatcher.group(1);
+         }
+         else
+         {
+            chunk = s.substring(pre);
+            nextChunkId = null;
+         }
+
+         //
+         if (chunkId != null && chunkIds.contains(Integer.parseInt(chunkId)))
+         {
+            printJavaSource(chunk, programListingElt, callouts);
+         }
+
+         //
+         if (done)
+         {
+            break;
+         }
+
+         //
+         pre = chunkMatcher.end();
+         chunkId = nextChunkId;
+      }
+
    }
 
    private void printJavaSource(String s, XMLEmitter programListingElt, Map<String, Callout> callouts)
@@ -317,6 +377,25 @@ public class ProgramListingElement extends BlockElement
       /** . */
       private final LinkedList<String> ids = new LinkedList<String>();
 
+   }
+
+   /**
+    * A chunk of code.
+    */
+   private static class Chunk
+   {
+
+      /** . */
+      private final int id;
+
+      /** . */
+      private final String text;
+
+      private Chunk(int id, String text)
+      {
+         this.id = id;
+         this.text = text;
+      }
    }
 
 }

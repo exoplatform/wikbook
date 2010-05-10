@@ -26,7 +26,7 @@ import java.util.regex.Pattern;
 
 import static org.wikbook.model.content.block.ProgramListingElement.CALLOUT_ANCHOR_PATTERN;
 import static org.wikbook.model.content.block.ProgramListingElement.CALLOUT_DEF_PATTERN;
-import static org.wikbook.model.content.block.ProgramListingElement.SEPARATOR_PATTERN;
+import static org.wikbook.model.content.block.ProgramListingElement.BILTO;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -35,32 +35,81 @@ import static org.wikbook.model.content.block.ProgramListingElement.SEPARATOR_PA
 public class PatternTestCase extends TestCase
 {
 
+   public void testEmptyLinePattern()
+   {
+      assertMatches(BILTO, " ", " ");
+      assertMatches(BILTO, "\n", "");
+      assertMatches(BILTO, "\n\n", "", "");
+      assertMatches(BILTO, "a\nb");
+      assertMatches(BILTO, "a\n \nb", " ");
+   }
+
    public void testSeparatorPattern()
    {
-      assertMatches(SEPARATOR_PATTERN, "//-1-", "//-1-");
-      assertMatches(SEPARATOR_PATTERN, "//-1- ", "//-1- ");
-      assertMatches(SEPARATOR_PATTERN, "// -1-", "// -1-");
-      assertMatches(SEPARATOR_PATTERN, "// -1- ", "// -1- ");
-      assertMatches(SEPARATOR_PATTERN, " //-1-", " //-1-");
-      assertMatches(SEPARATOR_PATTERN, " // -1-", " // -1-");
-      assertMatches(SEPARATOR_PATTERN, " //-1- ", " //-1- ");
-      assertMatches(SEPARATOR_PATTERN, " // -1- ", " // -1- ");
+      assertMatches(BILTO, "//-1-", "//-1-");
+      assertMatches(BILTO, "//-1- ", "//-1- ");
+      assertMatches(BILTO, "// -1-", "// -1-");
+      assertMatches(BILTO, "// -1- ", "// -1- ");
+      assertMatches(BILTO, " //-1-", " //-1-");
+      assertMatches(BILTO, " // -1-", " // -1-");
+      assertMatches(BILTO, " //-1- ", " //-1- ");
+      assertMatches(BILTO, " // -1- ", " // -1- ");
 
       //
-      assertMatches(SEPARATOR_PATTERN, "//-1-a");
-      assertMatches(SEPARATOR_PATTERN, "//-1- a");
-      assertMatches(SEPARATOR_PATTERN, "a//-1-");
-      assertMatches(SEPARATOR_PATTERN, "a //-1-");
+      assertMatches(BILTO, "//-1-a");
+      assertMatches(BILTO, "//-1- a");
+      assertMatches(BILTO, "a//-1-");
+      assertMatches(BILTO, "a //-1-");
    }
 
    public void testSeparatorPattern_Multiline()
    {
       String s = "a\n// -1- \nb";
-      Matcher matcher = SEPARATOR_PATTERN.matcher(s);
+      Matcher matcher = BILTO.matcher(s);
       assertTrue(matcher.find());
       assertEquals("// -1- ", matcher.group(0));
       assertEquals("1", matcher.group(1));
       assertFalse(matcher.find());
+   }
+
+   public void testChunkGroups()
+   {
+      String s = "// -0-\n\n// -1-";
+      Matcher matcher = BILTO.matcher(s);
+      assertTrue(matcher.find());
+      assertEquals("// -0-", matcher.group(0));
+      assertEquals(1, matcher.groupCount());
+      assertEquals("0", matcher.group(1));
+      assertTrue(matcher.find());
+      assertEquals("", matcher.group(0));
+      assertEquals(1, matcher.groupCount());
+      assertEquals(null, matcher.group(1));
+      assertTrue(matcher.find());
+      assertEquals("// -1-", matcher.group(0));
+      assertEquals(1, matcher.groupCount());
+      assertEquals("1", matcher.group(1));
+      assertFalse(matcher.find());
+   }
+
+   public void testChunks()
+   {
+      String s = "" +
+         "// -0-\n" +
+         "chunk_0\n" +
+         "\n" +
+         "// -1-\n" +
+         "\n" +
+         "// -2-\n" +
+         "// -3-\n" +
+         "chunk_1\n" +
+         "";
+      assertMatches(BILTO, s,
+         "// -0-",
+         "",
+         "// -1-",
+         "",
+         "// -2-",
+         "// -3-");
    }
 
    public void testCalloutAnchor_Multiline()
@@ -111,11 +160,14 @@ public class PatternTestCase extends TestCase
    private void assertMatches(Pattern pattern, String s, String... matches)
    {
       Matcher matcher = pattern.matcher(s);
-      for (String matche : matches)
+      for (String match : matches)
       {
-         assertTrue(matcher.find());
-         assertEquals(matche, matcher.group(0));
+         assertTrue(s + " should have matched /" + match + "/", matcher.find());
+         assertEquals(match, matcher.group(0));
       }
-      assertFalse(matcher.find());
+      if (matcher.find())
+      {
+         fail("Was not expecting match " + matcher.group(0));
+      }
    }
 }
