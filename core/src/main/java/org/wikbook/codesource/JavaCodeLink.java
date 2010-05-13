@@ -17,7 +17,7 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.model.content.block;
+package org.wikbook.codesource;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
