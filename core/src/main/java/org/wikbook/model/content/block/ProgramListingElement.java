@@ -21,8 +21,8 @@ package org.wikbook.model.content.block;
 
 import org.wikbook.ResourceType;
 import org.wikbook.WikletContext;
-import org.wikbook.codesource.CodeContext;
-import org.wikbook.codesource.CodeProcessor;
+import org.wikbook.core.codesource.CodeContext;
+import org.wikbook.core.codesource.CodeProcessor;
 import org.wikbook.xml.ElementEmitter;
 import org.wikbook.xml.OutputFormat;
 import org.wikbook.xml.XML;

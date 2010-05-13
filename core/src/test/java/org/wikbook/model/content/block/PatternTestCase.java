@@ -24,9 +24,9 @@ import junit.framework.TestCase;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.wikbook.codesource.CodeProcessor.CALLOUT_ANCHOR_PATTERN;
-import static org.wikbook.codesource.CodeProcessor.CALLOUT_DEF_PATTERN;
-import static org.wikbook.codesource.CodeProcessor.BILTO;
+import static org.wikbook.core.codesource.CodeProcessor.CALLOUT_ANCHOR_PATTERN;
+import static org.wikbook.core.codesource.CodeProcessor.CALLOUT_DEF_PATTERN;
+import static org.wikbook.core.codesource.CodeProcessor.BILTO;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>

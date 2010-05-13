@@ -17,54 +17,50 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.codesource;
+package org.wikbook.core.codesource;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.List;
 
 /**
+ * Contract for interacting with a code processor.
+ *
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class JavaCodeLink
+public interface CodeContext
 {
 
-   /** . */
-   private final String member;
+   /**
+    * Write code content.
+    *
+    * @param content the content
+    */
+   void writeContent(String content);
 
-   /** . */
-   private final String fqn;
+   /**
+    * Write a callout
+    *
+    * @param id the callout id
+    */
+   void writeCallout(String id);
 
-   private JavaCodeLink(String member, String fqn)
-   {
-      this.member = member;
-      this.fqn = fqn;
-   }
+   /**
+    * Define a callout text value.
+    *
+    * @param id the callout id
+    * @param text the callout text value
+    */
+   void setCallout(String id, String text);
 
-   public String getMember()
-   {
-      return member;
-   }
+   /**
+    * Resolve a code source such as the content of a class.
+    *
+    * @param id the resource id
+    * @return a list of URL that will load the resource
+    * @throws IOException any io exception
+    */
+   List<URL> resolveResources(String id) throws IOException;
 
-   public String getFQN()
-   {
-      return fqn;
-   }
-
-   public static JavaCodeLink parse(String s)
-   {
-      String member;
-      String fqn;
-      int poundPos = s.indexOf('#');
-      if (poundPos == -1)
-      {
-         member = null;
-         fqn = s;
-      }
-      else
-      {
-         member = s.substring(poundPos + 1);
-         fqn = s.substring(0, poundPos);
-      }
-
-      //
-      return new JavaCodeLink(member, fqn);
-   }
 }

@@ -17,8 +17,12 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.codesource;
+package org.wikbook.core.codesource;
 
+import org.wikbook.codesource.BodySource;
+import org.wikbook.codesource.CodeSourceBuilder;
+import org.wikbook.codesource.CodeSourceBuilderContext;
+import org.wikbook.codesource.TypeSource;
 import org.wikbook.text.TextArea;
 
 import java.io.IOException;
