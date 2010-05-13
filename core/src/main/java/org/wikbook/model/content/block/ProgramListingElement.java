@@ -171,12 +171,12 @@ public class ProgramListingElement extends BlockElement
          this.programListingElt = programListingElt;
       }
 
-      public void content(String content)
+      public void writeContent(String content)
       {
          programListingElt.content(content, true);
       }
 
-      public void callout(String id)
+      public void writeCallout(String id)
       {
          String coId = "" + Math.abs(random.nextLong());
 
@@ -195,7 +195,7 @@ public class ProgramListingElement extends BlockElement
          callout.ids.addLast(coId);
       }
 
-      public void defineCallout(String id, String text)
+      public void setCallout(String id, String text)
       {
          Callout callout = callouts.get(id);
          if (callout == null)

@@ -83,7 +83,7 @@ public class CodeProcessor
          buf.append(s, pre, coDefMatcher.start());
 
          //
-         ctx.defineCallout(id, text);
+         ctx.setCallout(id, text);
 
          //
          pre = coDefMatcher.end();
@@ -100,21 +100,21 @@ public class CodeProcessor
          String id = matcher.group(1);
 
          //
-         ctx.content(ta.clip(ta.position(prev), ta.position(matcher.start())));
+         ctx.writeContent(ta.clip(ta.position(prev), ta.position(matcher.start())));
 
-         ctx.callout(id);
+         ctx.writeCallout(id);
 
          // Determine if we have callout text associated
          String text = matcher.group(2);
          if (!text.matches("\\s*"))
          {
-            ctx.defineCallout(id, text.trim());
+            ctx.setCallout(id, text.trim());
          }
 
          // Iterate to next
          prev = matcher.end();
       }
-      ctx.content(ta.clip(ta.position(prev)));
+      ctx.writeContent(ta.clip(ta.position(prev)));
    }
 
    private void printJavaSource(
@@ -220,7 +220,7 @@ public class CodeProcessor
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
             String javadoc = source.getJavaDoc();
-            ctx.content(javadoc);
+            ctx.writeContent(javadoc);
          }
 
          //

@@ -24,18 +24,43 @@ import java.net.URL;
 import java.util.List;
 
 /**
+ * Contract for interacting with a code processor.
+ *
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
 public interface CodeContext
 {
 
-   void content(String content);
+   /**
+    * Write code content.
+    *
+    * @param content the content
+    */
+   void writeContent(String content);
 
-   void callout(String id);
+   /**
+    * Write a callout
+    *
+    * @param id the callout id
+    */
+   void writeCallout(String id);
 
-   void defineCallout(String id, String text);
+   /**
+    * Define a callout text value.
+    *
+    * @param id the callout id
+    * @param text the callout text value
+    */
+   void setCallout(String id, String text);
 
+   /**
+    * Resolve a code source such as the content of a class.
+    *
+    * @param id the resource id
+    * @return a list of URL that will load the resource
+    * @throws IOException any io exception
+    */
    List<URL> resolveResources(String id) throws IOException;
 
 }
