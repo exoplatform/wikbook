@@ -162,17 +162,16 @@ public class ProgramListingElement extends BlockElement
             break;
          case JAVA:
 
-            // TreeMap will sort by callout id
-            TreeMap<String, Callout> callouts = new TreeMap<String, Callout>();
+            CodeContext ctx = new CodeContext(programListingXML);
 
             //
-            parse(bilto, programListingXML, callouts);
+            parse(bilto, ctx);
 
             //
-            if (callouts.size() > 0)
+            if (ctx.callouts.size() > 0)
             {
                ElementEmitter calloutListXML = programListingCoXML.element("calloutlist");
-               for (Map.Entry<String, Callout> callout : callouts.entrySet())
+               for (Map.Entry<String, Callout> callout : ctx.callouts.entrySet())
                {
                   if (callout.getValue().text != null)
                   {
@@ -195,10 +194,111 @@ public class ProgramListingElement extends BlockElement
       }
    }
 
+   private static class CodeContext
+   {
+
+      /** . */
+      private final XMLEmitter programListingElt;
+
+      /** . */
+      private final TreeMap<String, Callout> callouts = new TreeMap<String, Callout>();
+
+      /** . */
+      private final Random random = new Random();
+
+      private CodeContext(XMLEmitter programListingElt)
+      {
+         this.programListingElt = programListingElt;
+      }
+
+      public void content(String content)
+      {
+         programListingElt.content(content, true);
+      }
+
+      public void callout(String id)
+      {
+         String coId = "" + Math.abs(random.nextLong());
+
+         //
+         programListingElt.element("co").withAttribute("id", coId);
+
+         //
+         Callout callout = callouts.get(id);
+         if (callout == null)
+         {
+            callout = new Callout();
+            callouts.put(id, callout);
+         }
+
+         //
+         callout.ids.addLast(coId);
+      }
+
+      public void defineCallout(String id, String text)
+      {
+         Callout callout = callouts.get(id);
+         if (callout == null)
+         {
+            callout = new Callout();
+            callouts.put(id, callout);
+         }
+         callout.text = text;
+      }
+   }
+
+   private void printJavaSource(String s, CodeContext ctx)
+   {
+      // Process all callout definitions
+      Matcher coDefMatcher = CALLOUT_DEF_PATTERN.matcher(s);
+      int pre = 0;
+      StringBuilder buf = new StringBuilder();
+      while (coDefMatcher.find())
+      {
+         String id = coDefMatcher.group(1);
+         String text = coDefMatcher.group(2).trim();
+
+         //
+         buf.append(s, pre, coDefMatcher.start());
+
+         //
+         ctx.defineCallout(id, text);
+
+         //
+         pre = coDefMatcher.end();
+      }
+      buf.append(s, pre, s.length());
+      s = buf.toString();
+
+      //
+      TextArea ta = new TextArea(s);
+      Matcher matcher = CALLOUT_ANCHOR_PATTERN.matcher(s);
+      int prev = 0;
+      while (matcher.find())
+      {
+         String id = matcher.group(1);
+
+         //
+         ctx.content(ta.clip(ta.position(prev), ta.position(matcher.start())));
+
+         ctx.callout(id);
+
+         // Determine if we have callout text associated
+         String text = matcher.group(2);
+         if (!text.matches("\\s*"))
+         {
+            ctx.defineCallout(id, text.trim());
+         }
+
+         // Iterate to next
+         prev = matcher.end();
+      }
+      ctx.content(ta.clip(ta.position(prev)));
+   }
+
    private void printJavaSource(
       String s,
-      XMLEmitter programListingElt,
-      Map<String, Callout> callouts,
+      CodeContext ctx,
       Set<String> chunkIds)
    {
       Matcher chunkMatcher = BILTO.matcher(s);
@@ -225,7 +325,7 @@ public class ProgramListingElement extends BlockElement
          //
          if (chunkId != null && chunkIds.contains(chunkId))
          {
-            printJavaSource(chunk, programListingElt, callouts);
+            printJavaSource(chunk, ctx);
          }
 
          //
@@ -241,76 +341,7 @@ public class ProgramListingElement extends BlockElement
 
    }
 
-   private void printJavaSource(String s, XMLEmitter programListingElt, Map<String, Callout> callouts)
-   {
-      // Process all callout definitions
-      Matcher coDefMatcher = CALLOUT_DEF_PATTERN.matcher(s);
-      int pre = 0;
-      StringBuilder buf = new StringBuilder();
-      while (coDefMatcher.find())
-      {
-         String id = coDefMatcher.group(1);
-         String text = coDefMatcher.group(2).trim();
-
-         //
-         buf.append(s, pre, coDefMatcher.start());
-
-         //
-         Callout callout = callouts.get(id);
-         if (callout == null)
-         {
-            callout = new Callout();
-            callouts.put(id, callout);
-         }
-
-         // We override
-         callout.text = text;
-
-         //
-         pre = coDefMatcher.end();
-      }
-      buf.append(s, pre, s.length());
-      s = buf.toString();
-
-      //
-      TextArea ta = new TextArea(s);
-      Random random = new Random();
-      Matcher matcher = CALLOUT_ANCHOR_PATTERN.matcher(s);
-      int prev = 0;
-      while (matcher.find())
-      {
-         String id = matcher.group(1);
-
-         //
-         programListingElt.content(ta.clip(ta.position(prev), ta.position(matcher.start())), true);
-
-         //
-         Callout callout = callouts.get(id);
-         if (callout == null)
-         {
-            callout = new Callout();
-            callouts.put(id, callout);
-         }
-
-         //
-         String coId = "" + Math.abs(random.nextLong());
-         callout.ids.add(coId);
-         programListingElt.element("co").withAttribute("id", coId);
-
-         // Determine if we have callout text associated
-         String text = matcher.group(2);
-         if (!text.matches("\\s*"))
-         {
-            callout.text = text.trim();
-         }
-
-         // Iterate to next
-         prev = matcher.end();
-      }
-      programListingElt.content(ta.clip(ta.position(prev)), true);
-   }
-
-   private void parse(String s, XMLEmitter programListingElt, Map<String, Callout> callouts)
+   private void parse(String s, CodeContext ctx)
    {
       int prev = 0;
       Matcher matcher = JAVA_INCLUDE_PATTERN.matcher(s);
@@ -348,7 +379,7 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         printJavaSource(s.substring(prev, matcher.start()), programListingElt, callouts);
+         printJavaSource(s.substring(prev, matcher.start()), ctx);
 
          //
          if ("include".equals(matcher.group(1)))
@@ -358,17 +389,17 @@ public class ProgramListingElement extends BlockElement
                String subset = matcher.group(3);
                String a = subset.substring(1, subset.length() - 1);
                String[] ids = a.split(",");
-               printJavaSource(source.getClip(), programListingElt, callouts, new HashSet<String>(Arrays.asList(ids)));
+               printJavaSource(source.getClip(), ctx, new HashSet<String>(Arrays.asList(ids)));
             }
             else
             {
-               printJavaSource(source.getClip(), programListingElt, callouts);
+               printJavaSource(source.getClip(), ctx);
             }
          }
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {
             String javadoc = source.getJavaDoc();
-            programListingElt.content(javadoc, true);
+            ctx.content(javadoc);
          }
 
          //
@@ -376,7 +407,7 @@ public class ProgramListingElement extends BlockElement
       }
 
       //
-      printJavaSource(s.substring(prev), programListingElt, callouts);
+      printJavaSource(s.substring(prev), ctx);
    }
 
    private static class Callout
@@ -389,24 +420,4 @@ public class ProgramListingElement extends BlockElement
       private final LinkedList<String> ids = new LinkedList<String>();
 
    }
-
-   /**
-    * A chunk of code.
-    */
-   private static class Chunk
-   {
-
-      /** . */
-      private final int id;
-
-      /** . */
-      private final String text;
-
-      private Chunk(int id, String text)
-      {
-         this.id = id;
-         this.text = text;
-      }
-   }
-
 }
