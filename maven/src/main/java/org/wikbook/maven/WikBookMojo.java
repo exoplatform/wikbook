@@ -27,12 +27,12 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
 import org.w3c.dom.Document;
-import org.wikbook.Person;
-import org.wikbook.ResourceType;
-import org.wikbook.WikletContext;
-import org.wikbook.WikletConverter;
-import org.wikbook.xml.OutputFormat;
-import org.wikbook.xml.XML;
+import org.wikbook.core.Person;
+import org.wikbook.core.ResourceType;
+import org.wikbook.core.WikletContext;
+import org.wikbook.core.WikletConverter;
+import org.wikbook.core.xml.OutputFormat;
+import org.wikbook.core.xml.XML;
 
 import javax.xml.transform.dom.DOMResult;
 import java.io.File;

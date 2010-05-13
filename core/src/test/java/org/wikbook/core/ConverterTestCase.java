@@ -24,10 +24,7 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
-import org.wikbook.Person;
-import org.wikbook.SimpleWikletContext;
-import org.wikbook.WikletConverter;
-import org.wikbook.xml.XML;
+import org.wikbook.core.xml.XML;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMResult;

@@ -17,32 +17,39 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.core.xml;
 
-import junit.framework.TestCase;
-
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class StreamTestCase extends TestCase
+public abstract class XMLEmitter<N extends Node> extends Emitter<N>
 {
-
-   public void testOutputStream() throws IOException, ClassNotFoundException
+   public XMLEmitter(N node)
    {
-      File base = new File(System.getProperty("basedir"));
-      File path = new File(base, "src/test/resources/wiki/simple");
-      assertTrue(path.isDirectory());
-      WikletConverter converter = new WikletConverter(new SimpleWikletContext(path));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
-      converter.convert(result);
-      System.out.println("s = " + baos.toString());
+      super(node);
    }
 
+   public final void comment(String data)
+   {
+      if (data == null)
+      {
+         throw new NullPointerException();
+      }
+      node.appendChild(node.getOwnerDocument().createTextNode(data));
+   }
+
+   public abstract ElementEmitter element(String qName);
+
+   public void content(String data)
+   {
+      content(data, false);
+   }
+
+   public abstract void content(String data, boolean cdata);
+
+   public abstract void append(Element elt);
 }

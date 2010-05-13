@@ -1,5 +1,5 @@
 {{code language=java}}
-{@include org.wikbook.CodeWithAnchors#foo()}
-{@include org.wikbook.CodeWithAnchors#bar() {0}}
-{@include org.wikbook.CodeWithAnchors#bar() {0,1}}
+{@include org.wikbook.core.CodeWithAnchors#foo()}
+{@include org.wikbook.core.CodeWithAnchors#bar() {0}}
+{@include org.wikbook.core.CodeWithAnchors#bar() {0,1}}
 {{/code}}

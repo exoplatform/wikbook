@@ -17,32 +17,57 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
-
-import junit.framework.TestCase;
-
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+package org.wikbook.core.xml;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class StreamTestCase extends TestCase
+public class OutputFormat
 {
 
-   public void testOutputStream() throws IOException, ClassNotFoundException
+   /** . */
+   private final Integer indent;
+
+   /** . */
+   private final boolean omitDeclaration;
+
+   /** . */
+   private final String publicId;
+
+   /** . */
+   private final String systemId;
+
+   public OutputFormat(Integer indent, boolean omitDeclaration)
    {
-      File base = new File(System.getProperty("basedir"));
-      File path = new File(base, "src/test/resources/wiki/simple");
-      assertTrue(path.isDirectory());
-      WikletConverter converter = new WikletConverter(new SimpleWikletContext(path));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
-      converter.convert(result);
-      System.out.println("s = " + baos.toString());
+      this(indent, omitDeclaration, null, null);
    }
 
+   public OutputFormat(Integer indent, boolean omitDeclaration, String publicId, String systemId)
+   {
+      this.indent = indent;
+      this.omitDeclaration = omitDeclaration;
+      this.publicId = publicId;
+      this.systemId = systemId;
+   }
+
+   public Integer getIndent()
+   {
+      return indent;
+   }
+
+   public boolean isOmitDeclaration()
+   {
+      return omitDeclaration;
+   }
+
+   public String getPublicId()
+   {
+      return publicId;
+   }
+
+   public String getSystemId()
+   {
+      return systemId;
+   }
 }

@@ -17,32 +17,37 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.core.model.content.block;
 
-import junit.framework.TestCase;
-
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import org.wikbook.core.model.DocbookElement;
+import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.ContentElement;
+import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class StreamTestCase extends TestCase
+public class ListItemElement extends ContentElement
 {
 
-   public void testOutputStream() throws IOException, ClassNotFoundException
+   /** The implicit para. */
+   private ElementContainer<ContentElement> content;
+
+   public ListItemElement()
    {
-      File base = new File(System.getProperty("basedir"));
-      File path = new File(base, "src/test/resources/wiki/simple");
-      assertTrue(path.isDirectory());
-      WikletConverter converter = new WikletConverter(new SimpleWikletContext(path));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
-      converter.convert(result);
-      System.out.println("s = " + baos.toString());
+      this.content = new ElementContainer<ContentElement>(ContentElement.class);
    }
 
+   @Override
+   public boolean append(DocbookElement elt)
+   {
+      return content.append(elt);
+   }
+
+   @Override
+   public void writeTo(XMLEmitter xml)
+   {
+      content.writeTo(xml.element("listitem"));
+   }
 }

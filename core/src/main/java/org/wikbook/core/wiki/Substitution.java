@@ -17,32 +17,37 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.core.wiki;
 
-import junit.framework.TestCase;
+import org.xwiki.rendering.block.Block;
+import org.xwiki.rendering.block.XDOM;
 
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class StreamTestCase extends TestCase
+class Substitution
 {
 
-   public void testOutputStream() throws IOException, ClassNotFoundException
+   /** . */
+   final Block src;
+
+   /** . */
+   final List<Block> dst;
+
+   Substitution(Block src, XDOM dst)
    {
-      File base = new File(System.getProperty("basedir"));
-      File path = new File(base, "src/test/resources/wiki/simple");
-      assertTrue(path.isDirectory());
-      WikletConverter converter = new WikletConverter(new SimpleWikletContext(path));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
-      converter.convert(result);
-      System.out.println("s = " + baos.toString());
+      this.src = src;
+      this.dst = dst.getChildren();
+   }
+
+   Substitution(Block src, Block dst)
+   {
+      this.src = src;
+      this.dst = Arrays.asList(dst);
    }
 
 }

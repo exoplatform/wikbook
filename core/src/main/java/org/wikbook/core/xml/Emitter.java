@@ -17,32 +17,42 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.core.xml;
 
-import junit.framework.TestCase;
-
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class StreamTestCase extends TestCase
+public class Emitter<N extends Node>
 {
 
-   public void testOutputStream() throws IOException, ClassNotFoundException
+   /** . */
+   protected final N node;
+
+   public Emitter(N node)
    {
-      File base = new File(System.getProperty("basedir"));
-      File path = new File(base, "src/test/resources/wiki/simple");
-      assertTrue(path.isDirectory());
-      WikletConverter converter = new WikletConverter(new SimpleWikletContext(path));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
-      converter.convert(result);
-      System.out.println("s = " + baos.toString());
+      if (node == null)
+      {
+         throw new NullPointerException();
+      }
+      
+      //
+      this.node = node;
    }
 
+   protected final ElementEmitter emitChild(String qName)
+   {
+      Document doc = node instanceof Document ? (Document)node : node.getOwnerDocument();
+      Element elt = (Element)node.appendChild(doc.createElement(qName));
+      ElementEmitter emitter = new ElementEmitter(this, elt);
+      return emitter;
+   }
+
+   public final void close()
+   {
+   }
 }

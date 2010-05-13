@@ -19,30 +19,30 @@
 
 package org.wikbook.core;
 
-import junit.framework.TestCase;
-
-import javax.xml.transform.stream.StreamResult;
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class StreamTestCase extends TestCase
+public class CodeWithAnchors
 {
-
-   public void testOutputStream() throws IOException, ClassNotFoundException
+   public void foo()
    {
-      File base = new File(System.getProperty("basedir"));
-      File path = new File(base, "src/test/resources/wiki/simple");
-      assertTrue(path.isDirectory());
-      WikletConverter converter = new WikletConverter(new SimpleWikletContext(path));
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      StreamResult result = new StreamResult(baos);
-      converter.convert(result);
-      System.out.println("s = " + baos.toString());
+      for (int i = 0;i < 1000;i++)
+      {
+         System.out.println(i); // <0>
+      }
    }
 
+   public void bar()
+   {
+      // -0-
+      int a = 0;
+
+      // -1-
+      int b = 0;
+
+      // -0-
+      int c = 0;
+
+   }
 }
