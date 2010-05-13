@@ -32,4 +32,17 @@ public class CodeWithAnchors
          System.out.println(i); // <0>
       }
    }
+
+   public void bar()
+   {
+      // -0-
+      int a = 0;
+
+      // -1-
+      int b = 0;
+
+      // -0-
+      int c = 0;
+
+   }
 }

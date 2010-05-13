@@ -39,7 +39,8 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -84,7 +85,7 @@ public class ProgramListingElement extends BlockElement
 
    /** . */
    private static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
-      "\\{" + "@(include|javadoc)\\s+([^\\s]+)" + "\\s*\\}"
+      "\\{" + "@(include|javadoc)" + "\\s+" + "([^\\s]+)" + "\\s*" + "(\\{[0-9]+(?:,[0-9]+)*\\})?" + "\\s*" + "\\}"
    );
 
    /** . */
@@ -198,7 +199,7 @@ public class ProgramListingElement extends BlockElement
       String s,
       XMLEmitter programListingElt,
       Map<String, Callout> callouts,
-      Set<Integer> chunkIds)
+      Set<String> chunkIds)
    {
       Matcher chunkMatcher = BILTO.matcher(s);
 
@@ -209,8 +210,8 @@ public class ProgramListingElement extends BlockElement
       {
          String chunk;
          String nextChunkId;
-         boolean done = chunkMatcher.find();
-         if (done)
+         boolean found = chunkMatcher.find();
+         if (found)
          {
             chunk = s.substring(pre, chunkMatcher.start());
             nextChunkId = chunkMatcher.group(1);
@@ -222,13 +223,13 @@ public class ProgramListingElement extends BlockElement
          }
 
          //
-         if (chunkId != null && chunkIds.contains(Integer.parseInt(chunkId)))
+         if (chunkId != null && chunkIds.contains(chunkId))
          {
             printJavaSource(chunk, programListingElt, callouts);
          }
 
          //
-         if (done)
+         if (!found)
          {
             break;
          }
@@ -352,7 +353,17 @@ public class ProgramListingElement extends BlockElement
          //
          if ("include".equals(matcher.group(1)))
          {
-            printJavaSource(source.getClip(), programListingElt, callouts);
+            if (matcher.group(3) != null)
+            {
+               String subset = matcher.group(3);
+               String a = subset.substring(1, subset.length() - 1);
+               String[] ids = a.split(",");
+               printJavaSource(source.getClip(), programListingElt, callouts, new HashSet<String>(Arrays.asList(ids)));
+            }
+            else
+            {
+               printJavaSource(source.getClip(), programListingElt, callouts);
+            }
          }
          else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
          {

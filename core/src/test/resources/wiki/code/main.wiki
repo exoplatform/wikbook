@@ -1,32 +1,5 @@
-{{code}}content{{/code}}
-{{code language=java}}
-before
-{@javadoc org.wikbook.FooClass#foo(java.lang.String)}
-{@include org.wikbook.FooClass#foo(java.lang.String)}
-after
-{{/code}}
-{{code language=xml}}<foo></foo>{{/code}}
-{{code language=xml indent=2}}<foo></foo>{{/code}}
 {{code language=java}}
 {@include org.wikbook.CodeWithAnchors#foo()}
-{{/code}}
-{{code language=java}}
-a
-// <1>
-b // <0> a call out
-// =1= a second callout
-{{/code}}
-{{code language=java}}
-public void foo()
-{
-   System.out.println("This is going to the output"); // <1> Prints a line of text
-}
-{{/code}}
-{{code language=java}}
-public void foo()
-{
-   int a = 0; // <1>
-   int b = 0; // <1>
-}
-// =1= An assignment
+{@include org.wikbook.CodeWithAnchors#bar() {0}}
+{@include org.wikbook.CodeWithAnchors#bar() {0,1}}
 {{/code}}
