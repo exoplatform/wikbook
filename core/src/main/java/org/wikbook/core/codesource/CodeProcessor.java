@@ -22,15 +22,17 @@ package org.wikbook.core.codesource;
 import org.wikbook.codesource.BodySource;
 import org.wikbook.codesource.CodeSourceBuilder;
 import org.wikbook.codesource.CodeSourceBuilderContext;
+import org.wikbook.codesource.MethodSource;
 import org.wikbook.codesource.TypeSource;
 import org.wikbook.text.TextArea;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
+import java.io.LineNumberReader;
+import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -53,11 +55,12 @@ public class CodeProcessor
       "^" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "=([0-9]+)=" + WHITE_NON_CR + "(\\S.*)$", Pattern.MULTILINE);
 
    /** . */
-   public static final Pattern SEPARATOR_PATTERN = Pattern.compile(
-      "^" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*$", Pattern.MULTILINE);
+   public static final Pattern BEGIN_CHUNK_PATTERN = Pattern.compile(
+      "^" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*" + "$");
 
    /** . */
-   public static final Pattern EMPTY_LINE_PATTERN = Pattern.compile("^" + WHITE_NON_CR + "*$", Pattern.MULTILINE);
+   public static final Pattern BLANK_LINE_PATTERN = Pattern.compile(
+      "^" + WHITE_NON_CR + "*" + "$");
 
    /** . */
    public static final Pattern BILTO = Pattern.compile(
@@ -122,48 +125,42 @@ public class CodeProcessor
    }
 
    private void printJavaSource(
-      String s,
+      MethodSource source,
       CodeContext ctx,
       Set<String> chunkIds)
    {
-      Matcher chunkMatcher = BILTO.matcher(s);
+      final String s = source.getClip();
 
-      //
-      String chunkId = null;
-      int pre = 0;
-      while (true)
+      // Find the method curly braces
+      int a = s.indexOf('{');
+      int b = s.lastIndexOf('}');
+
+      // Split lines
+      String[] lines = s.substring(a + 1, b).split("\\r?\\n");
+      boolean matches = false;
+      for (String line : lines)
       {
-         String chunk;
-         String nextChunkId;
-         boolean found = chunkMatcher.find();
-         if (found)
+         if (BLANK_LINE_PATTERN.matcher(line).matches())
          {
-            chunk = s.substring(pre, chunkMatcher.start());
-            nextChunkId = chunkMatcher.group(1);
+            matches = false;
          }
          else
          {
-            chunk = s.substring(pre);
-            nextChunkId = null;
+            Matcher matcher = BEGIN_CHUNK_PATTERN.matcher(line);
+            if (matcher.matches())
+            {
+               String chunkId = matcher.group(1);
+               matches = chunkIds.contains(chunkId);
+            }
+            else
+            {
+               if (matches)
+               {
+                  printJavaSource(line + "\n", ctx);
+               }
+            }
          }
-
-         //
-         if (chunkId != null && chunkIds.contains(chunkId))
-         {
-            printJavaSource(chunk, ctx);
-         }
-
-         //
-         if (!found)
-         {
-            break;
-         }
-
-         //
-         pre = chunkMatcher.end();
-         chunkId = nextChunkId;
       }
-
    }
 
    public void parse(String s, final CodeContext ctx)
@@ -179,11 +176,7 @@ public class CodeProcessor
             {
                try
                {
-                  List<URL> list = ctx.resolveResources(path);
-                  if (list.size() > 0)
-                  {
-                     return list.get(0).openStream();
-                  }
+                  return ctx.resolveResources(path);
                }
                catch (IOException e)
                {
@@ -214,7 +207,7 @@ public class CodeProcessor
                String subset = matcher.group(3);
                String a = subset.substring(1, subset.length() - 1);
                String[] ids = a.split(",");
-               printJavaSource(source.getClip(), ctx, new HashSet<String>(Arrays.asList(ids)));
+               printJavaSource((MethodSource)source, ctx, new HashSet<String>(Arrays.asList(ids)));
             }
             else
             {

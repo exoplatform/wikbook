@@ -26,7 +26,8 @@ import java.util.regex.Pattern;
 
 import static org.wikbook.core.codesource.CodeProcessor.CALLOUT_ANCHOR_PATTERN;
 import static org.wikbook.core.codesource.CodeProcessor.CALLOUT_DEF_PATTERN;
-import static org.wikbook.core.codesource.CodeProcessor.BILTO;
+import static org.wikbook.core.codesource.CodeProcessor.BLANK_LINE_PATTERN;
+import static org.wikbook.core.codesource.CodeProcessor.BEGIN_CHUNK_PATTERN;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -35,6 +36,9 @@ import static org.wikbook.core.codesource.CodeProcessor.BILTO;
 public class PatternTestCase extends TestCase
 {
 
+
+   
+/*
    public void testEmptyLinePattern()
    {
       assertMatches(BILTO, " ", " ");
@@ -43,73 +47,32 @@ public class PatternTestCase extends TestCase
       assertMatches(BILTO, "a\nb");
       assertMatches(BILTO, "a\n \nb", " ");
    }
+*/
+
+   public void testBlankLinePattern()
+   {
+      assertTrue(BLANK_LINE_PATTERN.matcher("").matches());
+      assertTrue(BLANK_LINE_PATTERN.matcher(" ").matches());
+      assertTrue(BLANK_LINE_PATTERN.matcher("\t").matches());
+      assertTrue(BLANK_LINE_PATTERN.matcher("\t ").matches());
+   }
 
    public void testSeparatorPattern()
    {
-      assertMatches(BILTO, "//-1-", "//-1-");
-      assertMatches(BILTO, "//-1- ", "//-1- ");
-      assertMatches(BILTO, "// -1-", "// -1-");
-      assertMatches(BILTO, "// -1- ", "// -1- ");
-      assertMatches(BILTO, " //-1-", " //-1-");
-      assertMatches(BILTO, " // -1-", " // -1-");
-      assertMatches(BILTO, " //-1- ", " //-1- ");
-      assertMatches(BILTO, " // -1- ", " // -1- ");
+      assertMatches(BEGIN_CHUNK_PATTERN, "//-1-", "//-1-");
+      assertMatches(BEGIN_CHUNK_PATTERN, "//-1- ", "//-1- ");
+      assertMatches(BEGIN_CHUNK_PATTERN, "// -1-", "// -1-");
+      assertMatches(BEGIN_CHUNK_PATTERN, "// -1- ", "// -1- ");
+      assertMatches(BEGIN_CHUNK_PATTERN, " //-1-", " //-1-");
+      assertMatches(BEGIN_CHUNK_PATTERN, " // -1-", " // -1-");
+      assertMatches(BEGIN_CHUNK_PATTERN, " //-1- ", " //-1- ");
+      assertMatches(BEGIN_CHUNK_PATTERN, " // -1- ", " // -1- ");
 
       //
-      assertMatches(BILTO, "//-1-a");
-      assertMatches(BILTO, "//-1- a");
-      assertMatches(BILTO, "a//-1-");
-      assertMatches(BILTO, "a //-1-");
-   }
-
-   public void testSeparatorPattern_Multiline()
-   {
-      String s = "a\n// -1- \nb";
-      Matcher matcher = BILTO.matcher(s);
-      assertTrue(matcher.find());
-      assertEquals("// -1- ", matcher.group(0));
-      assertEquals("1", matcher.group(1));
-      assertFalse(matcher.find());
-   }
-
-   public void testChunkGroups()
-   {
-      String s = "// -0-\n\n// -1-";
-      Matcher matcher = BILTO.matcher(s);
-      assertTrue(matcher.find());
-      assertEquals("// -0-", matcher.group(0));
-      assertEquals(1, matcher.groupCount());
-      assertEquals("0", matcher.group(1));
-      assertTrue(matcher.find());
-      assertEquals("", matcher.group(0));
-      assertEquals(1, matcher.groupCount());
-      assertEquals(null, matcher.group(1));
-      assertTrue(matcher.find());
-      assertEquals("// -1-", matcher.group(0));
-      assertEquals(1, matcher.groupCount());
-      assertEquals("1", matcher.group(1));
-      assertFalse(matcher.find());
-   }
-
-   public void testChunks()
-   {
-      String s = "" +
-         "// -0-\n" +
-         "chunk_0\n" +
-         "\n" +
-         "// -1-\n" +
-         "\n" +
-         "// -2-\n" +
-         "// -3-\n" +
-         "chunk_1\n" +
-         "";
-      assertMatches(BILTO, s,
-         "// -0-",
-         "",
-         "// -1-",
-         "",
-         "// -2-",
-         "// -3-");
+      assertMatches(BEGIN_CHUNK_PATTERN, "//-1-a");
+      assertMatches(BEGIN_CHUNK_PATTERN, "//-1- a");
+      assertMatches(BEGIN_CHUNK_PATTERN, "a//-1-");
+      assertMatches(BEGIN_CHUNK_PATTERN, "a //-1-");
    }
 
    public void testCalloutAnchor_Multiline()

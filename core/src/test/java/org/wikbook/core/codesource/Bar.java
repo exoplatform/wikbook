@@ -19,50 +19,21 @@
 
 package org.wikbook.core.codesource;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
-
 /**
- * Contract for interacting with a code processor.
- *
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public interface CodeContext
+public class Bar
 {
+   public void m()
+   {
+      // -1-
+      int a = 0;
 
-   /**
-    * Write code content.
-    *
-    * @param content the content
-    */
-   void writeContent(String content);
+      // -2-
+      int b = 0;
 
-   /**
-    * Write a callout
-    *
-    * @param id the callout id
-    */
-   void writeCallout(String id);
-
-   /**
-    * Define a callout text value.
-    *
-    * @param id the callout id
-    * @param text the callout text value
-    */
-   void setCallout(String id, String text);
-
-   /**
-    * Resolve a code resource and returns an {{code InputStream}} otherwise returns null if no such
-    * resource can be resolved.
-    *
-    * @param id the resource id
-    * @return the resource input stream
-    * @throws IOException any io exception
-    */
-   InputStream resolveResources(String id) throws IOException;
-
+      // -1-
+      int c = 0;
+   }
 }

@@ -35,6 +35,8 @@ import japa.parser.ast.body.VariableDeclarator;
 import japa.parser.ast.body.VariableDeclaratorId;
 import japa.parser.ast.expr.NameExpr;
 import japa.parser.ast.expr.QualifiedNameExpr;
+import japa.parser.ast.stmt.BlockStmt;
+import japa.parser.ast.stmt.Statement;
 import japa.parser.ast.visitor.GenericVisitorAdapter;
 import org.cojen.classfile.ClassFile;
 import org.cojen.classfile.MethodDesc;
@@ -177,7 +179,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(ClassOrInterfaceDeclaration n, Visit v)
    {
-      String fqn = (v.pkg.length() == 0 ? "" : (v.pkg + ".")) + n.getName();
+      String fqn = ((v.pkg == null || v.pkg.length() == 0) ? "" : (v.pkg + ".")) + n.getName();
 
       //
       InputStream in = builder.context.getResource(fqn.replace(".", "/") + ".class");
@@ -271,18 +273,6 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    }
 
    @Override
-   public Void visit(ConstructorDeclaration n, Visit v)
-   {
-      Signature signature = v.constructorSignatures.next();
-      MethodSource methodSource = new MethodSource(
-         new MemberKey(n.getName(), signature),
-         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
-         v.javaDoc(n));
-      v.stack.getLast().addLast(methodSource);
-      return super.visit(n, v);
-   }
-
-   @Override
    public Void visit(FieldDeclaration n, Visit v)
    {
       if (n.getVariables().size() == 1)
@@ -305,12 +295,71 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(MethodDeclaration n, Visit v)
    {
+      Clip statementsClip = null;
+      BlockStmt block = n.getBody();
+      if (block != null)
+      {
+         statementsClip = getClip(block, v);
+      }
+
+      //
       Signature signature = v.methodSignatures.next();
+
+      //
       MethodSource methodSource = new MethodSource(
          new MemberKey(n.getName(), signature),
          Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
-         v.javaDoc(n));
+         v.javaDoc(n),
+         statementsClip);
+
+      //
       v.stack.getLast().addLast(methodSource);
       return super.visit(n, v);
+   }
+
+   @Override
+   public Void visit(ConstructorDeclaration n, Visit v)
+   {
+      Clip statementsClip = null;
+      BlockStmt block = n.getBlock();
+      if (block != null)
+      {
+         statementsClip = getClip(block, v);
+      }
+
+      //
+      Signature signature = v.constructorSignatures.next();
+
+      //
+      MethodSource methodSource = new MethodSource(
+         new MemberKey(n.getName(), signature),
+         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
+         v.javaDoc(n),
+         statementsClip);
+
+      //
+      v.stack.getLast().addLast(methodSource);
+      return super.visit(n, v);
+   }
+
+   private Clip getClip(BlockStmt block, Visit v)
+   {
+      if (block != null)
+      {
+         List<Statement> statements = block.getStmts();
+         if (statements != null && statements.size() > 0)
+         {
+            Statement first = statements.get(0);
+            Statement last = statements.get(statements.size() - 1);
+
+            // Find the correct ';' char
+            TextArea ta = new TextArea(v.source);
+            int offset = ta.offset(Position.get(last.getEndLine() -1, last.getEndColumn() - 1));
+            offset = v.source.indexOf(';', offset);
+            Position pos = ta.position(offset);
+            return Clip.get(Position.get(first.getBeginLine() -1, 0), pos);
+         }
+      }
+      return null;
    }
 }

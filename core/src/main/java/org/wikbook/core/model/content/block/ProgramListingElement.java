@@ -32,6 +32,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
@@ -206,9 +207,14 @@ public class ProgramListingElement extends BlockElement
          callout.text = text;
       }
 
-      public List<URL> resolveResources(String id) throws IOException
+      public InputStream resolveResources(String id) throws IOException
       {
-         return context.resolveResources(ResourceType.JAVA, id);
+         List<URL> list = context.resolveResources(ResourceType.JAVA, id);
+         if (list.size() > 0)
+         {
+            return list.get(0).openStream();
+         }
+         return null;
       }
    }
 

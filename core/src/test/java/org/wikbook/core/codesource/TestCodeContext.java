@@ -19,50 +19,44 @@
 
 package org.wikbook.core.codesource;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * Contract for interacting with a code processor.
- *
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public interface CodeContext
+public class TestCodeContext implements CodeContext
 {
 
-   /**
-    * Write code content.
-    *
-    * @param content the content
-    */
-   void writeContent(String content);
+   /** . */
+   private final StringBuilder buffer = new StringBuilder();
 
-   /**
-    * Write a callout
-    *
-    * @param id the callout id
-    */
-   void writeCallout(String id);
+   public void writeContent(String content)
+   {
+      buffer.append(content);
+   }
 
-   /**
-    * Define a callout text value.
-    *
-    * @param id the callout id
-    * @param text the callout text value
-    */
-   void setCallout(String id, String text);
+   public void writeCallout(String id)
+   {
+      buffer.append("// <").append(id).append(">");
+   }
 
-   /**
-    * Resolve a code resource and returns an {{code InputStream}} otherwise returns null if no such
-    * resource can be resolved.
-    *
-    * @param id the resource id
-    * @return the resource input stream
-    * @throws IOException any io exception
-    */
-   InputStream resolveResources(String id) throws IOException;
+   public void setCallout(String id, String text)
+   {
 
+   }
+
+   public InputStream resolveResources(String id) throws IOException
+   {
+      return Thread.currentThread().getContextClassLoader().getResourceAsStream(id);
+   }
+
+   public String getText()
+   {
+      return buffer.toString();
+   }
 }
