@@ -295,22 +295,13 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(MethodDeclaration n, Visit v)
    {
-      Clip statementsClip = null;
-      BlockStmt block = n.getBody();
-      if (block != null)
-      {
-         statementsClip = getClip(block, v);
-      }
-
-      //
       Signature signature = v.methodSignatures.next();
 
       //
       MethodSource methodSource = new MethodSource(
          new MemberKey(n.getName(), signature),
          Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
-         v.javaDoc(n),
-         statementsClip);
+         v.javaDoc(n));
 
       //
       v.stack.getLast().addLast(methodSource);
@@ -320,46 +311,16 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(ConstructorDeclaration n, Visit v)
    {
-      Clip statementsClip = null;
-      BlockStmt block = n.getBlock();
-      if (block != null)
-      {
-         statementsClip = getClip(block, v);
-      }
-
-      //
       Signature signature = v.constructorSignatures.next();
 
       //
       MethodSource methodSource = new MethodSource(
          new MemberKey(n.getName(), signature),
          Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
-         v.javaDoc(n),
-         statementsClip);
+         v.javaDoc(n));
 
       //
       v.stack.getLast().addLast(methodSource);
       return super.visit(n, v);
-   }
-
-   private Clip getClip(BlockStmt block, Visit v)
-   {
-      if (block != null)
-      {
-         List<Statement> statements = block.getStmts();
-         if (statements != null && statements.size() > 0)
-         {
-            Statement first = statements.get(0);
-            Statement last = statements.get(statements.size() - 1);
-
-            // Find the correct ';' char
-            TextArea ta = new TextArea(v.source);
-            int offset = ta.offset(Position.get(last.getEndLine() -1, last.getEndColumn() - 1));
-            offset = v.source.indexOf(';', offset);
-            Position pos = ta.position(offset);
-            return Clip.get(Position.get(first.getBeginLine() -1, 0), pos);
-         }
-      }
-      return null;
    }
 }

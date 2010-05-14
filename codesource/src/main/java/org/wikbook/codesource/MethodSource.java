@@ -31,10 +31,7 @@ public class MethodSource extends MemberSource
    /** . */
    final MemberKey key;
 
-   /** . */
-   final Clip statementsClip;
-
-   public MethodSource(MemberKey key, Clip clip, String javaDoc, Clip statementsClip)
+   public MethodSource(MemberKey key, Clip clip, String javaDoc)
    {
       super(clip, javaDoc);
 
@@ -44,17 +41,11 @@ public class MethodSource extends MemberSource
          throw new NullPointerException();
       }
       this.key = key;
-      this.statementsClip = statementsClip;
    }
 
    public String getName()
    {
       return key.name;
-   }
-
-   public String getStatements()
-   {
-      return getType().source.clip(statementsClip);
    }
 
    public Signature getSignature()
