@@ -5,34 +5,6 @@ This chapter focuses on the integration of the documentation with the project it
 Wikbook allows to embbed Java^^tm^^ source code inside the documentation. It is very powerful when it comes
 to explain a tutorial or to explain an API.
 
-== Producing a code catalog ==
-
-A code catalog is produced by a Java 6 compiler plugin that create source code fragments at the compilation. It is triggered
-automatically with the Java 6 compiler when the Wikbook APT jar is on the classpath and produce a code catalog within the
-jar file itself.
-
-{{example title="The Wikbook dependency for producing a code catalog"}}
-{{code}}
-<dependency>
-  <groupId>org.wikbook</groupId>
-  <artifactId>wikbook.apt</artifactId>
-  <version>{{property.wikbook.version}}</version>
-</dependency>
-{{/code}}
-{{/example}}
-
-{{code language=java}}
-{@include org.wikbook.doc.AnObject}
-{{/code}}
-
-A code catalog is created from annotated Java^^tm^^ code when it is annotated with the {{code}}@org.wikbook.apt.annotation.Documented{{/code}}
-annotation. The annotation can target:
-
-* A class
-* A method
-* A constructor
-* A field
-
 todo
 
 = Maven plugins =
