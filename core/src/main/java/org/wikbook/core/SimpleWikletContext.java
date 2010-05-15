@@ -46,6 +46,9 @@ public class SimpleWikletContext implements WikletContext
    /** . */
    private final Map<String, String> properties;
 
+   /** . */
+   private boolean highlightCode;
+
    public SimpleWikletContext(File base)
    {
       if (base == null)
@@ -128,5 +131,15 @@ public class SimpleWikletContext implements WikletContext
    {
       List<URL> urls = resolveResources(type, id);
       return urls.isEmpty() ? null : urls.get(0);
+   }
+
+   public boolean getHighlightCode()
+   {
+      return highlightCode;
+   }
+
+   public void setHighlightCode(boolean highlightCode)
+   {
+      this.highlightCode = highlightCode;
    }
 }

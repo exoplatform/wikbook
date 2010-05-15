@@ -96,6 +96,13 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
    private String destinationFileName;
 
    /**
+    * Turn on/off code highlighting
+    *
+    * @parameter default-value="true"
+    */
+   private boolean highlightCode;
+
+   /**
     * INTERNAL : The representation of the maven execution.
     *
     * @parameter expression="${session}"
@@ -146,56 +153,6 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
     * @readonly
     */
    private List<String> testClasspathElements;
-
-   public File getSourceDirectory()
-   {
-      return sourceDirectory;
-   }
-
-   public void setSourceDirectory(File sourceDirectory)
-   {
-      this.sourceDirectory = sourceDirectory;
-   }
-
-   public String getSourceFileName()
-   {
-      return sourceFileName;
-   }
-
-   public void setSourceFileName(String sourceFileName)
-   {
-      this.sourceFileName = sourceFileName;
-   }
-
-   public File getDestinationDirectory()
-   {
-      return destinationDirectory;
-   }
-
-   public void setDestinationDirectory(File destinationDirectory)
-   {
-      this.destinationDirectory = destinationDirectory;
-   }
-
-   public String getDestinationFileName()
-   {
-      return destinationFileName;
-   }
-
-   public void setDestinationFileName(String destinationFileName)
-   {
-      this.destinationFileName = destinationFileName;
-   }
-
-   public MavenSession getSession()
-   {
-      return session;
-   }
-
-   public void setSession(MavenSession session)
-   {
-      this.session = session;
-   }
 
    public void execute() throws MojoExecutionException, MojoFailureException
    {
@@ -285,6 +242,11 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
             }
          }
       }
+   }
+
+   public boolean getHighlightCode()
+   {
+      return highlightCode;
    }
 
    public List<Person> findPersonsByRole(String roleName)

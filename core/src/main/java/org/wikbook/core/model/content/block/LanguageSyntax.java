@@ -23,7 +23,7 @@ package org.wikbook.core.model.content.block;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public enum CodeLanguage
+public enum LanguageSyntax
 {
 
    JAVA, XML, UNKNOWN

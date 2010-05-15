@@ -30,6 +30,8 @@ import java.util.List;
 public interface WikletContext
 {
 
+   boolean getHighlightCode();
+
    URL resolveResource(ResourceType type, String id) throws IOException;
    
    List<URL> resolveResources(ResourceType type, String id) throws IOException;

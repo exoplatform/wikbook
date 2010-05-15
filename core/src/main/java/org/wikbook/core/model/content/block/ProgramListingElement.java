@@ -61,38 +61,51 @@ public class ProgramListingElement extends BlockElement
    /** . */
    private final WikletContext context;
 
+   /** . */
+   private final boolean highlightCode;
+
    public ProgramListingElement(
       WikletContext context,
       String language,
       Integer indent,
-      String content)
+      String content,
+      boolean highlightCode)
    {
       this.context = context;
       this.language = language;
       this.indent = indent;
       this.content = content;
+      this.highlightCode = highlightCode;
    }
 
    @Override
    public void writeTo(XMLEmitter xml)
    {
       ElementEmitter programListingCoXML = xml.element("programlistingco");
-      ElementEmitter programListingXML = programListingCoXML.element("programlisting");
-      CodeLanguage codeLanguage = CodeLanguage.UNKNOWN;
+
+      //
+      LanguageSyntax syntax = LanguageSyntax.UNKNOWN;
       if (language != null)
       {
          if ("java".equalsIgnoreCase(language))
          {
-            codeLanguage = CodeLanguage.JAVA;
+            syntax = LanguageSyntax.JAVA;
          }
          else if ("xml".equalsIgnoreCase(language))
          {
-            codeLanguage = CodeLanguage.XML;
+            syntax = LanguageSyntax.XML;
          }
       }
 
+      //
+      ElementEmitter programListingXML = programListingCoXML.element("programlisting");
+      if (highlightCode && syntax != LanguageSyntax.UNKNOWN)
+      {
+         programListingXML.withAttribute("language", syntax.name().toLowerCase());
+      }
+
       String bilto = content;
-      switch (codeLanguage)
+      switch (syntax)
       {
          case XML:
             if (indent != null)
