@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>wikbook.parent</artifactId>
+    <groupId>org.wikbook</groupId>
+    <version>0.9.10-SNAPSHOT</version>
+  </parent>
+  
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>wikbook.docbkx</artifactId>
+  <packaging>pom</packaging>
+
+  <name>Dockbx abstract pom</name>
+
+  <build>
+    <pluginManagement>
+
+       <plugins>
+
+          <!-- Generate the docbook document -->
+          <plugin>
+            <groupId>org.wikbook</groupId>
+            <artifactId>wikbook.maven</artifactId>
+            <executions>
+              <execution>
+                <phase>prepare-package</phase>
+                <goals>
+                  <goal>transform</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <sourceDirectory>${pom.basedir}/en/en-US</sourceDirectory>
+              <sourceFileName>master.wiki</sourceFileName>
+              <destinationDirectory>${project.build.directory}/src/docbkx</destinationDirectory>
+              <destinationFileName>index.xml</destinationFileName>
+            </configuration>
+          </plugin>
+
+          <!-- Unpack resources --> 
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-dependency-plugin</artifactId>
+           <executions>
+             <execution>
+               <id>a</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>unpack</goal>
+               </goals>
+               <configuration>
+                 <artifactItems>
+                   <artifactItem>
+                     <groupId>org.wikbook</groupId>
+                     <artifactId>wikbook.docbkxstyle</artifactId>
+                     <version>0.9.10-SNAPSHOT</version>
+                     <type>jar</type>
+                     <overWrite>false</overWrite>
+                     <excludes>META-INF/**</excludes>
+                   </artifactItem>
+                 </artifactItems>
+                 <outputDirectory>${project.build.directory}/src/docbkx/resources</outputDirectory>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+
+          <!-- Copy the image for the PDF generation -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-resources-plugin</artifactId>
+            <version>2.3</version>
+            <executions>
+              <execution>
+                <id>copy-prod-resources</id>
+                <phase>process-resources</phase>
+                <goals>
+                  <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                  <outputDirectory>${project.build.directory}/src/docbkx/images</outputDirectory>
+                  <resources>
+                    <resource>
+                      <directory>${pom.basedir}/en/images</directory>
+                    </resource>
+                  </resources>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+
+         <!-- -->
+         <plugin>
+           <groupId>com.agilejava.docbkx</groupId>
+           <artifactId>docbkx-maven-plugin</artifactId>
+           <version>2.0.7</version>
+           <executions>
+             <execution>
+               <goals>
+                 <goal>generate-html</goal>
+                 <goal>generate-pdf</goal>
+               </goals>
+               <phase>package</phase>
+               <configuration>
+                 <sourceDirectory>${project.build.directory}/src/docbkx</sourceDirectory>
+
+                 <!-- Customize style sheets -->
+                 <htmlCustomization>${project.build.directory}/src/docbkx/resources/xsl/html.xsl</htmlCustomization>
+                 <htmlStylesheet>${project.build.directory}/css/html.css</htmlStylesheet>
+
+                 <!-- -->
+                 <foCustomization>${project.build.directory}/src/docbkx/resources/xsl/fopdf.xsl</foCustomization>
+
+                 <!-- -->
+                 <highlightSource>1</highlightSource>
+
+                 <!--
+                   |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
+                   |  Callouts on imported text
+                   -->
+                 <useExtensions>1</useExtensions>
+                 <calloutsExtension>1</calloutsExtension>
+
+                 <!-- Copy the image for HTML-->
+                 <postProcess>
+
+                   <copy todir="${project.build.directory}/docbkx/html/images">
+                     <fileset dir="${pom.basedir}/en/images">
+                       <include name="**" />
+                     </fileset>
+                   </copy>
+
+                   <copy todir="${project.build.directory}/docbkx/html">
+                     <fileset dir="${project.build.directory}/src/docbkx/resources">
+                       <include name="**/*.css" />
+                       <include name="**/*.png" />
+                       <include name="**/*.gif" />
+                       <include name="**/*.jpg" />
+                     </fileset>
+                   </copy>
+
+                 </postProcess>
+                 
+               </configuration>
+             </execution>
+           </executions>
+           <dependencies>
+             <dependency>
+               <groupId>org.docbook</groupId>
+               <artifactId>docbook-xml</artifactId>
+               <version>4.4</version>
+               <scope>runtime</scope>
+             </dependency>
+           </dependencies>
+         </plugin>
+
+       </plugins>
+    </pluginManagement>
+   </build>
+</project>
+    

@@ -93,6 +93,7 @@
     <module>core</module>
     <module>maven</module>
     <module>docbkxstyle</module>
+    <module>docbkx</module>
     <module>doc</module>
   </modules>
 
