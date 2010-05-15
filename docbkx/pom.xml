@@ -11,6 +11,7 @@
   <packaging>pom</packaging>
 
   <name>Dockbx abstract pom</name>
+  
 
   <build>
     <pluginManagement>
@@ -53,7 +54,9 @@
                    <artifactItem>
                      <groupId>org.wikbook</groupId>
                      <artifactId>wikbook.docbkxstyle</artifactId>
+<!--
                      <version>0.9.10-SNAPSHOT</version>
+-->
                      <type>jar</type>
                      <overWrite>false</overWrite>
                      <excludes>META-INF/**</excludes>
@@ -104,7 +107,7 @@
 
                  <!-- Customize style sheets -->
                  <htmlCustomization>${project.build.directory}/src/docbkx/resources/xsl/html.xsl</htmlCustomization>
-                 <htmlStylesheet>${project.build.directory}/css/html.css</htmlStylesheet>
+                 <htmlStylesheet>css/html.css</htmlStylesheet>
 
                  <!-- -->
                  <foCustomization>${project.build.directory}/src/docbkx/resources/xsl/fopdf.xsl</foCustomization>

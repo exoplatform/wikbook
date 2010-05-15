@@ -65,6 +65,7 @@
 
   <dependencyManagement>
     <dependencies>
+      
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.codesource</artifactId>
@@ -82,9 +83,20 @@
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.docbkxstyle</artifactId>
+        <version>0.9.11-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.docbkx</artifactId>
+        <version>0.9.11-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
         <artifactId>wikbook.doc</artifactId>
         <version>0.9.11-SNAPSHOT</version>
       </dependency>
+      
       <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
