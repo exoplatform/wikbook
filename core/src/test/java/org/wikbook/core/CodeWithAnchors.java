@@ -29,7 +29,7 @@ public class CodeWithAnchors
    {
       for (int i = 0;i < 1000;i++)
       {
-         System.out.println(i); // <0>
+         System.out.println(i); // <0> this is some text
       }
    }
 
@@ -43,6 +43,5 @@ public class CodeWithAnchors
 
       // -0-
       int c = 0;
-
    }
 }

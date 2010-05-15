@@ -19,14 +19,6 @@
       <version>3.7</version>
     </dependency>
 
-<!--
-    <dependency>
-      <groupId>com.agilejava.docbkx</groupId>
-      <artifactId>docbkx-maven-plugin</artifactId>
-      <version>2.0.10</version>
-    </dependency>
--->
-
   </dependencies>
 
   <build>
@@ -122,11 +114,14 @@
                  <foCustomization>${project.build.directory}/src/docbkx/resources/xsl/fopdf.xsl</foCustomization>
 
                  <!-- -->
-                 <!--<highlightSource>1</highlightSource>-->
-                 <!--<highlightDefaultLanguage></highlightDefaultLanguage>-->
+                 <highlightSource>1</highlightSource>
 
-                 <!-- callouts -->
-                 <!--<calloutsExtension>1</calloutsExtension>-->
+                 <!--
+                   |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
+                   |  Callouts on imported text
+                   -->
+                 <useExtensions>1</useExtensions>
+                 <calloutsExtension>1</calloutsExtension>
 
                  <!-- Copy the image for HTML-->
                  <postProcess>
