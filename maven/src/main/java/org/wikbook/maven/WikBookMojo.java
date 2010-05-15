@@ -214,7 +214,7 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       FileWriter out = null;
       try
       {
-         String expectedXML = XML.serialize(document, new OutputFormat(null, false,
+         String expectedXML = XML.serialize(document, new OutputFormat(2, false,
             "-//OASIS//DTD DocBook XML V4.5//EN",
             "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
             ));
