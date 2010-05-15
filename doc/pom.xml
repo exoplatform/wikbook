@@ -44,7 +44,35 @@
             </configuration>
           </plugin>
 
-         <!-- Copy the image for the PDF generation -->
+          <!-- Unpack resources --> 
+         <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-dependency-plugin</artifactId>
+           <executions>
+             <execution>
+               <id>a</id>
+               <phase>process-resources</phase>
+               <goals>
+                 <goal>unpack</goal>
+               </goals>
+               <configuration>
+                 <artifactItems>
+                   <artifactItem>
+                     <groupId>org.wikbook</groupId>
+                     <artifactId>wikbook.docbkxstyle</artifactId>
+                     <version>0.9.10-SNAPSHOT</version>
+                     <type>jar</type>
+                     <overWrite>false</overWrite>
+                     <excludes>META-INF/**</excludes>
+                   </artifactItem>
+                 </artifactItems>
+                 <outputDirectory>${project.build.directory}/src/docbkx/resources</outputDirectory>
+               </configuration>
+             </execution>
+           </executions>
+         </plugin>
+
+          <!-- Copy the image for the PDF generation -->
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
@@ -69,6 +97,7 @@
           </plugin>
 
          <!-- -->
+<!--
           <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-resources-plugin</artifactId>
@@ -91,6 +120,7 @@
               </execution>
             </executions>
           </plugin>
+-->
 
          <plugin>
            <groupId>com.agilejava.docbkx</groupId>
@@ -107,8 +137,8 @@
                  <sourceDirectory>${project.build.directory}/src/docbkx</sourceDirectory>
 
                  <!-- Customize style sheets -->
-                 <htmlCustomization>src/docbkx/resources/xsl/html.xsl</htmlCustomization>
-                 <htmlStylesheet>css/html.css</htmlStylesheet>
+                 <htmlCustomization>${project.build.directory}/src/docbkx/resources/xsl/html.xsl</htmlCustomization>
+                 <htmlStylesheet>${project.build.directory}/css/html.css</htmlStylesheet>
 
                  <!-- -->
                  <foCustomization>${project.build.directory}/src/docbkx/resources/xsl/fopdf.xsl</foCustomization>

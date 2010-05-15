@@ -92,6 +92,7 @@
     <module>codesource</module>
     <module>core</module>
     <module>maven</module>
+    <module>docbkxstyle</module>
     <module>doc</module>
   </modules>
 
