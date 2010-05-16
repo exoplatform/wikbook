@@ -52,7 +52,7 @@ public class ProgramListingElement extends BlockElement
 {
 
    /** . */
-   private final String language;
+   private final LanguageSyntax languageSyntax;
 
    /** . */
    private final Integer indent;
@@ -68,13 +68,13 @@ public class ProgramListingElement extends BlockElement
 
    public ProgramListingElement(
       WikletContext context,
-      String language,
+      LanguageSyntax languageSyntax,
       Integer indent,
       String content,
       boolean highlightCode)
    {
       this.context = context;
-      this.language = language;
+      this.languageSyntax = languageSyntax;
       this.indent = indent;
       this.content = content;
       this.highlightCode = highlightCode;
@@ -86,31 +86,17 @@ public class ProgramListingElement extends BlockElement
       ElementEmitter programListingCoXML = xml.element("programlistingco");
 
       //
-      LanguageSyntax syntax = LanguageSyntax.UNKNOWN;
-      if (language != null)
-      {
-         if ("java".equalsIgnoreCase(language))
-         {
-            syntax = LanguageSyntax.JAVA;
-         }
-         else if ("xml".equalsIgnoreCase(language))
-         {
-            syntax = LanguageSyntax.XML;
-         }
-      }
-
-      //
       ElementEmitter areaspecXML = programListingCoXML.element("areaspec").withAttribute("units", "linecolumn");
 
       //
       ElementEmitter programListingXML = programListingCoXML.element("programlisting");
-      if (highlightCode && syntax != LanguageSyntax.UNKNOWN)
+      if (highlightCode && languageSyntax != LanguageSyntax.UNKNOWN)
       {
-         programListingXML.withAttribute("language", syntax.name().toLowerCase());
+         programListingXML.withAttribute("language", languageSyntax.name().toLowerCase());
       }
 
       String bilto = content;
-      switch (syntax)
+      switch (languageSyntax)
       {
          case XML:
             if (indent != null)

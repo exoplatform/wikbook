@@ -29,6 +29,7 @@ import org.wikbook.core.model.content.block.DOMElement;
 import org.wikbook.core.model.content.block.ExampleElement;
 import org.wikbook.core.model.content.block.GroupElement;
 import org.wikbook.core.model.content.block.ImageElement;
+import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ListElement;
 import org.wikbook.core.model.content.block.ListItemElement;
 import org.wikbook.core.model.content.block.ParagraphElement;
@@ -283,7 +284,7 @@ public class XDOMTransformer implements Listener
             e.printStackTrace();
          }
       }
-      else if ("code".equals(id))
+      else if ("code".equals(id) || "java".equals(id) || "xml".equals(id))
       {
          if (isInline)
          {
@@ -293,7 +294,27 @@ public class XDOMTransformer implements Listener
          }
          else
          {
-            String language = macroParameters.get("language");
+            LanguageSyntax languageSyntax = LanguageSyntax.UNKNOWN;
+            if ("java".equals(id))
+            {
+               languageSyntax = LanguageSyntax.JAVA;
+            }
+            else if ("xml".equals(id))
+            {
+               languageSyntax = LanguageSyntax.XML;
+            }
+            else
+            {
+               String language = macroParameters.get("language");
+               if ("java".equalsIgnoreCase(language))
+               {
+                  languageSyntax = LanguageSyntax.JAVA;
+               }
+               else if ("xml".equalsIgnoreCase(language))
+               {
+                  languageSyntax = LanguageSyntax.XML;
+               }
+            }
 
             //
             Integer indent = null;
@@ -312,7 +333,7 @@ public class XDOMTransformer implements Listener
             //
             book.merge(new ProgramListingElement(
                context,
-               language,
+               languageSyntax,
                indent,
                content,
                context.getHighlightCode()));
