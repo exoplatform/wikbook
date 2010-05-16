@@ -58,6 +58,7 @@
                <configuration>
                  <includeGroupIds>org.wikbook</includeGroupIds>
                  <includeArtifactIds>wikbook.docbkxstyle</includeArtifactIds>
+                 <excludes>META-INF/**</excludes>
                  <outputDirectory>${project.build.directory}/src/docbkx/resources</outputDirectory>
                </configuration>
              </execution>
