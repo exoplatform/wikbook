@@ -156,4 +156,23 @@ public class TextAreaTestCase extends TestCase
       {
       }
    }
+
+   public void testTrimLeft()
+   {
+      assertTrimLeft(" a\n", " a\n");
+      assertTrimLeft("\n", "\n");
+      assertTrimLeft("a\n", "a\n");
+      assertTrimLeft("a\nb", "a\nb");
+      assertTrimLeft("a", " a");
+      assertTrimLeft("a\n a", " a\n  a");
+      assertTrimLeft(" a\na", "  a\n a");
+   }
+
+   private void assertTrimLeft(String expected, String s)
+   {
+      TextArea ta = new TextArea(s);
+      ta.trimLeft();
+      System.out.println("ta.getText() = _" + ta.getText() + "_");
+      assertEquals(expected, ta.getText());
+   }
 }

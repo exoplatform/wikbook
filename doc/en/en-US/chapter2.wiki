@@ -278,8 +278,11 @@ are available that makes it very powerful
 |((({{code language=xml}}<valid/>{{/code}})))
 
 (% title="XML pretty printted" %)
-|((({{code}}{{code language=xml indent=2}}<valid><formatted/></valid>{{/code}}{{/code}})))
-|((({{code language=xml indent=2}}<valid><formatted/></valid>{{/code}})))
+|((({{code}}{{code language=xml indent=2}}
+<valid><formatted/></valid>
+{{/code}}{{/code}})))
+|((({{code language=xml indent=2}}<bar><bar>bar</bar></bar>
+<bar><bar>bar</bar></bar>{{/code}})))
 
 The //screen// macro creates a docbook screen XML element to display anything related to the computer screen:
 

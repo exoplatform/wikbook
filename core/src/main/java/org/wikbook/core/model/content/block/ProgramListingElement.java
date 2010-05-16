@@ -19,6 +19,11 @@
 
 package org.wikbook.core.model.content.block;
 
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
 import org.wikbook.core.codesource.CodeContext;
@@ -29,8 +34,19 @@ import org.wikbook.core.xml.XML;
 import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.DefaultHandler;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXSource;
+import javax.xml.transform.sax.SAXTransformerFactory;
+import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
@@ -103,16 +119,40 @@ public class ProgramListingElement extends BlockElement
             {
                try
                {
-                  Transformer transformer = XML.createTransformer(new OutputFormat(indent, true));
-
                   // Output buffer
                   StringWriter writer = new StringWriter();
 
-                  // Perform identity transformation
-                  transformer.transform(new StreamSource(new StringReader(content)), new StreamResult(writer));
+                  // Create transformer handler
+                  Transformer transformer = XML.createTransformer(new OutputFormat(indent, true));
+
+                  // Surround with an element to take care of special case
+                  String data = "<root>" + content + "</root>";
 
                   //
-                  bilto = writer.toString();
+                  DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+                  dbf.setIgnoringElementContentWhitespace(true);
+                  dbf.setCoalescing(true);
+                  DocumentBuilder db = dbf.newDocumentBuilder();
+                  Document doc = db.parse(new InputSource(new StringReader(data)));
+
+                  // Remove white spaces
+                  XML.removeWhiteSpace(doc.getDocumentElement());
+
+                  //
+                  transformer.transform(new DOMSource(doc), new StreamResult(writer));
+
+                  // Get the original data
+                  data = writer.toString();
+                  int from = data.indexOf("<root>\n") + "<root>\n".length();
+                  int to  = data.lastIndexOf("\n</root>");
+                  data = data.substring(from, to);
+
+                  //
+                  TextArea ta = new TextArea(data);
+                  ta.trimLeft();
+
+                  //
+                  bilto = ta.getText();
                }
                catch (Exception e)
                {

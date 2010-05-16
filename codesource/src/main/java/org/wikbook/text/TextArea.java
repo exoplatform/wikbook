@@ -221,4 +221,67 @@ public class TextArea
       }
       return offset;
    }
+
+   /**
+    * Trim non carriage return white space on the left.
+    *
+    * @return the trimmed amount
+    */
+   public int trimLeft()
+   {
+      // Find max value to trim
+      int value = Integer.MAX_VALUE;
+      int prev = 0;
+      while (true)
+      {
+         int pos = s.indexOf('\n', prev);
+
+         //
+         int max = pos == -1 ? s.length() : pos;
+         int i = prev;
+         while (i < max && Character.isWhitespace(s.charAt(i)))
+         {
+            i++;
+         }
+         value = Math.min(value, i - prev);
+
+         //
+         if (pos == -1)
+         {
+            break;
+         }
+         else
+         {
+            prev = pos + 1;
+         }
+      }
+
+      //
+      StringBuilder builder = new StringBuilder();
+      prev = 0;
+      while (true)
+      {
+         int pos = s.indexOf('\n', prev);
+
+         //
+         builder.append(s, prev + value, pos == -1 ? s.length() : pos);
+
+         //
+         if (pos == -1)
+         {
+            break;
+         }
+         else
+         {
+            builder.append('\n');
+            prev = pos + 1;
+         }
+      }
+
+      //
+      s = builder.toString();
+
+      //
+      return value;
+   }
 }

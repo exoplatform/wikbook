@@ -3,3 +3,7 @@
 {@include org.wikbook.core.CodeWithAnchors#bar() {0}}
 {@include org.wikbook.core.CodeWithAnchors#bar() {0,1}}
 {{/code}}
+{{xml indent=2}}
+a
+<b><c>d</c></b>
+{{/xml}}

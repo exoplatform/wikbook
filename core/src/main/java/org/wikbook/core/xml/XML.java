@@ -20,6 +20,10 @@
 package org.wikbook.core.xml;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 
 import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
@@ -30,6 +34,8 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -110,4 +116,52 @@ public class XML
       return createTransformerHandler(format).getTransformer();
    }
 
+   /**
+    * Cleanup the element from any white space children it may have.
+    *
+    * @param elt the element to cleanup
+    * @throws NullPointerException if the element is null
+    */
+   public static void removeWhiteSpace(Element elt) throws NullPointerException
+   {
+      if (elt == null)
+      {
+         throw new NullPointerException();
+      }
+      List<Node> childrenToRemove = null;
+      NodeList children = elt.getChildNodes();
+      for (int i = 0;i < children.getLength();i++)
+      {
+         Node child = children.item(i);
+         if (child instanceof Text)
+         {
+            Text textChild = (Text)child;
+            String trimmed = textChild.getData().trim();
+            if (trimmed.length() == 0)
+            {
+               if (childrenToRemove == null)
+               {
+                  childrenToRemove = new LinkedList<Node>();
+               }
+               childrenToRemove.add(textChild);
+            }
+            else
+            {
+               textChild.setData(trimmed);
+            }
+         }
+         else if (child instanceof Element)
+         {
+            Element eltChild = (Element)child;
+            removeWhiteSpace(eltChild);
+         }
+      }
+      if (childrenToRemove != null)
+      {
+         for (Node child : childrenToRemove)
+         {
+            elt.removeChild(child);
+         }
+      }
+   }
 }
