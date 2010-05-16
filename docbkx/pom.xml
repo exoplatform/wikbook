@@ -12,14 +12,6 @@
 
   <name>Dockbx abstract pom</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.docbkxstyle</artifactId>
-    </dependency>
-  </dependencies>
-
-
   <build>
     <pluginManagement>
 
@@ -31,7 +23,7 @@
             <artifactId>wikbook.maven</artifactId>
             <executions>
               <execution>
-                <phase>prepare-package</phase>
+                <phase>generate-resources</phase>
                 <goals>
                   <goal>transform</goal>
                 </goals>
@@ -54,9 +46,19 @@
                <id>a</id>
                <phase>process-resources</phase>
                <goals>
-                 <goal>unpack-dependencies</goal>
+                 <goal>unpack</goal>
                </goals>
                <configuration>
+                 <artifactItems>
+                   <artifactItem>
+                     <groupId>org.wikbook</groupId>
+                     <artifactId>wikbook.docbkxstyle</artifactId>
+                     <version>${version}</version>
+                     <type>jar</type>
+                     <overWrite>false</overWrite>
+                     <excludes>META-INF/**</excludes>
+                   </artifactItem>
+                 </artifactItems>
                  <outputDirectory>${project.build.directory}/src/docbkx/resources</outputDirectory>
                </configuration>
              </execution>
