@@ -135,7 +135,7 @@
     <module>core</module>
     <module>maven</module>
     <module>docbkxstyle</module>
-    <module>docbkx</module>
+    <module>archetype</module>
     <module>doc</module>
   </modules>
 
