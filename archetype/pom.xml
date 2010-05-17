@@ -9,6 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <artifactId>wikbook.archetype</artifactId>
+  <packaging>jar</packaging>
 
   <name>Wikbook maven archetype</name>
 
