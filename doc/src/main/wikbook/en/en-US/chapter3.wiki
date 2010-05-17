@@ -59,7 +59,7 @@ configuration to generate HTML and PDF formats. Its usage is very simple:
 
 {{example title="Wikbook archetype usage"}}
 {{screen}}
->mvn archetype:create \
+>mvn archetype:generate \
   -DarchetypeGroupId=org.wikbook \
   -DarchetypeArtifactId=wikbook.archetype \
   -DarchetypeVersion=0.9.13 \
