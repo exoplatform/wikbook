@@ -35,10 +35,10 @@
               </execution>
             </executions>
             <configuration>
-              <sourceDirectory>${pom.basedir}/src/main/en/en-US</sourceDirectory>
-              <sourceFileName>master.wiki</sourceFileName>
+              <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
+              <sourceFileName>book.wiki</sourceFileName>
               <destinationDirectory>${project.build.directory}/src/docbkx</destinationDirectory>
-              <destinationFileName>index.xml</destinationFileName>
+              <destinationFileName>book.xml</destinationFileName>
             </configuration>
           </plugin>
 
@@ -78,7 +78,7 @@
                   <outputDirectory>${project.build.directory}/src/docbkx/images</outputDirectory>
                   <resources>
                     <resource>
-                      <directory>${pom.basedir}/src/en/images</directory>
+                      <directory>${pom.basedir}/src/main/wikbook/images</directory>
                     </resource>
                   </resources>
                 </configuration>
@@ -121,7 +121,7 @@
                  <postProcess>
 
                    <copy todir="${project.build.directory}/docbkx/html/images">
-                     <fileset dir="${pom.basedir}/en/images">
+                     <fileset dir="${pom.basedir}/src/main/book/images">
                        <include name="**" />
                      </fileset>
                    </copy>
