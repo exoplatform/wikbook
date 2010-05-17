@@ -14,7 +14,7 @@
     <dependency>
       <groupId>org.wikbook</groupId>
       <artifactId>wikbook.docbkxstyle</artifactId>
-      <version>@pom.version@</version>
+      <version>${pom.version}</version>
     </dependency>
   </dependencies>
 
@@ -30,7 +30,7 @@
           <plugin>
             <groupId>org.wikbook</groupId>
             <artifactId>wikbook.maven</artifactId>
-            <version>@pom.version@</version>
+            <version>${pom.version}</version>
             <executions>
               <execution>
                 <phase>prepare-package</phase>
@@ -51,6 +51,7 @@
          <plugin>
            <groupId>org.apache.maven.plugins</groupId>
            <artifactId>maven-dependency-plugin</artifactId>
+           <version>${dependency.version}</version>
            <executions>
              <execution>
                <id>a</id>
@@ -72,6 +73,7 @@
          <plugin>
            <groupId>com.agilejava.docbkx</groupId>
            <artifactId>docbkx-maven-plugin</artifactId>
+           <version>${docbkx.version}</version>
            <executions>
              <execution>
                <goals>
