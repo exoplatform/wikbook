@@ -1,0 +1,23 @@
+This chapter focuses on the integration of the documentation with the project it documents.
+
+= Java^^tm^^ code embedding =
+
+Wikbook allows to embbed Java^^tm^^ source code inside the documentation. It is very powerful when it comes
+to explain a tutorial or to explain an API.
+
+todo
+
+= Maven plugins =
+
+The Maven Wikbook plugin converts wiki document to a Docbook document. In order to produce final consumable documents
+(PDF, HTML), the Docbook document must be converted to new documents, this process is usually done via an XSL stylesheet
+that takes the Docbook document and transforms it. The Maven jdocbook plugin is a nice integration of the XSL stylesheet
+transformation with Maven. We recommand to use the Maven Wikbook and jdocbook plugin altogether.
+
+== The Maven Wikbook plugin ==
+
+The Maven Wikbook plugin. 
+
+== The Maven jdocbook plugin ==
+
+The Maven jdocbook plugin.

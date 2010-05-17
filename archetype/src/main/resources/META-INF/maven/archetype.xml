@@ -1,0 +1,10 @@
+<archetype>
+  <id>>wikbook.archetype</id>
+  <sources>
+    <source>src/main/java/org/foo/Bar.java</source>
+  </sources>
+  <testSources>
+  </testSources>
+  <resources>
+  </resources>
+</archetype>
