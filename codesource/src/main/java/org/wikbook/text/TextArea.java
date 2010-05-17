@@ -222,6 +222,44 @@ public class TextArea
       return offset;
    }
 
+   public int trimTop()
+   {
+      int count = 0;
+      int prev = 0;
+      while (true)
+      {
+         int pos = s.indexOf('\n', prev);
+
+         //
+         int max = pos == -1 ? s.length() : pos;
+         int prevprev = prev;
+         while (prev < max && Character.isWhitespace(s.charAt(prev)))
+         {
+            prev++;
+         }
+
+         //
+         if (pos == -1 || prev < max)
+         {
+            if (prev > prevprev)
+            {
+               count++;
+            }
+            break;
+         }
+
+         //
+         count++;
+         prev = pos + 1;
+      }
+
+      //
+      s = s.substring(prev);
+
+      //
+      return count;
+   }
+
    /**
     * Trim non carriage return white space on the left.
     *

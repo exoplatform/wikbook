@@ -157,6 +157,24 @@ public class TextAreaTestCase extends TestCase
       }
    }
 
+   public void testTrimTop()
+   {
+      assertTrimTop(0, "", "");
+      assertTrimTop(1, "", " ");
+      assertTrimTop(1, "a", "\na");
+      assertTrimTop(1, "a", " \na");
+      assertTrimTop(2, "a", "\n \na");
+      assertTrimTop(2, "a", "\n\na");
+      assertTrimTop(0, "a\n", "a\n");
+   }
+
+   private void assertTrimTop(int expectedTrim, String expected, String s)
+   {
+      TextArea ta = new TextArea(s);
+      assertEquals(expectedTrim, ta.trimTop());
+      assertEquals(expected, ta.getText());
+   }
+
    public void testTrimLeft()
    {
       assertTrimLeft(" a\n", " a\n");
@@ -172,7 +190,6 @@ public class TextAreaTestCase extends TestCase
    {
       TextArea ta = new TextArea(s);
       ta.trimLeft();
-      System.out.println("ta.getText() = _" + ta.getText() + "_");
       assertEquals(expected, ta.getText());
    }
 }
