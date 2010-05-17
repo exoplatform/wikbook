@@ -1,0 +1,18 @@
+<archetype-descriptor name=">wikbook.archetype">
+
+  <fileSets>
+    <fileSet filtered="true">
+      <directory>src/main/java</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+    <fileSet filtered="false">
+      <directory>src/main/wikbook</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
+  </fileSets>
+
+</archetype-descriptor>
