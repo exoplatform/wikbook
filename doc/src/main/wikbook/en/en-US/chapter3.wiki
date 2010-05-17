@@ -7,17 +7,65 @@ to explain a tutorial or to explain an API.
 
 todo
 
-= Maven plugins =
+= Maven integration =
 
 The Maven Wikbook plugin converts wiki document to a Docbook document. In order to produce final consumable documents
 (PDF, HTML), the Docbook document must be converted to new documents, this process is usually done via an XSL stylesheet
-that takes the Docbook document and transforms it. The Maven jdocbook plugin is a nice integration of the XSL stylesheet
-transformation with Maven. We recommand to use the Maven Wikbook and jdocbook plugin altogether.
+that takes the Docbook document and transforms it.
 
 == The Maven Wikbook plugin ==
 
-The Maven Wikbook plugin. 
+The Maven Wikbook plugin focus on transforming the Wiki content into a compliant DocBook XML document.
 
-== The Maven jdocbook plugin ==
+{{example title="Example of Wikbook Maven plugin"}}
+{{xml}}
+<plugin>
+ <groupId>org.wikbook</groupId>
+ <artifactId>wikbook.maven</artifactId>
+ <executions>
+   <execution>
+     <phase>prepare-package</phase>
+     <goals>
+       <goal>transform</goal>
+     </goals>
+   </execution>
+ </executions>
+ <configuration>
+   <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
+   <sourceFileName>book.wiki</sourceFileName>
+   <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
+   <destinationFileName>index.xml</destinationFileName>
+ </configuration>
+</plugin>
+{{/xml}}
+{{/example}}
 
-The Maven jdocbook plugin.
+== The Maven transformation plugins ==
+
+A transformation plugin plays an important role in the documentation generation because it takes the docbook generated
+ by wikbook and transforms it into the real documentation. There are at least two plugins that provides this functionnality:
+
+* The [[Docbkx Tools>>http://code.google.com/p/docbkx-tools/]] project: it contains a plugin that is actually used
+by the Wikbook archetype.
+* The [[Maven jDocBook Plugin>>http://www.jboss.org/maven-jdocbook-plugin/]] project.
+
+Configuration of these plugins is not covered in this guide, however each of them contain a fairly good documentation,
+both are comparable in term of feature and can generate the main formats like HTML or PDF.
+
+== The Maven Wikbook archetype ==
+
+The Wikbook archetype creates a Wikbook module that contains a basic documentation and its POM contains the plugin
+configuration to generate HTML and PDF formats. Its usage is very simple:
+
+{{example title="Wikbook archetype usage"}}
+{{screen}}
+>mvn archetype:create \
+  -DarchetypeGroupId=org.wikbook \
+  -DarchetypeArtifactId=wikbook.archetype \
+  -DarchetypeVersion=0.9.13 \
+  -DgroupId=<my.groupid> \
+  -DartifactId=<my-artifactId>
+{{/screen}}
+{{/example}}
+
+After that, it is ready to be used and tweaked.
