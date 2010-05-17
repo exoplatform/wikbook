@@ -18,8 +18,6 @@
   </dependencies>
 
   <build>
-    <pluginManagement>
-
        <plugins>
 
           <!-- Generate the docbook document -->
@@ -28,7 +26,7 @@
             <artifactId>wikbook.maven</artifactId>
             <executions>
               <execution>
-                <phase>generate-resources</phase>
+                <phase>prepare-package</phase>
                 <goals>
                   <goal>transform</goal>
                 </goals>
@@ -38,7 +36,7 @@
               <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
               <sourceFileName>book.wiki</sourceFileName>
               <destinationDirectory>${project.build.directory}/src/docbkx</destinationDirectory>
-              <destinationFileName>book.xml</destinationFileName>
+              <destinationFileName>index.xml</destinationFileName>
             </configuration>
           </plugin>
 
@@ -49,7 +47,7 @@
            <executions>
              <execution>
                <id>a</id>
-               <phase>process-resources</phase>
+               <phase>prepare-package</phase>
                <goals>
                  <goal>unpack-dependencies</goal>
                </goals>
@@ -70,7 +68,7 @@
             <executions>
               <execution>
                 <id>copy-prod-resources</id>
-                <phase>process-resources</phase>
+                <phase>prepare-package</phase>
                 <goals>
                   <goal>copy-resources</goal>
                 </goals>
@@ -121,7 +119,7 @@
                  <postProcess>
 
                    <copy todir="${project.build.directory}/docbkx/html/images">
-                     <fileset dir="${pom.basedir}/src/main/book/images">
+                     <fileset dir="${pom.basedir}/src/main/wikbook/images">
                        <include name="**" />
                      </fileset>
                    </copy>
@@ -151,6 +149,5 @@
          </plugin>
 
        </plugins>
-    </pluginManagement>
    </build>
 </project>
