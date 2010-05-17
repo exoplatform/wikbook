@@ -1,10 +1,15 @@
 <archetype>
   <id>>wikbook.archetype</id>
   <sources>
-    <source>src/main/java/org/foo/Bar.java</source>
   </sources>
   <testSources>
   </testSources>
   <resources>
+    <resource>src/main/java/org/foo/Bar.java</resource>
+    <resource>src/en/en-US/book.wiki</resource>
+    <resource>src/en/en-US/chapter1.wiki</resource>
+    <resource>src/en/en-US/chapter2.wiki</resource>
+    <resource>src/en/en-US/chapter3.wiki</resource>
+    <resource>src/en/images/controller;png</resource>
   </resources>
 </archetype>
