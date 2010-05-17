@@ -22,34 +22,34 @@
   <build>
     <plugins>
 
-       <!-- Generate the docbook document -->
+       <!-- The wikbook maven plugin generates the docbook document from the wiki source -->
        <plugin>
          <groupId>org.wikbook</groupId>
          <artifactId>wikbook.maven</artifactId>
          <executions>
            <execution>
-             <phase>generate-resources</phase>
+             <phase>prepare-package</phase>
              <goals>
                <goal>transform</goal>
              </goals>
            </execution>
          </executions>
          <configuration>
-           <sourceDirectory>${pom.basedir}/en/en-US</sourceDirectory>
-           <sourceFileName>master.wiki</sourceFileName>
-           <destinationDirectory>${project.build.directory}/src/docbkx</destinationDirectory>
+           <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
+           <sourceFileName>book.wiki</sourceFileName>
+           <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
          </configuration>
        </plugin>
 
-       <!-- Unpack resources -->
+       <!-- Unpacks the docbook style resources for the docbkx plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-dependency-plugin</artifactId>
         <executions>
           <execution>
             <id>a</id>
-            <phase>process-resources</phase>
+            <phase>prepare-package</phase>
             <goals>
               <goal>unpack-dependencies</goal>
             </goals>
@@ -57,36 +57,13 @@
               <includeGroupIds>org.wikbook</includeGroupIds>
               <includeArtifactIds>wikbook.docbkxstyle</includeArtifactIds>
               <excludes>META-INF/**</excludes>
-              <outputDirectory>${project.build.directory}/src/docbkx/resources</outputDirectory>
+              <outputDirectory>${project.build.directory}/wikbook/src/resources</outputDirectory>
             </configuration>
           </execution>
         </executions>
       </plugin>
 
-       <!-- Copy the image for the PDF generation -->
-       <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-resources-plugin</artifactId>
-         <executions>
-           <execution>
-             <id>copy-prod-resources</id>
-             <phase>process-resources</phase>
-             <goals>
-               <goal>copy-resources</goal>
-             </goals>
-             <configuration>
-               <outputDirectory>${project.build.directory}/src/docbkx/images</outputDirectory>
-               <resources>
-                 <resource>
-                   <directory>${pom.basedir}/en/images</directory>
-                 </resource>
-               </resources>
-             </configuration>
-           </execution>
-         </executions>
-       </plugin>
-
-      <!-- -->
+      <!-- Dockbx plugin that generates content -->
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
@@ -98,16 +75,18 @@
             </goals>
             <phase>package</phase>
             <configuration>
-              <sourceDirectory>${project.build.directory}/src/docbkx</sourceDirectory>
+              <sourceDirectory>${project.build.directory}/wikbook/src</sourceDirectory>
+              <targetDirectory>${project.build.directory}/wikbook/output</targetDirectory>
 
-              <!-- Customize style sheets -->
-              <htmlCustomization>${project.build.directory}/src/docbkx/resources/xsl/html.xsl</htmlCustomization>
+              <!-- HTML -->
+              <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/html.xsl</htmlCustomization>
               <htmlStylesheet>css/html.css</htmlStylesheet>
 
-              <!-- -->
-              <foCustomization>${project.build.directory}/src/docbkx/resources/xsl/fopdf.xsl</foCustomization>
+              <!-- PDF -->
+              <foCustomization>${project.build.directory}/wikbook/src/resources/xsl/fopdf.xsl</foCustomization>
+              <imgSrcPath>${pom.basedir}/src/main/wikbook/</imgSrcPath>
 
-              <!-- -->
+              <!-- Highlight source code -->
               <highlightSource>1</highlightSource>
 
               <!--
@@ -120,14 +99,13 @@
               <!-- Copy the image for HTML-->
               <postProcess>
 
-                <copy todir="${project.build.directory}/docbkx/html/images">
-                  <fileset dir="${pom.basedir}/en/images">
+                <copy todir="${project.build.directory}/wikbook/output/images">
+                  <fileset dir="${pom.basedir}/src/main/wikbook/images">
                     <include name="**" />
                   </fileset>
                 </copy>
-
-                <copy todir="${project.build.directory}/docbkx/html">
-                  <fileset dir="${project.build.directory}/src/docbkx/resources">
+                <copy todir="${project.build.directory}/wikbook/output">
+                  <fileset dir="${project.build.directory}/wikbook/src/resources">
                     <include name="**/*.css" />
                     <include name="**/*.png" />
                     <include name="**/*.gif" />
