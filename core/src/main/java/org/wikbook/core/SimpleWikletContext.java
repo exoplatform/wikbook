@@ -49,6 +49,9 @@ public class SimpleWikletContext implements WikletContext
    /** . */
    private boolean highlightCode;
 
+   /** . */
+   private boolean emitDoctype;
+
    public SimpleWikletContext(File base)
    {
       if (base == null)
@@ -58,6 +61,8 @@ public class SimpleWikletContext implements WikletContext
       this.base = base;
       this.persons = new LinkedHashMap<String, Person>();
       this.properties = new HashMap<String, String>();
+      this.emitDoctype = true;
+      this.highlightCode = true;
    }
 
    public String getProperty(String propertyName)

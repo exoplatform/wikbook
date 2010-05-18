@@ -47,7 +47,7 @@ public class ConverterTestCase extends TestCase
       context.setProperty("property_name", "property_value");
       context.addPerson("foo", new Person("foo", "bar", "foo@bar.com", "writer"));
       WikletConverter converter = new WikletConverter(context);
-      converter.setEmitDTD(false);
+      converter.setEmitDoctype(false);
       DOMResult dom = new DOMResult();
       converter.convert(dom);
       Document document = (Document)dom.getNode();

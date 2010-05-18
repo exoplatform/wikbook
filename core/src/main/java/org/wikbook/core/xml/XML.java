@@ -93,19 +93,20 @@ public class XML
       transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
 
       //
-      if (doctype.getPublicId() != null)
+      if (doctype.isEmitDoctype())
       {
-         transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+         if (doctype.getPublicId() != null)
+         {
+            transformer.setOutputProperty(OutputKeys.DOCTYPE_PUBLIC, doctype.getPublicId());
+         }
+         if (doctype.getSystemId() != null)
+         {
+            transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
+         }
       }
 
       //
-      if (doctype.getSystemId() != null)
-      {
-         transformer.setOutputProperty(OutputKeys.DOCTYPE_SYSTEM, doctype.getSystemId());
-      }
-
-      //
-      handler.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, doctype.isOmitDeclaration() ? "yes" : "no");
+      // handler.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, doctype.isEmitDoctype() ? "no" : "yes");
 
       //
       return handler;

@@ -39,6 +39,7 @@
            <sourceFileName>book.wiki</sourceFileName>
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
+           <emitDoctype>false</emitDoctype>
          </configuration>
        </plugin>
 

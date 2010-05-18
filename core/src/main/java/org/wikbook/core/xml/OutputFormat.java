@@ -30,7 +30,7 @@ public class OutputFormat
    private final Integer indent;
 
    /** . */
-   private final boolean omitDeclaration;
+   private final boolean emitDoctype;
 
    /** . */
    private final String publicId;
@@ -38,15 +38,15 @@ public class OutputFormat
    /** . */
    private final String systemId;
 
-   public OutputFormat(Integer indent, boolean omitDeclaration)
+   public OutputFormat(Integer indent, boolean emitDoctype)
    {
-      this(indent, omitDeclaration, null, null);
+      this(indent, emitDoctype, null, null);
    }
 
-   public OutputFormat(Integer indent, boolean omitDeclaration, String publicId, String systemId)
+   public OutputFormat(Integer indent, boolean emitDoctype, String publicId, String systemId)
    {
       this.indent = indent;
-      this.omitDeclaration = omitDeclaration;
+      this.emitDoctype = emitDoctype;
       this.publicId = publicId;
       this.systemId = systemId;
    }
@@ -56,9 +56,9 @@ public class OutputFormat
       return indent;
    }
 
-   public boolean isOmitDeclaration()
+   public boolean isEmitDoctype()
    {
-      return omitDeclaration;
+      return emitDoctype;
    }
 
    public String getPublicId()

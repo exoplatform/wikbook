@@ -26,15 +26,12 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.apache.maven.project.MavenProject;
-import org.w3c.dom.Document;
 import org.wikbook.core.Person;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
 import org.wikbook.core.WikletConverter;
-import org.wikbook.core.xml.OutputFormat;
-import org.wikbook.core.xml.XML;
 
-import javax.xml.transform.dom.DOMResult;
+import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -101,6 +98,13 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
     * @parameter default-value="true"
     */
    private boolean highlightCode;
+
+   /**
+    * Turn on/off code doctype generation of the DocBook document.
+    *
+    * @parameter default-value="true"
+    */
+   private boolean emitDoctype;
 
    /**
     * INTERNAL : The representation of the maven execution.
@@ -195,36 +199,23 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       }
 
       //
-      converter.setEmitDTD(true);
+      converter.setEmitDoctype(emitDoctype);
       converter.setSyntaxId(syntaxId);
 
       //
       File destination = new File(destinationDirectory, destinationFileName);
 
       //
-      DOMResult dom = new DOMResult();
-
-      //
-      converter.convert(sourceFileName, dom);
-
-      //
-      Document document = (Document)dom.getNode();
-
-      //
       FileWriter out = null;
       try
       {
-         String expectedXML = XML.serialize(document, new OutputFormat(2, false,
-            "-//OASIS//DTD DocBook XML V4.5//EN",
-            "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
-            ));
          out = new FileWriter(destination);
-         out.write(expectedXML);
-         out.close();
+         StreamResult result = new StreamResult(out);
+         converter.convert(sourceFileName, result);
       }
       catch (Exception e)
       {
-         MojoFailureException mfe = new MojoFailureException("Could not create destination file");
+         MojoFailureException mfe = new MojoFailureException("Could not create destination file " + e.getMessage());
          mfe.initCause(e);
          throw mfe;
       }

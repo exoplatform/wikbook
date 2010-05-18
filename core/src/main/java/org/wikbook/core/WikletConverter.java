@@ -47,7 +47,7 @@ public class WikletConverter
    private final WikletContext context;
 
    /** . */
-   private boolean emitDTD;
+   private boolean emitDoctype;
 
    /** . */
    private String syntaxId;
@@ -55,18 +55,18 @@ public class WikletConverter
    public WikletConverter(WikletContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
-      this.emitDTD = true;
+      this.emitDoctype = true;
       this.syntaxId = null;
    }
 
-   public boolean isEmitDTD()
+   public boolean getEmitDoctype()
    {
-      return emitDTD;
+      return emitDoctype;
    }
 
-   public void setEmitDTD(boolean emitDTD)
+   public void setEmitDoctype(boolean emitDoctype)
    {
-      this.emitDTD = emitDTD;
+      this.emitDoctype = emitDoctype;
    }
 
    public String convert()
@@ -140,7 +140,7 @@ public class WikletConverter
       //
       Transformer transformer = XML.createTransformer(new OutputFormat(
          2,
-         false,
+         emitDoctype,
          "-//OASIS//DTD DocBook XML V4.5//EN",
          "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
       ));
@@ -148,35 +148,4 @@ public class WikletConverter
       //
       transformer.transform(new DOMSource(doc), result);
    }
-
-/*
-   private void _convert(String id, Result result) throws Exception
-   {
-      WikletParser parser = new WikletParser(context);
-
-      //
-      XDOM main = parser.parse(id);
-
-      //
-      Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
-
-      //
-      DocbookSerializer serializer = new DocbookSerializer(doc, context);
-
-      //
-      main.traverse(serializer);
-
-      //
-      Transformer transformer = XML.createTransformer(new OutputFormat(
-         2,
-         false,
-         "-//OASIS//DTD DocBook XML V4.5//EN",
-         "http://www.oasis-open.org/docbook/xml/4.5/docbookx.dtd"
-      ));
-
-      //
-      transformer.transform(new DOMSource(doc), result);
-   }
-*/
-
 }
