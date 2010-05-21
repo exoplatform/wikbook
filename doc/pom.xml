@@ -86,6 +86,7 @@
               <!-- PDF -->
               <foCustomization>${project.build.directory}/wikbook/src/resources/xsl/fopdf.xsl</foCustomization>
               <imgSrcPath>${pom.basedir}/src/main/wikbook/</imgSrcPath>
+              <admonGraphicsPath>${project.build.directory}/wikbook/src/resources/images/admons/</admonGraphicsPath>
 
               <!-- Highlight source code -->
               <highlightSource>1</highlightSource>
