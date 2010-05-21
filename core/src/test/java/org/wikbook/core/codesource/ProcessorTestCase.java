@@ -60,6 +60,14 @@ public class ProcessorTestCase extends TestCase
       assertEquals("      int a = 0;\n      int c = 0;\n", ctx.getText());
    }
 
+   public void testInclude2()
+   {
+      TestCodeContext ctx = new TestCodeContext();
+      CodeProcessor processor = new CodeProcessor();
+      processor.parse("//\n{@include org.wikbook.core.codesource.Bar#m() {1} }", ctx);
+      assertEquals("//\n      int a = 0;\n      int c = 0;\n", ctx.getText());
+   }
+
    public void testIncludeMultiple()
    {
       TestCodeContext ctx = new TestCodeContext();

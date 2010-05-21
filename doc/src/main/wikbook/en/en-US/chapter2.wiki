@@ -284,6 +284,23 @@ are available that makes it very powerful
 |((({{code language=xml indent=2}}<bar><bar>bar</bar></bar>
 <bar><bar>bar</bar></bar>{{/code}})))
 
+==== Java Code ====
+
+{{example title="todo"}}
+{{code language=java}}
+
+{@include org.wikbook.doc.AnObject#foo()}
+
+{@include org.wikbook.doc.AnObject#foo() {1}}
+
+{@include org.wikbook.doc.AnObject#foo() {2}}
+
+{@include org.wikbook.doc.AnObject#foo() {1,2}}
+{{/code}}
+{{/example}}
+
+==== Screen output ====
+
 The //screen// macro creates a docbook screen XML element to display anything related to the computer screen:
 
 (% title="A screen example" %)

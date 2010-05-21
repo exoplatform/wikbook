@@ -26,6 +26,8 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -33,6 +35,48 @@ import java.net.URL;
  */
 public class Utils
 {
+
+   public static Iterable<String> split(final String s)
+   {
+      return new Iterable<String>()
+      {
+         public Iterator<String> iterator()
+         {
+            return new Iterator<String>()
+            {
+
+               /** The index of previous. */
+               private int from = 0;
+
+               public boolean hasNext()
+               {
+                  return from <= s.length();
+               }
+
+               public String next()
+               {
+                  if (from > s.length())
+                  {
+                     throw new NoSuchElementException();
+                  }
+                  int to = s.indexOf('\n', from);
+                  if (to == -1)
+                  {
+                     to = s.length();
+                  }
+                  String next = s.substring(from, to);
+                  from = to + 1;
+                  return next;
+               }
+
+               public void remove()
+               {
+                  throw new UnsupportedOperationException();
+               }
+            };
+         }
+      };
+   }
 
    public static Reader read(URL url) throws IOException
    {
@@ -43,7 +87,7 @@ public class Utils
    {
       StringWriter writer = new StringWriter();
       char[] buffer = new char[256];
-      for (int amount = reader.read(buffer);amount != -1;amount = reader.read(buffer))
+      for (int amount = reader.read(buffer); amount != -1; amount = reader.read(buffer))
       {
          writer.write(buffer, 0, amount);
       }
@@ -61,7 +105,7 @@ public class Utils
       {
          byte[] bytes = new byte[128];
          ByteArrayOutputStream baos = new ByteArrayOutputStream();
-         for (int s = in.read(bytes);s != -1;s = in.read(bytes))
+         for (int s = in.read(bytes); s != -1; s = in.read(bytes))
          {
             baos.write(bytes, 0, s);
          }

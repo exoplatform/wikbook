@@ -24,15 +24,14 @@ import org.wikbook.codesource.CodeSourceBuilder;
 import org.wikbook.codesource.CodeSourceBuilderContext;
 import org.wikbook.codesource.MethodSource;
 import org.wikbook.codesource.TypeSource;
+import org.wikbook.core.Utils;
 import org.wikbook.text.TextArea;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.LineNumberReader;
-import java.io.StringReader;
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -75,7 +74,7 @@ public class CodeProcessor
       "\\{" + "@(include|javadoc)" + "\\s+" + "([^\\s]+)" + "\\s*" + "(\\{[0-9]+(?:,[0-9]+)*\\})?" + "\\s*" + "\\}"
    );
 
-   private void printJavaSource(String s, CodeContext ctx)
+   private void printJavaLine(String s, CodeContext ctx)
    {
       // Process all callout definitions
       Matcher coDefMatcher = CALLOUT_DEF_PATTERN.matcher(s);
@@ -125,20 +124,56 @@ public class CodeProcessor
    }
 
    private void printJavaSource(
-      MethodSource source,
+      MethodSource methodSource,
       CodeContext ctx,
       Set<String> chunkIds)
    {
-      final String s = source.getClip();
+      String source = methodSource.getClip();
 
       // Find the method curly braces
-      int a = s.indexOf('{');
-      int b = s.lastIndexOf('}');
+      int from = source.indexOf('{');
+      int to = source.lastIndexOf('}');
+      source = source.substring(from + 1, to);
 
       // Split lines
-      String[] lines = s.substring(a + 1, b).split("\\r?\\n");
+      printJavaSource(source, ctx, chunkIds);
+   }
+
+   private void printJavaSource(
+      String source,
+      CodeContext ctx)
+   {
+      // Split lines
+      for (Iterator<String> i = Utils.split(source).iterator();i.hasNext();)
+      {
+         String line = i.next();
+         Matcher matcher = BEGIN_CHUNK_PATTERN.matcher(line);
+         if (matcher.matches())
+         {
+            // Remove line
+         }
+         else
+         {
+            if (i.hasNext())
+            {
+               printJavaLine(line + "\n", ctx);
+            }
+            else
+            {
+               printJavaLine(line, ctx);
+            }
+         }
+      }
+   }
+
+   private void printJavaSource(
+      String source,
+      CodeContext ctx,
+      Set<String> chunkIds)
+   {
+      // Split lines
       boolean matches = false;
-      for (String line : lines)
+      for (String line : Utils.split(source))
       {
          if (BLANK_LINE_PATTERN.matcher(line).matches())
          {
@@ -150,13 +185,13 @@ public class CodeProcessor
             if (matcher.matches())
             {
                String chunkId = matcher.group(1);
-               matches = chunkIds.contains(chunkId);
+               matches = chunkIds == null || chunkIds.contains(chunkId);
             }
             else
             {
                if (matches)
                {
-                  printJavaSource(line + "\n", ctx);
+                  printJavaLine(line + "\n", ctx);
                }
             }
          }

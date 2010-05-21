@@ -25,4 +25,21 @@ package org.wikbook.doc;
  */
 public class AnObject
 {
+   public void foo()
+   {
+      // -1-
+      String a1 = "the first";
+      String b1 = "block";
+      String c1 = "of code";
+
+      // -2-
+      String a2 = "the second";
+      String b2 = "block";
+      String c2 = "of code";
+
+      // -1-
+      String a3 = "the third";
+      String b3 = "block";
+      String c3 = "of code";
+   }
 }
