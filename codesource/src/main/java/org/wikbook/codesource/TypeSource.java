@@ -23,13 +23,12 @@ import org.wikbook.text.Clip;
 import org.wikbook.text.TextArea;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class TypeSource extends BodySource
+public class TypeSource extends CodeSource
 {
 
    /** . */
@@ -39,10 +38,10 @@ public class TypeSource extends BodySource
    private final String name;
 
    /** . */
-   private final LinkedHashMap<MemberKey, MethodSource> methods;
+   private final LinkedHashMap<MemberKey, SignedMemberSource> methods;
 
    /** . */
-   private final LinkedHashMap<String, FieldSource> fields;
+   private final LinkedHashMap<String, NamedMemberSource> fields;
 
    TypeSource(TextArea source, String name, Clip clip, String javaDoc)
    {
@@ -51,32 +50,40 @@ public class TypeSource extends BodySource
       //
       this.source = source;
       this.name = name;
-      this.methods = new LinkedHashMap<MemberKey, MethodSource>();
-      this.fields = new LinkedHashMap<String, FieldSource>();
+      this.methods = new LinkedHashMap<MemberKey, SignedMemberSource>();
+      this.fields = new LinkedHashMap<String, NamedMemberSource>();
    }
 
-   void addMethod(MethodSource method)
+   void addMember(MemberSource member)
    {
-      if (method.type != null)
+      if (member instanceof SignedMemberSource)
       {
-         throw new IllegalArgumentException();
+         SignedMemberSource signedMember = (SignedMemberSource)member;
+         if (signedMember.type != null)
+         {
+            throw new IllegalArgumentException();
+         }
+
+         //
+         methods.put(signedMember.key, signedMember);
+         signedMember.type = this;
       }
-
-      //
-      methods.put(method.key, method);
-      method.type = this;
-   }
-
-   void addField(FieldSource field)
-   {
-      if (field.type != null)
+      else if (member instanceof NamedMemberSource)
       {
-         throw new IllegalArgumentException();
-      }
+         NamedMemberSource namedMember = (NamedMemberSource)member;
+         if (namedMember.type != null)
+         {
+            throw new IllegalArgumentException();
+         }
 
-      //
-      fields.put(field.name, field);
-      field.type = this;
+         //
+         fields.put(namedMember.name, namedMember);
+         namedMember.type = this;
+      }
+      else
+      {
+         throw new IllegalArgumentException("Not accepted " + member);
+      }
    }
 
    public String getName()
@@ -103,7 +110,7 @@ public class TypeSource extends BodySource
       //
       if (key.signature == null)
       {
-         FieldSource field = fields.get(key.name);
+         NamedMemberSource field = fields.get(key.name);
          if (field != null)
          {
             return field;

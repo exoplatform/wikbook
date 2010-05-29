@@ -19,26 +19,10 @@
 
 package org.wikbook.codesource;
 
-import org.wikbook.text.Clip;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class MemberSource extends CodeSource
+public enum Juu
 {
-
-   /** . */
-   TypeSource type;
-
-   protected MemberSource(Clip clip, String javaDoc)
-   {
-      super(clip, javaDoc);
-   }
-
-   @Override
-   protected TypeSource getType()
-   {
-      return type;
-   }
 }

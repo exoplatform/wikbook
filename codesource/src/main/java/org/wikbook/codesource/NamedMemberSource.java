@@ -25,13 +25,13 @@ import org.wikbook.text.Clip;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class FieldSource extends MemberSource
+public class NamedMemberSource extends MemberSource
 {
 
    /** . */
    final String name;
 
-   public FieldSource(String name, Clip clip, String javaDoc)
+   public NamedMemberSource(String name, Clip clip, String javaDoc)
    {
       super(clip, javaDoc);
 

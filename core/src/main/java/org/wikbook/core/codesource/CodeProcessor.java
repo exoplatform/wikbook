@@ -19,10 +19,10 @@
 
 package org.wikbook.core.codesource;
 
-import org.wikbook.codesource.BodySource;
+import org.wikbook.codesource.CodeSource;
 import org.wikbook.codesource.CodeSourceBuilder;
 import org.wikbook.codesource.CodeSourceBuilderContext;
-import org.wikbook.codesource.MethodSource;
+import org.wikbook.codesource.SignedMemberSource;
 import org.wikbook.codesource.TypeSource;
 import org.wikbook.core.Utils;
 import org.wikbook.text.TextArea;
@@ -124,7 +124,7 @@ public class CodeProcessor
    }
 
    private void printJavaSource(
-      MethodSource methodSource,
+      SignedMemberSource methodSource,
       CodeContext ctx,
       Set<String> chunkIds)
    {
@@ -220,8 +220,12 @@ public class CodeProcessor
                return null;
             }
          });
+
+         //
+         printJavaSource(s.substring(prev, matcher.start()), ctx);
+
          TypeSource typeSource = builder.buildClass(l.getFQN());
-         BodySource source;
+         CodeSource source;
          if (l.getMember() != null)
          {
             source = typeSource.findMember(l.getMember());
@@ -232,27 +236,31 @@ public class CodeProcessor
          }
 
          //
-         printJavaSource(s.substring(prev, matcher.start()), ctx);
-
-         //
-         if ("include".equals(matcher.group(1)))
+         if (source != null)
          {
-            if (matcher.group(3) != null)
+            if ("include".equals(matcher.group(1)))
             {
-               String subset = matcher.group(3);
-               String a = subset.substring(1, subset.length() - 1);
-               String[] ids = a.split(",");
-               printJavaSource((MethodSource)source, ctx, new HashSet<String>(Arrays.asList(ids)));
+               if (matcher.group(3) != null)
+               {
+                  String subset = matcher.group(3);
+                  String a = subset.substring(1, subset.length() - 1);
+                  String[] ids = a.split(",");
+                  printJavaSource((SignedMemberSource)source, ctx, new HashSet<String>(Arrays.asList(ids)));
+               }
+               else
+               {
+                  printJavaSource(source.getClip(), ctx);
+               }
             }
-            else
+            else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
             {
-               printJavaSource(source.getClip(), ctx);
+               String javadoc = source.getJavaDoc();
+               ctx.writeContent(javadoc);
             }
          }
-         else if ("javadoc".equals(matcher.group(1)) && source.getJavaDoc() != null)
+         else
          {
-            String javadoc = source.getJavaDoc();
-            ctx.writeContent(javadoc);
+            ctx.writeContent("Could not locate the " + l + " source");
          }
 
          //

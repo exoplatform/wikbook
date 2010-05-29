@@ -48,6 +48,19 @@ public class JavaCodeLink
       return fqn;
    }
 
+   @Override
+   public String toString()
+   {
+      StringBuilder builder = new StringBuilder("JavaCodeLink[");
+      builder.append(fqn);
+      if (member != null)
+      {
+         builder.append('#').append(member);
+      }
+      builder.append("]");
+      return builder.toString();
+   }
+
    public static JavaCodeLink parse(String s)
    {
       String member;

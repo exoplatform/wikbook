@@ -19,10 +19,42 @@
 
 package org.wikbook.codesource;
 
+import org.wikbook.text.Clip;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class CodeSource
+public abstract class CodeSource
 {
+
+   /** . */
+   private final Clip clip;
+
+   /** . */
+   private final String javaDoc;
+
+   protected CodeSource(Clip clip, String javaDoc)
+   {
+      if (clip == null)
+      {
+         throw new NullPointerException();
+      }
+
+      //
+      this.clip = clip;
+      this.javaDoc = javaDoc;
+   }
+
+   public final String getClip()
+   {
+      return getType().source.clip(clip);
+   }
+
+   public final String getJavaDoc()
+   {
+      return javaDoc;
+   }
+
+   protected abstract TypeSource getType();
 }

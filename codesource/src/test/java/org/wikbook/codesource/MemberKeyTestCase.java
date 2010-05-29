@@ -48,16 +48,16 @@ public class MemberKeyTestCase extends TestCase
 
    public void testOK()
    {
-      assertEquals(MemberKey.createField("a"), MemberKey.parse("a"));
-      assertEquals(MemberKey.createMethod("a"), MemberKey.parse("a()"));
-      assertEquals(MemberKey.createMethod("a"), MemberKey.parse("a(  )"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a(java.lang.String)"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a( java.lang.String)"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a(java.lang.String )"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String"), MemberKey.parse("a( java.lang.String )"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String,java.lang.Integer)"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String, java.lang.Integer)"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String ,java.lang.Integer)"));
-      assertEquals(MemberKey.createMethod("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String , java.lang.Integer)"));
+      assertEquals(MemberKey.createNamedKey("a"), MemberKey.parse("a"));
+      assertEquals(MemberKey.createSignedKey("a"), MemberKey.parse("a()"));
+      assertEquals(MemberKey.createSignedKey("a"), MemberKey.parse("a(  )"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String"), MemberKey.parse("a(java.lang.String)"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String"), MemberKey.parse("a( java.lang.String)"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String"), MemberKey.parse("a(java.lang.String )"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String"), MemberKey.parse("a( java.lang.String )"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String,java.lang.Integer)"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String, java.lang.Integer)"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String ,java.lang.Integer)"));
+      assertEquals(MemberKey.createSignedKey("a", "java.lang.String", "java.lang.Integer"), MemberKey.parse("a(java.lang.String , java.lang.Integer)"));
    }
 }

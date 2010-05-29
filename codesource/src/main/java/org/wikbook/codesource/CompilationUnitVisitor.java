@@ -24,6 +24,8 @@ import japa.parser.ParseException;
 import japa.parser.ast.CompilationUnit;
 import japa.parser.ast.Node;
 import japa.parser.ast.PackageDeclaration;
+import japa.parser.ast.body.AnnotationDeclaration;
+import japa.parser.ast.body.AnnotationMemberDeclaration;
 import japa.parser.ast.body.BodyDeclaration;
 import japa.parser.ast.body.ClassOrInterfaceDeclaration;
 import japa.parser.ast.body.ConstructorDeclaration;
@@ -31,12 +33,11 @@ import japa.parser.ast.body.EnumDeclaration;
 import japa.parser.ast.body.FieldDeclaration;
 import japa.parser.ast.body.JavadocComment;
 import japa.parser.ast.body.MethodDeclaration;
+import japa.parser.ast.body.TypeDeclaration;
 import japa.parser.ast.body.VariableDeclarator;
 import japa.parser.ast.body.VariableDeclaratorId;
 import japa.parser.ast.expr.NameExpr;
 import japa.parser.ast.expr.QualifiedNameExpr;
-import japa.parser.ast.stmt.BlockStmt;
-import japa.parser.ast.stmt.Statement;
 import japa.parser.ast.visitor.GenericVisitorAdapter;
 import org.cojen.classfile.ClassFile;
 import org.cojen.classfile.MethodDesc;
@@ -69,7 +70,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       private final CompilationUnit compilationUnit;
 
       /** . */
-      final LinkedList<LinkedList<BodySource>> stack = new LinkedList<LinkedList<BodySource>>();
+      final LinkedList<LinkedList<CodeSource>> stack = new LinkedList<LinkedList<CodeSource>>();
 
       /** . */
       String pkg;
@@ -176,8 +177,11 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       return super.visit(n, arg);
    }
 
-   @Override
-   public Void visit(ClassOrInterfaceDeclaration n, Visit v)
+   private static interface SuperVisit<T extends TypeDeclaration> {
+      Void visit(T td, Visit v);
+   }
+
+   private <T extends TypeDeclaration> Void visit(T n, Visit v, SuperVisit<T> superVisit)
    {
       String fqn = ((v.pkg == null || v.pkg.length() == 0) ? "" : (v.pkg + ".")) + n.getName();
 
@@ -230,9 +234,13 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
 
       //
-      v.stack.addLast(new LinkedList<BodySource>());  
-      Void ret = super.visit(n, v);
-      List<BodySource> blah = v.stack.removeLast();
+      v.stack.addLast(new LinkedList<CodeSource>());
+
+      //
+      Void ret = superVisit.visit(n, v);
+
+      //
+      List<CodeSource> blah = v.stack.removeLast();
 
       //
       Clip typeClip = Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn());
@@ -245,18 +253,10 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          v.javaDoc(n));
 
       //
-      for (BodySource bodySource : blah)
+      for (CodeSource source : blah)
       {
-         if (bodySource instanceof MethodSource)
-         {
-            MethodSource methodSource = (MethodSource)bodySource;
-            typeSource.addMethod(methodSource);
-         }
-         else if (bodySource instanceof FieldSource)
-         {
-            FieldSource fieldSource = (FieldSource)bodySource;
-            typeSource.addField(fieldSource);
-         }
+         MemberSource methodSource = (MemberSource)source;
+         typeSource.addMember(methodSource);
       }
 
       //
@@ -267,9 +267,44 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    }
 
    @Override
+   public Void visit(ClassOrInterfaceDeclaration n, Visit v)
+   {
+      return visit(n, v, new SuperVisit<ClassOrInterfaceDeclaration>()
+      {
+         public Void visit(ClassOrInterfaceDeclaration td, Visit v)
+         {
+            return CompilationUnitVisitor.super.visit(td, v);
+         }
+      });
+   }
+
+   @Override
    public Void visit(EnumDeclaration n, Visit v)
    {
-      return super.visit(n, v);
+      return visit(n, v, new SuperVisit<EnumDeclaration>()
+      {
+         public Void visit(EnumDeclaration td, Visit v)
+         {
+            return CompilationUnitVisitor.super.visit(td, v);
+         }
+      });
+   }
+
+   @Override
+   public Void visit(AnnotationDeclaration n, Visit v)
+   {
+      return visit(n, v, new SuperVisit<AnnotationDeclaration>()
+      {
+         public Void visit(AnnotationDeclaration td, Visit v)
+         {
+            return CompilationUnitVisitor.super.visit(td, v);
+         }
+      });
+   }
+
+   private static Clip clip(BodyDeclaration body)
+   {
+      return Clip.get(body.getBeginLine() - 1, 0, body.getEndLine() - 1, body.getEndColumn());
    }
 
    @Override
@@ -279,9 +314,9 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       {
          VariableDeclarator declarator = n.getVariables().get(0);
          VariableDeclaratorId id = declarator.getId();
-         FieldSource fieldSource = new FieldSource(
+         NamedMemberSource fieldSource = new NamedMemberSource(
             id.getName(),
-            Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
+            clip(n),
             v.javaDoc(n));
          v.stack.getLast().addLast(fieldSource);
       }
@@ -293,14 +328,27 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    }
 
    @Override
+   public Void visit(AnnotationMemberDeclaration n, Visit v)
+   {
+      SignedMemberSource memberSource = new SignedMemberSource(
+         MemberKey.createSignedKey(n.getName()),
+         clip(n),
+         v.javaDoc(n));
+
+      //
+      v.stack.getLast().addLast(memberSource);
+      return super.visit(n, v);
+   }
+
+   @Override
    public Void visit(MethodDeclaration n, Visit v)
    {
       Signature signature = v.methodSignatures.next();
 
       //
-      MethodSource methodSource = new MethodSource(
+      SignedMemberSource methodSource = new SignedMemberSource(
          new MemberKey(n.getName(), signature),
-         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
+         clip(n),
          v.javaDoc(n));
 
       //
@@ -314,9 +362,9 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       Signature signature = v.constructorSignatures.next();
 
       //
-      MethodSource methodSource = new MethodSource(
+      SignedMemberSource methodSource = new SignedMemberSource(
          new MemberKey(n.getName(), signature),
-         Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn()),
+         clip(n),
          v.javaDoc(n));
 
       //

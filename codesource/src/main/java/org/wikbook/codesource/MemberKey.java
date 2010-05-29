@@ -32,12 +32,12 @@ import java.util.regex.Pattern;
 public final class MemberKey
 {
 
-   public static MemberKey createField(String name)
+   public static MemberKey createNamedKey(String name)
    {
       return new MemberKey(name, null);
    }
 
-   public static MemberKey createMethod(String name, String... parameterTypes)
+   public static MemberKey createSignedKey(String name, String... parameterTypes)
    {
       return new MemberKey(name, new Signature(Arrays.asList(parameterTypes)));
    }
