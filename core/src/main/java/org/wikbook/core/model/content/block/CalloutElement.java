@@ -27,7 +27,6 @@ import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 
 import java.util.LinkedHashMap;
-import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -83,7 +82,6 @@ public class CalloutElement extends ContentElement
       calloutXML.withAttribute("arearefs", sb.toString());
 
       //
-      calloutXML.element("para").content(text, true);
-//      content.writeTo(xml);
+      content.writeTo(calloutXML);
    }
 }

@@ -26,6 +26,8 @@ import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.transform.XDOMTransformer;
+import org.wikbook.core.wiki.WikiLoader;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -33,6 +35,7 @@ import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
 import org.xml.sax.InputSource;
+import org.xwiki.rendering.block.XDOM;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -93,7 +96,7 @@ public class ProgramListingElement extends BlockElement
       this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
    }
 
-   public void process()
+   public void process(XDOMTransformer _transformer)
    {
       String bilto;
       switch (languageSyntax)
@@ -162,6 +165,11 @@ public class ProgramListingElement extends BlockElement
                {
                   CalloutElement calloutElt = new CalloutElement(callout.getValue().ids, callout.getValue().text);
                   push(calloutElt);
+
+                  WikiLoader loader = new WikiLoader(context);
+                  XDOM dom = loader.load(new StringReader(callout.getValue().text), null);
+                  dom.traverse(_transformer);
+                  
                   merge();
                }
             }

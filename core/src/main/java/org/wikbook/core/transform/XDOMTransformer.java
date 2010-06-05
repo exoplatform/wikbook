@@ -339,7 +339,7 @@ public class XDOMTransformer implements Listener
                context.getHighlightCode()));
 
             //
-            programListingElt.process();
+            programListingElt.process(this);
 
             //
             book.merge();
