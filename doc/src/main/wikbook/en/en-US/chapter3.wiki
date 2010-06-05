@@ -62,7 +62,7 @@ configuration to generate HTML and PDF formats. Its usage is very simple:
 >mvn archetype:generate \
   -DarchetypeGroupId=org.wikbook \
   -DarchetypeArtifactId=wikbook.archetype \
-  -DarchetypeVersion=0.9.13 \
+  -DarchetypeVersion=0.9.19 \
   -DgroupId=<my.groupid> \
   -DartifactId=<my-artifactId>
 {{/screen}}

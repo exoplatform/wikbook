@@ -91,11 +91,6 @@
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
-        <artifactId>wikbook.docbkx</artifactId>
-        <version>0.9.13-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.wikbook</groupId>
         <artifactId>wikbook.doc</artifactId>
         <version>0.9.19-SNAPSHOT</version>
       </dependency>
