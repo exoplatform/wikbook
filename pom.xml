@@ -5,7 +5,7 @@
   <groupId>org.wikbook</groupId>
   <artifactId>wikbook.parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.9.19-SNAPSHOT</version>
+  <version>0.9.19</version>
 
   <name>Wikbook parent</name>
   <description>The Wikbook project</description>
@@ -72,27 +72,27 @@
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.codesource</artifactId>
-        <version>0.9.19-SNAPSHOT</version>
+        <version>0.9.19</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.core</artifactId>
-        <version>0.9.19-SNAPSHOT</version>
+        <version>0.9.19</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.maven</artifactId>
-        <version>0.9.19-SNAPSHOT</version>
+        <version>0.9.19</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.docbkxstyle</artifactId>
-        <version>0.9.19-SNAPSHOT</version>
+        <version>0.9.19</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.doc</artifactId>
-        <version>0.9.19-SNAPSHOT</version>
+        <version>0.9.19</version>
       </dependency>
       
       <dependency>
@@ -164,7 +164,7 @@
         <plugin>
           <groupId>org.wikbook</groupId>
           <artifactId>wikbook.maven</artifactId>
-          <version>0.9.19-SNAPSHOT</version>
+          <version>0.9.19</version>
         </plugin>
       </plugins>
     </pluginManagement>
