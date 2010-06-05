@@ -75,6 +75,9 @@ public class ProgramListingElement extends BlockElement
    /** . */
    private final boolean highlightCode;
 
+   /** . */
+   private String listing;
+
    public ProgramListingElement(
       WikletContext context,
       LanguageSyntax languageSyntax,
@@ -89,9 +92,6 @@ public class ProgramListingElement extends BlockElement
       this.highlightCode = highlightCode;
       this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
    }
-
-
-   private String bilto;
 
    public void process()
    {
@@ -177,7 +177,7 @@ public class ProgramListingElement extends BlockElement
       }
 
       //
-      this.bilto = bilto;
+      this.listing = bilto;
    }
 
    @Override
@@ -220,7 +220,7 @@ public class ProgramListingElement extends BlockElement
       }
 
       //
-      programListingXML.content(bilto, true);
+      programListingXML.content(listing, true);
    }
 
    private class CodeContextImpl implements CodeContext
