@@ -331,12 +331,18 @@ public class XDOMTransformer implements Listener
             }
 
             //
-            book.merge(new ProgramListingElement(
+            ProgramListingElement programListingElt = book.push(new ProgramListingElement(
                context,
                languageSyntax,
                indent,
                content,
                context.getHighlightCode()));
+
+            //
+            programListingElt.process();
+
+            //
+            book.merge();
          }
       }
       else if ("example".equals(id))

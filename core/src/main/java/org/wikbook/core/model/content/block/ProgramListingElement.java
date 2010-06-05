@@ -24,6 +24,8 @@ import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
 import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
+import org.wikbook.core.model.DocbookElement;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -42,7 +44,7 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
-import java.util.LinkedList;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -54,6 +56,9 @@ import java.util.TreeMap;
  */
 public class ProgramListingElement extends BlockElement
 {
+
+   /** . */
+   private final ElementContainer<CalloutElement> callouts;
 
    /** . */
    private final LanguageSyntax languageSyntax;
@@ -82,24 +87,15 @@ public class ProgramListingElement extends BlockElement
       this.indent = indent;
       this.content = content;
       this.highlightCode = highlightCode;
+      this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
    }
 
-   @Override
-   public void writeTo(XMLEmitter xml)
+
+   private String bilto;
+
+   public void process()
    {
-      ElementEmitter programListingCoXML = xml.element("programlistingco");
-
-      //
-      ElementEmitter areaspecXML = programListingCoXML.element("areaspec").withAttribute("units", "linecolumn");
-
-      //
-      ElementEmitter programListingXML = programListingCoXML.element("programlisting");
-      if (highlightCode && languageSyntax != LanguageSyntax.UNKNOWN)
-      {
-         programListingXML.withAttribute("language", languageSyntax.name().toLowerCase());
-      }
-
-      String bilto = content;
+      String bilto;
       switch (languageSyntax)
       {
          case XML:
@@ -148,45 +144,83 @@ public class ProgramListingElement extends BlockElement
                   bilto = "Exception occured, see logs";
                }
             }
-            programListingXML.content(bilto, true);
-            break;
-         case UNKNOWN:
-            programListingXML.content(bilto, true);
+            else
+            {
+               bilto = content;
+            }
             break;
          case JAVA:
 
-            CodeContextImpl ctx = new CodeContextImpl(areaspecXML, programListingXML);
+            CodeContextImpl ctx = new CodeContextImpl();
 
             //
-            new CodeProcessor().parse(bilto, ctx);
+            new CodeProcessor().parse(content, ctx);
 
-            //
-            if (ctx.callouts.size() > 0)
-            {
-               ElementEmitter calloutListXML = programListingCoXML.element("calloutlist");
-               for (Map.Entry<String, Callout> callout : ctx.callouts.entrySet())
+            // Create the resulting callouts
+            for (Map.Entry<String, Callout> callout : ctx.callouts.entrySet()) {
+               if (callout.getValue().text != null)
                {
-                  if (callout.getValue().text != null)
-                  {
-                     StringBuffer sb = new StringBuffer();
-                     for (String coId : callout.getValue().ids)
-                     {
-                        if (sb.length() > 0)
-                        {
-                           sb.append(" ");
-                        }
-                        sb.append(coId).append("-co");
-                     }
-                     calloutListXML.element("callout").
-                        withAttribute("arearefs", sb.toString()).
-                        element("para").content(callout.getValue().text, true);
-                  }
+                  CalloutElement calloutElt = new CalloutElement(callout.getValue().ids, callout.getValue().text);
+                  push(calloutElt);
+                  merge();
                }
             }
 
             //
+            bilto = ctx.sb.toString();
+
+            //
+            break;
+         default:
+            bilto = content;
             break;
       }
+
+      //
+      this.bilto = bilto;
+   }
+
+   @Override
+   public boolean append(DocbookElement elt)
+   {
+      return callouts.append(elt);
+   }
+
+   @Override
+   public void writeTo(XMLEmitter xml)
+   {
+      ElementEmitter programListingCoXML = xml.element("programlistingco");
+
+      //
+      ElementEmitter areaspecXML = programListingCoXML.element("areaspec").withAttribute("units", "linecolumn");
+
+      //
+      for (CalloutElement calloutElt : callouts)
+      {
+         for (Map.Entry<String, Position> target : calloutElt.getIds().entrySet())
+         {
+            areaspecXML.element("area").
+               withAttribute("id", target.getKey() + "-co").
+               withAttribute("linkends", target.getKey()).
+               withAttribute("coords",(target.getValue().getLine() + 1) + " " + (target.getValue().getColumn() + 1));
+         }
+      }
+
+      //
+      ElementEmitter programListingXML = programListingCoXML.element("programlisting");
+      if (highlightCode && languageSyntax != LanguageSyntax.UNKNOWN)
+      {
+         programListingXML.withAttribute("language", languageSyntax.name().toLowerCase());
+      }
+
+      //
+      if (callouts.isNotEmpty())
+      {
+         callouts.writeTo(programListingCoXML.element("calloutlist"));
+      }
+
+      //
+      programListingXML.content(bilto, true);
    }
 
    private class CodeContextImpl implements CodeContext
@@ -196,26 +230,17 @@ public class ProgramListingElement extends BlockElement
       private final StringBuilder sb = new StringBuilder();
 
       /** . */
-      private XMLEmitter areaspecXML;
-
-      /** . */
-      private XMLEmitter programlistingXML;
-
-      /** . */
       private final TreeMap<String, Callout> callouts = new TreeMap<String, Callout>();
 
       /** . */
       private final Random random = new Random();
 
-      private CodeContextImpl(XMLEmitter areaspecXML, XMLEmitter programlistingXML)
+      private CodeContextImpl()
       {
-         this.programlistingXML = programlistingXML;
-         this.areaspecXML = areaspecXML;
       }
 
       public void writeContent(String content)
       {
-         programlistingXML.content(content, true);
          sb.append(content);
       }
 
@@ -226,12 +251,6 @@ public class ProgramListingElement extends BlockElement
          //
          TextArea ta = new TextArea(sb.toString());
          Position pos = ta.position(sb.length());
-
-         //
-         areaspecXML.element("area").
-            withAttribute("id", coId + "-co").
-            withAttribute("linkends", coId).
-            withAttribute("coords",(pos.getLine() + 1) + " " + (pos.getColumn() + 1));
 
          //
          Callout callout = callouts.get(index);
@@ -245,7 +264,7 @@ public class ProgramListingElement extends BlockElement
          writeContent(" ");
 
          //
-         callout.ids.addLast(coId);
+         callout.ids.put(coId, pos);
       }
 
       public void setCallout(String index, String text)
@@ -277,7 +296,7 @@ public class ProgramListingElement extends BlockElement
       private String text;
 
       /** . */
-      private final LinkedList<String> ids = new LinkedList<String>();
+      private final LinkedHashMap<String, Position> ids = new LinkedHashMap<String, Position>();
 
    }
 }

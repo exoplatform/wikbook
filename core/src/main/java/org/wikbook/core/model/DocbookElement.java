@@ -31,29 +31,6 @@ public abstract class DocbookElement
    /** . */
    DocbookContext context;
 
-   public final <E extends DocbookElement> E push(E elt)
-   {
-      if (context == null)
-      {
-         throw new IllegalStateException();
-      }
-      if (elt.context != null)
-      {
-         throw new IllegalArgumentException("Already contextualized");
-      }
-      DocbookElement currentElt = context.currentMap.get(this);
-      if (currentElt == null)
-      {
-         context.currentMap.put(this, elt);
-         elt.context = context;
-         return elt;
-      }
-      else
-      {
-         return currentElt.push(elt);
-      }
-   }
-
    public final void close()
    {
       if (context == null)
@@ -121,12 +98,35 @@ public abstract class DocbookElement
       return current(true);
    }
 
+   public final <E extends DocbookElement> E push(E elt)
+   {
+      if (context == null)
+      {
+         throw new IllegalStateException();
+      }
+      if (elt.context != null)
+      {
+         throw new IllegalArgumentException("Already contextualized");
+      }
+      DocbookElement currentElt = context.currentMap.get(this);
+      if (currentElt == null)
+      {
+         context.currentMap.put(this, elt);
+         elt.context = context;
+         return elt;
+      }
+      else
+      {
+         return currentElt.push(elt);
+      }
+   }
+
    public final void merge()
    {
       merge(pop());
    }
 
-   public final void merge(DocbookElement elt)
+   public final <E extends DocbookElement> E merge(E elt)
    {
       if (elt == null)
       {
@@ -134,7 +134,7 @@ public abstract class DocbookElement
       }
       if (context == null)
       {
-         throw new IllegalStateException();
+         throw new IllegalStateException("No associated context with the element performing the merge");
       }
       if (elt.context != null)
       {
@@ -155,6 +155,12 @@ public abstract class DocbookElement
       {
          throw new AssertionError("Could not append element " + elt.getClass().getName() + " to element " + getClass().getName());
       }
+
+      //
+      elt.context = context;
+
+      //
+      return elt;
    }
 
    protected final DocbookContext getContext()
