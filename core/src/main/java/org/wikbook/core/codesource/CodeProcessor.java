@@ -47,7 +47,7 @@ public class CodeProcessor
 
    /** . */
    public static final Pattern CALLOUT_ANCHOR_PATTERN = Pattern.compile(
-      "//" + WHITE_NON_CR + "*" + "<([0-9]+)>" + "(.*)$", Pattern.MULTILINE);
+      "//" + WHITE_NON_CR + "*" + "<([0-9]*)>" + "(.*)$", Pattern.MULTILINE);
 
    /** . */
    public static final Pattern CALLOUT_DEF_PATTERN = Pattern.compile(
@@ -74,6 +74,45 @@ public class CodeProcessor
       "\\{" + "@(include|javadoc)" + "\\s+" + "([^\\s]+)" + "\\s*" + "(\\{[0-9]+(?:,[0-9]+)*\\})?" + "\\s*" + "\\}"
    );
 
+   /** The last index found. */
+   int calloutIndex = 0;
+
+   /** The index sub increments. */
+   int calloutSubIndex = 0;
+
+   /**
+    * Updates the current callout index with the provided id.
+    * When the calloutId argument is an empty string, the last found index is incremented.
+    * When the calloutId is an integer string, the last callout index is updated.
+    *
+    * @param calloutId the callout id.
+    * @return the effective id value to use
+    */
+   private String updateId(String calloutId) {
+      if (calloutId.length() == 0) {
+         return "" + (calloutIndex * 1000 + calloutSubIndex++);
+      } else {
+         calloutIndex = Integer.parseInt(calloutId);
+         calloutSubIndex = 1;
+         return "" + calloutIndex * 1000;
+      }
+   }
+
+   /**
+    * Convert the calloutId argument as an effective callout.
+    *
+    * @param calloutId the calloutId
+    * @return the effective id value to use
+    */
+   private String getId(String calloutId) {
+      if (calloutId.length() == 0) {
+         throw new AssertionError();
+      } else {
+         int index = Integer.parseInt(calloutId);
+         return "" + index * 1000;
+      }
+   }
+
    private void printJavaLine(String s, CodeContext ctx)
    {
       // Process all callout definitions
@@ -82,14 +121,17 @@ public class CodeProcessor
       StringBuilder buf = new StringBuilder();
       while (coDefMatcher.find())
       {
-         String id = coDefMatcher.group(1);
-         String text = coDefMatcher.group(2).trim();
+         String calloutId = coDefMatcher.group(1);
+         String calloutText = coDefMatcher.group(2).trim();
+
+         //
+         String id = getId(calloutId);
 
          //
          buf.append(s, pre, coDefMatcher.start());
 
          //
-         ctx.setCallout(id, text);
+         ctx.setCallout(id, calloutText);
 
          //
          pre = coDefMatcher.end();
@@ -103,11 +145,15 @@ public class CodeProcessor
       int prev = 0;
       while (matcher.find())
       {
-         String id = matcher.group(1);
+         String calloutId = matcher.group(1);
+
+         //
+         String id = updateId(calloutId);
 
          //
          ctx.writeContent(ta.clip(ta.position(prev), ta.position(matcher.start())));
 
+         //
          ctx.writeCallout(id);
 
          // Determine if we have callout text associated

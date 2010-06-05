@@ -20,10 +20,6 @@
 package org.wikbook.core.model.content.block;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.w3c.dom.Text;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
 import org.wikbook.core.codesource.CodeContext;
@@ -35,20 +31,12 @@ import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
 import org.xml.sax.InputSource;
-import org.xml.sax.XMLReader;
-import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.sax.SAXSource;
-import javax.xml.transform.sax.SAXTransformerFactory;
-import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
-import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -231,7 +219,7 @@ public class ProgramListingElement extends BlockElement
          sb.append(content);
       }
 
-      public void writeCallout(String id)
+      public void writeCallout(String index)
       {
          String coId = "" + Math.abs(random.nextLong());
 
@@ -246,24 +234,27 @@ public class ProgramListingElement extends BlockElement
             withAttribute("coords",(pos.getLine() + 1) + " " + (pos.getColumn() + 1));
 
          //
-         Callout callout = callouts.get(id);
+         Callout callout = callouts.get(index);
          if (callout == null)
          {
             callout = new Callout();
-            callouts.put(id, callout);
+            callouts.put(index, callout);
          }
+
+         // Write a white space so we are sure that the position for the callout exist in the text
+         writeContent(" ");
 
          //
          callout.ids.addLast(coId);
       }
 
-      public void setCallout(String id, String text)
+      public void setCallout(String index, String text)
       {
-         Callout callout = callouts.get(id);
+         Callout callout = callouts.get(index);
          if (callout == null)
          {
             callout = new Callout();
-            callouts.put(id, callout);
+            callouts.put(index, callout);
          }
          callout.text = text;
       }

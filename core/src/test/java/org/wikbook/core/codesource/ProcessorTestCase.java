@@ -41,7 +41,7 @@ public class ProcessorTestCase extends TestCase
       TestCodeContext ctx = new TestCodeContext();
       CodeProcessor processor = new CodeProcessor();
       processor.parse("a// <1>\nb", ctx);
-      assertEquals("a// <1>\nb", ctx.getText());
+      assertEquals("a// <1000>\nb", ctx.getText());
    }
 
    public void testEraseAnchor2()
@@ -49,7 +49,7 @@ public class ProcessorTestCase extends TestCase
       TestCodeContext ctx = new TestCodeContext();
       CodeProcessor processor = new CodeProcessor();
       processor.parse("a// <1> foo\nb", ctx);
-      assertEquals("a// <1>\nb", ctx.getText());
+      assertEquals("a// <1000>\nb", ctx.getText());
    }
 
    public void testInclude()
