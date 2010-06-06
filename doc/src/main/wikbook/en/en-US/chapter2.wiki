@@ -483,6 +483,18 @@ The example macro can easily be combined, for instance a code example can be cre
 (% title="A code example combining the example and code macros" %)
 |((({{code}}{{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}}{{/code}})))|((({{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}})))
 
+== Quotation ==
+
+Quotation generates a set of DocBook blockquote structure. 
+
+(% title="Quotation" %)
+|((({{code}}>John said this
+>>Marie answered that
+I said ok{{/code}})))
+|(((>John said this
+>>Marie said that
+I said ok)))
+
 == Modularization ==
 
 The //include// macro is a good way to provide modularization of a complex document.
