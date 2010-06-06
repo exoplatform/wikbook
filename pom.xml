@@ -55,7 +55,7 @@
     <maven.compiler.target>1.5</maven.compiler.target>
     <maven.compiler.source>1.5</maven.compiler.source>
     <wikbook.version>${project.version}</wikbook.version>
-    <wikbook.releases.repo.url>http://repository.exoplatform.org/content/repositories/wikbook-releases/</wikbook.releases.repo.url>
+    <wikbook.releases.repo.url>http://repository.exoplatform.org/service/local/staging/deploy/maven2/</wikbook.releases.repo.url>
     <wikbook.snapshots.repo.url>http://repository.exoplatform.org/content/repositories/wikbook-snapshots/</wikbook.snapshots.repo.url>
 
     <!-- maven-release-plugin -->
