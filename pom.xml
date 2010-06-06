@@ -23,6 +23,25 @@
     </license>
   </licenses>
 
+  <developers>
+    <developer>
+      <id>julien.viet</id>
+      <name>Julien Viet</name>
+      <email>julien.viet@exoplatform.com</email>
+      <roles>
+        <role>Owner</role>
+      </roles>
+    </developer>
+    <developer>
+      <id>aheritier</id>
+      <name>Arnaud Heritier</name>
+      <email>arnaud.heritier@exoplatform.com</email>
+      <roles>
+        <role>Committer</role>
+      </roles>
+    </developer>
+  </developers>
+  
   <scm>
     <connection>scm:git:git://github.com/vietj/wikbook.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/vietj/wikbook.git</developerConnection>
@@ -60,6 +79,7 @@
 
     <!-- maven-release-plugin -->
     <useReleaseProfile>false</useReleaseProfile>
+    <arguments>-Prelease,sign-artifacts</arguments>
     <autoVersionSubmodules>true</autoVersionSubmodules>
 
     <docbkx.version>2.0.7</docbkx.version>
@@ -148,6 +168,11 @@
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-gpg-plugin</artifactId>
+          <version>1.1</version>
+        </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-source-plugin</artifactId>
           <version>2.1.1</version>
         </plugin>
@@ -185,4 +210,27 @@
     </plugins>
   </build>
 
+  <profiles>    
+
+    <profile>
+      <id>sign-artifacts</id>
+      <build>
+        <plugins>
+          <!-- We want to sign the artifact, the POM, and all attached artifacts -->
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-gpg-plugin</artifactId>
+            <executions>
+              <execution>
+                <goals>
+                  <goal>sign</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
 </project>
