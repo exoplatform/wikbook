@@ -216,10 +216,17 @@ Tables are mapped to the docbook tables, here are a few examples
 )))
 
 By default a table expects inline content, that means that any content inside the table will not be interpreted as wiki
-text but as normal text. It is possible to change that behavior with the usage of the {{{(((...)))}}} block allowing
-the usage of nested tables or lists.
+text but as normal text. That behavior can be changed by using the group syntax block explained in the [[#group_section]].
 
-(% title="A list inside a table" %)
+{{note}}This document makes an extensive usage of this feature.{{/note}}
+{{warning}}Inside a complex content block, the usage of structural elements such as section is not allowed.{{/warning}}
+
+=== Groups {{anchor id=group_section/}} ===
+
+Groups are mostly useful for embedding complex structure inside a table. A grou is declared inside a block like
+{{{(((...)))}}}.
+
+(% title="A list inside a table with a group block" %)
 |((({{code}}
 |(((
 * item 1
@@ -231,9 +238,6 @@ the usage of nested tables or lists.
 * item 2
 )))
 )))
-
-{{note}}This document makes an extensive usage of this feature.{{/note}}
-{{warning}}Inside a complex content block, the usage of structural elements such as section is not allowed.{{/warning}}
 
 === Images ===
 
@@ -295,11 +299,11 @@ the ##java## macro can be used directly.
 |((({{code}}{{java}}x = x + 1;{{/java}}{{/code}})))
 |((({{java}}x = x + 1;{{/java}})))
 
-===== Java code citation {{anchor id=java_code_citation /}} =====
+===== Java code citation {{anchor id=java_code_citation_section/}} =====
 
 Wikbook has a special integration with Java project allowing to cite Java code inside the documentation from the
 existing source code. This feature requires the code source and binary to be available when Wikbook compiles
-the wikbook sources, the integration inside a Maven build is trivial and is covered in the [[#maven_java_code_citation]].
+the wikbook sources, the integration inside a Maven build is trivial and is covered in the [[#maven_java_code_citation_section]].
 
 The syntax is taken from the Javadoc syntax that allows to create reference to code elements
 via the {@link ref} where ref is a reference to a code element such as a class, a method or a field.
