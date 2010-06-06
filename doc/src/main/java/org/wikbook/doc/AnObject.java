@@ -42,4 +42,9 @@ public class AnObject
       String b3 = "block";
       String c3 = "of code";
    }
+
+   public void foo(String s)
+   {
+      // An empty method
+   }
 }

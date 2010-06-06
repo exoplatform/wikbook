@@ -18,7 +18,7 @@ that takes the Docbook document and transforms it.
 The Maven Wikbook plugin focus on transforming the Wiki content into a compliant DocBook XML document.
 
 {{example title="Example of Wikbook Maven plugin"}}
-{{xml}}
+{{xml indent=2}}
 <plugin>
  <groupId>org.wikbook</groupId>
  <artifactId>wikbook.maven</artifactId>
@@ -35,6 +35,7 @@ The Maven Wikbook plugin focus on transforming the Wiki content into a compliant
    <sourceFileName>book.wiki</sourceFileName>
    <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
    <destinationFileName>index.xml</destinationFileName>
+   <emitDoctype>false</emitDoctype>
  </configuration>
 </plugin>
 {{/xml}}
@@ -69,3 +70,53 @@ configuration to generate HTML and PDF formats. Its usage is very simple:
 {{/example}}
 
 After that, it is ready to be used and tweaked.
+
+== Integration of code block citation {{anchor id=maven_java_code_citation /}} ==
+
+We have covered in the [[#java_code_citation]] how Java code can be cited. Inside a Maven project, the Wikbook plugin
+requires access to the dependencies containing the code, source and binaries.
+
+=== Producing the source dependencies ===
+
+By default Maven does not create source code artifacts, however the //maven-source-plugin// does. Here is an example
+of the plugin configuration that can be added to a project to activate the generation of the source code artifact
+along with the compiled code artifact:
+
+{{example title="Configuration of the maven-source-plugin"}}
+{{xml indent=2}}
+<plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-source-plugin</artifactId>
+<executions>
+<execution>
+<id>attach-sources</id>
+<goals>
+<goal>jar-no-fork</goal>
+</goals>
+</execution>
+</executions>
+</plugin>
+{{/xml}}
+{{/example}}
+
+=== Declaring the right dependency ===
+
+The source code artifact needs to be declared as a dependency of the Maven module processing the Wikbook document:
+
+{{example title="Declaring the right dependency"}}
+{{xml indent=2}}
+<!-- Declares a dependency on the code -->
+<dependency>
+<groupId>groupId</groupId>
+<artifactId>artifactId</artifactId>
+<version>1.0-SNAPSHOT</version>
+</dependency>
+<!-- Declares a dependency on the source code -->
+<dependency>
+<groupId>groupId</groupId>
+<artifactId>artifactId</artifactId>
+<version>1.0-SNAPSHOT</version>
+<classifier>sources</classifier>
+</dependency>
+{{/xml}}
+{{/example}}
