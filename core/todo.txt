@@ -5,6 +5,7 @@
 - some kind of entities would be great too
 - on the fly SVG rasterization
 - code line wrapping for XML and Java
+- table cell alignement
 
 Resources:
 - http://platform.xwiki.org/xwiki/bin/view/Features/Annotations
