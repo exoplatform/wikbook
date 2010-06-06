@@ -323,7 +323,7 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
 
 ==== Callouts ====
 
-Callouts are useful for creating a set of references that refers to a block of code. At the moment they are only
+Callouts are useful for creating a set of references that refers to the code source. At the moment they are only
 available for Java^^tm^^ language. A callout is declared inside a code block using comments in special format.
 
 (% title="A simple callout" %)
@@ -338,8 +338,34 @@ available for Java^^tm^^ language. A callout is declared inside a code block usi
 }
 {{/code}})))
 
-Callout anchor don't have to be mixed with the related text, a simple declaration without any text will just
-create an anchor. Somewhere else in the code base, the callout text can be declared by adding an equals sign
+The syntax use angle brackets like ** <1> ** to define a callout because visually it is very similar to a callout
+bug. The value inside the brackets must be a number or it can be empty. The callout list will use this numbering
+to sort the callouts.
+
+Most of the time it is not necessary to declare a number and the callout index can be empty. In that case, it uses
+a number that is greater than the previous index and lower than the next one. Eventually it is possible to use
+only empty callout, it is displayed in the definition order.
+
+(% title="Anonymous callouts" %)
+|((({{code}}{{code language=java}}public void foo()
+{
+   System.out.println("This is going to the output"); // <> Callout 2
+   System.out.println("This is going to the output"); // <> Callout 3
+   System.out.println("This is going to the output"); // <2> Callout 4
+   System.out.println("This is going to the output"); // <1> Callout 1
+}
+{{/code}}{{/code}})))
+|((({{code language=java}}public void foo()
+{
+   System.out.println("This is going to the output"); // <> Callout 1
+   System.out.println("This is going to the output"); // <> Callout 2
+   System.out.println("This is going to the output"); // <2> Callout 4
+   System.out.println("This is going to the output"); // <1> Callout 3
+}
+{{/code}})))
+
+Callout anchor don't have to be mixed inside the text, a simple declaration without any text will just
+create an anchor. Somewhere else in the code block, the callout text can be declared by adding an equal sign
 between the right angle bracket and the text. As a consequence, several lines can be referenced with the
 same callout.
 
@@ -373,10 +399,13 @@ Wiki definition lists are managed as docbook variable lists.
 <variablelist>
   <varlistentry>
     <term>term</term>
-    <listitem>definition</listitem>
+    <listitem>
+      <para>definition</para>
+    </listitem>
   </varlistentry>
 </variablelist>
-{{/code}})))
+{{/code}})))|(((; term
+: definition)))
 |(((
 {{code}}
 (% title="the title" %)
@@ -388,10 +417,28 @@ Wiki definition lists are managed as docbook variable lists.
   <title>the title</title>
   <varlistentry>
     <term>term</term>
-    <listitem>definition</listitem>
+    <listitem>
+      <para>definition</para>
+    </listitem>
   </varlistentry>
 </variablelist>
-{{/code}})))
+{{/code}})))|((((% title="the title" %)
+; term
+: definition)))
+
+== Example ==
+
+Docbook defines a tag for creating examples. It gives the capability to give the example a title. Most importantly
+it generates a list of all examples in the book.
+
+(% title="An example" %)
+|((({{code}}{{example}}an example{{/example}}{{/code}})))|((({{example}}an example{{/example}})))
+|((({{code}}{{example title="my example"}}an example with a title{{/example}}{{/code}})))|((({{example}}an example with a title{{/example}})))
+
+The example macro can easily be combined, for instance a code example can be created by combining the example and code macros.
+
+(% title="A code example combining the example and code macros" %)
+|((({{code}}{{example title="increment x"}}{{code}}x = x + 1{{/code}}{{/example}}{{/code}})))|((({{example title="increment x"}}{{code}}x = x + 1{{/code}}{{/example}})))
 
 == Modularization ==
 
