@@ -3,21 +3,27 @@
   <preface>
     <title>Preface</title>
     <itemizedlist>
-      <listitem>a</listitem>
       <listitem>
+        <para>a</para>
         <itemizedlist>
-          <listitem>b</listitem>
           <listitem>
+            <para>b</para>
             <itemizedlist>
-              <listitem>c</listitem>
+              <listitem>
+                <para>c</para>
+              </listitem>
             </itemizedlist>
           </listitem>
         </itemizedlist>
       </listitem>
-      <listitem>d</listitem>
+      <listitem>
+        <para>d</para>
+      </listitem>
     </itemizedlist>
     <itemizedlist mark="square">
-      <listitem>a</listitem>
+      <listitem>
+        <para>a</para>
+      </listitem>
     </itemizedlist>
   </preface>
 </book>

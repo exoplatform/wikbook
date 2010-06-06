@@ -96,9 +96,7 @@ public class ListElement extends BlockElement
    {
       if (elt instanceof ListElement)
       {
-         endItem();
-         beginItem();
-         current.append((elt));
+         current.append(elt);
          return true;
       }
       else

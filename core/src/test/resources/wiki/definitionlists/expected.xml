@@ -5,14 +5,18 @@
     <variablelist>
       <varlistentry>
         <term>term</term>
-        <listitem>definition</listitem>
+        <listitem>
+          <para>definition</para>
+        </listitem>
       </varlistentry>
     </variablelist>
     <variablelist>
           <title>the title</title>
           <varlistentry>
             <term>term</term>
-            <listitem>definition</listitem>
+            <listitem>
+              <para>definition</para>
+            </listitem>
           </varlistentry>
         </variablelist>
   </preface>

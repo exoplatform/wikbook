@@ -5,15 +5,23 @@
     <para>
       <example>
         <itemizedlist>
-          <listitem>a</listitem>
-          <listitem>b</listitem>
+          <listitem>
+            <para>a</para>
+          </listitem>
+          <listitem>
+            <para>b</para>
+          </listitem>
         </itemizedlist>
       </example>
       <example>
         <title>the title</title>
         <itemizedlist>
-          <listitem>a</listitem>
-          <listitem>b</listitem>
+          <listitem>
+            <para>a</para>
+          </listitem>
+          <listitem>
+            <para>b</para>
+          </listitem>
         </itemizedlist>
       </example>
     </para>

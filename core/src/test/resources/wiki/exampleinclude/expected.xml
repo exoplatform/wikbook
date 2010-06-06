@@ -3,8 +3,12 @@
   <preface>
     <title>Preface</title>
     <itemizedlist>
-      <listitem>a</listitem>
-      <listitem>b</listitem>
+      <listitem>
+        <para>a</para>
+      </listitem>
+      <listitem>
+        <para>b</para>
+      </listitem>
     </itemizedlist>
     <para>
       <example>* a

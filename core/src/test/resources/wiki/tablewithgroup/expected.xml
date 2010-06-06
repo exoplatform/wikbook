@@ -19,7 +19,9 @@
           <row>
             <entry>
               <itemizedlist>
-                <listitem>a</listitem>
+                <listitem>
+                  <para>a</para>
+                </listitem>
               </itemizedlist>
             </entry>
           </row>

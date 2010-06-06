@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.ContentContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -32,11 +32,12 @@ public class ListItemElement extends ContentElement
 {
 
    /** The implicit para. */
-   private ElementContainer<ContentElement> content;
+   private ContentContainer content;
+
 
    public ListItemElement()
    {
-      this.content = new ElementContainer<ContentElement>(ContentElement.class);
+      this.content = new ContentContainer();
    }
 
    @Override

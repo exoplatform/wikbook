@@ -3,21 +3,27 @@
   <preface>
     <title>Preface</title>
     <orderedlist>
-      <listitem>a</listitem>
       <listitem>
+        <para>a</para>
         <orderedlist>
-          <listitem>b</listitem>
           <listitem>
+            <para>b</para>
             <orderedlist>
-              <listitem>c</listitem>
+              <listitem>
+                <para>c</para>
+              </listitem>
             </orderedlist>
           </listitem>
         </orderedlist>
       </listitem>
-      <listitem>d</listitem>
+      <listitem>
+        <para>d</para>
+      </listitem>
     </orderedlist>
     <orderedlist numeration="upperroman">
-      <listitem>a</listitem>
+      <listitem>
+        <para>a</para>
+      </listitem>
     </orderedlist>
   </preface>
 </book>
