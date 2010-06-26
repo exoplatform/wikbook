@@ -28,18 +28,12 @@
 
     <dependency>
       <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.core</artifactId>
+      <artifactId>wikbook.dependencies</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.xwiki.platform</groupId>
-      <artifactId>xwiki-core-rendering-syntax-wikimodel</artifactId>
-      <version>2.2.3</version>
-    </dependency>
-    <dependency>
-      <groupId>org.xwiki.platform</groupId>
-      <artifactId>xwiki-core-component-default</artifactId>
-      <version>2.2.3</version>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.core</artifactId>
     </dependency>
 
   </dependencies>

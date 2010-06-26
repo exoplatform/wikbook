@@ -15,8 +15,8 @@
   <dependencies>
 
     <dependency>
-      <groupId>com.google.code.javaparser</groupId>
-      <artifactId>javaparser</artifactId>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.dependencies</artifactId>
     </dependency>
 
     <dependency>

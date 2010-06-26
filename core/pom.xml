@@ -16,16 +16,12 @@
 
     <dependency>
       <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.codesource</artifactId>
+      <artifactId>wikbook.dependencies</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.xwiki.platform</groupId>
-      <artifactId>xwiki-core-rendering-syntax-wikimodel</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.xwiki.platform</groupId>
-      <artifactId>xwiki-core-component-default</artifactId>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.codesource</artifactId>
     </dependency>
 
     <dependency>
