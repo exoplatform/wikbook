@@ -12,17 +12,6 @@
 
   <name>Wikbook dependencies</name>
 
-  <repositories>
-    <repository>
-      <id>xwiki</id>
-      <url>http://maven.xwiki.org/releases</url>
-    </repository>
-    <repository>
-      <id>javaparser</id>
-      <url>http://javaparser.googlecode.com/svn/maven2/</url>
-    </repository>
-  </repositories>
-
   <dependencies>
 
     <dependency>
@@ -50,6 +39,25 @@
     </dependency>
 
   </dependencies>
+
+  <profiles>
+    <profile>
+      <id>default</id>
+      <activation>
+        <activeByDefault/>
+      </activation>
+      <repositories>
+        <repository>
+          <id>xwiki</id>
+          <url>http://maven.xwiki.org/releases</url>
+        </repository>
+        <repository>
+          <id>javaparser</id>
+          <url>http://javaparser.googlecode.com/svn/maven2/</url>
+        </repository>
+      </repositories>
+    </profile>
+  </profiles>
 
   <build>
 
