@@ -34,8 +34,7 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -106,7 +105,7 @@ public class XML
       }
 
       //
-      // handler.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, doctype.isEmitDoctype() ? "no" : "yes");
+      handler.getTransformer().setOutputProperty(OutputKeys.OMIT_XML_DECLARATION, doctype.isEmitDoctype() ? "no" : "yes");
 
       //
       return handler;
@@ -164,5 +163,24 @@ public class XML
             elt.removeChild(child);
          }
       }
+   }
+
+   public static Iterable<Element> elements(Node node)
+   {
+      final NodeList children = node.getChildNodes();
+      List<Element> elements = Collections.emptyList();
+      for (int i = 0;i < children.getLength();i++)
+      {
+         Node child = children.item(i);
+         if (child instanceof Element)
+         {
+            if (elements.size() == 0)
+            {
+               elements = new ArrayList<Element>();
+            }
+            elements.add((Element)child);
+         }
+      }
+      return elements;
    }
 }

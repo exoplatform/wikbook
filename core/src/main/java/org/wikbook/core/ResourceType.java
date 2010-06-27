@@ -26,6 +26,6 @@ package org.wikbook.core;
 public enum ResourceType
 {
 
-   WIKI, JAVA
+   WIKI, JAVA, XML
 
 }

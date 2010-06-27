@@ -22,13 +22,7 @@ package org.wikbook.core;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -107,29 +101,36 @@ public class SimpleWikletContext implements WikletContext
 
    public List<URL> resolveResources(ResourceType type, String id) throws IOException
    {
-      File resolved;
-      switch (type)
+      if (id.length() > 0)
       {
-         case WIKI:
-            resolved = new File(base, id);
-            if (resolved != null && resolved.isFile())
-            {
-               return Arrays.asList(resolved.toURI().toURL());
-            }
-            break;
-         case JAVA:
-            Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(id);
-            List<URL> streams = new ArrayList<URL>();
-            while (urls.hasMoreElements())
-            {
-               URL url = urls.nextElement();
-               streams.add(url);
-            }
-            return streams;
-         default:
-            throw new AssertionError();
+         File resolved;
+         switch (type)
+         {
+            case WIKI:
+               resolved = new File(base, id);
+               if (resolved != null && resolved.isFile())
+               {
+                  return Arrays.asList(resolved.toURI().toURL());
+               }
+               break;
+            case XML:
+               if (id.startsWith("/")) {
+                  id = id.substring(1);
+               }
+            case JAVA:
+               Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(id);
+               List<URL> streams = new ArrayList<URL>();
+               while (urls.hasMoreElements())
+               {
+                  URL url = urls.nextElement();
+                  streams.add(url);
+               }
+               return streams;
+            default:
+               throw new AssertionError();
+         }
       }
-      return null;
+      return Collections.emptyList();
    }
 
    public URL resolveResource(ResourceType type, String id) throws IOException

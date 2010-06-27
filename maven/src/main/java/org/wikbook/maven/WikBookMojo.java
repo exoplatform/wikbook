@@ -37,15 +37,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Properties;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -272,54 +264,61 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
 
    public List<URL> resolveResources(ResourceType type, String id) throws IOException
    {
-      switch (type)
-      {
-         case WIKI:
-            File f = new File(sourceDirectory, id);
-            if (f.exists() && f.isFile())
-            {
-               return Arrays.asList(f.toURI().toURL());
-            }
-            break;
-         case JAVA:
-            LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
-
-            //
-            List<String> dirs = new ArrayList<String>();
-            dirs.addAll(compileSourceRoots);
-            dirs.addAll(compileClasspathElements);
-            dirs.addAll(testCompileSourceRoots);
-            dirs.addAll(testClasspathElements);
-
-            //
-            for (String elt : dirs)
-            {
-               File eltFile = new File(elt);
-               if (eltFile.exists())
+      if (id.length() > 0) {
+         switch (type)
+         {
+            case WIKI:
+               File f = new File(sourceDirectory, id);
+               if (f.exists() && f.isFile())
                {
-                  urls.add(eltFile.toURI().toURL());
+                  return Arrays.asList(f.toURI().toURL());
                }
-            }
+               break;
+            case XML:
+               if (id.startsWith("/"))
+               {
+                  id = id.substring(1);
+               }
+            case JAVA:
+               LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
 
-            //
-            for (Artifact artifact : (Set<Artifact>)session.getCurrentProject().getDependencyArtifacts())
-            {
-               urls.add(artifact.getFile().toURI().toURL());
-            }
+               //
+               List<String> dirs = new ArrayList<String>();
+               dirs.addAll(compileSourceRoots);
+               dirs.addAll(compileClasspathElements);
+               dirs.addAll(testCompileSourceRoots);
+               dirs.addAll(testClasspathElements);
 
-            //
-            ClassLoader cl = new URLClassLoader(urls.toArray(new URL[urls.size()]), ClassLoader.getSystemClassLoader());
-            Enumeration<URL> found = cl.getResources(id);
-            ArrayList<URL> bilto = new ArrayList<URL>();
-            while (found.hasMoreElements())
-            {
-               bilto.add(found.nextElement());
-            }
+               //
+               for (String elt : dirs)
+               {
+                  File eltFile = new File(elt);
+                  if (eltFile.exists())
+                  {
+                     urls.add(eltFile.toURI().toURL());
+                  }
+               }
 
-            //
-            return bilto;
+               //
+               for (Artifact artifact : (Set<Artifact>)session.getCurrentProject().getDependencyArtifacts())
+               {
+                  urls.add(artifact.getFile().toURI().toURL());
+               }
+
+               //
+               ClassLoader cl = new URLClassLoader(urls.toArray(new URL[urls.size()]), ClassLoader.getSystemClassLoader());
+               Enumeration<URL> found = cl.getResources(id);
+               ArrayList<URL> bilto = new ArrayList<URL>();
+               while (found.hasMoreElements())
+               {
+                  bilto.add(found.nextElement());
+               }
+
+               //
+               return bilto;
+         }
       }
-      return null;
+      return Collections.emptyList();
    }
 
    public URL resolveResource(ResourceType type, String id) throws IOException

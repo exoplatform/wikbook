@@ -1,0 +1,3 @@
+{{xml}}
+<xi:include href="/wiki/xml/doc.xml"/>
+{{/xml}}

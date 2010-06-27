@@ -57,6 +57,7 @@ import org.xwiki.rendering.listener.ListType;
 import org.xwiki.rendering.listener.Listener;
 import org.xwiki.rendering.syntax.Syntax;
 
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
@@ -331,18 +332,22 @@ public class XDOMTransformer implements Listener
             }
 
             //
-            ProgramListingElement programListingElt = book.push(new ProgramListingElement(
-               context,
-               languageSyntax,
-               indent,
-               content,
-               context.getHighlightCode()));
+            try {
+               ProgramListingElement programListingElt = book.push(new ProgramListingElement(
+                  context,
+                  languageSyntax,
+                  indent,
+                  content,
+                  context.getHighlightCode()));
 
-            //
-            programListingElt.process(this);
+               //
+               programListingElt.process(this);
 
-            //
-            book.merge();
+               //
+               book.merge();
+            } catch (ParserConfigurationException e) {
+               e.printStackTrace();
+            }
          }
       }
       else if ("example".equals(id))

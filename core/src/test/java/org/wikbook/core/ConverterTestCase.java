@@ -241,4 +241,9 @@ public class ConverterTestCase extends TestCase
    {
       doTest("/exampleinclude");
    }
+
+   public void testXML() throws Exception
+   {
+      doTest("/xml");
+   }
 }
