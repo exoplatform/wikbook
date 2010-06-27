@@ -19,8 +19,11 @@
 
 package org.wikbook.core.model.content.block;
 
-import org.w3c.dom.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.wikbook.core.ResourceType;
+import org.wikbook.core.Utils;
 import org.wikbook.core.WikletContext;
 import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
@@ -34,17 +37,22 @@ import org.wikbook.core.xml.XML;
 import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
-import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
 import org.xwiki.rendering.block.XDOM;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.sax.SAXResult;
+import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
@@ -87,21 +95,26 @@ public class ProgramListingElement extends BlockElement
    /** . */
    private final DocumentBuilder documentBuilder;
 
+   /** . */
+   private final XPath xpath;
+
    public ProgramListingElement(
       final WikletContext context,
       LanguageSyntax languageSyntax,
       Integer indent,
       String content,
-      boolean highlightCode) throws ParserConfigurationException {
+      boolean highlightCode) throws ParserConfigurationException
+   {
 
       //
       DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
       dbf.setIgnoringElementContentWhitespace(true);
       dbf.setCoalescing(true);
       dbf.setNamespaceAware(true);
-      dbf.setXIncludeAware(true);
+      dbf.setXIncludeAware(false);
       DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
 
+/*
       documentBuilder.setEntityResolver(new EntityResolver()
       {
          public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
@@ -118,6 +131,8 @@ public class ProgramListingElement extends BlockElement
             return null;
          }
       });
+*/
+
 
       //
       this.context = context;
@@ -127,17 +142,63 @@ public class ProgramListingElement extends BlockElement
       this.highlightCode = highlightCode;
       this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
       this.documentBuilder = documentBuilder;
+      this.xpath = XPathFactory.newInstance().newXPath();
    }
 
-   private void clearBase(Element elt) 
+   private void performIncludes(Element elt)
    {
-      if (elt.hasAttribute("xml:base"))
+      if ("urn:wikbook:internal".equals(elt.getNamespaceURI()) && "include".equals(elt.getLocalName()))
       {
-         elt.removeAttribute("xml:base");
+         String hrefAttr = elt.getAttribute("href");
+         Element replacementElt = null;
+         try
+         {
+            URL url = context.resolveResource(ResourceType.XML, hrefAttr);
+            if (url != null)
+            {
+               Document includedDoc = documentBuilder.parse(url.openStream());
+
+               //
+               if (elt.hasAttribute("xpath"))
+               {
+                  String xpathAttr = elt.getAttribute("xpath");
+                  XPathExpression xpathExpr = xpath.compile(xpathAttr);
+                  Node resolvedNode = (Node)xpathExpr.evaluate(includedDoc, XPathConstants.NODE);
+                  if (resolvedNode instanceof Element)
+                  {
+                     replacementElt = (Element)elt.getOwnerDocument().importNode(resolvedNode, true);
+                  }
+                  else
+                  {
+                     throw new Exception("Target of xpath expression " + xpathAttr + " does not resolve to an XML element but to " + resolvedNode);
+                  }
+               }
+               else
+               {
+                  Element includedElt = includedDoc.getDocumentElement();
+                  replacementElt = (Element)elt.getOwnerDocument().importNode(includedElt, true);
+               }
+            }
+         }
+         catch (Exception e)
+         {
+            Element errorElt = elt.getOwnerDocument().createElement("wikbook:error");
+            elt.getOwnerDocument().createTextNode(Utils.toString(e));
+            replacementElt = errorElt;
+         }
+
+         //
+         if (replacementElt != null)
+         {
+            elt.getParentNode().replaceChild(replacementElt, elt);
+         }
       }
-      for (Element childElt : XML.elements(elt))
+      else
       {
-         clearBase(childElt);
+         for (Element childElt : XML.elements(elt))
+         {
+            performIncludes(childElt);
+         }
       }
    }
 
@@ -149,41 +210,37 @@ public class ProgramListingElement extends BlockElement
          case XML:
             try
             {
-               // Output buffer
-               StringWriter writer = new StringWriter();
+               // Wrap the whole document with a root and declares the internal wikbook namespace
+               String data = "<root xmlns:wikbook=\"urn:wikbook:internal\">" + content + "</root>";
 
-               // Create transformer handler
-               Transformer transformer = XML.createTransformer(new OutputFormat(indent, false));
-
-               // Surround with an element to take care of special case
-               String data = "<root xmlns:xi=\"http://www.w3.org/2001/XInclude\" xml:base=\"wikbook://\">" + content + "</root>";
-
-               //
+               // Parse the resulting document
                Document doc = documentBuilder.parse(new InputSource(new StringReader(data)));
+               Element docElt = doc.getDocumentElement();
 
                // Perform inclusions
-               clearBase(doc.getDocumentElement());
+               performIncludes(docElt);
 
                // Remove white spaces
-               if (indent != null) {
-                  XML.removeWhiteSpace(doc.getDocumentElement());
-               }
-
-               // Keep only the content under the root
-               DocumentFragment fragment = doc.createDocumentFragment();
-               NodeList a = doc.getDocumentElement().getChildNodes();
-               for (int i = 0;i < a.getLength();i++)
+               // todo : check if we can do it in the {@link DocumentFormatterFilter} directly
+               if (indent != null)
                {
-                  Node n = a.item(i);
-                  if (n instanceof Attr)
-                  {
-                     continue;
-                  }
-                  fragment.appendChild(n);
+                  XML.removeWhiteSpace(docElt);
                }
 
-               //
-               transformer.transform(new DOMSource(fragment), new StreamResult(writer));
+               // The output buffer
+               StringWriter writer = new StringWriter();
+
+               // Create transformer handler that will serialize to a steam
+               TransformerHandler serializer = XML.createTransformerHandler(new OutputFormat(indent, false));
+
+               // Set the result that will receive the stream
+               serializer.setResult(new StreamResult(writer));
+
+               // This transformer will transform a DOM into a serie of sax events
+               Transformer domToSAX = TransformerFactory.newInstance().newTransformer();
+
+               // Now transform the DOM into a serie of filtered event to the stream receiver
+               domToSAX.transform(new DOMSource(doc), new SAXResult(new DocumentFormatterFilter(serializer)));
 
                // Get the original data
                data = writer.toString();
@@ -209,7 +266,8 @@ public class ProgramListingElement extends BlockElement
             new CodeProcessor().parse(content, ctx);
 
             // Create the resulting callouts
-            for (Map.Entry<String, Callout> callout : ctx.callouts.entrySet()) {
+            for (Map.Entry<String, Callout> callout : ctx.callouts.entrySet())
+            {
                if (callout.getValue().text != null)
                {
                   CalloutElement calloutElt = new CalloutElement(callout.getValue().ids, callout.getValue().text);
@@ -218,7 +276,7 @@ public class ProgramListingElement extends BlockElement
                   WikiLoader loader = new WikiLoader(context);
                   XDOM dom = loader.load(new StringReader(callout.getValue().text), null);
                   dom.traverse(_transformer);
-                  
+
                   merge();
                }
             }
@@ -259,7 +317,7 @@ public class ProgramListingElement extends BlockElement
             areaspecXML.element("area").
                withAttribute("id", target.getKey() + "-co").
                withAttribute("linkends", target.getKey()).
-               withAttribute("coords",(target.getValue().getLine() + 1) + " " + (target.getValue().getColumn() + 1));
+               withAttribute("coords", (target.getValue().getLine() + 1) + " " + (target.getValue().getColumn() + 1));
          }
       }
 

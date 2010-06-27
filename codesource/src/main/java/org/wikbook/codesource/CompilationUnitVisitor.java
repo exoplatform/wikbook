@@ -141,7 +141,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       //
       ByteArrayOutputStream baos = new ByteArrayOutputStream();
       byte[] buffer = new byte[20];
-      for (int l = cuis.read(buffer);l != -1;l = cuis.read(buffer))
+      for (int l = cuis.read(buffer); l != -1; l = cuis.read(buffer))
       {
          baos.write(buffer, 0, l);
       }
@@ -177,7 +177,8 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       return super.visit(n, arg);
    }
 
-   private static interface SuperVisit<T extends TypeDeclaration> {
+   private static interface SuperVisit<T extends TypeDeclaration>
+   {
       Void visit(T td, Visit v);
    }
 
@@ -189,7 +190,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       InputStream in = builder.context.getResource(fqn.replace(".", "/") + ".class");
       if (in == null)
       {
-         throw new CodeSourceException("Cannot locate class file for fqn " + fqn);   
+         throw new CodeSourceException("Cannot locate class file for fqn " + fqn);
       }
 
       //

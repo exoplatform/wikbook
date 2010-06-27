@@ -60,7 +60,7 @@ public class ComponentElement extends StructuralElement
 
    public void endTitle()
    {
-      doTitle =  false;
+      doTitle = false;
    }
 
    @Override

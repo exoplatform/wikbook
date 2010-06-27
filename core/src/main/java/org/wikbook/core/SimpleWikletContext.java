@@ -22,7 +22,14 @@ package org.wikbook.core;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -114,7 +121,8 @@ public class SimpleWikletContext implements WikletContext
                }
                break;
             case XML:
-               if (id.startsWith("/")) {
+               if (id.startsWith("/"))
+               {
                   id = id.substring(1);
                }
             case JAVA:

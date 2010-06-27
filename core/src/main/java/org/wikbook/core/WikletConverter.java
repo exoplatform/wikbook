@@ -20,9 +20,9 @@
 package org.wikbook.core;
 
 import org.w3c.dom.Document;
-import org.wikbook.core.wiki.WikiLoader;
-import org.wikbook.core.transform.XDOMTransformer;
 import org.wikbook.core.model.DocbookElement;
+import org.wikbook.core.transform.XDOMTransformer;
+import org.wikbook.core.wiki.WikiLoader;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;

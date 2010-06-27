@@ -21,8 +21,6 @@ package org.wikbook.core.codesource;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
-import java.util.List;
 
 /**
  * Contract for interacting with a code processor.
@@ -50,14 +48,14 @@ public interface CodeContext
    /**
     * Define a callout text value.
     *
-    * @param id the callout id
+    * @param id   the callout id
     * @param text the callout text value
     */
    void setCallout(String id, String text);
 
    /**
-    * Resolve a code resource and returns an {{code InputStream}} otherwise returns null if no such
-    * resource can be resolved.
+    * Resolve a code resource and returns an {{code InputStream}} otherwise returns null if no such resource can be
+    * resolved.
     *
     * @param id the resource id
     * @return the resource input stream

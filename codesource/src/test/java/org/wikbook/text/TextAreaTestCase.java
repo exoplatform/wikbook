@@ -128,20 +128,20 @@ public class TextAreaTestCase extends TestCase
    public void testClip()
    {
       TextArea b = new TextArea("a\nb");
-      assertEquals("", b.clip(Position.get(0, 0), Position.get(0 ,0)));
-      assertEquals("a", b.clip(Position.get(0, 0), Position.get(0 ,1)));
-      assertEquals("a ", b.clip(Position.get(0, 0), Position.get(0 ,2)));
-      assertEquals("a\n", b.clip(Position.get(0, 0), Position.get(1 ,0)));
-      assertEquals("a\nb", b.clip(Position.get(0, 0), Position.get(1 ,1)));
-      assertEquals("\nb", b.clip(Position.get(0, 1), Position.get(1 ,1)));
-      assertEquals("\nb", b.clip(Position.get(0, 2), Position.get(1 ,1)));
-      assertEquals("b", b.clip(Position.get(1, 0), Position.get(1 ,1)));
-      assertEquals("", b.clip(Position.get(1, 1), Position.get(1 ,1)));
+      assertEquals("", b.clip(Position.get(0, 0), Position.get(0, 0)));
+      assertEquals("a", b.clip(Position.get(0, 0), Position.get(0, 1)));
+      assertEquals("a ", b.clip(Position.get(0, 0), Position.get(0, 2)));
+      assertEquals("a\n", b.clip(Position.get(0, 0), Position.get(1, 0)));
+      assertEquals("a\nb", b.clip(Position.get(0, 0), Position.get(1, 1)));
+      assertEquals("\nb", b.clip(Position.get(0, 1), Position.get(1, 1)));
+      assertEquals("\nb", b.clip(Position.get(0, 2), Position.get(1, 1)));
+      assertEquals("b", b.clip(Position.get(1, 0), Position.get(1, 1)));
+      assertEquals("", b.clip(Position.get(1, 1), Position.get(1, 1)));
 
       //
       try
       {
-         b.clip(Position.get(-1, 0), Position.get(1 ,1));
+         b.clip(Position.get(-1, 0), Position.get(1, 1));
          fail();
       }
       catch (IllegalArgumentException ignore)
@@ -149,7 +149,7 @@ public class TextAreaTestCase extends TestCase
       }
       try
       {
-         b.clip(Position.get(0, 0), Position.get(1 ,2));
+         b.clip(Position.get(0, 0), Position.get(1, 2));
          fail();
       }
       catch (IllegalArgumentException ignore)

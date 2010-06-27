@@ -28,10 +28,9 @@ public class FooClass
 
    // Some comment
 
-   /**
-    * Constructor
-    */
-   public FooClass() {
+   /** Constructor */
+   public FooClass()
+   {
       // Yeah comment 
    }
 

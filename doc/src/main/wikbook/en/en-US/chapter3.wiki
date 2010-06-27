@@ -71,10 +71,10 @@ configuration to generate HTML and PDF formats. Its usage is very simple:
 
 After that, it is ready to be used and tweaked.
 
-== Integration of code block citation {{anchor id=maven_java_code_citation_section/}} ==
+== Integration of code block citation {{anchor id=maven_code_citation_section/}} ==
 
-We have covered in the [[#java_code_citation_section]] how Java code can be cited. Inside a Maven project, the Wikbook plugin
-requires access to the dependencies containing the code, source and binaries.
+We have covered how code can be cited in the [[#java_code_citation_section]] and the [[#xml_code_inclusion_section]].
+Inside a Maven project, the Wikbook plugin requires access to the dependencies containing the code, source and binaries.
 
 === Producing the source dependencies ===
 

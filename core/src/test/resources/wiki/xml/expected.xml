@@ -4,7 +4,21 @@
     <title>Preface</title>
     <programlistingco>
       <areaspec units="linecolumn"/>
-      <programlisting language="xml">&lt;foo/&gt;</programlisting>
+      <programlisting language="xml">&lt;foo&gt;&lt;bar/&gt;&lt;/foo&gt;</programlisting>
+    </programlistingco>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting language="xml">&lt;bar/&gt;</programlisting>
+    </programlistingco>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting language="xml">&lt;bar&gt;
+  &lt;bar&gt;bar&lt;/bar&gt;
+&lt;/bar&gt;
+&lt;bar&gt;
+  &lt;bar&gt;bar&lt;/bar&gt;
+&lt;/bar&gt;
+</programlisting>
     </programlistingco>
   </preface>
 </book>

@@ -142,7 +142,7 @@ public class XDOMTransformer implements Listener
    {
       book.merge();
    }
-   
+
    //
 
    public void beginSection(Map<String, String> parameters)
@@ -166,7 +166,7 @@ public class XDOMTransformer implements Listener
    }
 
    //
-   
+
    public void onWord(String word)
    {
       book.merge(new TextElement(word));
@@ -332,7 +332,8 @@ public class XDOMTransformer implements Listener
             }
 
             //
-            try {
+            try
+            {
                ProgramListingElement programListingElt = book.push(new ProgramListingElement(
                   context,
                   languageSyntax,
@@ -345,7 +346,9 @@ public class XDOMTransformer implements Listener
 
                //
                book.merge();
-            } catch (ParserConfigurationException e) {
+            }
+            catch (ParserConfigurationException e)
+            {
                e.printStackTrace();
             }
          }

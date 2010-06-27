@@ -6,64 +6,64 @@
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:fo="http://www.w3.org/1999/XSL/Format"
                 xmlns:xslthl="http://xslthl.sf.net"
-                exclude-result-prefixes="xslthl"                
+                exclude-result-prefixes="xslthl"
                 version="1.0">
                 
     <xsl:import href="urn:docbkx:stylesheet"/>
     <xsl:import href="highlight.xsl"/>
-  
-    <!--###################################################
-                    HTML Settings
-   ################################################### -->
-  
-    <!-- These extensions are required for table printing and other stuff -->
-    <xsl:param name="tablecolumns.extension">0</xsl:param>
+
+  <!--###################################################
+                  HTML Settings
+ ################################################### -->
+
+  <!-- These extensions are required for table printing and other stuff -->
+  <xsl:param name="tablecolumns.extension">0</xsl:param>
     <xsl:param name="graphicsize.extension">0</xsl:param>
     <xsl:param name="ignore.image.scaling">1</xsl:param>
 
-    <!--###################################################
-                     Table Of Contents
-   ################################################### -->
+  <!--###################################################
+                   Table Of Contents
+ ################################################### -->
 
-    <!-- Generate the TOCs for named components only -->
-    <xsl:param name="generate.toc">
+  <!-- Generate the TOCs for named components only -->
+  <xsl:param name="generate.toc">
         book toc
     </xsl:param>
 
-    <!-- Show only Sections up to level 3 in the TOCs -->
-    <xsl:param name="toc.section.depth">3</xsl:param>
+  <!-- Show only Sections up to level 3 in the TOCs -->
+  <xsl:param name="toc.section.depth">3</xsl:param>
 
-    <!--###################################################
-                        Labels
-   ################################################### -->
+  <!--###################################################
+                      Labels
+ ################################################### -->
 
-    <!-- Label Chapters and Sections (numbering) -->
-    <xsl:param name="chapter.autolabel">1</xsl:param>
+  <!-- Label Chapters and Sections (numbering) -->
+  <xsl:param name="chapter.autolabel">1</xsl:param>
     <xsl:param name="section.autolabel" select="1"/>
     <xsl:param name="section.label.includes.component.label" select="1"/>
 
-    <!--###################################################
-                        Callouts
-   ################################################### -->
+  <!--###################################################
+                      Callouts
+ ################################################### -->
 
-    <!-- Use images for callouts instead of (1) (2) (3) -->
-    <xsl:param name="callout.graphics">1</xsl:param>
+  <!-- Use images for callouts instead of (1) (2) (3) -->
+  <xsl:param name="callout.graphics">1</xsl:param>
 
-    <!-- Place callout marks at this column in annotated areas -->
-    <xsl:param name="callout.defaultcolumn">90</xsl:param>
+  <!-- Place callout marks at this column in annotated areas -->
+  <xsl:param name="callout.defaultcolumn">90</xsl:param>
 
-    <!--###################################################
-                      Admonitions
-   ################################################### -->
+  <!--###################################################
+                    Admonitions
+ ################################################### -->
 
-    <!-- Use nice graphics for admonitions -->
-    <xsl:param name="admon.graphics">1</xsl:param>
+  <!-- Use nice graphics for admonitions -->
+  <xsl:param name="admon.graphics">1</xsl:param>
   <xsl:param name="admon.graphics.path">images/admons/</xsl:param>
-    <!--###################################################
-                         Misc
-   ################################################### -->
-    <!-- Placement of titles -->
-    <xsl:param name="formal.title.placement">
+  <!--###################################################
+                       Misc
+ ################################################### -->
+  <!-- Placement of titles -->
+  <xsl:param name="formal.title.placement">
         figure after
         example before
         equation before
@@ -87,11 +87,11 @@
             <xsl:apply-templates mode="titlepage.mode"/>
         </div>
     </xsl:template>
-   <!--###################################################
-                     Headers and Footers
-    ################################################### -->
-    <!-- let's have a Spring and I21 banner across the top of each page -->
-    <xsl:template name="user.header.navigation">
+  <!--###################################################
+                  Headers and Footers
+ ################################################### -->
+  <!-- let's have a Spring and I21 banner across the top of each page -->
+  <xsl:template name="user.header.navigation">
         <div style="background-color:white;border:none;height:73px;border:1px solid black;">
             <a style="border:none;" href="http://www.springframework.org/osgi/"
                title="The Spring Framework - Spring Dynamic Modules">

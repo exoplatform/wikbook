@@ -20,8 +20,8 @@
 package org.wikbook.core.wiki;
 
 import org.wikbook.core.ResourceType;
-import org.wikbook.core.WikbookException;
 import org.wikbook.core.Utils;
+import org.wikbook.core.WikbookException;
 import org.wikbook.core.WikletContext;
 import org.xwiki.component.embed.EmbeddableComponentManager;
 import org.xwiki.component.manager.ComponentLookupException;
@@ -122,7 +122,8 @@ public class WikiLoader
             // Replace all headers
             if (baseLevel > 0)
             {
-               for (HeaderBlock header : xdom.getChildrenByType(HeaderBlock.class, true)) {
+               for (HeaderBlock header : xdom.getChildrenByType(HeaderBlock.class, true))
+               {
                   int l = baseLevel + header.getLevel().getAsInt();
                   HeaderBlock nheader = new HeaderBlock(
                      header.getChildren(),
@@ -182,8 +183,8 @@ public class WikiLoader
    }
 
    /**
-    * Visit a block and returns the list of substitutions that must be performed in the visited block.
-    * The returned list can be safely modified.
+    * Visit a block and returns the list of substitutions that must be performed in the visited block. The returned list
+    * can be safely modified.
     *
     * @param block the block to visit
     * @return the substitution list

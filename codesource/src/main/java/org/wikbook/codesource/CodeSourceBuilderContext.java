@@ -28,6 +28,6 @@ import java.io.InputStream;
 public interface CodeSourceBuilderContext
 {
 
-   InputStream getResource(String path); 
+   InputStream getResource(String path);
 
 }

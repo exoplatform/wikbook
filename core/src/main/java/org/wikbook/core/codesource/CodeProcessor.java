@@ -66,8 +66,8 @@ public class CodeProcessor
       "^(?:" +
          "(?:" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*)" +
          "|" +
-         "(?:" + WHITE_NON_CR +  "*)" +
-      ")$", Pattern.MULTILINE);
+         "(?:" + WHITE_NON_CR + "*)" +
+         ")$", Pattern.MULTILINE);
 
    /** . */
    public static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
@@ -81,17 +81,20 @@ public class CodeProcessor
    int calloutSubIndex = 0;
 
    /**
-    * Updates the current callout index with the provided id.
-    * When the calloutId argument is an empty string, the last found index is incremented.
-    * When the calloutId is an integer string, the last callout index is updated.
+    * Updates the current callout index with the provided id. When the calloutId argument is an empty string, the last
+    * found index is incremented. When the calloutId is an integer string, the last callout index is updated.
     *
     * @param calloutId the callout id.
     * @return the effective id value to use
     */
-   private String updateId(String calloutId) {
-      if (calloutId.length() == 0) {
+   private String updateId(String calloutId)
+   {
+      if (calloutId.length() == 0)
+      {
          return "" + (calloutIndex * 1000 + calloutSubIndex++);
-      } else {
+      }
+      else
+      {
          calloutIndex = Integer.parseInt(calloutId);
          calloutSubIndex = 1;
          return "" + calloutIndex * 1000;
@@ -104,10 +107,14 @@ public class CodeProcessor
     * @param calloutId the calloutId
     * @return the effective id value to use
     */
-   private String getId(String calloutId) {
-      if (calloutId.length() == 0) {
+   private String getId(String calloutId)
+   {
+      if (calloutId.length() == 0)
+      {
          throw new AssertionError();
-      } else {
+      }
+      else
+      {
          int index = Integer.parseInt(calloutId);
          return "" + index * 1000;
       }
@@ -190,7 +197,7 @@ public class CodeProcessor
       CodeContext ctx)
    {
       // Split lines
-      for (Iterator<String> i = Utils.split(source).iterator();i.hasNext();)
+      for (Iterator<String> i = Utils.split(source).iterator(); i.hasNext();)
       {
          String line = i.next();
          Matcher matcher = BEGIN_CHUNK_PATTERN.matcher(line);

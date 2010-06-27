@@ -66,7 +66,7 @@ public class ConverterTestCase extends TestCase
             String xml = XML.serialize(document);
             System.out.println("expectedXML: " + expectedXML);
             System.out.println("xml: " + xml);
-            fail("Was expecting no difference between documents for path "+ testPath + " : " + diff.toString());
+            fail("Was expecting no difference between documents for path " + testPath + " : " + diff.toString());
          }
       }
    }

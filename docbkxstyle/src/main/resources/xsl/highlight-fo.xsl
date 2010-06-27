@@ -26,7 +26,7 @@
   </xsl:template>
 
   <xsl:template match='xslthl:tag'>
-    <fo:inline  color="#3F7F7F"><xsl:apply-templates/></fo:inline>
+    <fo:inline color="#3F7F7F"><xsl:apply-templates/></fo:inline>
   </xsl:template>
 
   <xsl:template match='xslthl:attribute'>

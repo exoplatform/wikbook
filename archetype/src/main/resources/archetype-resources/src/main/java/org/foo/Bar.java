@@ -1,14 +1,10 @@
 package org.foo;
 
-/**
- * The bar object.
- */
+/** The bar object. */
 public class Bar
 {
 
-   /**
-    * The juu method 1.
-    */
+   /** The juu method 1. */
    public void juu()
    {
       // -1-

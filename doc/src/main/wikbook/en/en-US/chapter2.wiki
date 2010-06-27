@@ -273,26 +273,24 @@ are available that makes it very powerful
 * XML code can be validated and pretty printed with a configuration indentation
 * External Java code can be embedded inside the document
 
-(% title="A simple code example" %)
-|((({{code}}{{code}}x = x + 1{{/code}}{{/code}})))
-|((({{code}}x = x + 1{{/code}})))
+(% title="A sample generic code" %)
+|((({{code}}{{code}}x = x + 1;{{/code}}{{/code}})))
+|((({{code}}x = x + 1;{{/code}})))
 
-(% title="Simple XML validation" %)
+(% title="A sample Java code" %)
+|((({{code}}{{code language=java}}x = x + 1;{{/code}}{{/code}})))
+|((({{code language=java}}x = x + 1;{{/code}})))
+
+(% title="A sample XML code" %)
 |((({{code}}{{code language=xml}}<valid/>{{/code}}{{/code}})))
 |((({{code language=xml}}<valid/>{{/code}})))
 
-(% title="XML pretty printed" %)
-|((({{code}}{{code language=xml indent=2}}
-<valid><formatted/></valid>
-{{/code}}{{/code}})))
-|((({{code language=xml indent=2}}<bar><bar>bar</bar></bar>
-<bar><bar>bar</bar></bar>{{/code}})))
 
 ==== Java code ====
 
 ===== Declaring a code section =====
 
-Code section can be declared with the generic ##code## macro with the language attribute set to java. To make it shorter,
+Code section can be declared with the generic ##code## macro with the language attribute set to //java//. To make it shorter,
 the ##java## macro can be used directly.
 
 (% title="Java code" %)
@@ -303,7 +301,7 @@ the ##java## macro can be used directly.
 
 Wikbook has a special integration with Java project allowing to cite Java code inside the documentation from the
 existing source code. This feature requires the code source and binary to be available when Wikbook compiles
-the wikbook sources, the integration inside a Maven build is trivial and is covered in the [[#maven_java_code_citation_section]].
+the wikbook sources, the integration inside a Maven build is trivial and is covered in the [[#maven_code_citation_section]].
 
 The syntax is taken from the Javadoc syntax that allows to create reference to code elements
 via the {@link ref} where ref is a reference to a code element such as a class, a method or a field.
@@ -341,6 +339,42 @@ Code block citations can be combined
 |((({{code language=java}}{@include org.wikbook.doc.AnObject#foo() {1,2}}{{/code}})))
 
 Code block citation never cites the method declaration itself.
+
+==== XML code ====
+
+Code section can be declared with the generic ##code## macro with the language attribute set to //xml//. To make it
+shorter the ##xml## macro can be used directly.
+
+===== XML code reformat =====
+
+XML code is formatted when the //indent// macro attribute with a valid value.
+
+(% title="XML pretty printed" %)
+|((({{code}}{{code language=xml indent=2}}
+<bar><bar>bar</bar></bar><bar><bar>bar</bar></bar>
+{{/code}}{{/code}})))
+|((({{code language=xml indent=2}}<bar><bar>bar</bar></bar><bar><bar>bar</bar></bar>{{/code}})))
+
+{{note}}The XML can have any number of sibling elements and does not require to wrap the content with a root element.{{/note}}
+
+===== XML inclusion {{anchor id=xml_code_inclusion_section/}} =====
+
+Like Java code citation, Wikbook can also include XML documents. The same kind of integration is available with Maven
+explained in the [[#maven_code_citation_section]]. The syntax uses a special implicitely declared namespace, mapped
+to the ##wikbook## prefix.
+
+(% title="XML inclusion" %)
+|((({{code}}{{xml}}<wikbook:include href="document.xml"/>{{/xml}}{{/code}})))
+|((({{xml}}<wikbook:include href="document.xml"/>{{/xml}})))
+
+The inclusion can be combined with an xpath attribute to select a fragment of the included document.
+
+(% title="XML inclusion" %)
+|((({{code}}{{xml}}<wikbook:include href="document.xml" xpath="//bar"/>{{/xml}}{{/code}})))
+|((({{xml}}<wikbook:include href="document.xml" xpath="//bar"/>{{/xml}})))
+
+{{note}}Originally the xinclude mechanism was chosen but the weak support of xpointer precluded its usage and instead
+we decided to introduce a custom wikbook inclusion mechanism{{/note}}
 
 ==== Screen output ====
 

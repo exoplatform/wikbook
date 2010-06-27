@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
     
@@ -27,7 +28,7 @@
        <plugins>
 
           <!-- The wikbook maven plugin generates the docbook document from the wiki source -->
-          <plugin>
+         <plugin>
             <groupId>org.wikbook</groupId>
             <artifactId>wikbook.maven</artifactId>
             <version>${pom.version}</version>
@@ -47,7 +48,7 @@
             </configuration>
           </plugin>
 
-          <!-- Unpacks the docbook style resources for the docbkx plugin -->
+         <!-- Unpacks the docbook style resources for the docbkx plugin -->
          <plugin>
            <groupId>org.apache.maven.plugins</groupId>
            <artifactId>maven-dependency-plugin</artifactId>
@@ -109,15 +110,15 @@
 
                    <copy todir="\${wikbook.target}/output/images">
                      <fileset dir="\${wikbook.source}/images">
-                       <include name="**" />
+                       <include name="**"/>
                      </fileset>
                    </copy>
                    <copy todir="\${wikbook.target}/output">
                      <fileset dir="\${wikbook.target}/src/resources">
-                       <include name="**/*.css" />
-                       <include name="**/*.png" />
-                       <include name="**/*.gif" />
-                       <include name="**/*.jpg" />
+                       <include name="**/*.css"/>
+                       <include name="**/*.png"/>
+                       <include name="**/*.gif"/>
+                       <include name="**/*.jpg"/>
                      </fileset>
                    </copy>
 

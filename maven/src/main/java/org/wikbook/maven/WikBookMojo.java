@@ -37,7 +37,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -236,7 +245,7 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
    {
       ArrayList<Person> ps = new ArrayList<Person>();
       MavenProject project = session.getCurrentProject();
-      for (Iterator<?> i = project.getDevelopers().iterator();i.hasNext();)
+      for (Iterator<?> i = project.getDevelopers().iterator(); i.hasNext();)
       {
          Developer developer = (Developer)i.next();
          if (developer.getRoles().contains(roleName))
@@ -264,7 +273,8 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
 
    public List<URL> resolveResources(ResourceType type, String id) throws IOException
    {
-      if (id.length() > 0) {
+      if (id.length() > 0)
+      {
          switch (type)
          {
             case WIKI:

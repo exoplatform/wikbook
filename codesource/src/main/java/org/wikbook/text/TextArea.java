@@ -53,7 +53,7 @@ public class TextArea
       sb.append(s.substring(_from, _to));
 
       // Pad with the necessary
-      for (int c = __to.column; c < to.column;c++)
+      for (int c = __to.column; c < to.column; c++)
       {
          sb.append(' ');
       }
@@ -78,7 +78,7 @@ public class TextArea
       {
          nextCR = s.length();
       }
-      for (int i = 0;i < position.column;i++)
+      for (int i = 0; i < position.column; i++)
       {
          if (offset < nextCR)
          {
@@ -150,7 +150,7 @@ public class TextArea
       }
       int line = 0;
       int column = 0;
-      for (int i = 0;i < offset;i++)
+      for (int i = 0; i < offset; i++)
       {
          char c = s.charAt(i);
          if (c == '\n')

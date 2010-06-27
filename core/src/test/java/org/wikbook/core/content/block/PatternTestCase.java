@@ -24,10 +24,7 @@ import junit.framework.TestCase;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.wikbook.core.codesource.CodeProcessor.CALLOUT_ANCHOR_PATTERN;
-import static org.wikbook.core.codesource.CodeProcessor.CALLOUT_DEF_PATTERN;
-import static org.wikbook.core.codesource.CodeProcessor.BLANK_LINE_PATTERN;
-import static org.wikbook.core.codesource.CodeProcessor.BEGIN_CHUNK_PATTERN;
+import static org.wikbook.core.codesource.CodeProcessor.*;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -37,7 +34,6 @@ public class PatternTestCase extends TestCase
 {
 
 
-   
 /*
    public void testEmptyLinePattern()
    {

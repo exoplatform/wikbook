@@ -96,6 +96,7 @@ public class TableElement extends BlockElement
             }
          }
       }
+
       void writeTo(XMLEmitter emitter)
       {
          if (content != null)
@@ -175,7 +176,7 @@ public class TableElement extends BlockElement
 
       // Determine potential header
       LinkedList<LinkedList<Cell>> head = new LinkedList<LinkedList<Cell>>();
-      for (Iterator<LinkedList<Cell>> i = structure.iterator();i.hasNext();)
+      for (Iterator<LinkedList<Cell>> i = structure.iterator(); i.hasNext();)
       {
          LinkedList<Cell> row = i.next();
          if (isHead(row))
@@ -191,7 +192,7 @@ public class TableElement extends BlockElement
 
       // Determine potential footer
       LinkedList<LinkedList<Cell>> foot = new LinkedList<LinkedList<Cell>>();
-      for (ListIterator<LinkedList<Cell>> i = structure.listIterator(structure.size());i.hasPrevious();)
+      for (ListIterator<LinkedList<Cell>> i = structure.listIterator(structure.size()); i.hasPrevious();)
       {
          LinkedList<Cell> row = i.previous();
          if (isHead(row))

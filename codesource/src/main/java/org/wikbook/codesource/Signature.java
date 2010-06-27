@@ -80,7 +80,7 @@ class Signature
    public String toString()
    {
       StringBuffer sb = new StringBuffer("Signature[");
-      for (int i = 0;i < parameterTypes.size();i++)
+      for (int i = 0; i < parameterTypes.size(); i++)
       {
          sb.append(i == 0 ? "" : ",");
          sb.append(parameterTypes.get(i));

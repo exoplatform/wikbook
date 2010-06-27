@@ -39,7 +39,7 @@ public class Emitter<N extends Node>
       {
          throw new NullPointerException();
       }
-      
+
       //
       this.node = node;
    }

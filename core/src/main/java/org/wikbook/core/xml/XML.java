@@ -34,7 +34,10 @@ import javax.xml.transform.sax.SAXTransformerFactory;
 import javax.xml.transform.sax.TransformerHandler;
 import javax.xml.transform.stream.StreamResult;
 import java.io.StringWriter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -66,7 +69,7 @@ public class XML
       if (doctype.getIndent() != null)
       {
          // This is proprietary, so it's a best effort
-         factory.setAttribute("indent-number",  doctype.getIndent());
+         factory.setAttribute("indent-number", doctype.getIndent());
       }
 
       //
@@ -130,7 +133,7 @@ public class XML
       }
       List<Node> childrenToRemove = null;
       NodeList children = elt.getChildNodes();
-      for (int i = 0;i < children.getLength();i++)
+      for (int i = 0; i < children.getLength(); i++)
       {
          Node child = children.item(i);
          if (child instanceof Text)
@@ -169,7 +172,7 @@ public class XML
    {
       final NodeList children = node.getChildNodes();
       List<Element> elements = Collections.emptyList();
-      for (int i = 0;i < children.getLength();i++)
+      for (int i = 0; i < children.getLength(); i++)
       {
          Node child = children.item(i);
          if (child instanceof Element)

@@ -26,52 +26,52 @@
 
     <xsl:import href="urn:docbkx:stylesheet"/>
     <xsl:import href="highlight.xsl"/>
-    
 
-    <!--###################################################
-                     HTML Settings
-    ################################################### -->
-    <xsl:param name="chunk.section.depth">'5'</xsl:param>
+
+  <!--###################################################
+                  HTML Settings
+ ################################################### -->
+  <xsl:param name="chunk.section.depth">'5'</xsl:param>
     <xsl:param name="use.id.as.filename">'1'</xsl:param>
   <xsl:param name="tablecolumns.extension">0</xsl:param>
     <xsl:param name="graphicsize.extension">0</xsl:param>
     <xsl:param name="ignore.image.scaling">1</xsl:param>
-    <!--###################################################
-                      Table Of Contents
-    ################################################### -->
-    <!-- Generate the TOCs for named components only -->
-    <xsl:param name="generate.toc">
+  <!--###################################################
+                   Table Of Contents
+ ################################################### -->
+  <!-- Generate the TOCs for named components only -->
+  <xsl:param name="generate.toc">
         book toc
         qandaset toc
     </xsl:param>
-    <!-- Show only Sections up to level 3 in the TOCs -->
-    <xsl:param name="toc.section.depth">3</xsl:param>
-    <!--###################################################
-                         Labels
-    ################################################### -->
-    <!-- Label Chapters and Sections (numbering) -->
-    <xsl:param name="chapter.autolabel">1</xsl:param>
+  <!-- Show only Sections up to level 3 in the TOCs -->
+  <xsl:param name="toc.section.depth">3</xsl:param>
+  <!--###################################################
+                      Labels
+ ################################################### -->
+  <!-- Label Chapters and Sections (numbering) -->
+  <xsl:param name="chapter.autolabel">1</xsl:param>
     <xsl:param name="section.autolabel" select="1"/>
     <xsl:param name="section.label.includes.component.label" select="1"/>
-    <!--###################################################
-                         Callouts
-    ################################################### -->
-    <!-- Place callout marks at this column in annotated areas -->
-    <xsl:param name="callout.graphics">1</xsl:param>
+  <!--###################################################
+                      Callouts
+ ################################################### -->
+  <!-- Place callout marks at this column in annotated areas -->
+  <xsl:param name="callout.graphics">1</xsl:param>
     <xsl:param name="callout.defaultcolumn">90</xsl:param>
-    
-    <!--###################################################
-                      Admonitions
-   ################################################### -->
 
-    <!-- Use nice graphics for admonitions -->
-    <xsl:param name="admon.graphics">1</xsl:param>
-  <xsl:param name="admon.graphics.path">images/admons/</xsl:param>    
-    <!--###################################################
-                          Misc
-    ################################################### -->
-    <!-- Placement of titles -->
-    <xsl:param name="formal.title.placement">
+  <!--###################################################
+                    Admonitions
+ ################################################### -->
+
+  <!-- Use nice graphics for admonitions -->
+  <xsl:param name="admon.graphics">1</xsl:param>
+  <xsl:param name="admon.graphics.path">images/admons/</xsl:param>
+  <!--###################################################
+                       Misc
+ ################################################### -->
+  <!-- Placement of titles -->
+  <xsl:param name="formal.title.placement">
         figure after
         example before
         equation before
@@ -86,9 +86,9 @@
             <xsl:call-template name="person.name"/> 
             (<xsl:value-of select="affiliation"/>)
             <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
-            <!--
-            <xsl:apply-templates mode="titlepage.mode" select="./affiliation"/>
-            -->
+          <!--
+          <xsl:apply-templates mode="titlepage.mode" select="./affiliation"/>
+          -->
         </span>
     </xsl:template>
     <xsl:template match="authorgroup" mode="titlepage.mode">
@@ -98,24 +98,24 @@
             <xsl:apply-templates mode="titlepage.mode"/>
         </div>
     </xsl:template>
-    <!--###################################################
-                     Headers and Footers
-    ################################################### -->
-    <xsl:template name="user.header.navigation">
+  <!--###################################################
+                  Headers and Footers
+ ################################################### -->
+  <xsl:template name="user.header.navigation">
         <div id="top">
             <div id="header">
                 <div class="projectlogo">
-                    <a href="./"><img class="logoImage" src="images/cocoon_logo.jpg" alt="Apache Cocoon" border="0" /></a>
+                    <a href="./"><img class="logoImage" src="images/cocoon_logo.jpg" alt="Apache Cocoon" border="0"/></a>
                 </div>
             </div>
         </div>
         <div class="mhSpacer"></div>            
     </xsl:template>
-    <!-- no other header navigation (prev, next, etc.) -->
-    <xsl:template name="header.navigation"/>
+  <!-- no other header navigation (prev, next, etc.) -->
+  <xsl:template name="header.navigation"/>
     <xsl:param name="navig.showtitles">1</xsl:param>
-    <!-- let's have a 'Sponsored by SpringSource' strapline (or somesuch) across the bottom of each page -->
-    <xsl:template name="footer.navigation">
+  <!-- let's have a 'Sponsored by SpringSource' strapline (or somesuch) across the bottom of each page -->
+  <xsl:template name="footer.navigation">
         <xsl:param name="prev" select="/foo"/>
         <xsl:param name="next" select="/foo"/>
         <xsl:param name="nav.context"/>
