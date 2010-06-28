@@ -1,7 +1,9 @@
 {{xml}}
 <wikbook:include href="/wiki/xml/doc.xml"/>
 {{/xml}}
+
 {{xml}}
 <wikbook:include href="/wiki/xml/doc.xml" xpath="//bar"/>
 {{/xml}}
+
 {{xml indent=2}}<bar><bar>bar</bar></bar><bar><bar>bar</bar></bar>{{/xml}}

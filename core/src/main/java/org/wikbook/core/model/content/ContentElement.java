@@ -19,12 +19,12 @@
 
 package org.wikbook.core.model.content;
 
-import org.wikbook.core.model.structural.StructuralElement;
+import org.wikbook.core.model.DocbookElement;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ContentElement extends StructuralElement
+public class ContentElement extends DocbookElement
 {
 }

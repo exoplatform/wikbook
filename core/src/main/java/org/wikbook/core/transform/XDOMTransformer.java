@@ -40,6 +40,7 @@ import org.wikbook.core.model.content.block.list.TermElement;
 import org.wikbook.core.model.content.block.list.VariableListElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.FormatElement;
+import org.wikbook.core.model.content.inline.InlineElement;
 import org.wikbook.core.model.content.inline.LinkElement;
 import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.content.inline.TextFormat;
@@ -231,6 +232,16 @@ public class XDOMTransformer implements Listener
 
    public void onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)
    {
+      // Determine inline according to the docbook context and not according to what the parser tell us
+      DocbookElement elt = book.peek();
+      boolean inline = elt instanceof InlineElement;
+
+      //
+      _onMacro(id, macroParameters, content, inline);
+   }
+
+   private void _onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)
+   {
       if (admonitions.contains(id))
       {
          if (isInline)
@@ -355,6 +366,10 @@ public class XDOMTransformer implements Listener
       }
       else if ("example".equals(id))
       {
+         if (isInline)
+         {
+            throw new UnsupportedOperationException();
+         }
          WikiLoader loader = new WikiLoader(context);
          XDOM dom = loader.load(new StringReader(content), null);
          book.push(new ExampleElement(macroParameters.get("title")));
