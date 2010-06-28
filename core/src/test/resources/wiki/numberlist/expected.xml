@@ -20,10 +20,5 @@
         <para>d</para>
       </listitem>
     </orderedlist>
-    <orderedlist numeration="upperroman">
-      <listitem>
-        <para>a</para>
-      </listitem>
-    </orderedlist>
   </preface>
 </book>

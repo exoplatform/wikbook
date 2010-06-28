@@ -244,23 +244,25 @@ public class XDOMTransformer implements Listener
    {
       if (admonitions.contains(id))
       {
+/*
          if (isInline)
          {
             throw new UnsupportedOperationException("todo");
          }
          else
          {
-            AdmonitionElement admonitionElt = new AdmonitionElement(id);
-
-            //
-            WikiLoader loader = new WikiLoader(context);
-            XDOM dom = loader.load(new StringReader(content), null);
-
-            //
-            book.push(admonitionElt);
-            dom.traverse(this);
-            book.merge();
          }
+*/
+         AdmonitionElement admonitionElt = new AdmonitionElement(id);
+
+         //
+         WikiLoader loader = new WikiLoader(context);
+         XDOM dom = loader.load(new StringReader(content), null);
+
+         //
+         book.push(admonitionElt);
+         dom.traverse(this);
+         book.merge();
       }
       else if ("screen".equals(id))
       {
@@ -271,6 +273,11 @@ public class XDOMTransformer implements Listener
       else if ("anchor".equals(id))
       {
          String anchor = macroParameters.get("id");
+         if (anchor == null)
+         {
+            // For Confluence
+            anchor = macroParameters.get("value");
+         }
          book.merge(new AnchorElement(anchor));
       }
       else if ("docbook".equals(id))

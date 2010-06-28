@@ -27,6 +27,7 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
 import org.wikbook.core.xml.XML;
+import org.xwiki.rendering.syntax.Syntax;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMResult;
@@ -42,12 +43,29 @@ public abstract class AbstractSyntaxTestCase extends TestCase
 
    public abstract String getFolderName();
 
+   private static class Test
+   {
+      private final String fileName;
+      private final String syntaxId;
+      private Test(String fileName, String syntaxId)
+      {
+         this.fileName = fileName;
+         this.syntaxId = syntaxId;
+      }
+   }
+
+   /** . */
+   private static final Test XWIKI_2_0 = new Test("main.wiki", Syntax.XWIKI_2_0.toIdString());
+
+   /** . */
+   private static final Test CONFLUENCE_1_0 = new Test("confluence.wiki", Syntax.CONFLUENCE_1_0.toIdString());
+
    public void testSyntax()
    {
       String folderName = getFolderName();
       try
       {
-         doTest(folderName);
+         doTest(folderName, XWIKI_2_0, CONFLUENCE_1_0);
       }
       catch (Exception e)
       {
@@ -57,7 +75,7 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       }
    }
 
-   private void doTest(String testPath) throws Exception
+   private void doTest(String testPath, Test... tests) throws Exception
    {
       File base = new File(System.getProperty("basedir"));
       File path = new File(base, "src/test/resources/wiki" + testPath);
@@ -65,27 +83,35 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       SimpleWikletContext context = new SimpleWikletContext(path);
       context.setProperty("property_name", "property_value");
       context.addPerson("foo", new Person("foo", "bar", "foo@bar.com", "writer"));
-      WikletConverter converter = new WikletConverter(context);
-      converter.setEmitDoctype(false);
-      DOMResult dom = new DOMResult();
-      converter.convert(dom);
-      Document document = (Document)dom.getNode();
-      File expected = new File(path, "expected.xml");
-      if (expected.exists() && expected.isFile())
+      for (Test test : tests)
       {
-         Document expectedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(expected);
-         XMLUnit.setIgnoreAttributeOrder(true);
-         XMLUnit.setIgnoreComments(true);
-         XMLUnit.setIgnoreWhitespace(true);
-         DetailedDiff diff = new DetailedDiff(new Diff(expectedDocument, document));
-         List diffs = diff.getAllDifferences();
-         if (diffs.size() > 0)
+         File file = new File(path, test.fileName);
+         if (file.exists())
          {
-            String expectedXML = XML.serialize(expectedDocument);
-            String xml = XML.serialize(document);
-            System.out.println("expectedXML: " + expectedXML);
-            System.out.println("xml: " + xml);
-            fail("Was expecting no difference between documents for path " + testPath + " : " + diff.toString());
+            DOMResult dom = new DOMResult();
+            WikletConverter converter = new WikletConverter(context);
+            converter.setEmitDoctype(false);
+            converter.setSyntaxId(test.syntaxId);
+            converter.convert(test.fileName, dom);
+            Document document = (Document)dom.getNode();
+            File expected = new File(path, "expected.xml");
+            if (expected.exists() && expected.isFile())
+            {
+               Document expectedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(expected);
+               XMLUnit.setIgnoreAttributeOrder(true);
+               XMLUnit.setIgnoreComments(true);
+               XMLUnit.setIgnoreWhitespace(true);
+               DetailedDiff diff = new DetailedDiff(new Diff(expectedDocument, document));
+               List diffs = diff.getAllDifferences();
+               if (diffs.size() > 0)
+               {
+                  String expectedXML = XML.serialize(expectedDocument);
+                  String xml = XML.serialize(document);
+                  System.out.println("expectedXML: " + expectedXML);
+                  System.out.println("xml: " + xml);
+                  fail("Was expecting no difference between documents for path " + testPath + " : " + diff.toString());
+               }
+            }
          }
       }
    }

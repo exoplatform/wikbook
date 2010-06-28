@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <orderedlist numeration="upperroman">
+      <listitem>
+        <para>a</para>
+      </listitem>
+    </orderedlist>
+  </preface>
+</book>

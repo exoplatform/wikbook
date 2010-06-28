@@ -1,0 +1,2 @@
+(% title="foo_title" %)
+|a

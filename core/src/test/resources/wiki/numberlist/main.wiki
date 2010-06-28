@@ -2,6 +2,3 @@
 11. b
 111. c
 1. d
-
-(% style="upperroman" %)
-1. a

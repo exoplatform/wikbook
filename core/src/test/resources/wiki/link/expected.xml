@@ -4,9 +4,17 @@
     <title>Preface</title>
     <para>
       <xref linkend="name"/>
+    </para>
+    <para>
       <ulink url="http://www.google.com">http://www.google.com</ulink>
+    </para>
+    <para>
       <email>foo@bar.com</email>
+    </para>
+    <para>
       <link linkend="name">label</link>
+    </para>
+    <para>
       <ulink url="http://www.google.com">label</ulink>
     </para>
   </preface>

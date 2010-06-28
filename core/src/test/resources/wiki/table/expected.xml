@@ -89,15 +89,5 @@
         </tbody>
       </tgroup>
     </table>
-    <table>
-      <title>foo_title</title>
-      <tgroup cols="1">
-        <tbody>
-          <row>
-            <entry>a</entry>
-          </row>
-        </tbody>
-      </tgroup>
-    </table>
   </preface>
 </book>
