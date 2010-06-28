@@ -6,5 +6,13 @@
       <areaspec units="linecolumn"/>
       <programlisting>foo</programlisting>
     </programlistingco>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting language="xml">&lt;foo/&gt;</programlisting>
+    </programlistingco>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting language="java">x = x + 1;</programlisting>
+    </programlistingco>
   </preface>
 </book>

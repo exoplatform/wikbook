@@ -1,2 +1,2 @@
-= sub1 =
+h1. sub1
 sub1 content

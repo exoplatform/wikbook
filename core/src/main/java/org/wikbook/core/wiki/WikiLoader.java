@@ -23,6 +23,7 @@ import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.WikletContext;
+import org.wikbook.core.transform.IncludeBlock;
 import org.xwiki.component.embed.EmbeddableComponentManager;
 import org.xwiki.component.manager.ComponentLookupException;
 import org.xwiki.rendering.block.Block;
@@ -71,17 +72,17 @@ public class WikiLoader
       this.ecm = ecm;
    }
 
-   public XDOM load(String id, String syntaxId) throws WikbookException
+   public Block load(String id, String syntaxId) throws WikbookException
    {
       return load(id, syntaxId, 0);
    }
 
-   public XDOM load(Reader reader, String syntaxId) throws WikbookException
+   public Block load(Reader reader, String syntaxId) throws WikbookException
    {
       return load(reader, syntaxId, 0);
    }
 
-   private XDOM load(String id, String syntaxId, int baseLevel) throws WikbookException
+   private Block load(String id, String syntaxId, int baseLevel) throws WikbookException
    {
       try
       {
@@ -94,7 +95,7 @@ public class WikiLoader
       }
    }
 
-   private XDOM load(Reader reader, String syntaxId, int baseLevel) throws WikbookException
+   private Block load(Reader reader, String syntaxId, int baseLevel) throws WikbookException
    {
       try
       {
@@ -136,7 +137,7 @@ public class WikiLoader
             }
 
             //
-            List<Substitution> substitutions = visit(xdom);
+            List<Substitution> substitutions = visit(xdom, syntaxId);
 
             //
             if (substitutions.size() > 0)
@@ -146,14 +147,15 @@ public class WikiLoader
                   substitution.src.getParent().replaceChild(substitution.dst, substitution.src);
                }
                WikiPrinter printer = new DefaultWikiPrinter();
-               BlockRenderer renderer = ecm.lookup(BlockRenderer.class, Syntax.XWIKI_2_0.toIdString());
-               renderer.render(xdom, printer);
-               xdom = parser.parse(new StringReader(printer.toString()));
+               BlockRenderer substitutionRenderer = ecm.lookup(BlockRenderer.class, Syntax.XWIKI_2_0.toIdString());
+               substitutionRenderer.render(xdom, printer);
+               Parser substitutionParser = ecm.lookup(Parser.class, Syntax.XWIKI_2_0.toIdString());
+               xdom = substitutionParser.parse(new StringReader(printer.toString()));
             }
          }
 
-         //
-         return xdom;
+         // Returns include block instead of XDOM
+         return new IncludeBlock(syntaxId, xdom.getChildren());
       }
       catch (IOException e)
       {
@@ -179,6 +181,10 @@ public class WikiLoader
    private Reader _load(String id) throws IOException
    {
       URL main = context.resolveResource(ResourceType.WIKI, id);
+      if (main == null)
+      {
+         throw new IOException("Could not load wiki document: " + id);
+      }
       return Utils.read(main);
    }
 
@@ -189,12 +195,12 @@ public class WikiLoader
     * @param block the block to visit
     * @return the substitution list
     */
-   private List<Substitution> visit(Block block)
+   private List<Substitution> visit(Block block, String currentSyntaxId)
    {
-      return visit(block, 0);
+      return visit(block, 0, currentSyntaxId);
    }
 
-   private List<Substitution> visit(Block block, int level)
+   private List<Substitution> visit(Block block, int level, String currentSyntaxId)
    {
       if (block instanceof MacroBlock)
       {
@@ -203,9 +209,13 @@ public class WikiLoader
          if ("include".equals(id))
          {
             String includedId = macro.getParameter("document");
-            String syntax = macro.getParameter("syntax");
+            String syntaxId = macro.getParameter("syntax");
+            if (syntaxId == null)
+            {
+               syntaxId = currentSyntaxId;
+            }
             LinkedList<Substitution> list = new LinkedList<Substitution>();
-            list.add(new Substitution(block, load(includedId, syntax, level)));
+            list.add(new Substitution(block, load(includedId, syntaxId, level)));
             return list;
          }
          else if (id.startsWith("property."))
@@ -232,7 +242,7 @@ public class WikiLoader
       List<Substitution> substitutions = new LinkedList<Substitution>();
       for (Block child : block.getChildren())
       {
-         List<Substitution> childSubstitutions = visit(child, level);
+         List<Substitution> childSubstitutions = visit(child, level, currentSyntaxId);
          if (childSubstitutions.size() > 0)
          {
             substitutions.addAll(childSubstitutions);

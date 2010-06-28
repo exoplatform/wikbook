@@ -4,13 +4,13 @@
     <title>section1</title>
     <section>
       <title>sub1</title>
-      <para>sub1_content</para>
+      <para>sub1 content</para>
     </section>
     <section>
       <title>section2</title>
       <section>
         <title>sub1</title>
-        <para>sub1_content</para>
+        <para>sub1 content</para>
       </section>
     </section>
   </chapter>
@@ -19,7 +19,7 @@
     <para>a</para>
     <section>
       <title>sub1</title>
-      <para>sub1_content</para>
+      <para>sub1 content</para>
     </section>
   </chapter>
   <chapter>
@@ -27,7 +27,7 @@
     <section>
       <section>
         <title>sub2</title>
-        <para>sub2_content</para>
+        <para>sub2 content</para>
       </section>
     </section>
     <section>
@@ -35,7 +35,7 @@
       <section>
         <section>
           <title>sub2</title>
-          <para>sub2_content</para>
+          <para>sub2 content</para>
         </section>
       </section>
     </section>
@@ -46,7 +46,7 @@
     <section>
       <section>
         <title>sub2</title>
-        <para>sub2_content</para>
+        <para>sub2 content</para>
       </section>
     </section>
   </chapter>

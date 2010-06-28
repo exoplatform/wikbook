@@ -1,0 +1,14 @@
+h1. section1
+{include:document=confluence1.wiki}
+h2. section2
+{include:document=confluence1.wiki}
+h1. section3
+a
+{include:document=confluence1.wiki}
+h1. section4
+{include:document=confluence2.wiki}
+h2. section5
+{include:document=confluence2.wiki}
+h1. section6
+a
+{include:document=confluence2.wiki}

@@ -1,0 +1,3 @@
+h1. Foo Bar{anchor:id=foo}
+
+{anchor:id=bar}

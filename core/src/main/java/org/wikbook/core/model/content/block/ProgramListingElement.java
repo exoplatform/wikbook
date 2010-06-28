@@ -38,6 +38,7 @@ import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
 import org.xml.sax.InputSource;
+import org.xwiki.rendering.block.Block;
 import org.xwiki.rendering.block.XDOM;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -274,8 +275,8 @@ public class ProgramListingElement extends BlockElement
                   push(calloutElt);
 
                   WikiLoader loader = new WikiLoader(context);
-                  XDOM dom = loader.load(new StringReader(callout.getValue().text), null);
-                  dom.traverse(_transformer);
+                  Block block = loader.load(new StringReader(callout.getValue().text), null);
+                  block.traverse(_transformer);
 
                   merge();
                }

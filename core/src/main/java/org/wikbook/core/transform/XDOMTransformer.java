@@ -49,7 +49,7 @@ import org.wikbook.core.model.structural.ComponentElement;
 import org.wikbook.core.wiki.WikiLoader;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
-import org.xwiki.rendering.block.XDOM;
+import org.xwiki.rendering.block.Block;
 import org.xwiki.rendering.listener.Format;
 import org.xwiki.rendering.listener.HeaderLevel;
 import org.xwiki.rendering.listener.Image;
@@ -67,6 +67,7 @@ import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.EnumMap;
 import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Set;
 
@@ -112,16 +113,20 @@ public class XDOMTransformer implements Listener
    /** . */
    private BookElement book;
 
+   /** . */
+   final LinkedList<String> syntaxStack;
+
    public XDOMTransformer(WikletContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
+      this.syntaxStack = new LinkedList<String>();
    }
 
-   public DocbookElement transform(XDOM dom)
+   public DocbookElement transform(Block block)
    {
       book = new BookElement();
       bookContext = new DocbookContext(book);
-      dom.traverse(this);
+      block.traverse(this);
       book.close();
       return book;
    }
@@ -257,11 +262,11 @@ public class XDOMTransformer implements Listener
 
          //
          WikiLoader loader = new WikiLoader(context);
-         XDOM dom = loader.load(new StringReader(content), null);
+         Block block = loader.load(new StringReader(content), null);
 
          //
          book.push(admonitionElt);
-         dom.traverse(this);
+         block.traverse(this);
          book.merge();
       }
       else if ("screen".equals(id))
@@ -273,11 +278,6 @@ public class XDOMTransformer implements Listener
       else if ("anchor".equals(id))
       {
          String anchor = macroParameters.get("id");
-         if (anchor == null)
-         {
-            // For Confluence
-            anchor = macroParameters.get("value");
-         }
          book.merge(new AnchorElement(anchor));
       }
       else if ("docbook".equals(id))
@@ -378,9 +378,9 @@ public class XDOMTransformer implements Listener
             throw new UnsupportedOperationException();
          }
          WikiLoader loader = new WikiLoader(context);
-         XDOM dom = loader.load(new StringReader(content), null);
+         Block block = loader.load(new StringReader(content), syntaxStack.getLast());
          book.push(new ExampleElement(macroParameters.get("title")));
-         dom.traverse(this);
+         block.traverse(this);
          book.merge();
       }
       else

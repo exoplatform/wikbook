@@ -1,2 +1,6 @@
 {{code}}foo{{/code}}
 
+{{code language=xml}}<foo/>{{/code}}
+
+{{code language=java}}x = x + 1;{{/code}}
+

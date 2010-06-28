@@ -81,6 +81,10 @@ public class Utils
 
    public static Reader read(URL url) throws IOException
    {
+      if (url == null)
+      {
+         throw new NullPointerException();
+      }
       return new InputStreamReader(url.openStream(), "UTF-8");
    }
 

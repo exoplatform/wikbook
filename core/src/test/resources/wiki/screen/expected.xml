@@ -2,6 +2,8 @@
 <book>
   <preface>
     <title>Preface</title>
-    <para>**_bilto_**</para>
+    <screen>a
+b
+c</screen>
   </preface>
 </book>

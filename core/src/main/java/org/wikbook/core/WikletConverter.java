@@ -26,6 +26,7 @@ import org.wikbook.core.wiki.WikiLoader;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
+import org.xwiki.rendering.block.Block;
 import org.xwiki.rendering.block.XDOM;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -123,7 +124,7 @@ public class WikletConverter
       WikiLoader loader = new WikiLoader(context);
 
       //
-      XDOM main = loader.load(id, syntaxId);
+      Block main = loader.load(id, syntaxId);
 
       //
       XDOMTransformer xdomTransformer = new XDOMTransformer(context);
