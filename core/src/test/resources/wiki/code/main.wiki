@@ -11,7 +11,7 @@ int c = 0; // <> anonymous value, id should be 1001
 int d = 0; // <0> an explicit value, id should be 0
 int e = 0; // <> an anonymous value, id should be 1
 {{/java}}
-{{xml indent=2}}
+{{code language=xml indent=2}}
 a
 <b><c>d</c></b>
-{{/xml}}
+{{/code}}
