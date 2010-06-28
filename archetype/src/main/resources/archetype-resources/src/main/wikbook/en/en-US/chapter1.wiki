@@ -21,3 +21,8 @@ The chapter 1 talks about the Bar class
 {@include org.foo.Bar#juu() {1}}
 {{/java}}
 {{/example}}
+
+{{note}}
+The source code shown in those examples is part of the maven project and is included in the documentation when the project
+is build.
+{{/note}}
