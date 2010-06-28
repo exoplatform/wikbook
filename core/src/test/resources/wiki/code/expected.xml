@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting>foo</programlisting>
+    </programlistingco>
+  </preface>
+</book>
