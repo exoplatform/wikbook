@@ -31,8 +31,12 @@ public abstract class DocbookElement
    /** . */
    DocbookContext context;
 
-   /** . */
-   DocbookElement currentChildElt;
+   /**
+    * The current child element that is pushed onto the stack. The chained list created by following the
+    * {@code currentChildElt} references from the root maintain the stack structure. The structure is maintained
+    * by this class only.
+    */
+   private DocbookElement currentChildElt;
 
    public final void close()
    {
