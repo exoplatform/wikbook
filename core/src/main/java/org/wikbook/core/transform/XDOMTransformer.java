@@ -23,6 +23,7 @@ import org.w3c.dom.Document;
 import org.wikbook.core.WikletContext;
 import org.wikbook.core.model.DocbookContext;
 import org.wikbook.core.model.DocbookElement;
+import org.wikbook.core.model.Loader;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
 import org.wikbook.core.model.content.block.DOMElement;
@@ -63,6 +64,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.util.EnumMap;
@@ -115,6 +117,17 @@ public class XDOMTransformer implements Listener
 
    /** . */
    final LinkedList<String> syntaxStack;
+
+   /** . */
+   private final Loader loader = new Loader()
+   {
+      public void load(Reader reader)
+      {
+         WikiLoader loader = new WikiLoader(context);
+         Block block = loader.load(reader, syntaxStack.getLast());
+         block.traverse(XDOMTransformer.this);
+      }
+   };
 
    public XDOMTransformer(WikletContext context) throws IOException, ClassNotFoundException
    {
@@ -360,7 +373,7 @@ public class XDOMTransformer implements Listener
                   context.getHighlightCode()));
 
                //
-               programListingElt.process(this);
+               programListingElt.process(loader);
 
                //
                book.merge();
