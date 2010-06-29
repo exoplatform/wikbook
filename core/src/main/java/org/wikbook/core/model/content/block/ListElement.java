@@ -48,7 +48,7 @@ public class ListElement extends BlockElement
    }
 
    /** . */
-   private final ListKind type;
+   private final ListKind kind;
 
    /** . */
    private final ElementContainer<ListItemElement> items;
@@ -59,16 +59,16 @@ public class ListElement extends BlockElement
    /** . */
    private final String style;
 
-   public ListElement(ListKind type, String style)
+   public ListElement(ListKind kind, String style)
    {
-      this.type = type;
+      this.kind = kind;
       this.items = new ElementContainer<ListItemElement>(ListItemElement.class);
       this.style = style;
    }
 
-   public ListKind getType()
+   public ListKind getKind()
    {
-      return type;
+      return kind;
    }
 
    public void beginItem()
@@ -99,12 +99,12 @@ public class ListElement extends BlockElement
    @Override
    public void writeTo(XMLEmitter xml)
    {
-      ElementEmitter listXML = xml.element(ListKindMap.get(type));
+      ElementEmitter listXML = xml.element(ListKindMap.get(kind));
 
       //
       if (style != null)
       {
-         listXML.withAttribute(styleMap.get(type), style);
+         listXML.withAttribute(styleMap.get(kind), style);
       }
 
       //
