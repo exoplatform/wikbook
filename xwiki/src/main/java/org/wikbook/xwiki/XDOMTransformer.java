@@ -248,12 +248,12 @@ class XDOMTransformer implements Listener
 
    public void beginListItem()
    {
-      ((ListElement)book.peek()).beginItem();
+      book.push(new ListItemElement());
    }
 
    public void endListItem()
    {
-      ((ListElement)book.peek()).endItem();
+      book.merge();
    }
 
    //

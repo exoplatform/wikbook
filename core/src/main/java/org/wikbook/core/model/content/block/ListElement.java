@@ -53,9 +53,6 @@ public class ListElement extends BlockElement
    /** . */
    private final ElementContainer<ListItemElement> items;
 
-   /** The current item. */
-   private ListItemElement current;
-
    /** . */
    private final String style;
 
@@ -71,29 +68,10 @@ public class ListElement extends BlockElement
       return kind;
    }
 
-   public void beginItem()
-   {
-      if (current != null)
-      {
-         throw new IllegalStateException();
-      }
-      current = new ListItemElement();
-   }
-
-   public void endItem()
-   {
-      if (current == null)
-      {
-         throw new IllegalStateException();
-      }
-      items.append(current);
-      current = null;
-   }
-
    @Override
    public boolean append(DocbookElement elt)
    {
-      return current.append(elt);
+      return items.append(elt);
    }
 
    @Override
