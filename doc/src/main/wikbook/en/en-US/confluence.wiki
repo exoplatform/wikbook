@@ -1,9 +1,0 @@
-abc def
-
-{important}
-This document is a work in progress and will get richer over time.
-{important}
-
-{code}
-exo:service=cache,name=CacheName
-{code}
