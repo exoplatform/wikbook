@@ -6,6 +6,7 @@
 - code line wrapping for XML and Java
 - table cell alignement
 
+
 Resources:
 - http://platform.xwiki.org/xwiki/bin/view/Features/Annotations
 - http://code.xwiki.org/xwiki/bin/view/Macros/IdMacro
