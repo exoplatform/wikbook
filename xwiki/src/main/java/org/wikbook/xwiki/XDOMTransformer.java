@@ -66,7 +66,6 @@ import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.io.StringWriter;
 import java.util.EnumMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -309,9 +308,6 @@ class XDOMTransformer implements Listener
          try
          {
             Transformer transformer = XML.createTransformer(new OutputFormat(2, true));
-
-            // Output buffer
-            StringWriter writer = new StringWriter();
 
             // Perform identity transformation
             DOMResult result = new DOMResult();
