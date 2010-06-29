@@ -1,4 +1,3 @@
-- {{docbook}} macro
 - use xwiki synthetic ID when no anchor is provided in header
 - master.xml really in docbook
 - better property support
