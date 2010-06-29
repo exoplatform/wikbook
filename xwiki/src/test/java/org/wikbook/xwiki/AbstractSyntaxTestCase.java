@@ -25,7 +25,6 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
-import org.wikbook.core.Person;
 import org.wikbook.core.SimpleWikletContext;
 import org.wikbook.core.xml.XML;
 import org.xwiki.rendering.syntax.Syntax;
@@ -83,7 +82,6 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       assertTrue(path.isDirectory());
       SimpleWikletContext context = new SimpleWikletContext(path);
       context.setProperty("property_name", "property_value");
-      context.addPerson("foo", new Person("foo", "bar", "foo@bar.com", "writer"));
       for (Test test : tests)
       {
          File file = new File(path, test.fileName);

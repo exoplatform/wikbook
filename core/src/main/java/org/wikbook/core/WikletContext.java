@@ -36,8 +36,6 @@ public interface WikletContext
 
    List<URL> resolveResources(ResourceType type, String id) throws IOException;
 
-   List<Person> findPersonsByRole(String roleName);
-
    String getProperty(String propertyName);
 
 }

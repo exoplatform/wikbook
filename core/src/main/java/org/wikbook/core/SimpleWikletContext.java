@@ -27,7 +27,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,9 +39,6 @@ public class SimpleWikletContext implements WikletContext
 
    /** . */
    private final File base;
-
-   /** . */
-   private final Map<String, Person> persons;
 
    /** . */
    private final Map<String, String> properties;
@@ -60,7 +56,6 @@ public class SimpleWikletContext implements WikletContext
          throw new NullPointerException("No null base directory accepted");
       }
       this.base = base;
-      this.persons = new LinkedHashMap<String, Person>();
       this.properties = new HashMap<String, String>();
       this.emitDoctype = true;
       this.highlightCode = true;
@@ -86,24 +81,6 @@ public class SimpleWikletContext implements WikletContext
    public void removeProperty(String propertyName)
    {
       setProperty(propertyName, null);
-   }
-
-   public void addPerson(String authorId, Person author)
-   {
-      persons.put(authorId, author);
-   }
-
-   public List<Person> findPersonsByRole(String roleName)
-   {
-      ArrayList<Person> ps = new ArrayList<Person>();
-      for (Person p : persons.values())
-      {
-         if (p.hasRole(roleName))
-         {
-            ps.add(p);
-         }
-      }
-      return ps;
    }
 
    public List<URL> resolveResources(ResourceType type, String id) throws IOException

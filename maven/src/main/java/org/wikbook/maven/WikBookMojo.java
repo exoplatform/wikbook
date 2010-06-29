@@ -21,12 +21,9 @@ package org.wikbook.maven;
 
 import org.apache.maven.artifact.Artifact;
 import org.apache.maven.execution.MavenSession;
-import org.apache.maven.model.Developer;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.project.MavenProject;
-import org.wikbook.core.Person;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
 import org.wikbook.xwiki.WikletConverter;
@@ -239,36 +236,6 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
    public boolean getHighlightCode()
    {
       return highlightCode;
-   }
-
-   public List<Person> findPersonsByRole(String roleName)
-   {
-      ArrayList<Person> ps = new ArrayList<Person>();
-      MavenProject project = session.getCurrentProject();
-      for (Iterator<?> i = project.getDevelopers().iterator(); i.hasNext();)
-      {
-         Developer developer = (Developer)i.next();
-         if (developer.getRoles().contains(roleName))
-         {
-            String firstName = null;
-            String lastName = null;
-            if (developer.getName() != null)
-            {
-               String[] names = developer.getName().trim().split("\\s+");
-               if (names.length > 0)
-               {
-                  firstName = names[0];
-               }
-               if (names.length > 1)
-               {
-                  firstName = names[1];
-               }
-            }
-            Person p = new Person(firstName, lastName, developer.getEmail(), developer.getOrganization(), new HashSet<String>(developer.getRoles()));
-            ps.add(p);
-         }
-      }
-      return ps;
    }
 
    public List<URL> resolveResources(ResourceType type, String id) throws IOException
