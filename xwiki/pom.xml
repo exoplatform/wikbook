@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>wikbook.parent</artifactId>
+    <groupId>org.wikbook</groupId>
+    <version>0.9.24-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>wikbook.xwiki</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Wikbook xwiki</name>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.dependencies</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>xmlunit</groupId>
+      <artifactId>xmlunit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+
+  <build>
+    <testResources>
+      <testResource>
+        <directory>src/test/java</directory>
+      </testResource>
+      <testResource>
+        <directory>src/test/resources</directory>
+      </testResource>
+    </testResources>
+  </build>
+
+</project>
