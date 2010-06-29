@@ -168,7 +168,7 @@ public abstract class DocbookElement
       return context;
    }
 
-   public boolean append(DocbookElement elt)
+   protected boolean append(DocbookElement elt)
    {
       return false;
    }

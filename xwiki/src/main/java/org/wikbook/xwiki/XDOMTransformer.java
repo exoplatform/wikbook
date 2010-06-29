@@ -295,8 +295,9 @@ class XDOMTransformer implements Listener
       else if ("screen".equals(id))
       {
          ScreenElement screenElt = new ScreenElement();
-         screenElt.append(new TextElement(content));
-         book.merge(screenElt);
+         book.push(screenElt);
+         screenElt.merge(new TextElement(content));
+         book.merge();
       }
       else if ("anchor".equals(id))
       {
