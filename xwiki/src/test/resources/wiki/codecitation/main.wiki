@@ -1,0 +1,28 @@
+{{code language=java}}
+{@include org.wikbook.xwiki.CodeWithAnchors#foo()}
+{{/code}}
+
+{{code language=java}}
+{@include org.wikbook.xwiki.CodeWithAnchors#bar() {0}}
+{{/code}}
+
+{{code language=java}}
+{@include org.wikbook.xwiki.CodeWithAnchors#bar() {0,1}}
+{{/code}}
+
+{{code language=java}}
+{@include org.wikbook.xwiki.CodeWithAnchors#bar()} // <1> foo
+{{/code}}
+
+{{java}}
+int a = 0; // <> anonymous callout, id should be 0
+int b = 0; // <1> an explicit callout, id should be 1000
+int c = 0; // <> anonymous value, id should be 1001
+int d = 0; // <0> an explicit value, id should be 0
+int e = 0; // <> an anonymous value, id should be 1
+{{/java}}
+
+{{code language=xml indent=2}}
+a
+<b><c>d</c></b>
+{{/code}}

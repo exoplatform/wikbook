@@ -23,7 +23,6 @@ import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
-import org.xwiki.rendering.listener.ListType;
 
 import java.util.EnumMap;
 
@@ -35,21 +34,21 @@ public class ListElement extends BlockElement
 {
 
    /** . */
-   private static final EnumMap<ListType, String> listTypeMap = new EnumMap<ListType, String>(ListType.class);
+   private static final EnumMap<ListKind, String> ListKindMap = new EnumMap<ListKind, String>(ListKind.class);
 
    /** . */
-   private static final EnumMap<ListType, String> styleMap = new EnumMap<ListType, String>(ListType.class);
+   private static final EnumMap<ListKind, String> styleMap = new EnumMap<ListKind, String>(ListKind.class);
 
    static
    {
-      listTypeMap.put(ListType.BULLETED, "itemizedlist");
-      listTypeMap.put(ListType.NUMBERED, "orderedlist");
-      styleMap.put(ListType.BULLETED, "mark");
-      styleMap.put(ListType.NUMBERED, "numeration");
+      ListKindMap.put(ListKind.BULLETED, "itemizedlist");
+      ListKindMap.put(ListKind.NUMBERED, "orderedlist");
+      styleMap.put(ListKind.BULLETED, "mark");
+      styleMap.put(ListKind.NUMBERED, "numeration");
    }
 
    /** . */
-   private final ListType type;
+   private final ListKind type;
 
    /** . */
    private final ElementContainer<ListItemElement> items;
@@ -60,14 +59,14 @@ public class ListElement extends BlockElement
    /** . */
    private final String style;
 
-   public ListElement(ListType type, String style)
+   public ListElement(ListKind type, String style)
    {
       this.type = type;
       this.items = new ElementContainer<ListItemElement>(ListItemElement.class);
       this.style = style;
    }
 
-   public ListType getType()
+   public ListKind getType()
    {
       return type;
    }
@@ -108,7 +107,7 @@ public class ListElement extends BlockElement
    @Override
    public void writeTo(XMLEmitter xml)
    {
-      ElementEmitter listXML = xml.element(listTypeMap.get(type));
+      ElementEmitter listXML = xml.element(ListKindMap.get(type));
 
       //
       if (style != null)

@@ -29,7 +29,7 @@ import org.apache.maven.project.MavenProject;
 import org.wikbook.core.Person;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
-import org.wikbook.core.WikletConverter;
+import org.wikbook.xwiki.WikletConverter;
 
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
