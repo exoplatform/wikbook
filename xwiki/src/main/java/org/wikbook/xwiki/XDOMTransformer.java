@@ -312,6 +312,9 @@ class XDOMTransformer implements Listener
             // Perform identity transformation
             DOMResult result = new DOMResult();
 
+
+            book.peek();
+
             //
             transformer.transform(new StreamSource(new StringReader(content)), result);
 

@@ -19,8 +19,6 @@
 
 package org.wikbook.core.model;
 
-import java.util.IdentityHashMap;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
@@ -28,10 +26,7 @@ import java.util.IdentityHashMap;
 public class DocbookContext
 {
 
-   /** . */
-   IdentityHashMap<DocbookElement, DocbookElement> currentMap;
-
-   /** . */
+   /** The root. */
    private final DocbookElement root;
 
    public DocbookContext(DocbookElement root)
@@ -43,10 +38,8 @@ public class DocbookContext
 
       //
       root.context = this;
-      IdentityHashMap<DocbookElement, DocbookElement> currentMap = new IdentityHashMap<DocbookElement, DocbookElement>();
 
       //
-      this.currentMap = currentMap;
       this.root = root;
    }
 }

@@ -31,6 +31,9 @@ public abstract class DocbookElement
    /** . */
    DocbookContext context;
 
+   /** . */
+   DocbookElement currentChildElt;
+
    public final void close()
    {
       if (context == null)
@@ -39,7 +42,8 @@ public abstract class DocbookElement
       }
 
       //
-      DocbookElement currentElt = context.currentMap.remove(this);
+      DocbookElement currentElt = currentChildElt;
+      currentChildElt = null;
 
       //
       if (currentElt != null)
@@ -62,7 +66,7 @@ public abstract class DocbookElement
       }
 
       //
-      DocbookElement currentElt = context.currentMap.get(this);
+      DocbookElement currentElt = currentChildElt;
 
       //
       if (currentElt != null)
@@ -74,7 +78,7 @@ public abstract class DocbookElement
          {
             if (remove)
             {
-               context.currentMap.remove(this);
+               currentChildElt = null;
                currentElt.context = null;
             }
          }
@@ -108,10 +112,10 @@ public abstract class DocbookElement
       {
          throw new IllegalArgumentException("Already contextualized");
       }
-      DocbookElement currentElt = context.currentMap.get(this);
+      DocbookElement currentElt = currentChildElt;
       if (currentElt == null)
       {
-         context.currentMap.put(this, elt);
+         currentChildElt = elt;
          elt.context = context;
          return elt;
       }
