@@ -93,15 +93,7 @@ public class ListElement extends BlockElement
    @Override
    public boolean append(DocbookElement elt)
    {
-      if (elt instanceof ListElement)
-      {
-         current.append(elt);
-         return true;
-      }
-      else
-      {
-         return current.append(elt);
-      }
+      return current.append(elt);
    }
 
    @Override
