@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
     <artifactId>wikbook.parent</artifactId>
     <groupId>org.wikbook</groupId>
-    <version>0.9.24-SNAPSHOT</version>
+    <version>0.9.24</version>
   </parent>
   
   <modelVersion>4.0.0</modelVersion>
@@ -41,7 +40,7 @@
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
            <emitDoctype>true</emitDoctype>
-           <beforeBookBodyXML><![CDATA[<xi:include href="${pom.basedir}/src/main/wikbook/en/en-US/bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>]]></beforeBookBodyXML>
+           <beforeBookBodyXML><![CDATA[<xi:include href="${pom.basedir}/src/main/wikbook/en/en-US/bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
          </configuration>
        </plugin>
 
@@ -108,15 +107,15 @@
 
                 <copy todir="${project.build.directory}/wikbook/output/images">
                   <fileset dir="${pom.basedir}/src/main/wikbook/images">
-                    <include name="**"/>
+                    <include name="**" />
                   </fileset>
                 </copy>
                 <copy todir="${project.build.directory}/wikbook/output">
                   <fileset dir="${project.build.directory}/wikbook/src/resources">
-                    <include name="**/*.css"/>
-                    <include name="**/*.png"/>
-                    <include name="**/*.gif"/>
-                    <include name="**/*.jpg"/>
+                    <include name="**/*.css" />
+                    <include name="**/*.png" />
+                    <include name="**/*.gif" />
+                    <include name="**/*.jpg" />
                   </fileset>
                 </copy>
 
