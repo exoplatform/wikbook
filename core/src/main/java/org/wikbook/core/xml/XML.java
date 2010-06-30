@@ -20,6 +20,7 @@
 package org.wikbook.core.xml;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -164,6 +165,30 @@ public class XML
          for (Node child : childrenToRemove)
          {
             elt.removeChild(child);
+         }
+      }
+   }
+
+   /**
+    * Copy any non attribute child from the source to the destination.
+    *
+    * @param src the src node
+    * @param dst the dst node
+    * @return the document fragment
+    */
+   public static void copyStandaloneNodes(Node src, Node dst)
+   {
+      NodeList children = src.getChildNodes();
+
+      //
+      for (int i = 0;i < children.getLength();i++)
+      {
+         Node child = children.item(i);
+
+         //
+         if (child.getNodeType() != Document.ATTRIBUTE_NODE)
+         {
+            dst.appendChild(child.cloneNode(true));
          }
       }
    }

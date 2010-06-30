@@ -24,22 +24,29 @@ import org.apache.maven.execution.MavenSession;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.w3c.dom.Document;
+import org.w3c.dom.DocumentFragment;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikletContext;
+import org.wikbook.core.xml.XML;
 import org.wikbook.xwiki.WikletConverter;
+import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Properties;
@@ -103,6 +110,20 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
     * @parameter default-value="true"
     */
    private boolean emitDoctype;
+
+   /**
+    * .
+    *
+    * @parameter default-value=""
+    */
+   private String beforeBookBodyXML;
+
+   /**
+    * .
+    *
+    * @parameter default-value=""
+    */
+   private String afterBookBodyXML;
 
    /**
     * INTERNAL : The representation of the maven execution.
@@ -207,6 +228,20 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       FileWriter out = null;
       try
       {
+         if (hasTrimmedContent(beforeBookBodyXML))
+         {
+            DocumentFragment elt = load(beforeBookBodyXML);
+            converter.setBeforeBookBodyXML(elt);
+         }
+
+         //
+         if (hasTrimmedContent(afterBookBodyXML))
+         {
+            DocumentFragment elt = load(afterBookBodyXML);
+            converter.setAfterBookBodyXML(elt);
+         }
+
+         //
          out = new FileWriter(destination);
          StreamResult result = new StreamResult(out);
          converter.convert(sourceFileName, result);
@@ -308,5 +343,24 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
    {
       Properties properties = session.getCurrentProject().getProperties();
       return properties.getProperty(propertyName);
+   }
+
+   private static boolean hasTrimmedContent(String xml)
+   {
+      return xml != null && xml.trim().length() > 0;
+   }
+
+   private static DocumentFragment load(String xml) throws ParserConfigurationException, IOException, SAXException
+   {
+      xml = "<root>" + xml + "</root>";
+      DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+      dbf.setNamespaceAware(true);
+      dbf.setXIncludeAware(false);
+      dbf.setValidating(false);
+      DocumentBuilder db = dbf.newDocumentBuilder();
+      Document doc = db.parse(new InputSource(new StringReader(xml)));
+      DocumentFragment fragment = doc.createDocumentFragment();
+      XML.copyStandaloneNodes(doc.getDocumentElement(), fragment);
+      return fragment;
    }
 }

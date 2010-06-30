@@ -54,25 +54,6 @@ public class ElementEmitter extends XMLEmitter<Element>
       return emitChild(qName);
    }
 
-   public void content(String data, boolean cdata)
-   {
-      if (cdata)
-      {
-         node.appendChild(node.getOwnerDocument().createCDATASection(data));
-      }
-      else
-      {
-         node.appendChild(node.getOwnerDocument().createTextNode(data));
-      }
-   }
-
-   @Override
-   public void append(Element elt)
-   {
-      Node adopted = node.getOwnerDocument().importNode(elt, true);
-      node.appendChild(adopted);
-   }
-
    public ElementEmitter withAttribute(String qName, String value)
    {
       node.setAttribute(qName, value);

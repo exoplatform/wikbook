@@ -19,8 +19,10 @@
 
 package org.wikbook.core.xml;
 
+import org.w3c.dom.DocumentFragment;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -49,7 +51,33 @@ public abstract class XMLEmitter<N extends Node> extends Emitter<N>
       content(data, false);
    }
 
-   public abstract void content(String data, boolean cdata);
+   public final void content(String data, boolean cdata)
+   {
+      if (cdata)
+      {
+         node.appendChild(node.getOwnerDocument().createCDATASection(data));
+      }
+      else
+      {
+         node.appendChild(node.getOwnerDocument().createTextNode(data));
+      }
+   }
 
-   public abstract void append(Element elt);
+   public final void append(Node appended)
+   {
+      if (appended instanceof DocumentFragment)
+      {
+         NodeList children = appended.getChildNodes();
+         for (int i = 0;i < children.getLength();i++)
+         {
+            Node child = children.item(i);
+            append(child);
+         }
+      }
+      else
+      {
+         Node adopted = node.getOwnerDocument().importNode(appended.cloneNode(true), true);
+         node.appendChild(adopted);
+      }
+   }
 }

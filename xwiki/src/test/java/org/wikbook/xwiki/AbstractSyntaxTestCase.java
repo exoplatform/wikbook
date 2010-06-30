@@ -106,9 +106,11 @@ public abstract class AbstractSyntaxTestCase extends TestCase
                {
                   String expectedXML = XML.serialize(expectedDocument);
                   String xml = XML.serialize(document);
-                  System.out.println("expectedXML: " + expectedXML);
-                  System.out.println("xml: " + xml);
-                  fail("Was expecting no difference between documents for path " + testPath + " : " + diff.toString());
+                  String msg =
+                     "expected XML:\n" + expectedXML + "\n" +
+                     "effective XML:\n" + xml + "\n" +
+                     "Was expecting no difference between documents for path " + testPath + " : " + diff.toString();
+                  fail(msg);
                }
             }
          }

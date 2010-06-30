@@ -41,6 +41,28 @@
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
            <emitDoctype>false</emitDoctype>
+           <beforeBookBodyXML><![CDATA[<bookinfo>
+<title>Wikbook Guide</title>
+<edition>1.0</edition>
+<pubsnumber>1</pubsnumber>
+<productname>Wikbook</productname>
+<productnumber>1.0</productnumber>
+<copyright>
+<year>2010</year>
+<holder>eXo Platform SAS</holder>
+</copyright>
+<authorgroup>
+<author>
+<firstname>Julien</firstname>
+<surname>Viet</surname>
+</author>
+<editor>
+<affiliation>
+<shortaffil>eXo Platform</shortaffil>
+</affiliation>
+</editor>
+</authorgroup>
+</bookinfo>]]></beforeBookBodyXML>
          </configuration>
        </plugin>
 

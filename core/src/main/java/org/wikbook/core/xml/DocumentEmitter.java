@@ -59,16 +59,4 @@ public class DocumentEmitter extends XMLEmitter<Document>
       documentEmitter = emitChild(qName);
       return documentEmitter;
    }
-
-   @Override
-   public void content(String data, boolean cdata)
-   {
-      throw new UnsupportedOperationException();
-   }
-
-   @Override
-   public void append(Element elt)
-   {
-      throw new UnsupportedOperationException();
-   }
 }

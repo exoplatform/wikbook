@@ -20,9 +20,11 @@
 package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.DocumentFragment;
+import org.w3c.dom.Element;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.WikletContext;
-import org.wikbook.core.model.DocbookElement;
+import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -51,6 +53,12 @@ public class WikletConverter
 
    /** . */
    private String syntaxId;
+
+   /** . */
+   private DocumentFragment beforeBookBodyXML;
+
+   /** . */
+   private DocumentFragment afterBookBodyXML;
 
    public WikletConverter(WikletContext context) throws IOException, ClassNotFoundException
    {
@@ -87,6 +95,26 @@ public class WikletConverter
    public void setSyntaxId(String syntaxId)
    {
       this.syntaxId = syntaxId;
+   }
+
+   public DocumentFragment getBeforeBookBodyXML()
+   {
+      return beforeBookBodyXML;
+   }
+
+   public void setBeforeBookBodyXML(DocumentFragment beforeBookBodyXML)
+   {
+      this.beforeBookBodyXML = beforeBookBodyXML;
+   }
+
+   public DocumentFragment getAfterBookBodyXML()
+   {
+      return afterBookBodyXML;
+   }
+
+   public void setAfterBookBodyXML(DocumentFragment afterBookBodyXML)
+   {
+      this.afterBookBodyXML = afterBookBodyXML;
    }
 
    public void convert(String id, Result result) throws WikbookException
@@ -128,8 +156,12 @@ public class WikletConverter
       //
       XDOMTransformer xdomTransformer = new XDOMTransformer(context);
 
-      //
-      DocbookElement elt = xdomTransformer.transform(main);
+      // Create book element
+      BookElement elt = (BookElement)xdomTransformer.transform(main);
+
+      // Configure before and after body
+      elt.setBeforeBodyXML(beforeBookBodyXML);
+      elt.setAfterBodyXML(afterBookBodyXML);
 
       //
       Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
