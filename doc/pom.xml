@@ -40,29 +40,8 @@
            <sourceFileName>book.wiki</sourceFileName>
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
-           <emitDoctype>false</emitDoctype>
-           <beforeBookBodyXML><![CDATA[<bookinfo>
-<title>Wikbook Guide</title>
-<edition>1.0</edition>
-<pubsnumber>1</pubsnumber>
-<productname>Wikbook</productname>
-<productnumber>1.0</productnumber>
-<copyright>
-<year>2010</year>
-<holder>eXo Platform SAS</holder>
-</copyright>
-<authorgroup>
-<author>
-<firstname>Julien</firstname>
-<surname>Viet</surname>
-</author>
-<editor>
-<affiliation>
-<shortaffil>eXo Platform</shortaffil>
-</affiliation>
-</editor>
-</authorgroup>
-</bookinfo>]]></beforeBookBodyXML>
+           <emitDoctype>true</emitDoctype>
+           <beforeBookBodyXML><![CDATA[<xi:include href="${pom.basedir}/src/main/wikbook/en/en-US/bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude"/>]]></beforeBookBodyXML>
          </configuration>
        </plugin>
 
@@ -113,6 +92,9 @@
 
               <!-- Highlight source code -->
               <highlightSource>1</highlightSource>
+
+              <!-- We need to support xinclude -->
+              <xincludeSupported>true</xincludeSupported>
 
               <!--
                 |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
