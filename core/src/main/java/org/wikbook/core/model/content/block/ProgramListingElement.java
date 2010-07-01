@@ -22,6 +22,8 @@ package org.wikbook.core.model.content.block;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.w3c.dom.Text;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 import org.wikbook.core.WikletContext;
@@ -56,6 +58,8 @@ import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -148,7 +152,7 @@ public class ProgramListingElement extends BlockElement
       if ("urn:wikbook:internal".equals(elt.getNamespaceURI()) && "include".equals(elt.getLocalName()))
       {
          String hrefAttr = elt.getAttribute("href");
-         Element replacementElt = null;
+         List<Node> replacementElts = null;
          try
          {
             URL url = context.resolveResource(ResourceType.XML, hrefAttr);
@@ -161,35 +165,46 @@ public class ProgramListingElement extends BlockElement
                {
                   String xpathAttr = elt.getAttribute("xpath");
                   XPathExpression xpathExpr = xpath.compile(xpathAttr);
-                  Node resolvedNode = (Node)xpathExpr.evaluate(includedDoc, XPathConstants.NODE);
-                  if (resolvedNode instanceof Element)
+                  replacementElts = new ArrayList<Node>();
+                  NodeList resolvedNodes = (NodeList)xpathExpr.evaluate(includedDoc, XPathConstants.NODESET);
+                  for (int i = 0;i < resolvedNodes.getLength();i++)
                   {
-                     replacementElt = (Element)elt.getOwnerDocument().importNode(resolvedNode, true);
-                  }
-                  else
-                  {
-                     throw new Exception("Target of xpath expression " + xpathAttr + " does not resolve to an XML element but to " + resolvedNode);
+                     Node resolvedNode = resolvedNodes.item(i);
+                     if (resolvedNode.getNodeType() != Document.ATTRIBUTE_NODE)
+                     {
+                        replacementElts.add(elt.getOwnerDocument().importNode(resolvedNode, true));
+                     }
+                     else
+                     {
+                        // Log that somehow
+                        // throw new Exception("Target of xpath expression " + xpathAttr + " does not resolve to an XML element but to " + resolvedNode);
+                     }
                   }
                }
                else
                {
                   Element includedElt = includedDoc.getDocumentElement();
-                  replacementElt = (Element)elt.getOwnerDocument().importNode(includedElt, true);
+                  replacementElts = Collections.singletonList(elt.getOwnerDocument().importNode(includedElt, true));
                }
             }
          }
          catch (Exception e)
          {
+            e.printStackTrace();
             Element errorElt = elt.getOwnerDocument().createElement("wikbook:error");
-            elt.getOwnerDocument().createTextNode(Utils.toString(e));
-            replacementElt = errorElt;
+            Text text = elt.getOwnerDocument().createTextNode(e.getMessage());
+            errorElt.appendChild(text);
+            replacementElts = Collections.<Node>singletonList(errorElt);
          }
 
-         //
-         if (replacementElt != null)
+         // Insert elements
+         for (Node replacement : replacementElts)
          {
-            elt.getParentNode().replaceChild(replacementElt, elt);
+            elt.getParentNode().insertBefore(replacement, elt);
          }
+
+         // Remove include
+         elt.getParentNode().removeChild(elt);
       }
       else
       {
