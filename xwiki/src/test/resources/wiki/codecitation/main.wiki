@@ -1,17 +1,17 @@
 {{code language=java}}
-{@include org.wikbook.xwiki.CodeWithAnchors#foo()}
+{@include org.wikbook.xwiki.syntax.CodeWithAnchors#foo()}
 {{/code}}
 
 {{code language=java}}
-{@include org.wikbook.xwiki.CodeWithAnchors#bar() {0}}
+{@include org.wikbook.xwiki.syntax.CodeWithAnchors#bar() {0}}
 {{/code}}
 
 {{code language=java}}
-{@include org.wikbook.xwiki.CodeWithAnchors#bar() {0,1}}
+{@include org.wikbook.xwiki.syntax.CodeWithAnchors#bar() {0,1}}
 {{/code}}
 
 {{code language=java}}
-{@include org.wikbook.xwiki.CodeWithAnchors#bar()} // <1> foo
+{@include org.wikbook.xwiki.syntax.CodeWithAnchors#bar()} // <1> foo
 {{/code}}
 
 {{java}}

@@ -103,21 +103,33 @@ class WikiLoader
             syntaxId = Syntax.XWIKI_2_0.toIdString();
          }
 
+         // Load the text
+         String s = Utils.read(reader);
+
+         // Filter properties
+         s = new PropertyFilter()
+         {
+            @Override
+            protected String resolveProperty(String propertyname)
+            {
+               return context.getProperty(propertyname);
+            }
+         }.filter(s);
+
          //
          XDOM xdom;
          if ("verbatim".equals(syntaxId))
          {
             xdom = new XDOM(new ArrayList<Block>());
-            xdom.addChild(new VerbatimBlock(Utils.read(reader), false));
+            xdom.addChild(new VerbatimBlock(s, false));
          }
          else
          {
             // Get parser
             Parser parser = ecm.lookup(Parser.class, syntaxId);
 
-
             // Parse
-            xdom = parser.parse(reader);
+            xdom = parser.parse(new StringReader(s));
 
             // Replace all headers
             if (baseLevel > 0)
@@ -192,6 +204,7 @@ class WikiLoader
     * can be safely modified.
     *
     * @param block the block to visit
+    * @param currentSyntaxId the current syntax is
     * @return the substitution list
     */
    private List<Substitution> visit(Block block, String currentSyntaxId)

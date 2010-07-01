@@ -20,6 +20,7 @@
 package org.wikbook.core;
 
 import java.io.ByteArrayOutputStream;
+import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -90,22 +91,32 @@ public class Utils
 
    public static String read(Reader reader) throws IOException
    {
-      StringWriter writer = new StringWriter();
-      char[] buffer = new char[256];
-      for (int amount = reader.read(buffer); amount != -1; amount = reader.read(buffer))
+      if (reader == null)
       {
-         writer.write(buffer, 0, amount);
+         throw new NullPointerException("No null reader accepted");
       }
-      return writer.toString();
+      try
+      {
+         StringWriter writer = new StringWriter();
+         char[] buffer = new char[256];
+         for (int amount = reader.read(buffer); amount != -1; amount = reader.read(buffer))
+         {
+            writer.write(buffer, 0, amount);
+         }
+         return writer.toString();
+      }
+      finally
+      {
+         safeClose(reader);
+      }
    }
 
-   public static byte[] load(URL url) throws IOException
+   public static byte[] read(InputStream in) throws IOException
    {
-      return load(url.openStream());
-   }
-
-   public static byte[] load(InputStream in) throws IOException
-   {
+      if (in == null)
+      {
+         throw new NullPointerException("No null input stream accepted");
+      }
       try
       {
          byte[] bytes = new byte[128];
@@ -119,9 +130,22 @@ public class Utils
       }
       finally
       {
+         safeClose(in);
+      }
+   }
+
+   public static byte[] load(URL url) throws IOException
+   {
+      return read(url.openStream());
+   }
+
+   public static void safeClose(Closeable closeable)
+   {
+      if (closeable != null)
+      {
          try
          {
-            in.close();
+            closeable.close();
          }
          catch (IOException ignore)
          {
