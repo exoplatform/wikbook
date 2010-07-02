@@ -1,0 +1,29 @@
+<bookinfo>
+  <title>My project</title>
+  <subtitle>My book</subtitle>
+  <edition>1.0</edition>
+  <pubsnumber>1</pubsnumber>
+  <productname>My product</productname>
+  <productnumber>1.0</productnumber>
+  <copyright>
+    <year>2010</year>
+    <holder>My company</holder>
+  </copyright>
+  <authorgroup>
+    <author>
+      <firstname>John</firstname>
+      <surname>Doe</surname>
+      <affiliation>
+        <shortaffil>Acme</shortaffil>
+      </affiliation>
+    </author>
+  </authorgroup>
+  <mediaobject>
+    <imageobject role="fo">
+      <imagedata align="center" fileref="images/mylogohere.png" format="PNG" width="150mm"/>
+    </imageobject>
+    <imageobject role="html">
+      <imagedata align="center" fileref="images/mylogohere.png" format="PNG" scale="150"/>
+    </imageobject>
+  </mediaobject>
+</bookinfo>

@@ -45,6 +45,7 @@
               <sourceFileName>book.wiki</sourceFileName>
               <destinationDirectory>\${wikbook.target}/src</destinationDirectory>
               <destinationFileName>index.xml</destinationFileName>
+              <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
             </configuration>
           </plugin>
 
@@ -85,6 +86,7 @@
                <configuration>
                  <sourceDirectory>\${wikbook.target}/src</sourceDirectory>
                  <targetDirectory>\${wikbook.target}/output</targetDirectory>
+                 <includes>index.xml</includes>
 
                  <!-- HTML -->
                  <htmlCustomization>\${wikbook.target}/src/resources/xsl/html.xsl</htmlCustomization>
@@ -98,12 +100,24 @@
                  <!-- Highlight source code -->
                  <highlightSource>1</highlightSource>
 
+                 <!-- We need to support xinclude -->
+                 <xincludeSupported>true</xincludeSupported>
+
                  <!--
                    |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
                    |  Callouts on imported text
                    -->
                  <useExtensions>1</useExtensions>
                  <calloutsExtension>1</calloutsExtension>
+
+                 <!-- Copy any docbook XML -->
+                 <preProcess>
+                   <copy todir="\${wikbook.target}/src">
+                     <fileset dir="\${wikbook.source}/en/en-US">
+                       <include name="**/*.xml" />
+                     </fileset>
+                   </copy>
+                 </preProcess>
 
                  <!-- Copy the image for HTML-->
                  <postProcess>
