@@ -20,10 +20,10 @@
   </authorgroup>
   <mediaobject>
     <imageobject role="fo">
-      <imagedata align="center" fileref="../../images/controller.png" format="PNG" width="50mm"/>
+      <imagedata align="center" fileref="images/controller.png" format="PNG" width="50mm"/>
     </imageobject>
     <imageobject role="html">
-      <imagedata align="center" fileref="../../images/controller.png" format="PNG" scale="50"/>
+      <imagedata align="center" fileref="images/controller.png" format="PNG" scale="50"/>
     </imageobject>
   </mediaobject>
 </bookinfo>

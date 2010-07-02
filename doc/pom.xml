@@ -40,7 +40,7 @@
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
            <emitDoctype>false</emitDoctype>
-           <beforeBookBodyXML><![CDATA[<xi:include href="${pom.basedir}/src/main/wikbook/en/en-US/bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
+           <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
          </configuration>
        </plugin>
 
@@ -79,6 +79,7 @@
             <configuration>
               <sourceDirectory>${project.build.directory}/wikbook/src</sourceDirectory>
               <targetDirectory>${project.build.directory}/wikbook/output</targetDirectory>
+              <includes>index.xml</includes>
 
               <!-- HTML -->
               <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/html.xsl</htmlCustomization>
@@ -102,7 +103,14 @@
               <useExtensions>1</useExtensions>
               <calloutsExtension>1</calloutsExtension>
 
-              
+              <!-- Copy any docbook XML -->
+              <preProcess>
+                <copy todir="${project.build.directory}/wikbook/src">
+                  <fileset dir="${pom.basedir}/src/main/wikbook/en/en-US">
+                    <include name="**/*.xml" />
+                  </fileset>
+                </copy>
+              </preProcess>
 
               <!-- Copy the image for HTML-->
               <postProcess>
