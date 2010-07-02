@@ -27,12 +27,7 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell text-align="center">
-              <!-- Logo
-                            <fo:block>
-                                <fo:external-graphic src="file:src/docbkx/resources/images/s2_box_logo.png"/>
-                            </fo:block>
-                            -->
-                          <fo:block font-family="Helvetica" font-size="22pt" padding-before="10mm">
+                            <fo:block font-family="Helvetica" font-size="22pt" padding-before="10mm">
                                 <xsl:value-of select="bookinfo/subtitle"/>
                             </fo:block>
                             <fo:block font-family="Helvetica" font-size="14pt" padding="10mm">
@@ -41,6 +36,9 @@
                             <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
                                 <xsl:value-of select="bookinfo/releaseinfo"/>
                             </fo:block>
+                            <xsl:if test="bookinfo/mediaobject">
+                              <xsl:apply-templates select="bookinfo/mediaobject"/>
+                            </xsl:if>
                         </fo:table-cell>
                     </fo:table-row>
                     <fo:table-row>
@@ -66,9 +64,8 @@
                                 </xsl:for-each>
                             </fo:block>
                             <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
-                <xsl:text>Copyright &#xA9; </xsl:text><xsl:value-of select="bookinfo/copyright/year"/>
-              </fo:block>
-
+                            <xsl:text>Copyright &#xA9; </xsl:text><xsl:value-of select="bookinfo/copyright/year"/>
+                            </fo:block>
                             <fo:block font-family="Helvetica" font-size="10pt" padding="1mm">
                                 <xsl:value-of select="bookinfo/legalnotice"/>
                             </fo:block>

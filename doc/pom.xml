@@ -39,7 +39,7 @@
            <sourceFileName>book.wiki</sourceFileName>
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
-           <emitDoctype>true</emitDoctype>
+           <emitDoctype>false</emitDoctype>
            <beforeBookBodyXML><![CDATA[<xi:include href="${pom.basedir}/src/main/wikbook/en/en-US/bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
          </configuration>
        </plugin>
@@ -101,6 +101,8 @@
                 -->
               <useExtensions>1</useExtensions>
               <calloutsExtension>1</calloutsExtension>
+
+              
 
               <!-- Copy the image for HTML-->
               <postProcess>
