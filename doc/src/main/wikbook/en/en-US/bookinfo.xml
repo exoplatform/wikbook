@@ -1,5 +1,6 @@
 <bookinfo>
-  <title>Wikbook Guide</title>
+  <title>Wikbook</title>
+  <subtitle>Wikbook Reference Guide</subtitle>
   <edition>1.0</edition>
   <pubsnumber>1</pubsnumber>
   <productname>Wikbook</productname>
@@ -12,11 +13,9 @@
     <author>
       <firstname>Julien</firstname>
       <surname>Viet</surname>
-    </author>
-    <editor>
       <affiliation>
         <shortaffil>eXo Platform</shortaffil>
       </affiliation>
-    </editor>
+    </author>
   </authorgroup>
 </bookinfo>

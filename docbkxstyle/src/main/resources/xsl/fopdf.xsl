@@ -27,13 +27,13 @@
                 <fo:table-body>
                     <fo:table-row>
                         <fo:table-cell text-align="center">
-              <!-- Logo 
+              <!-- Logo
                             <fo:block>
                                 <fo:external-graphic src="file:src/docbkx/resources/images/s2_box_logo.png"/>
                             </fo:block>
                             -->
                           <fo:block font-family="Helvetica" font-size="22pt" padding-before="10mm">
-                                <xsl:value-of select="bookinfo/subtitle"/> 
+                                <xsl:value-of select="bookinfo/subtitle"/>
                             </fo:block>
                             <fo:block font-family="Helvetica" font-size="14pt" padding="10mm">
                                 <xsl:value-of select="bookinfo/title"/>
@@ -66,7 +66,7 @@
                                 </xsl:for-each>
                             </fo:block>
                             <fo:block font-family="Helvetica" font-size="12pt" padding="10mm">
-                <xsl:text>Copyright &#xA9; 2008</xsl:text>
+                <xsl:text>Copyright &#xA9; </xsl:text><xsl:value-of select="bookinfo/copyright/year"/>
               </fo:block>
 
                             <fo:block font-family="Helvetica" font-size="10pt" padding="1mm">
@@ -153,9 +153,10 @@
 
   <!-- These extensions are required for table printing and other stuff -->
   <xsl:param name="tablecolumns.extension">0</xsl:param>
+
   <!-- FOP provide only PDF Bookmarks at the moment -->
   <xsl:param name="fop.extensions">1</xsl:param>
-    <xsl:param name="ignore.image.scaling">0</xsl:param>
+  <xsl:param name="ignore.image.scaling">0</xsl:param>
 
   <!--###################################################
                    Table Of Contents
