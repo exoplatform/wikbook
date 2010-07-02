@@ -12,6 +12,10 @@
 
   <name>Wikbook documentation</name>
 
+  <properties>
+    <wikbook.version>${project.version}</wikbook.version>
+  </properties>
+
   <dependencies>
     <dependency>
       <groupId>org.wikbook</groupId>

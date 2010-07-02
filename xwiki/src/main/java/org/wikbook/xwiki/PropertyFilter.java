@@ -30,7 +30,7 @@ public abstract class PropertyFilter
 {
 
    /** . */
-   private static final Pattern PROPERTY_PATTERN = Pattern.compile("\\$\\[([\\w]+)\\]");
+   private static final Pattern PROPERTY_PATTERN = Pattern.compile("\\$\\[(\\w[\\w\\.]*)\\]");
 
    protected abstract String resolveProperty(String propertyname);
 

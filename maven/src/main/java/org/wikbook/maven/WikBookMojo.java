@@ -341,6 +341,17 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
 
    public String getProperty(String propertyName)
    {
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
+      System.out.println("want property " + propertyName);
       Properties properties = session.getCurrentProject().getProperties();
       return properties.getProperty(propertyName);
    }
