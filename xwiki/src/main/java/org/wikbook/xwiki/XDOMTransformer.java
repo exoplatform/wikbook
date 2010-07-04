@@ -271,7 +271,9 @@ class XDOMTransformer implements Listener
       }
       else if ("screen".equals(id))
       {
-         builder.onScreen(content);
+         builder.beginScreen();
+         builder.onText(content);
+         builder.endScreen();
       }
       else if ("anchor".equals(id))
       {

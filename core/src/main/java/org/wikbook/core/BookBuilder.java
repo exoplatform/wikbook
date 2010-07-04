@@ -206,6 +206,17 @@ public abstract class BookBuilder
       book.merge();
    }
 
+   public void beginScreen()
+   {
+      ScreenElement screenElt = new ScreenElement();
+      book.push(screenElt);
+   }
+
+   public void endScreen()
+   {
+      book.merge();
+   }
+
    public void beginTable(String title)
    {
       book.push(new TableElement(title));
@@ -299,14 +310,6 @@ public abstract class BookBuilder
    public void onVerbatim(String text)
    {
       book.merge(new TextElement(text));
-   }
-
-   public void onScreen(String text)
-   {
-      ScreenElement screenElt = new ScreenElement();
-      book.push(screenElt);
-      screenElt.merge(new TextElement(text));
-      book.merge();
    }
 
    public void onImage(String imageName, Map<String, String> parameters)
