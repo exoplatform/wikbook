@@ -28,8 +28,8 @@ import org.wikbook.core.xml.XMLEmitter;
 public abstract class DocbookElement
 {
 
-   /** The parent element. */
-   private DocbookElement parent;
+   /** The context. */
+   DocbookElementContext context;
 
    /**
     * The current child element that is pushed onto the stack. The chained list created by following the
@@ -37,6 +37,31 @@ public abstract class DocbookElement
     * by this class only.
     */
    private DocbookElement currentChildElt;
+
+   protected DocbookElement(DocbookElementContext context)
+   {
+      if (context == null)
+      {
+         throw new NullPointerException();
+      }
+
+      //
+      this.context = context;
+   }
+
+   protected DocbookElement()
+   {
+      this.context = null;
+   }
+
+   protected final DocbookElementContext assertContextualized()
+   {
+      if (context == null)
+      {
+         throw new IllegalStateException("No context");
+      }
+      return context;
+   }
 
    public final void close()
    {
@@ -71,7 +96,7 @@ public abstract class DocbookElement
             if (remove)
             {
                currentChildElt = null;
-               currentElt.parent = null;
+               currentElt.context = null;
             }
          }
          else
@@ -96,7 +121,11 @@ public abstract class DocbookElement
 
    public final <E extends DocbookElement> E push(E elt)
    {
-      if (elt.parent != null)
+      if (context == null)
+      {
+         throw new IllegalStateException("No context");
+      }
+      if (elt.context != null)
       {
          throw new IllegalArgumentException("Already has a parent");
       }
@@ -104,7 +133,7 @@ public abstract class DocbookElement
       if (currentElt == null)
       {
          currentChildElt = elt;
-         elt.parent = this;
+         elt.context = context;
          return elt;
       }
       else
@@ -124,7 +153,11 @@ public abstract class DocbookElement
       {
          throw new NullPointerException();
       }
-      if (elt.parent != null)
+      if (context == null)
+      {
+         throw new IllegalStateException("No context");
+      }
+      if (elt.context != null)
       {
          throw new IllegalArgumentException("Already has a parent");
       }
@@ -145,7 +178,7 @@ public abstract class DocbookElement
       }
 
       //
-      elt.parent = this;
+      elt.context = context;
 
       //
       return elt;

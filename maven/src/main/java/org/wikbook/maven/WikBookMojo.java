@@ -26,7 +26,6 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
-import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.ValidationMode;
 import org.wikbook.core.xml.XML;

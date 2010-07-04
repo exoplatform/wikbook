@@ -24,8 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.wikbook.core.DocbookBuilder;
-import org.wikbook.core.DocbookBuilderContext;
+import org.wikbook.core.model.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.codesource.CodeContext;
@@ -145,7 +144,7 @@ public class ProgramListingElement extends BlockElement
          List<Node> replacementElts = null;
          try
          {
-            URL url = context.resolveResource(ResourceType.XML, hrefAttr);
+            URL url = assertContextualized().resolveResource(ResourceType.XML, hrefAttr);
             if (url != null)
             {
                Document includedDoc = documentBuilder.parse(url.openStream());
@@ -276,13 +275,10 @@ public class ProgramListingElement extends BlockElement
                   CalloutElement calloutElt = new CalloutElement(callout.getValue().ids, callout.getValue().text);
 
                   //
-                  push(calloutElt);
+                  assertContextualized().build(new StringReader(callout.getValue().text), calloutElt);
 
                   //
-                  context.build(new StringReader(callout.getValue().text), new DocbookBuilder(context, calloutElt));
-
-                  //
-                  merge();
+                  merge(calloutElt);
                }
             }
 

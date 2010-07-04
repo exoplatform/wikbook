@@ -19,11 +19,12 @@
 
 package org.wikbook.xwiki;
 
-import org.wikbook.core.DocbookBuilder;
-import org.wikbook.core.DocbookBuilderContext;
+import org.wikbook.core.model.DocbookBuilder;
+import org.wikbook.core.model.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 import org.xwiki.rendering.block.Block;
+import org.xwiki.rendering.syntax.Syntax;
 
 import java.io.IOException;
 import java.io.Reader;
@@ -62,22 +63,24 @@ public abstract class AbstractXDOMDocbookBuilderContext extends DocbookBuilderCo
       return Utils.read(main);
    }
 
-   @Override
-   public void build(Reader reader, DocbookBuilder builder)
+   public void build(Reader reader, String syntaxId, DocbookBuilder builder)
    {
-      WikiLoader loader = new WikiLoader(this);
-      Block block = loader.load(reader, syntaxStack.getLast());
-      XDOMTransformer transformer = new XDOMTransformer(this, builder);
-      block.traverse(transformer);
-   }
+      if (syntaxId == null)
+      {
+         if (syntaxStack.isEmpty())
+         {
+            syntaxId = Syntax.XWIKI_2_0.toIdString();
+         }
+         else
+         {
+            syntaxId = syntaxStack.getLast();
+         }
+      }
 
-   public void build(Reader reader, DocbookBuilder builder, String syntaxId)
-   {
+      //
       WikiLoader loader = new WikiLoader(this);
       Block block = loader.load(reader, syntaxId);
       XDOMTransformer transformer = new XDOMTransformer(this, builder);
-      syntaxStack.addLast(syntaxId);
       block.traverse(transformer);
-      syntaxStack.removeLast();
    }
 }

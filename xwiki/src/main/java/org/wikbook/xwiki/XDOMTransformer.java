@@ -20,7 +20,7 @@
 package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
-import org.wikbook.core.DocbookBuilder;
+import org.wikbook.core.model.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.LanguageSyntax;

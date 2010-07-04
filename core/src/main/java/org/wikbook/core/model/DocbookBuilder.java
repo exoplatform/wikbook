@@ -17,10 +17,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.core.model;
 
 import org.w3c.dom.Element;
-import org.wikbook.core.model.DocbookElement;
+import org.wikbook.core.ResourceType;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
@@ -47,6 +47,9 @@ import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.content.inline.TextFormat;
 import org.wikbook.core.model.structural.ComponentElement;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.net.URL;
 import java.util.Map;
 
 /**
@@ -62,10 +65,43 @@ public class DocbookBuilder
    /** . */
    private DocbookElement root;
 
+   /** . */
+   private final DocbookElementContext rootContext = new DocbookElementContext()
+   {
+      @Override
+      public URL resolveResource(ResourceType type, String id) throws IOException
+      {
+         return context.resolveResource(type, id);
+      }
+      @Override
+      public void build(Reader reader, DocbookElement element)
+      {
+         new DocbookBuilder(context, element).build(reader, null);
+      }
+   };
+
    public DocbookBuilder(DocbookBuilderContext context, DocbookElement root)
    {
+      if (context == null)
+      {
+         throw new NullPointerException("No null context accepted");
+      }
+
+      //
       this.context = context;
       this.root = root;
+   }
+
+   public void build(Reader reader, String syntaxId)
+   {
+      // Wire
+      root.context = rootContext;
+
+      // perform build
+      context.build(reader, syntaxId, this);
+
+      // Clear context
+      root.context = null;
    }
 
    public boolean isInline()

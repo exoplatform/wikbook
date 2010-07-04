@@ -17,48 +17,23 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.core.model;
+
+import org.wikbook.core.ResourceType;
 
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
-import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class DocbookBuilderContext
+public abstract class DocbookElementContext
 {
 
-   public abstract boolean getHighlightCode();
+   public abstract URL resolveResource(ResourceType type, String id) throws IOException;
 
-   public abstract ValidationMode getValidationMode();
-
-   public abstract void log(String msg);
-
-   public void onValidationError(String msg)
-   {
-      if (getValidationMode() == ValidationMode.STRICT)
-      {
-         throw new WikbookValidationException(msg);
-      }
-      else
-      {
-         log("Validation error:" + msg);
-      }
-   }
-
-   public final URL resolveResource(ResourceType type, String id) throws IOException
-   {
-      List<URL> found = resolveResources(type, id);
-      return found.isEmpty() ? null : found.get(0);
-   }
-
-   public abstract List<URL> resolveResources(ResourceType type, String id) throws IOException;
-
-   public abstract String getProperty(String propertyName);
-
-   public abstract void build(Reader reader, DocbookBuilder builder);
+   public abstract void build(Reader reader, DocbookElement element);
 
 }

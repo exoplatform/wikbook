@@ -21,7 +21,7 @@ package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
-import org.wikbook.core.DocbookBuilder;
+import org.wikbook.core.model.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.xml.DocumentEmitter;
@@ -156,7 +156,7 @@ public class WikbookConverter
       DocbookBuilder builder = new DocbookBuilder(context, elt);
 
       //
-      context.build(reader, builder, syntaxId);
+      builder.build(reader, syntaxId);
 
       // Configure before and after body
       elt.setBeforeBodyXML(beforeBookBodyXML);
