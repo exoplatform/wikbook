@@ -20,34 +20,13 @@
 package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
+import org.wikbook.core.BookBuilder;
 import org.wikbook.core.WikletContext;
-import org.wikbook.core.model.DocbookContext;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.Loader;
 import org.wikbook.core.model.content.block.AdmonitionElement;
-import org.wikbook.core.model.content.block.BlockQuotationElement;
-import org.wikbook.core.model.content.block.DOMElement;
-import org.wikbook.core.model.content.block.ExampleElement;
-import org.wikbook.core.model.content.block.GroupElement;
-import org.wikbook.core.model.content.block.ImageElement;
 import org.wikbook.core.model.content.block.LanguageSyntax;
-import org.wikbook.core.model.content.block.ListElement;
-import org.wikbook.core.model.content.block.ListItemElement;
 import org.wikbook.core.model.content.block.ListKind;
-import org.wikbook.core.model.content.block.ParagraphElement;
-import org.wikbook.core.model.content.block.ProgramListingElement;
-import org.wikbook.core.model.content.block.ScreenElement;
-import org.wikbook.core.model.content.block.TableElement;
-import org.wikbook.core.model.content.block.list.TermElement;
-import org.wikbook.core.model.content.block.list.VariableListElement;
-import org.wikbook.core.model.content.inline.AnchorElement;
-import org.wikbook.core.model.content.inline.FormatElement;
-import org.wikbook.core.model.content.inline.InlineElement;
-import org.wikbook.core.model.content.inline.LinkElement;
-import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.content.inline.TextFormat;
-import org.wikbook.core.model.structural.BookElement;
-import org.wikbook.core.model.structural.ComponentElement;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
 import org.xwiki.rendering.block.Block;
@@ -59,7 +38,6 @@ import org.xwiki.rendering.listener.ListType;
 import org.xwiki.rendering.listener.Listener;
 import org.xwiki.rendering.syntax.Syntax;
 
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
@@ -106,41 +84,39 @@ class XDOMTransformer implements Listener
    }
 
    /** . */
-   private final WikletContext context;
-
-   /** . */
-   private DocbookContext bookContext;
-
-   /** . */
-   private BookElement book;
-
-   /** . */
    final LinkedList<String> syntaxStack;
 
    /** . */
-   private final Loader loader = new Loader()
-   {
-      public void load(Reader reader)
-      {
-         WikiLoader loader = new WikiLoader(context);
-         Block block = loader.load(reader, syntaxStack.getLast());
-         block.traverse(XDOMTransformer.this);
-      }
-   };
+   final BookBuilder builder;
 
-   public XDOMTransformer(WikletContext context) throws IOException, ClassNotFoundException
+   /** . */
+   final WikletContext context;
+
+   public XDOMTransformer(final WikletContext context) throws IOException, ClassNotFoundException
    {
+
+
+      //
       this.context = context;
       this.syntaxStack = new LinkedList<String>();
+      this.builder = new BookBuilder(context)
+      {
+         @Override
+         protected void load(Reader reader)
+         {
+            WikiLoader loader = new WikiLoader(context);
+            Block block = loader.load(reader, syntaxStack.getLast());
+            block.traverse(XDOMTransformer.this);
+         }
+      };
    }
 
    public DocbookElement transform(Block block)
    {
-      book = new BookElement();
-      bookContext = new DocbookContext(book);
+      builder.beginBook();
       block.traverse(this);
-      book.close();
-      return book;
+      builder.endBook();
+      return builder.getBook();
    }
 
    public void beginDocument(Map<String, String> parameters)
@@ -153,58 +129,58 @@ class XDOMTransformer implements Listener
 
    public void beginParagraph(Map<String, String> parameters)
    {
-      book.push(new ParagraphElement());
+      builder.beginParagraph();
    }
 
    public void endParagraph(Map<String, String> parameters)
    {
-      book.merge();
+      builder.endParagraph();
    }
 
    //
 
    public void beginSection(Map<String, String> parameters)
    {
-      book.push(new ComponentElement());
+      builder.beginSection(parameters);
    }
 
    public void endSection(Map<String, String> parameters)
    {
-      book.merge();
+      builder.endSection(parameters);
    }
 
    public void beginHeader(HeaderLevel level, String id, Map<String, String> parameters)
    {
-      ((ComponentElement)book.peek()).beginTitle();
+      builder.beginHeader(id, parameters);
    }
 
    public void endHeader(HeaderLevel level, String id, Map<String, String> parameters)
    {
-      ((ComponentElement)book.peek()).endTitle();
+      builder.endHeader(id, parameters);
    }
 
    //
 
    public void onWord(String word)
    {
-      book.merge(new TextElement(word));
+      builder.onText(word);
    }
 
    public void onSpace()
    {
-      book.merge(new TextElement(" "));
+      builder.onText(" ");
    }
 
    public void onNewLine()
    {
       // For now we dont take in account line breaks
-      book.merge(new TextElement(" "));
+      builder.onText(" ");
    }
 
    public void onSpecialSymbol(char symbol)
    {
       // For now it will be ok
-      book.merge(new TextElement(Character.toString(symbol)));
+      builder.onText(Character.toString(symbol));
    }
 
    public void beginFormat(Format format, Map<String, String> parameters)
@@ -214,12 +190,17 @@ class XDOMTransformer implements Listener
       {
          throw new UnsupportedOperationException("Format " + format + " is not yet handled");
       }
-      book.push(new FormatElement(textFormat));
+      builder.beginFormat(textFormat);
    }
 
    public void endFormat(Format format, Map<String, String> parameters)
    {
-      book.merge();
+      TextFormat textFormat = formatMapping.get(format);
+      if (textFormat == null)
+      {
+         throw new UnsupportedOperationException("Format " + format + " is not yet handled");
+      }
+      builder.endFormat(textFormat);
    }
 
    //
@@ -237,34 +218,31 @@ class XDOMTransformer implements Listener
    {
       String style = parameters.get("style");
       ListKind lk = mapping.get(listType);
-      book.push(new ListElement(lk, style));
+      builder.beginList(lk, style);
    }
 
    public void endList(ListType listType, Map<String, String> parameters)
    {
-      book.merge();
+      String style = parameters.get("style");
+      ListKind lk = mapping.get(listType);
+      builder.endList(lk, style);
    }
 
    public void beginListItem()
    {
-      book.push(new ListItemElement());
+      builder.beginListItem();
    }
 
    public void endListItem()
    {
-      book.merge();
+      builder.endListItem();
    }
 
    //
 
    public void onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)
    {
-      // Determine inline according to the docbook context and not according to what the parser tell us
-      DocbookElement elt = book.peek();
-      boolean inline = elt instanceof InlineElement;
-
-      //
-      _onMacro(id, macroParameters, content, inline);
+      _onMacro(id, macroParameters, content, builder.isInline());
    }
 
    private void _onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)
@@ -287,21 +265,18 @@ class XDOMTransformer implements Listener
          Block block = loader.load(new StringReader(content), null);
 
          //
-         book.push(admonitionElt);
+         builder.beginAdmonition(id);
          block.traverse(this);
-         book.merge();
+         builder.endAdmonition(id);
       }
       else if ("screen".equals(id))
       {
-         ScreenElement screenElt = new ScreenElement();
-         book.push(screenElt);
-         screenElt.merge(new TextElement(content));
-         book.merge();
+         builder.onScreen(content);
       }
       else if ("anchor".equals(id))
       {
          String anchor = macroParameters.get("id");
-         book.merge(new AnchorElement(anchor));
+         builder.onAnchor(anchor);
       }
       else if ("docbook".equals(id))
       {
@@ -312,14 +287,11 @@ class XDOMTransformer implements Listener
             // Perform identity transformation
             DOMResult result = new DOMResult();
 
-
-            book.peek();
-
             //
             transformer.transform(new StreamSource(new StringReader(content)), result);
 
             //
-            book.merge(new DOMElement(((Document)result.getNode()).getDocumentElement()));
+            builder.onDocbook(((Document)result.getNode()).getDocumentElement());
          }
          catch (Exception e)
          {
@@ -330,9 +302,9 @@ class XDOMTransformer implements Listener
       {
          if (isInline)
          {
-            book.push(new FormatElement(TextFormat.CODE));
-            book.merge(new TextElement(content));
-            book.merge();
+            builder.beginFormat(TextFormat.CODE);
+            builder.onText(content);
+            builder.endFormat(TextFormat.CODE);
          }
          else
          {
@@ -373,25 +345,11 @@ class XDOMTransformer implements Listener
             }
 
             //
-            try
-            {
-               ProgramListingElement programListingElt = book.push(new ProgramListingElement(
-                  context,
-                  languageSyntax,
-                  indent,
-                  content,
-                  context.getHighlightCode()));
-
-               //
-               programListingElt.process(loader);
-
-               //
-               book.merge();
-            }
-            catch (ParserConfigurationException e)
-            {
-               e.printStackTrace();
-            }
+            builder.onCode(
+               languageSyntax,
+               indent,
+               content
+            );
          }
       }
       else if ("example".equals(id))
@@ -402,9 +360,9 @@ class XDOMTransformer implements Listener
          }
          WikiLoader loader = new WikiLoader(context);
          Block block = loader.load(new StringReader(content), syntaxStack.getLast());
-         book.push(new ExampleElement(macroParameters.get("title")));
+         builder.beginExample(macroParameters.get("title"));
          block.traverse(this);
-         book.merge();
+         builder.endExample(macroParameters.get("title"));
       }
       else
       {
@@ -430,7 +388,7 @@ class XDOMTransformer implements Listener
             {
                type = org.wikbook.core.model.content.inline.LinkType.URL;
             }
-            book.push(new LinkElement(type, ref));
+            builder.beginLink(type, ref);
             break;
          default:
             throw new UnsupportedOperationException();
@@ -442,7 +400,18 @@ class XDOMTransformer implements Listener
       switch (link.getType())
       {
          case URI:
-            book.merge();
+            String ref = link.getReference();
+            org.wikbook.core.model.content.inline.LinkType type;
+            if (ref.startsWith("#"))
+            {
+               ref = ref.substring(1);
+               type = org.wikbook.core.model.content.inline.LinkType.ANCHOR;
+            }
+            else
+            {
+               type = org.wikbook.core.model.content.inline.LinkType.URL;
+            }
+            builder.endLink(type, ref);
             break;
          default:
             throw new UnsupportedOperationException();
@@ -454,54 +423,55 @@ class XDOMTransformer implements Listener
    public void beginTable(Map<String, String> parameters)
    {
       String title = parameters.get("title");
-      book.push(new TableElement(title));
+      builder.beginTable(title);
    }
 
    public void beginTableRow(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doBeginTableRow(parameters);
+      builder.beginTableRow(parameters);
    }
 
    public void beginTableCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doBeginTableCell(parameters);
+      builder.beginTableCell(parameters);
    }
 
    public void beginTableHeadCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doBeginTableHeadCell(parameters);
+      builder.beginTableHeadCell(parameters);
    }
 
    public void endTable(Map<String, String> parameters)
    {
-      book.merge();
+      String title = parameters.get("title");
+      builder.endTable(title);
    }
 
    public void endTableRow(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doEndTableRow(parameters);
+      builder.endTableRow(parameters);
    }
 
    public void endTableCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doEndTableCell(parameters);
+      builder.endTableCell(parameters);
    }
 
    public void endTableHeadCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doEndTableHeadCell(parameters);
+      builder.endTableHeadCell(parameters);
    }
 
    //
 
    public void beginGroup(Map<String, String> parameters)
    {
-      book.push(new GroupElement());
+      builder.beginGroup();
    }
 
    public void endGroup(Map<String, String> parameters)
    {
-      book.merge();
+      builder.endGroup();
    }
 
    //
@@ -509,32 +479,33 @@ class XDOMTransformer implements Listener
    public void beginDefinitionList(Map<String, String> parameters)
    {
       String title = parameters.get("title");
-      book.push(new VariableListElement(title));
+      builder.beginDefinitionList(title);
    }
 
    public void beginDefinitionTerm()
    {
-      book.push(new TermElement());
+      builder.beginDefinitionTerm();
    }
 
    public void endDefinitionTerm()
    {
-      book.merge();
+      builder.endDefinitionTerm();
    }
 
    public void beginDefinitionDescription()
    {
-      book.push(new ListItemElement());
+      builder.beginDefinitionDescription();
    }
 
    public void endDefinitionDescription()
    {
-      book.merge();
+      builder.endDefinitionDescription();
    }
 
    public void endDefinitionList(Map<String, String> parameters)
    {
-      book.merge();
+      String title = parameters.get("title");
+      builder.endDefinitionList(title);
    }
 
    //
@@ -551,12 +522,12 @@ class XDOMTransformer implements Listener
 
    public void beginQuotation(Map<String, String> parameters)
    {
-      book.push(new BlockQuotationElement());
+      builder.beginQuotation();
    }
 
    public void endQuotation(Map<String, String> parameters)
    {
-      book.merge();
+      builder.endQuotation();
    }
 
    public void beginQuotationLine()
@@ -583,7 +554,7 @@ class XDOMTransformer implements Listener
 
    public void onVerbatim(String protectedString, boolean isInline, Map<String, String> parameters)
    {
-      book.merge(new TextElement(protectedString));
+      builder.onVerbatim(protectedString);
    }
 
    public void onRawText(String rawContent, Syntax syntax)
@@ -593,6 +564,6 @@ class XDOMTransformer implements Listener
 
    public void onImage(Image image, boolean isFreeStandingURI, Map<String, String> parameters)
    {
-      book.merge(new ImageElement(image.getName(), parameters));
+      builder.onImage(image.getName(), parameters);
    }
 }
