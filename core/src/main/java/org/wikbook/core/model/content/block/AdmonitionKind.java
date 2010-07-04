@@ -19,39 +19,21 @@
 
 package org.wikbook.core.model.content.block;
 
-import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.xml.XMLEmitter;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class AdmonitionElement extends BlockElement
+public enum AdmonitionKind
 {
 
-   /** . */
-   private final AdmonitionKind kind;
+   NOTE,
 
-   /** . */
-   private ElementContainer<ContentElement> content;
+   IMPORTANT,
 
-   public AdmonitionElement(AdmonitionKind kind)
-   {
-      this.kind = kind;
-      this.content = new ElementContainer<ContentElement>(ContentElement.class);
-   }
+   TIP,
 
-   @Override
-   public boolean append(DocbookElement elt)
-   {
-      return content.append(elt);
-   }
+   CAUTION,
 
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      content.writeTo(xml.element(kind.toString().toLowerCase()));
-   }
+   WARNING
+
 }

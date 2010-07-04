@@ -24,6 +24,7 @@ import org.wikbook.core.model.DocbookContext;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.Loader;
 import org.wikbook.core.model.content.block.AdmonitionElement;
+import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
 import org.wikbook.core.model.content.block.DOMElement;
 import org.wikbook.core.model.content.block.ExampleElement;
@@ -175,7 +176,7 @@ public abstract class BookBuilder
       book.merge();
    }
 
-   public void beginAdmonition(String admonition)
+   public void beginAdmonition(AdmonitionKind admonition)
    {
       if (isInline())
       {
@@ -188,7 +189,7 @@ public abstract class BookBuilder
       }
    }
 
-   public void endAdmonition(String admonition)
+   public void endAdmonition(AdmonitionKind admonition)
    {
       if (isInline())
       {

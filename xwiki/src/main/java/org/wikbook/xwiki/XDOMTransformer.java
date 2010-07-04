@@ -25,6 +25,7 @@ import org.wikbook.core.BookBuilderContext;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.AdmonitionElement;
+import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ListKind;
 import org.wikbook.core.model.content.inline.TextFormat;
@@ -46,6 +47,7 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
@@ -59,7 +61,7 @@ class XDOMTransformer implements Listener
 {
 
    /** . */
-   private static final Set<String> admonitions = new HashSet<String>();
+   private static final Map<String, AdmonitionKind> admonitions = new HashMap<String, AdmonitionKind>();
 
    /** . */
    private static final EnumMap<Format, TextFormat> formatMapping = new EnumMap<Format, TextFormat>(Format.class);
@@ -75,11 +77,12 @@ class XDOMTransformer implements Listener
 
    static
    {
-      admonitions.add("note");
-      admonitions.add("important");
-      admonitions.add("tip");
-      admonitions.add("caution");
-      admonitions.add("warning");
+      admonitions.put("note", AdmonitionKind.NOTE);
+      admonitions.put("info", AdmonitionKind.NOTE);
+      admonitions.put("important", AdmonitionKind.IMPORTANT);
+      admonitions.put("tip", AdmonitionKind.TIP);
+      admonitions.put("caution", AdmonitionKind.CAUTION);
+      admonitions.put("warning", AdmonitionKind.WARNING);
    }
 
    static
@@ -254,15 +257,16 @@ class XDOMTransformer implements Listener
 
    private void _onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)
    {
-      if (admonitions.contains(id))
+      AdmonitionKind admonition = admonitions.get(id);
+      if (admonition != null)
       {
          WikiLoader loader = new WikiLoader(context);
          Block block = loader.load(new StringReader(content), null);
 
          //
-         builder.beginAdmonition(id);
+         builder.beginAdmonition(admonition);
          block.traverse(this);
-         builder.endAdmonition(id);
+         builder.endAdmonition(admonition);
       }
       else if ("screen".equals(id))
       {

@@ -5,6 +5,9 @@
     <note>
       <para>note_value</para>
     </note>
+    <note>
+      <para>info_value</para>
+    </note>
     <important>
       <para>important_value</para>
     </important>
