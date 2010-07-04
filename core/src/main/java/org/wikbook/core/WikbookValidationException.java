@@ -19,43 +19,31 @@
 
 package org.wikbook.core;
 
-import java.io.IOException;
-import java.net.URL;
-import java.util.List;
-
 /**
+ * An exception thrown when a validation error occurs.
+ *
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class BookBuilderContext
+public class WikbookValidationException extends WikbookException
 {
 
-   public abstract boolean getHighlightCode();
-
-   public abstract ValidationMode getValidationMode();
-
-   public abstract void log(String msg);
-
-   public void onValidationError(String msg)
+   public WikbookValidationException()
    {
-      if (getValidationMode() == ValidationMode.STRICT)
-      {
-         throw new WikbookValidationException(msg);
-      }
-      else
-      {
-         log("Validation error:" + msg);
-      }
    }
 
-   public final URL resolveResource(ResourceType type, String id) throws IOException
+   public WikbookValidationException(String s)
    {
-      List<URL> found = resolveResources(type, id);
-      return found.isEmpty() ? null : found.get(0);
+      super(s);
    }
 
-   public abstract List<URL> resolveResources(ResourceType type, String id) throws IOException;
+   public WikbookValidationException(String s, Throwable throwable)
+   {
+      super(s, throwable);
+   }
 
-   public abstract String getProperty(String propertyName);
-
+   public WikbookValidationException(Throwable throwable)
+   {
+      super(throwable);
+   }
 }

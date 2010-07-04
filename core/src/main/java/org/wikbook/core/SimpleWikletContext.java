@@ -70,6 +70,11 @@ public class SimpleWikletContext extends BookBuilderContext
       return validationMode;
    }
 
+   public void log(String msg)
+   {
+      System.out.println(msg);
+   }
+
    public void setValidationMode(ValidationMode validationMode)
    {
       this.validationMode = validationMode;

@@ -113,6 +113,13 @@ public class WikBookMojo extends AbstractMojo
    private boolean emitDoctype;
 
    /**
+    * The wikbook validation mode, can either be <code>lax</code> or <code>strict</code>.
+    *
+    * @parameter default-value="lax"
+    */
+   private String validationMode;
+
+   /**
     * .
     *
     * @parameter default-value=""
@@ -290,6 +297,11 @@ public class WikBookMojo extends AbstractMojo
 
    private final BookBuilderContext context = new BookBuilderContext()
    {
+      public void log(String msg)
+      {
+         getLog().info(msg);
+      }
+
       public boolean getHighlightCode()
       {
          return highlightCode;
@@ -297,7 +309,14 @@ public class WikBookMojo extends AbstractMojo
 
       public ValidationMode getValidationMode()
       {
-         return ValidationMode.STRICT;
+         if ("strict".equalsIgnoreCase(validationMode))
+         {
+            return ValidationMode.STRICT;
+         }
+         else
+         {
+            return ValidationMode.LAX;
+         }
       }
 
       public List<URL> resolveResources(ResourceType type, String id) throws IOException

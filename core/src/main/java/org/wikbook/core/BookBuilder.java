@@ -118,22 +118,22 @@ public abstract class BookBuilder
       book.merge();
    }
 
-   public void beginSection(Map<String, String> parameters)
+   public void beginSection()
    {
       book.push(new ComponentElement());
    }
 
-   public void endSection(Map<String, String> parameters)
+   public void endSection()
    {
       book.merge();
    }
 
-   public void beginHeader(String id, Map<String, String> parameters)
+   public void beginHeader()
    {
       ((ComponentElement)book.peek()).beginTitle();
    }
 
-   public void endHeader(String id, Map<String, String> parameters)
+   public void endHeader()
    {
       ((ComponentElement)book.peek()).endTitle();
    }
@@ -177,13 +177,27 @@ public abstract class BookBuilder
 
    public void beginAdmonition(String admonition)
    {
-      AdmonitionElement admonitionElt = new AdmonitionElement(admonition);
-      book.push(admonitionElt);
+      if (isInline())
+      {
+         context.onValidationError("No admonition " + admonition + " allowed inside");
+      }
+      else
+      {
+         AdmonitionElement admonitionElt = new AdmonitionElement(admonition);
+         book.push(admonitionElt);
+      }
    }
 
    public void endAdmonition(String admonition)
    {
-      book.merge();
+      if (isInline())
+      {
+         context.onValidationError("No admonition " + admonition + " allowed inside");
+      }
+      else
+      {
+         book.merge();
+      }
    }
 
    public void beginExample(String title)
@@ -319,25 +333,18 @@ public abstract class BookBuilder
 
    public void onCode(LanguageSyntax language, Integer indent, String content)
    {
-      try
-      {
-         ProgramListingElement programListingElt = book.push(new ProgramListingElement(
-            context,
-            language,
-            indent,
-            content,
-            context.getHighlightCode()));
+      ProgramListingElement programListingElt = book.push(new ProgramListingElement(
+         context,
+         language,
+         indent,
+         content,
+         context.getHighlightCode()));
 
-         //
-         programListingElt.process(loader);
+      //
+      programListingElt.process(loader);
 
-         //
-         book.merge();
-      }
-      catch (ParserConfigurationException e)
-      {
-         e.printStackTrace();
-      }
+      //
+      book.merge();
    }
 
    public void onAnchor(String anchor)

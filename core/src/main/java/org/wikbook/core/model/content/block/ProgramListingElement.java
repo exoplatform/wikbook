@@ -26,6 +26,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.wikbook.core.BookBuilderContext;
 import org.wikbook.core.ResourceType;
+import org.wikbook.core.WikbookException;
 import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
 import org.wikbook.core.model.DocbookElement;
@@ -104,7 +105,7 @@ public class ProgramListingElement extends BlockElement
       LanguageSyntax languageSyntax,
       Integer indent,
       String content,
-      boolean highlightCode) throws ParserConfigurationException
+      boolean highlightCode)
    {
 
       //
@@ -113,27 +114,17 @@ public class ProgramListingElement extends BlockElement
       dbf.setCoalescing(true);
       dbf.setNamespaceAware(true);
       dbf.setXIncludeAware(false);
-      DocumentBuilder documentBuilder = dbf.newDocumentBuilder();
 
-/*
-      documentBuilder.setEntityResolver(new EntityResolver()
+      //
+      DocumentBuilder documentBuilder;
+      try
       {
-         public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException
-         {
-            if (systemId.startsWith("wikbook://"))
-            {
-               String id = systemId.substring("wikbook://".length());
-               URL resolved = context.resolveResource(ResourceType.XML, id);
-               if (resolved != null)
-               {
-                  return new InputSource(resolved.openStream());
-               }
-            }
-            return null;
-         }
-      });
-*/
-
+         documentBuilder = dbf.newDocumentBuilder();
+      }
+      catch (ParserConfigurationException e)
+      {
+         throw new WikbookException(e);
+      }
 
       //
       this.context = context;

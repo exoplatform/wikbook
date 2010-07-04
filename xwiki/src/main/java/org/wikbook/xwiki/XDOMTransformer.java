@@ -22,6 +22,7 @@ package org.wikbook.xwiki;
 import org.w3c.dom.Document;
 import org.wikbook.core.BookBuilder;
 import org.wikbook.core.BookBuilderContext;
+import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.LanguageSyntax;
@@ -62,6 +63,15 @@ class XDOMTransformer implements Listener
 
    /** . */
    private static final EnumMap<Format, TextFormat> formatMapping = new EnumMap<Format, TextFormat>(Format.class);
+
+   /** . */
+   private static final EnumMap<ListType, ListKind> mapping = new EnumMap<ListType, ListKind>(ListType.class);
+
+   static
+   {
+      mapping.put(ListType.BULLETED, ListKind.BULLETED);
+      mapping.put(ListType.NUMBERED, ListKind.NUMBERED);
+   }
 
    static
    {
@@ -141,22 +151,22 @@ class XDOMTransformer implements Listener
 
    public void beginSection(Map<String, String> parameters)
    {
-      builder.beginSection(parameters);
+      builder.beginSection();
    }
 
    public void endSection(Map<String, String> parameters)
    {
-      builder.endSection(parameters);
+      builder.endSection();
    }
 
    public void beginHeader(HeaderLevel level, String id, Map<String, String> parameters)
    {
-      builder.beginHeader(id, parameters);
+      builder.beginHeader();
    }
 
    public void endHeader(HeaderLevel level, String id, Map<String, String> parameters)
    {
-      builder.endHeader(id, parameters);
+      builder.endHeader();
    }
 
    //
@@ -188,9 +198,12 @@ class XDOMTransformer implements Listener
       TextFormat textFormat = formatMapping.get(format);
       if (textFormat == null)
       {
-         throw new UnsupportedOperationException("Format " + format + " is not yet handled");
+         context.onValidationError("Format " + format + " is not yet supported");
       }
-      builder.beginFormat(textFormat);
+      else
+      {
+         builder.beginFormat(textFormat);
+      }
    }
 
    public void endFormat(Format format, Map<String, String> parameters)
@@ -198,21 +211,15 @@ class XDOMTransformer implements Listener
       TextFormat textFormat = formatMapping.get(format);
       if (textFormat == null)
       {
-         throw new UnsupportedOperationException("Format " + format + " is not yet handled");
+         context.onValidationError("Format " + format + " is not yet supported");
       }
-      builder.endFormat(textFormat);
+      else
+      {
+         builder.endFormat(textFormat);
+      }
    }
 
    //
-
-   /** Trivial mapping. */
-   private static final EnumMap<ListType, ListKind> mapping = new EnumMap<ListType, ListKind>(ListType.class);
-
-   static
-   {
-      mapping.put(ListType.BULLETED, ListKind.BULLETED);
-      mapping.put(ListType.NUMBERED, ListKind.NUMBERED);
-   }
 
    public void beginList(ListType listType, Map<String, String> parameters)
    {
@@ -249,18 +256,6 @@ class XDOMTransformer implements Listener
    {
       if (admonitions.contains(id))
       {
-/*
-         if (isInline)
-         {
-            throw new UnsupportedOperationException("todo");
-         }
-         else
-         {
-         }
-*/
-         AdmonitionElement admonitionElt = new AdmonitionElement(id);
-
-         //
          WikiLoader loader = new WikiLoader(context);
          Block block = loader.load(new StringReader(content), null);
 
@@ -297,7 +292,7 @@ class XDOMTransformer implements Listener
          }
          catch (Exception e)
          {
-            e.printStackTrace();
+            throw new WikbookException(e);
          }
       }
       else if ("code".equals(id) || "java".equals(id) || "xml".equals(id))
@@ -368,7 +363,7 @@ class XDOMTransformer implements Listener
       }
       else
       {
-         throw new UnsupportedOperationException("Unsupported macro " + id);
+         context.onValidationError("Unsupported macro " + id);
       }
    }
 
@@ -393,7 +388,7 @@ class XDOMTransformer implements Listener
             builder.beginLink(type, ref);
             break;
          default:
-            throw new UnsupportedOperationException();
+            context.onValidationError("Unsupported link type " + link.getType());
       }
    }
 
@@ -416,7 +411,7 @@ class XDOMTransformer implements Listener
             builder.endLink(type, ref);
             break;
          default:
-            throw new UnsupportedOperationException();
+            context.onValidationError("Unsupported link type " + link.getType());
       }
    }
 
@@ -514,12 +509,12 @@ class XDOMTransformer implements Listener
 
    public void beginMacroMarker(String name, Map<String, String> macroParameters, String content, boolean isInline)
    {
-      throw new UnsupportedOperationException();
+      context.onValidationError("Not supported");
    }
 
    public void endMacroMarker(String name, Map<String, String> macroParameters, String content, boolean isInline)
    {
-      throw new UnsupportedOperationException();
+      context.onValidationError("Not supported");
    }
 
    public void beginQuotation(Map<String, String> parameters)
@@ -542,7 +537,7 @@ class XDOMTransformer implements Listener
 
    public void onId(String name)
    {
-      throw new UnsupportedOperationException();
+      context.onValidationError("Not supported");
    }
 
    public void onHorizontalLine(Map<String, String> parameters)
@@ -561,7 +556,7 @@ class XDOMTransformer implements Listener
 
    public void onRawText(String rawContent, Syntax syntax)
    {
-      throw new UnsupportedOperationException();
+      context.onValidationError("Not supported");
    }
 
    public void onImage(Image image, boolean isFreeStandingURI, Map<String, String> parameters)
