@@ -22,7 +22,7 @@ package org.wikbook.xwiki;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 import org.wikbook.core.WikbookException;
-import org.wikbook.core.WikletContext;
+import org.wikbook.core.BookBuilderContext;
 import org.xwiki.component.embed.EmbeddableComponentManager;
 import org.xwiki.component.manager.ComponentLookupException;
 import org.xwiki.rendering.block.Block;
@@ -56,12 +56,12 @@ class WikiLoader
 {
 
    /** . */
-   private final WikletContext context;
+   private final BookBuilderContext context;
 
    /** . */
    private final EmbeddableComponentManager ecm;
 
-   public WikiLoader(WikletContext context) throws WikbookException
+   public WikiLoader(BookBuilderContext context) throws WikbookException
    {
       EmbeddableComponentManager ecm = new EmbeddableComponentManager();
       ecm.initialize(Thread.currentThread().getContextClassLoader());

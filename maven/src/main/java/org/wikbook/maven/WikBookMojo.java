@@ -26,8 +26,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
+import org.wikbook.core.BookBuilderContext;
 import org.wikbook.core.ResourceType;
-import org.wikbook.core.WikletContext;
+import org.wikbook.core.ValidationMode;
 import org.wikbook.core.xml.XML;
 import org.wikbook.xwiki.WikletConverter;
 import org.xml.sax.InputSource;
@@ -59,7 +60,7 @@ import java.util.Set;
  * @phase compile
  * @requiresDependencyResolution
  */
-public class WikBookMojo extends AbstractMojo implements WikletContext
+public class WikBookMojo extends AbstractMojo
 {
 
    /**
@@ -210,7 +211,7 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       WikletConverter converter;
       try
       {
-         converter = new WikletConverter(this);
+         converter = new WikletConverter(context);
       }
       catch (Exception e)
       {
@@ -268,83 +269,6 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       }
    }
 
-   public boolean getHighlightCode()
-   {
-      return highlightCode;
-   }
-
-   public List<URL> resolveResources(ResourceType type, String id) throws IOException
-   {
-      if (id.length() > 0)
-      {
-         switch (type)
-         {
-            case WIKI:
-               File f = new File(sourceDirectory, id);
-               if (f.exists() && f.isFile())
-               {
-                  return Arrays.asList(f.toURI().toURL());
-               }
-               break;
-            case XML:
-               if (id.startsWith("/"))
-               {
-                  id = id.substring(1);
-               }
-            case JAVA:
-               LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
-
-               //
-               List<String> dirs = new ArrayList<String>();
-               dirs.addAll(compileSourceRoots);
-               dirs.addAll(compileClasspathElements);
-               dirs.addAll(testCompileSourceRoots);
-               dirs.addAll(testClasspathElements);
-
-               //
-               for (String elt : dirs)
-               {
-                  File eltFile = new File(elt);
-                  if (eltFile.exists())
-                  {
-                     urls.add(eltFile.toURI().toURL());
-                  }
-               }
-
-               //
-               for (Artifact artifact : (Set<Artifact>)session.getCurrentProject().getDependencyArtifacts())
-               {
-                  urls.add(artifact.getFile().toURI().toURL());
-               }
-
-               //
-               ClassLoader cl = new URLClassLoader(urls.toArray(new URL[urls.size()]), ClassLoader.getSystemClassLoader());
-               Enumeration<URL> found = cl.getResources(id);
-               ArrayList<URL> bilto = new ArrayList<URL>();
-               while (found.hasMoreElements())
-               {
-                  bilto.add(found.nextElement());
-               }
-
-               //
-               return bilto;
-         }
-      }
-      return Collections.emptyList();
-   }
-
-   public URL resolveResource(ResourceType type, String id) throws IOException
-   {
-      List<URL> found = resolveResources(type, id);
-      return found.isEmpty() ? null : found.get(0);
-   }
-
-   public String getProperty(String propertyName)
-   {
-      Properties properties = session.getCurrentProject().getProperties();
-      return properties.getProperty(propertyName);
-   }
-
    private static boolean hasTrimmedContent(String xml)
    {
       return xml != null && xml.trim().length() > 0;
@@ -363,4 +287,83 @@ public class WikBookMojo extends AbstractMojo implements WikletContext
       XML.copyStandaloneNodes(doc.getDocumentElement(), fragment);
       return fragment;
    }
+
+   private final BookBuilderContext context = new BookBuilderContext()
+   {
+      public boolean getHighlightCode()
+      {
+         return highlightCode;
+      }
+
+      public ValidationMode getValidationMode()
+      {
+         return ValidationMode.STRICT;
+      }
+
+      public List<URL> resolveResources(ResourceType type, String id) throws IOException
+      {
+         if (id.length() > 0)
+         {
+            switch (type)
+            {
+               case WIKI:
+                  File f = new File(sourceDirectory, id);
+                  if (f.exists() && f.isFile())
+                  {
+                     return Arrays.asList(f.toURI().toURL());
+                  }
+                  break;
+               case XML:
+                  if (id.startsWith("/"))
+                  {
+                     id = id.substring(1);
+                  }
+               case JAVA:
+                  LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
+
+                  //
+                  List<String> dirs = new ArrayList<String>();
+                  dirs.addAll(compileSourceRoots);
+                  dirs.addAll(compileClasspathElements);
+                  dirs.addAll(testCompileSourceRoots);
+                  dirs.addAll(testClasspathElements);
+
+                  //
+                  for (String elt : dirs)
+                  {
+                     File eltFile = new File(elt);
+                     if (eltFile.exists())
+                     {
+                        urls.add(eltFile.toURI().toURL());
+                     }
+                  }
+
+                  //
+                  for (Artifact artifact : (Set<Artifact>)session.getCurrentProject().getDependencyArtifacts())
+                  {
+                     urls.add(artifact.getFile().toURI().toURL());
+                  }
+
+                  //
+                  ClassLoader cl = new URLClassLoader(urls.toArray(new URL[urls.size()]), ClassLoader.getSystemClassLoader());
+                  Enumeration<URL> found = cl.getResources(id);
+                  ArrayList<URL> bilto = new ArrayList<URL>();
+                  while (found.hasMoreElements())
+                  {
+                     bilto.add(found.nextElement());
+                  }
+
+                  //
+                  return bilto;
+            }
+         }
+         return Collections.emptyList();
+      }
+
+      public String getProperty(String propertyName)
+      {
+         Properties properties = session.getCurrentProject().getProperties();
+         return properties.getProperty(propertyName);
+      }
+   };
 }

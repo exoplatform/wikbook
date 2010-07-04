@@ -27,15 +27,21 @@ import java.util.List;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public interface WikletContext
+public abstract class BookBuilderContext
 {
 
-   boolean getHighlightCode();
+   public abstract boolean getHighlightCode();
 
-   URL resolveResource(ResourceType type, String id) throws IOException;
+   public abstract ValidationMode getValidationMode();
 
-   List<URL> resolveResources(ResourceType type, String id) throws IOException;
+   public final URL resolveResource(ResourceType type, String id) throws IOException
+   {
+      List<URL> found = resolveResources(type, id);
+      return found.isEmpty() ? null : found.get(0);
+   }
 
-   String getProperty(String propertyName);
+   public abstract List<URL> resolveResources(ResourceType type, String id) throws IOException;
+
+   public abstract String getProperty(String propertyName);
 
 }

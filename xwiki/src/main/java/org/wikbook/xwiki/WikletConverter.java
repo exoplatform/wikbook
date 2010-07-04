@@ -21,9 +21,8 @@ package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
-import org.w3c.dom.Element;
+import org.wikbook.core.BookBuilderContext;
 import org.wikbook.core.WikbookException;
-import org.wikbook.core.WikletContext;
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
@@ -46,7 +45,7 @@ public class WikletConverter
 {
 
    /** . */
-   private final WikletContext context;
+   private final BookBuilderContext context;
 
    /** . */
    private boolean emitDoctype;
@@ -60,7 +59,7 @@ public class WikletConverter
    /** . */
    private DocumentFragment afterBookBodyXML;
 
-   public WikletConverter(WikletContext context) throws IOException, ClassNotFoundException
+   public WikletConverter(BookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
       this.emitDoctype = true;

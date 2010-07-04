@@ -34,7 +34,7 @@ import java.util.Map;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class SimpleWikletContext implements WikletContext
+public class SimpleWikletContext extends BookBuilderContext
 {
 
    /** . */
@@ -49,6 +49,9 @@ public class SimpleWikletContext implements WikletContext
    /** . */
    private boolean emitDoctype;
 
+   /** . */
+   private ValidationMode validationMode;
+
    public SimpleWikletContext(File base)
    {
       if (base == null)
@@ -59,6 +62,17 @@ public class SimpleWikletContext implements WikletContext
       this.properties = new HashMap<String, String>();
       this.emitDoctype = true;
       this.highlightCode = true;
+      this.validationMode = ValidationMode.STRICT;
+   }
+
+   public ValidationMode getValidationMode()
+   {
+      return validationMode;
+   }
+
+   public void setValidationMode(ValidationMode validationMode)
+   {
+      this.validationMode = validationMode;
    }
 
    public String getProperty(String propertyName)
@@ -116,12 +130,6 @@ public class SimpleWikletContext implements WikletContext
          }
       }
       return Collections.emptyList();
-   }
-
-   public URL resolveResource(ResourceType type, String id) throws IOException
-   {
-      List<URL> urls = resolveResources(type, id);
-      return urls.isEmpty() ? null : urls.get(0);
    }
 
    public boolean getHighlightCode()

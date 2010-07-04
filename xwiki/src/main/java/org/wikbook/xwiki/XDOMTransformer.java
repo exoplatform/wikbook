@@ -21,7 +21,7 @@ package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
 import org.wikbook.core.BookBuilder;
-import org.wikbook.core.WikletContext;
+import org.wikbook.core.BookBuilderContext;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.LanguageSyntax;
@@ -90,9 +90,9 @@ class XDOMTransformer implements Listener
    final BookBuilder builder;
 
    /** . */
-   final WikletContext context;
+   final BookBuilderContext context;
 
-   public XDOMTransformer(final WikletContext context) throws IOException, ClassNotFoundException
+   public XDOMTransformer(final BookBuilderContext context) throws IOException, ClassNotFoundException
    {
 
 

@@ -62,7 +62,7 @@ public abstract class BookBuilder
 {
 
    /** . */
-   private final WikletContext context;
+   private final BookBuilderContext context;
 
    /** . */
    private DocbookContext bookContext;
@@ -79,7 +79,7 @@ public abstract class BookBuilder
       }
    };
 
-   public BookBuilder(WikletContext context) throws IOException, ClassNotFoundException
+   public BookBuilder(BookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
    }
