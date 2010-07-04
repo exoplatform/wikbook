@@ -62,14 +62,6 @@ public class CodeProcessor
       "^" + WHITE_NON_CR + "*" + "$");
 
    /** . */
-   public static final Pattern BILTO = Pattern.compile(
-      "^(?:" +
-         "(?:" + WHITE_NON_CR + "*//" + WHITE_NON_CR + "*" + "-([0-9]+)-" + WHITE_NON_CR + "*)" +
-         "|" +
-         "(?:" + WHITE_NON_CR + "*)" +
-         ")$", Pattern.MULTILINE);
-
-   /** . */
    public static final Pattern JAVA_INCLUDE_PATTERN = Pattern.compile(
       "\\{" + "@(include|javadoc)" + "\\s+" + "([^\\s]+)" + "\\s*" + "(\\{[0-9]+(?:,[0-9]+)*\\})?" + "\\s*" + "\\}"
    );
