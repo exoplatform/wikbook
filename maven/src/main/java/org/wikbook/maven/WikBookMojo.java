@@ -30,7 +30,7 @@ import org.wikbook.core.BookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.ValidationMode;
 import org.wikbook.core.xml.XML;
-import org.wikbook.xwiki.WikletConverter;
+import org.wikbook.xwiki.WikbookConverter;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 
@@ -215,10 +215,10 @@ public class WikBookMojo extends AbstractMojo
       }
 
       //
-      WikletConverter converter;
+      WikbookConverter converter;
       try
       {
-         converter = new WikletConverter(context);
+         converter = new WikbookConverter(context);
       }
       catch (Exception e)
       {

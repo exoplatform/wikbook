@@ -41,7 +41,7 @@ import java.io.StringWriter;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class WikletConverter
+public class WikbookConverter
 {
 
    /** . */
@@ -59,7 +59,7 @@ public class WikletConverter
    /** . */
    private DocumentFragment afterBookBodyXML;
 
-   public WikletConverter(BookBuilderContext context) throws IOException, ClassNotFoundException
+   public WikbookConverter(BookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
       this.emitDoctype = true;

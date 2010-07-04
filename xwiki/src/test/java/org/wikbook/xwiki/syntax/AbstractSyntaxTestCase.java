@@ -27,7 +27,7 @@ import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
 import org.wikbook.core.SimpleBookBuilderContext;
 import org.wikbook.core.xml.XML;
-import org.wikbook.xwiki.WikletConverter;
+import org.wikbook.xwiki.WikbookConverter;
 import org.xwiki.rendering.syntax.Syntax;
 
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -89,7 +89,7 @@ public abstract class AbstractSyntaxTestCase extends TestCase
          if (file.exists())
          {
             DOMResult dom = new DOMResult();
-            WikletConverter converter = new WikletConverter(context);
+            WikbookConverter converter = new WikbookConverter(context);
             converter.setEmitDoctype(false);
             converter.setSyntaxId(test.syntaxId);
             converter.convert(test.fileName, dom);
