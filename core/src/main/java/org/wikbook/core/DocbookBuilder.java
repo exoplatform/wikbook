@@ -50,7 +50,6 @@ import org.wikbook.core.model.content.inline.TextFormat;
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.model.structural.ComponentElement;
 
-import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.Map;
@@ -59,11 +58,11 @@ import java.util.Map;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class BookBuilder
+public abstract class DocbookBuilder
 {
 
    /** . */
-   private final BookBuilderContext context;
+   private final DocbookBuilderContext context;
 
    /** . */
    private DocbookContext bookContext;
@@ -76,11 +75,11 @@ public abstract class BookBuilder
    {
       public void load(Reader reader)
       {
-         BookBuilder.this.load(reader);
+         DocbookBuilder.this.load(reader);
       }
    };
 
-   public BookBuilder(BookBuilderContext context) throws IOException, ClassNotFoundException
+   public DocbookBuilder(DocbookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
    }

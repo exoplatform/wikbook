@@ -20,11 +20,10 @@
 package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
-import org.wikbook.core.BookBuilder;
-import org.wikbook.core.BookBuilderContext;
+import org.wikbook.core.DocbookBuilder;
+import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ListKind;
@@ -48,10 +47,8 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -100,19 +97,19 @@ class XDOMTransformer implements Listener
    final LinkedList<String> syntaxStack;
 
    /** . */
-   final BookBuilder builder;
+   final DocbookBuilder builder;
 
    /** . */
-   final BookBuilderContext context;
+   final DocbookBuilderContext context;
 
-   public XDOMTransformer(final BookBuilderContext context) throws IOException, ClassNotFoundException
+   public XDOMTransformer(final DocbookBuilderContext context) throws IOException, ClassNotFoundException
    {
 
 
       //
       this.context = context;
       this.syntaxStack = new LinkedList<String>();
-      this.builder = new BookBuilder(context)
+      this.builder = new DocbookBuilder(context)
       {
          @Override
          protected void load(Reader reader)

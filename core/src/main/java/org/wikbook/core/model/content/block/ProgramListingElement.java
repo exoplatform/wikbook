@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.wikbook.core.BookBuilderContext;
+import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.codesource.CodeContext;
@@ -86,7 +86,7 @@ public class ProgramListingElement extends BlockElement
    private final String content;
 
    /** . */
-   private final BookBuilderContext context;
+   private final DocbookBuilderContext context;
 
    /** . */
    private final boolean highlightCode;
@@ -101,7 +101,7 @@ public class ProgramListingElement extends BlockElement
    private final XPath xpath;
 
    public ProgramListingElement(
-      final BookBuilderContext context,
+      final DocbookBuilderContext context,
       LanguageSyntax languageSyntax,
       Integer indent,
       String content,

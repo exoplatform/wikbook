@@ -26,7 +26,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
-import org.wikbook.core.BookBuilderContext;
+import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.ValidationMode;
 import org.wikbook.core.xml.XML;
@@ -295,7 +295,7 @@ public class WikBookMojo extends AbstractMojo
       return fragment;
    }
 
-   private final BookBuilderContext context = new BookBuilderContext()
+   private final DocbookBuilderContext context = new DocbookBuilderContext()
    {
       public void log(String msg)
       {
