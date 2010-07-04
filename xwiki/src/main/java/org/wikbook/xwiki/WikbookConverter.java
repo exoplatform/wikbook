@@ -21,13 +21,12 @@ package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.DocumentFragment;
-import org.wikbook.core.DocbookBuilderContext;
+import org.wikbook.core.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
-import org.xwiki.rendering.block.Block;
 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.Result;
@@ -35,6 +34,7 @@ import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.StringWriter;
 
 /**
@@ -45,7 +45,7 @@ public class WikbookConverter
 {
 
    /** . */
-   private final DocbookBuilderContext context;
+   private final AbstractXDOMDocbookBuilderContext context;
 
    /** . */
    private boolean emitDoctype;
@@ -59,7 +59,7 @@ public class WikbookConverter
    /** . */
    private DocumentFragment afterBookBodyXML;
 
-   public WikbookConverter(DocbookBuilderContext context) throws IOException, ClassNotFoundException
+   public WikbookConverter(AbstractXDOMDocbookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
       this.emitDoctype = true;
@@ -147,16 +147,16 @@ public class WikbookConverter
 
    private void _convert2(String id, Result result) throws Exception
    {
-      WikiLoader loader = new WikiLoader(context);
+      Reader reader = context._load(id);
 
       //
-      Block main = loader.load(id, syntaxId);
+      BookElement elt = new BookElement();
 
       //
-      XDOMTransformer xdomTransformer = new XDOMTransformer(context);
+      DocbookBuilder builder = new DocbookBuilder(context, elt);
 
-      // Create book element
-      BookElement elt = (BookElement)xdomTransformer.transform(main);
+      //
+      context.build(reader, builder, syntaxId);
 
       // Configure before and after body
       elt.setBeforeBodyXML(beforeBookBodyXML);

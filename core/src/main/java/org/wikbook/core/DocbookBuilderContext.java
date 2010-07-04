@@ -20,6 +20,7 @@
 package org.wikbook.core;
 
 import java.io.IOException;
+import java.io.Reader;
 import java.net.URL;
 import java.util.List;
 
@@ -57,5 +58,7 @@ public abstract class DocbookBuilderContext
    public abstract List<URL> resolveResources(ResourceType type, String id) throws IOException;
 
    public abstract String getProperty(String propertyName);
+
+   public abstract void build(Reader reader, DocbookBuilder builder);
 
 }

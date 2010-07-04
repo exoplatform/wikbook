@@ -20,9 +20,7 @@
 package org.wikbook.core;
 
 import org.w3c.dom.Element;
-import org.wikbook.core.model.DocbookContext;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.Loader;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
@@ -47,132 +45,106 @@ import org.wikbook.core.model.content.inline.LinkElement;
 import org.wikbook.core.model.content.inline.LinkType;
 import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.content.inline.TextFormat;
-import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.model.structural.ComponentElement;
 
-import java.io.IOException;
-import java.io.Reader;
 import java.util.Map;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class DocbookBuilder
+public class DocbookBuilder
 {
 
    /** . */
    private final DocbookBuilderContext context;
 
    /** . */
-   private DocbookContext bookContext;
+   private DocbookElement root;
 
-   /** . */
-   private BookElement book;
-
-   /** . */
-   private final Loader loader = new Loader()
-   {
-      public void load(Reader reader)
-      {
-         DocbookBuilder.this.load(reader);
-      }
-   };
-
-   public DocbookBuilder(DocbookBuilderContext context) throws IOException, ClassNotFoundException
+   public DocbookBuilder(DocbookBuilderContext context, DocbookElement root)
    {
       this.context = context;
+      this.root = root;
    }
 
    public boolean isInline()
    {
       // Determine inline according to the docbook context and not according to what the parser tell us
-      DocbookElement elt = book.peek();
+      DocbookElement elt = root.peek();
       return elt instanceof InlineElement;
    }
 
-   public BookElement getBook()
+   public DocbookElement getRoot()
    {
-      return book;
-   }
-
-   public void beginBook()
-   {
-      book = new BookElement();
-      bookContext = new DocbookContext(book);
-   }
-
-   public void endBook()
-   {
-      bookContext = null;
-      book.close();
+      return root;
    }
 
    public void beginParagraph()
    {
-      book.push(new ParagraphElement());
+      root.push(new ParagraphElement());
    }
 
    public void endParagraph()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginSection()
    {
-      book.push(new ComponentElement());
+      root.push(new ComponentElement());
    }
 
    public void endSection()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginHeader()
    {
-      ((ComponentElement)book.peek()).beginTitle();
+      ((ComponentElement)root.peek()).beginTitle();
    }
 
    public void endHeader()
    {
-      ((ComponentElement)book.peek()).endTitle();
+      ((ComponentElement)root.peek()).endTitle();
    }
 
    //
 
    public void onText(String text)
    {
-      book.merge(new TextElement(text));
+      root.merge(new TextElement(text));
    }
 
    public void beginFormat(TextFormat format)
    {
-      book.push(new FormatElement(format));
+      root.push(new FormatElement(format));
    }
 
    public void endFormat(TextFormat format)
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginList(ListKind listKind, String style)
    {
-      book.push(new ListElement(listKind, style));
+      root.push(new ListElement(listKind, style));
    }
 
    public void endList(ListKind listKind, String style)
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginListItem()
    {
-      book.push(new ListItemElement());
+      root.push(new ListItemElement());
    }
 
    public void endListItem()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginAdmonition(AdmonitionKind admonition)
@@ -184,7 +156,7 @@ public abstract class DocbookBuilder
       else
       {
          AdmonitionElement admonitionElt = new AdmonitionElement(admonition);
-         book.push(admonitionElt);
+         root.push(admonitionElt);
       }
    }
 
@@ -196,144 +168,144 @@ public abstract class DocbookBuilder
       }
       else
       {
-         book.merge();
+         root.merge();
       }
    }
 
    public void beginExample(String title)
    {
-      book.push(new ExampleElement(title));
+      root.push(new ExampleElement(title));
    }
 
    public void endExample(String title)
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginLink(LinkType linkType, String ref)
    {
-      book.push(new LinkElement(linkType, ref));
+      root.push(new LinkElement(linkType, ref));
    }
 
    public void endLink(LinkType linkType, String ref)
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginScreen()
    {
       ScreenElement screenElt = new ScreenElement();
-      book.push(screenElt);
+      root.push(screenElt);
    }
 
    public void endScreen()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginTable(String title)
    {
-      book.push(new TableElement(title));
+      root.push(new TableElement(title));
    }
 
    public void endTable(String title)
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginTableRow(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doBeginTableRow(parameters);
+      ((TableElement)root.peek()).doBeginTableRow(parameters);
    }
 
    public void endTableRow(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doEndTableRow(parameters);
+      ((TableElement)root.peek()).doEndTableRow(parameters);
    }
 
    public void beginTableCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doBeginTableCell(parameters);
+      ((TableElement)root.peek()).doBeginTableCell(parameters);
    }
 
    public void endTableCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doEndTableCell(parameters);
+      ((TableElement)root.peek()).doEndTableCell(parameters);
    }
 
    public void beginTableHeadCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doBeginTableHeadCell(parameters);
+      ((TableElement)root.peek()).doBeginTableHeadCell(parameters);
    }
 
    public void endTableHeadCell(Map<String, String> parameters)
    {
-      ((TableElement)book.peek()).doEndTableHeadCell(parameters);
+      ((TableElement)root.peek()).doEndTableHeadCell(parameters);
    }
 
    public void beginDefinitionList(String title)
    {
-      book.push(new VariableListElement(title));
+      root.push(new VariableListElement(title));
    }
 
    public void endDefinitionList(String title)
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginDefinitionTerm()
    {
-      book.push(new TermElement());
+      root.push(new TermElement());
    }
 
    public void endDefinitionTerm()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginDefinitionDescription()
    {
-      book.push(new ListItemElement());
+      root.push(new ListItemElement());
    }
 
    public void endDefinitionDescription()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginQuotation()
    {
-      book.push(new BlockQuotationElement());
+      root.push(new BlockQuotationElement());
    }
 
    public void endQuotation()
    {
-      book.merge();
+      root.merge();
    }
 
    public void beginGroup()
    {
-      book.push(new GroupElement());
+      root.push(new GroupElement());
    }
 
    public void endGroup()
    {
-      book.merge();
+      root.merge();
    }
 
    public void onVerbatim(String text)
    {
-      book.merge(new TextElement(text));
+      root.merge(new TextElement(text));
    }
 
    public void onImage(String imageName, Map<String, String> parameters)
    {
-      book.merge(new ImageElement(imageName, parameters));
+      root.merge(new ImageElement(imageName, parameters));
    }
 
    public void onCode(LanguageSyntax language, Integer indent, String content)
    {
-      ProgramListingElement programListingElt = book.push(new ProgramListingElement(
+      ProgramListingElement programListingElt = root.push(new ProgramListingElement(
          context,
          language,
          indent,
@@ -341,23 +313,19 @@ public abstract class DocbookBuilder
          context.getHighlightCode()));
 
       //
-      programListingElt.process(loader);
+      programListingElt.process();
 
       //
-      book.merge();
+      root.merge();
    }
 
    public void onAnchor(String anchor)
    {
-      book.merge(new AnchorElement(anchor));
+      root.merge(new AnchorElement(anchor));
    }
 
    public void onDocbook(Element docbookElt)
    {
-      book.merge(new DOMElement(docbookElt));
+      root.merge(new DOMElement(docbookElt));
    }
-
-   protected abstract void load(Reader reader);
-
-
 }

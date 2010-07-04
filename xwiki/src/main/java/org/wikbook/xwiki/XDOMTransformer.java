@@ -21,9 +21,7 @@ package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
 import org.wikbook.core.DocbookBuilder;
-import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.WikbookException;
-import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ListKind;
@@ -42,12 +40,9 @@ import org.xwiki.rendering.syntax.Syntax;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
-import java.io.IOException;
-import java.io.Reader;
 import java.io.StringReader;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 
 /**
@@ -94,39 +89,15 @@ class XDOMTransformer implements Listener
    }
 
    /** . */
-   final LinkedList<String> syntaxStack;
+   private DocbookBuilder builder;
 
    /** . */
-   final DocbookBuilder builder;
+   final AbstractXDOMDocbookBuilderContext context;
 
-   /** . */
-   final DocbookBuilderContext context;
-
-   public XDOMTransformer(final DocbookBuilderContext context) throws IOException, ClassNotFoundException
+   public XDOMTransformer(AbstractXDOMDocbookBuilderContext context, DocbookBuilder builder)
    {
-
-
-      //
       this.context = context;
-      this.syntaxStack = new LinkedList<String>();
-      this.builder = new DocbookBuilder(context)
-      {
-         @Override
-         protected void load(Reader reader)
-         {
-            WikiLoader loader = new WikiLoader(context);
-            Block block = loader.load(reader, syntaxStack.getLast());
-            block.traverse(XDOMTransformer.this);
-         }
-      };
-   }
-
-   public DocbookElement transform(Block block)
-   {
-      builder.beginBook();
-      block.traverse(this);
-      builder.endBook();
-      return builder.getBook();
+      this.builder = builder;
    }
 
    public void beginDocument(Map<String, String> parameters)
@@ -357,7 +328,7 @@ class XDOMTransformer implements Listener
             throw new UnsupportedOperationException();
          }
          WikiLoader loader = new WikiLoader(context);
-         Block block = loader.load(new StringReader(content), syntaxStack.getLast());
+         Block block = loader.load(new StringReader(content), context.syntaxStack.getLast());
          builder.beginExample(macroParameters.get("title"));
          block.traverse(this);
          builder.endExample(macroParameters.get("title"));

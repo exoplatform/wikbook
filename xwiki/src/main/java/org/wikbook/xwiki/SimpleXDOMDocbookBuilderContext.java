@@ -17,7 +17,10 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core;
+package org.wikbook.xwiki;
+
+import org.wikbook.core.ResourceType;
+import org.wikbook.core.ValidationMode;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,7 +37,7 @@ import java.util.Map;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class SimpleBookBuilderContext extends DocbookBuilderContext
+public class SimpleXDOMDocbookBuilderContext extends AbstractXDOMDocbookBuilderContext
 {
 
    /** . */
@@ -52,7 +55,7 @@ public class SimpleBookBuilderContext extends DocbookBuilderContext
    /** . */
    private ValidationMode validationMode;
 
-   public SimpleBookBuilderContext(File base)
+   public SimpleXDOMDocbookBuilderContext(File base)
    {
       if (base == null)
       {

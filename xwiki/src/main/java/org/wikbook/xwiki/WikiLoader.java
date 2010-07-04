@@ -19,10 +19,8 @@
 
 package org.wikbook.xwiki;
 
-import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 import org.wikbook.core.WikbookException;
-import org.wikbook.core.DocbookBuilderContext;
 import org.xwiki.component.embed.EmbeddableComponentManager;
 import org.xwiki.component.manager.ComponentLookupException;
 import org.xwiki.rendering.block.Block;
@@ -43,7 +41,6 @@ import org.xwiki.rendering.syntax.Syntax;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -56,12 +53,12 @@ class WikiLoader
 {
 
    /** . */
-   private final DocbookBuilderContext context;
+   private final AbstractXDOMDocbookBuilderContext context;
 
    /** . */
    private final EmbeddableComponentManager ecm;
 
-   public WikiLoader(DocbookBuilderContext context) throws WikbookException
+   public WikiLoader(AbstractXDOMDocbookBuilderContext context) throws WikbookException
    {
       EmbeddableComponentManager ecm = new EmbeddableComponentManager();
       ecm.initialize(Thread.currentThread().getContextClassLoader());
@@ -69,11 +66,6 @@ class WikiLoader
       //
       this.context = context;
       this.ecm = ecm;
-   }
-
-   public Block load(String id, String syntaxId) throws WikbookException
-   {
-      return load(id, syntaxId, 0);
    }
 
    public Block load(Reader reader, String syntaxId) throws WikbookException
@@ -85,7 +77,7 @@ class WikiLoader
    {
       try
       {
-         Reader reader = _load(id);
+         Reader reader = context._load(id);
          return load(reader, syntaxId, baseLevel);
       }
       catch (IOException e)
@@ -180,23 +172,6 @@ class WikiLoader
       {
          throw new WikbookException(e);
       }
-   }
-
-   /**
-    * Load the document with the specified id.
-    *
-    * @param id the document id
-    * @return a reader for the document
-    * @throws IOException any io exception
-    */
-   private Reader _load(String id) throws IOException
-   {
-      URL main = context.resolveResource(ResourceType.WIKI, id);
-      if (main == null)
-      {
-         throw new IOException("Could not load wiki document: " + id);
-      }
-      return Utils.read(main);
    }
 
    /**

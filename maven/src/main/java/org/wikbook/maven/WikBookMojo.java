@@ -30,6 +30,7 @@ import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.ValidationMode;
 import org.wikbook.core.xml.XML;
+import org.wikbook.xwiki.AbstractXDOMDocbookBuilderContext;
 import org.wikbook.xwiki.WikbookConverter;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -295,7 +296,7 @@ public class WikBookMojo extends AbstractMojo
       return fragment;
    }
 
-   private final DocbookBuilderContext context = new DocbookBuilderContext()
+   private final AbstractXDOMDocbookBuilderContext context = new AbstractXDOMDocbookBuilderContext()
    {
       public void log(String msg)
       {

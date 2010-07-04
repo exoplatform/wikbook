@@ -28,8 +28,8 @@ import org.wikbook.core.xml.XMLEmitter;
 public abstract class DocbookElement
 {
 
-   /** . */
-   DocbookContext context;
+   /** The parent element. */
+   private DocbookElement parent;
 
    /**
     * The current child element that is pushed onto the stack. The chained list created by following the
@@ -40,12 +40,6 @@ public abstract class DocbookElement
 
    public final void close()
    {
-      if (context == null)
-      {
-         throw new IllegalStateException();
-      }
-
-      //
       DocbookElement currentElt = currentChildElt;
       currentChildElt = null;
 
@@ -64,12 +58,6 @@ public abstract class DocbookElement
 
    private DocbookElement current(boolean remove)
    {
-      if (context == null)
-      {
-         throw new IllegalStateException();
-      }
-
-      //
       DocbookElement currentElt = currentChildElt;
 
       //
@@ -83,7 +71,7 @@ public abstract class DocbookElement
             if (remove)
             {
                currentChildElt = null;
-               currentElt.context = null;
+               currentElt.parent = null;
             }
          }
          else
@@ -108,19 +96,15 @@ public abstract class DocbookElement
 
    public final <E extends DocbookElement> E push(E elt)
    {
-      if (context == null)
+      if (elt.parent != null)
       {
-         throw new IllegalStateException();
-      }
-      if (elt.context != null)
-      {
-         throw new IllegalArgumentException("Already contextualized");
+         throw new IllegalArgumentException("Already has a parent");
       }
       DocbookElement currentElt = currentChildElt;
       if (currentElt == null)
       {
          currentChildElt = elt;
-         elt.context = context;
+         elt.parent = this;
          return elt;
       }
       else
@@ -140,13 +124,9 @@ public abstract class DocbookElement
       {
          throw new NullPointerException();
       }
-      if (context == null)
+      if (elt.parent != null)
       {
-         throw new IllegalStateException("No associated context with the element performing the merge");
-      }
-      if (elt.context != null)
-      {
-         throw new IllegalArgumentException("Already contextualized");
+         throw new IllegalArgumentException("Already has a parent");
       }
 
       //
@@ -165,15 +145,10 @@ public abstract class DocbookElement
       }
 
       //
-      elt.context = context;
+      elt.parent = this;
 
       //
       return elt;
-   }
-
-   protected final DocbookContext getContext()
-   {
-      return context;
    }
 
    protected boolean append(DocbookElement elt)

@@ -49,7 +49,7 @@ class IncludeBlock extends AbstractFatherBlock
    {
       if (listener instanceof XDOMTransformer)
       {
-         ((XDOMTransformer)listener).syntaxStack.addLast(syntaxId);
+         ((XDOMTransformer)listener).context.syntaxStack.addLast(syntaxId);
       }
    }
 
@@ -57,7 +57,7 @@ class IncludeBlock extends AbstractFatherBlock
    {
       if (listener instanceof XDOMTransformer)
       {
-         ((XDOMTransformer)listener).syntaxStack.removeLast();
+         ((XDOMTransformer)listener).context.syntaxStack.removeLast();
       }
    }
 }

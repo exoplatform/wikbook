@@ -25,7 +25,7 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
-import org.wikbook.core.SimpleBookBuilderContext;
+import org.wikbook.xwiki.SimpleXDOMDocbookBuilderContext;
 import org.wikbook.core.xml.XML;
 import org.wikbook.xwiki.WikbookConverter;
 import org.xwiki.rendering.syntax.Syntax;
@@ -81,7 +81,7 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       File base = new File(System.getProperty("basedir"));
       File path = new File(base, "src/test/resources/wiki" + testPath);
       assertTrue(path.isDirectory());
-      SimpleBookBuilderContext context = new SimpleBookBuilderContext(path);
+      SimpleXDOMDocbookBuilderContext context = new SimpleXDOMDocbookBuilderContext(path);
       context.setProperty("property_name", "propertyvalue");
       for (Test test : tests)
       {

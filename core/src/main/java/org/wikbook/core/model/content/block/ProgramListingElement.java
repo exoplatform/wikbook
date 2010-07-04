@@ -24,6 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
+import org.wikbook.core.DocbookBuilder;
 import org.wikbook.core.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikbookException;
@@ -31,7 +32,6 @@ import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.Loader;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -205,7 +205,7 @@ public class ProgramListingElement extends BlockElement
       }
    }
 
-   public void process(Loader loader)
+   public void process()
    {
       String bilto;
       switch (languageSyntax)
@@ -274,10 +274,14 @@ public class ProgramListingElement extends BlockElement
                if (callout.getValue().text != null)
                {
                   CalloutElement calloutElt = new CalloutElement(callout.getValue().ids, callout.getValue().text);
+
+                  //
                   push(calloutElt);
 
-                  loader.load(new StringReader(callout.getValue().text));
+                  //
+                  context.build(new StringReader(callout.getValue().text), new DocbookBuilder(context, calloutElt));
 
+                  //
                   merge();
                }
             }
