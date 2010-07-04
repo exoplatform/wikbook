@@ -34,7 +34,7 @@ import java.util.Map;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class SimpleWikletContext extends BookBuilderContext
+public class SimpleBookBuilderContext extends BookBuilderContext
 {
 
    /** . */
@@ -52,7 +52,7 @@ public class SimpleWikletContext extends BookBuilderContext
    /** . */
    private ValidationMode validationMode;
 
-   public SimpleWikletContext(File base)
+   public SimpleBookBuilderContext(File base)
    {
       if (base == null)
       {
