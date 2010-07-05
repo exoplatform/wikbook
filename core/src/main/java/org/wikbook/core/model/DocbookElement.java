@@ -184,6 +184,9 @@ public abstract class DocbookElement
       return elt;
    }
 
+   // public abstract boolean wantInline();
+
+
    protected boolean append(DocbookElement elt)
    {
       return false;

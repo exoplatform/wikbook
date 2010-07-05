@@ -29,35 +29,19 @@ import org.wikbook.core.xml.XMLEmitter;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ContentContainer
+public class ContentContainer extends ElementContainer<ContentElement>
 {
-
-   /** . */
-   private final ElementContainer<ContentElement> container = new ElementContainer<ContentElement>(ContentElement.class);
 
    public ContentContainer()
    {
+      super(ContentElement.class);
    }
 
-   public boolean isNotEmpty()
-   {
-      return container.isNotEmpty();
-   }
-
-   public boolean isEmpty()
-   {
-      return container.isEmpty();
-   }
-
-   public boolean append(DocbookElement elt)
-   {
-      return container.append(elt);
-   }
-
-   public void writeTo(XMLEmitter emitter)
+   @Override
+   protected void write(Iterable<ContentElement> elements, XMLEmitter emitter)
    {
       ElementEmitter paraXML = null;
-      for (ContentElement e : container)
+      for (ContentElement e : elements)
       {
          if (e instanceof BlockElement)
          {

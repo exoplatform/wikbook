@@ -78,6 +78,11 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
 
    public void writeTo(XMLEmitter emitter)
    {
+      write(elements, emitter);
+   }
+
+   protected void write(Iterable<E> elements, XMLEmitter emitter)
+   {
       for (E elt : elements)
       {
          elt.writeTo(emitter);
