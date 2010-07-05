@@ -22,8 +22,6 @@ package org.wikbook.core.model.content.block.table;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 
-import java.util.Map;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
