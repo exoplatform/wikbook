@@ -25,3 +25,6 @@ Resources:
 - http://platform.xwiki.org/xwiki/bin/view/Main/XWikiSyntax
 - http://code.xwiki.org/xwiki/bin/view/Modules/RenderingModule
 - http://svn.xwiki.org/svnroot/xwiki/platform/core/trunk/xwiki-rendering/xwiki-rendering-tests/src/test/resources/
+
+Stylesheet:
+- http://code.google.com/p/asciidoc/
