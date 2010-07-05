@@ -3,6 +3,7 @@
 - on the fly SVG rasterization
 - code line wrapping for XML and Java
 - table cell alignement
+- make a cheatsheet
 
 Investigate this tip about line wrapping in code:
 
