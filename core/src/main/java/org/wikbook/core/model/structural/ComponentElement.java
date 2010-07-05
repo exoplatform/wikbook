@@ -20,8 +20,8 @@
 package org.wikbook.core.model.structural;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementList;
-import org.wikbook.core.model.content.ContentList;
+import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.InlineElement;
@@ -39,13 +39,13 @@ public class ComponentElement extends StructuralElement
    private boolean doTitle;
 
    /** . */
-   protected ElementList<InlineElement> title;
+   protected ElementContainer<InlineElement> title;
 
    /** . */
-   protected ContentList content = null;
+   protected ContentElementContainer content = null;
 
    /** . */
-   protected ElementList<ComponentElement> components = null;
+   protected ElementContainer<ComponentElement> components = null;
 
    /** . */
    protected String id;
@@ -70,7 +70,7 @@ public class ComponentElement extends StructuralElement
       {
          if (title == null)
          {
-            title = new ElementList<InlineElement>(InlineElement.class);
+            title = new ElementContainer<InlineElement>(InlineElement.class);
          }
          if (elt instanceof AnchorElement)
          {
@@ -90,7 +90,7 @@ public class ComponentElement extends StructuralElement
          }
          if (content == null)
          {
-            content = new ContentList();
+            content = new ContentElementContainer();
          }
          return content.append(elt);
       }
@@ -98,7 +98,7 @@ public class ComponentElement extends StructuralElement
       {
          if (components == null)
          {
-            components = new ElementList<ComponentElement>(ComponentElement.class);
+            components = new ElementContainer<ComponentElement>(ComponentElement.class);
          }
          ComponentElement componentElt = (ComponentElement)elt;
          componentElt.level = level + 1;

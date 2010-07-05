@@ -220,7 +220,7 @@ class XDOMTransformer implements Listener
 
    public void onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)
    {
-      _onMacro(id, macroParameters, content, builder.isInline());
+      _onMacro(id, macroParameters, content, builder.isInlineContext());
    }
 
    private void _onMacro(String id, Map<String, String> macroParameters, String content, boolean isInline)

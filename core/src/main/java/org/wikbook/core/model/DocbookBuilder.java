@@ -104,10 +104,13 @@ public class DocbookBuilder
       root.context = null;
    }
 
-   public boolean isInline()
+   public boolean isInlineContext()
    {
       // Determine inline according to the docbook context and not according to what the parser tell us
       DocbookElement elt = root.peek();
+
+      //
+
       return elt instanceof InlineElement;
    }
 
@@ -185,7 +188,7 @@ public class DocbookBuilder
 
    public void beginAdmonition(AdmonitionKind admonition)
    {
-      if (isInline())
+      if (isInlineContext())
       {
          context.onValidationError("No admonition " + admonition + " allowed inside");
       }
@@ -198,7 +201,7 @@ public class DocbookBuilder
 
    public void endAdmonition(AdmonitionKind admonition)
    {
-      if (isInline())
+      if (isInlineContext())
       {
          context.onValidationError("No admonition " + admonition + " allowed inside");
       }

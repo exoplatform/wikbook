@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentList;
+import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
@@ -43,6 +43,6 @@ public class GroupElement extends BlockElement
    }
 
    /** . */
-   private final ContentList container = new ContentList();
+   private final ContentElementContainer container = new ContentElementContainer();
 
 }

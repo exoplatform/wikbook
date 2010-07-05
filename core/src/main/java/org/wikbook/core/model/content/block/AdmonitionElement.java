@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementList;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -35,12 +35,12 @@ public class AdmonitionElement extends BlockElement
    private final AdmonitionKind kind;
 
    /** . */
-   private ElementList<ContentElement> content;
+   private ElementContainer<ContentElement> content;
 
    public AdmonitionElement(AdmonitionKind kind)
    {
       this.kind = kind;
-      this.content = new ElementList<ContentElement>(ContentElement.class);
+      this.content = new ElementContainer<ContentElement>(ContentElement.class);
    }
 
    @Override

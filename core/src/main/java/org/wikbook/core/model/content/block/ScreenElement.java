@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementList;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.inline.InlineElement;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -32,7 +32,7 @@ public class ScreenElement extends BlockElement
 {
 
    /** . */
-   private ElementList<InlineElement> content = new ElementList<InlineElement>(InlineElement.class);
+   private ElementContainer<InlineElement> content = new ElementContainer<InlineElement>(InlineElement.class);
 
    @Override
    public boolean append(DocbookElement elt)

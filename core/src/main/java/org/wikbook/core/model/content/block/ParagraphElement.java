@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementList;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -32,7 +32,7 @@ public class ParagraphElement extends BlockElement
 {
 
    /** . */
-   private final ElementList<ContentElement> container = new ElementList<ContentElement>(ContentElement.class);
+   private final ElementContainer<ContentElement> container = new ElementContainer<ContentElement>(ContentElement.class);
 
    @Override
    public boolean append(DocbookElement elt)
