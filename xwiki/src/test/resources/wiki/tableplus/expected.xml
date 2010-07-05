@@ -12,5 +12,23 @@
         </tbody>
       </tgroup>
     </table>
+    <table>
+      <tgroup cols="1">
+        <tbody>
+          <row valign="bottom">
+            <entry>a</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
+    <table>
+      <tgroup cols="1">
+        <tbody>
+          <row>
+            <entry align="left" valign="top">a</entry>
+          </row>
+        </tbody>
+      </tgroup>
+    </table>
   </preface>
 </book>

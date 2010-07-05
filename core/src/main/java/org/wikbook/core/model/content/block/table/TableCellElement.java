@@ -19,6 +19,8 @@
 
 package org.wikbook.core.model.content.block.table;
 
+import org.wikbook.core.Align;
+import org.wikbook.core.VAlign;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElementContainer;
@@ -29,7 +31,7 @@ import org.wikbook.core.xml.XMLEmitter;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class CellElement extends DocbookElement
+public class TableCellElement extends DocbookElement
 {
 
    /** . */
@@ -41,9 +43,27 @@ public class CellElement extends DocbookElement
    /** . */
    private ElementContainer<InlineElement> inline;
 
-   public CellElement(boolean head)
+   /** . */
+   private final Align align;
+
+   /** . */
+   private final VAlign valign;
+
+   public TableCellElement(boolean head, Align align, VAlign valign)
    {
       this.head = head;
+      this.align = align;
+      this.valign = valign;
+   }
+
+   public Align getAlign()
+   {
+      return align;
+   }
+
+   public VAlign getVAlign()
+   {
+      return valign;
    }
 
    public boolean append(DocbookElement elt)

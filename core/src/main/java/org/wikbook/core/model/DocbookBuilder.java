@@ -20,7 +20,9 @@
 package org.wikbook.core.model;
 
 import org.w3c.dom.Element;
+import org.wikbook.core.Align;
 import org.wikbook.core.ResourceType;
+import org.wikbook.core.VAlign;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
@@ -35,14 +37,13 @@ import org.wikbook.core.model.content.block.ListKind;
 import org.wikbook.core.model.content.block.ParagraphElement;
 import org.wikbook.core.model.content.block.ProgramListingElement;
 import org.wikbook.core.model.content.block.ScreenElement;
-import org.wikbook.core.model.content.block.table.CellElement;
-import org.wikbook.core.model.content.block.table.RowElement;
+import org.wikbook.core.model.content.block.table.TableCellElement;
+import org.wikbook.core.model.content.block.table.TableRowElement;
 import org.wikbook.core.model.content.block.table.TableElement;
 import org.wikbook.core.model.content.block.list.TermElement;
 import org.wikbook.core.model.content.block.list.VariableListElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.FormatElement;
-import org.wikbook.core.model.content.inline.InlineElement;
 import org.wikbook.core.model.content.inline.LinkElement;
 import org.wikbook.core.model.content.inline.LinkType;
 import org.wikbook.core.model.content.inline.TextElement;
@@ -258,7 +259,20 @@ public class DocbookBuilder
 
    public void beginTableRow(Map<String, String> parameters)
    {
-      root.push(new RowElement());
+      String valignParam = parameters.get("valign");
+      VAlign valign = null;
+      if (valignParam != null)
+      {
+         try
+         {
+            valign = VAlign.valueOf(valignParam.toUpperCase());
+         }
+         catch (IllegalArgumentException e)
+         {
+            context.onValidationError("Wrong valign parameter value " + valignParam);
+         }
+      }
+      root.push(new TableRowElement(valign));
    }
 
    public void endTableRow(Map<String, String> parameters)
@@ -268,7 +282,33 @@ public class DocbookBuilder
 
    public void beginTableCell(Map<String, String> parameters)
    {
-      root.push(new CellElement(false));
+      String alignParam = parameters.get("align");
+      Align align = null;
+      if (alignParam != null)
+      {
+         try
+         {
+            align = Align.valueOf(alignParam.toUpperCase());
+         }
+         catch (IllegalArgumentException e)
+         {
+            context.onValidationError("Wrong align parameter value " + alignParam);
+         }
+      }
+      String valignParam = parameters.get("valign");
+      VAlign valign = null;
+      if (valignParam != null)
+      {
+         try
+         {
+            valign = VAlign.valueOf(valignParam.toUpperCase());
+         }
+         catch (IllegalArgumentException e)
+         {
+            context.onValidationError("Wrong valign parameter value " + valignParam);
+         }
+      }
+      root.push(new TableCellElement(false, align, valign));
    }
 
    public void endTableCell(Map<String, String> parameters)
@@ -278,7 +318,33 @@ public class DocbookBuilder
 
    public void beginTableHeadCell(Map<String, String> parameters)
    {
-      root.push(new CellElement(true));
+      String alignParam = parameters.get("align");
+      Align align = null;
+      if (alignParam != null)
+      {
+         try
+         {
+            align = Align.valueOf(alignParam.toUpperCase());
+         }
+         catch (IllegalArgumentException e)
+         {
+            context.onValidationError("Wrong align parameter value " + alignParam);
+         }
+      }
+      String valignParam = parameters.get("valign");
+      VAlign valign = null;
+      if (valignParam != null)
+      {
+         try
+         {
+            valign = VAlign.valueOf(valignParam.toUpperCase());
+         }
+         catch (IllegalArgumentException e)
+         {
+            context.onValidationError("Wrong valign parameter value " + valignParam);
+         }
+      }
+      root.push(new TableCellElement(true, align, valign));
    }
 
    public void endTableHeadCell(Map<String, String> parameters)

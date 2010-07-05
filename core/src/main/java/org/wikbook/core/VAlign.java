@@ -17,39 +17,19 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block.table;
-
-import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+package org.wikbook.core;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class RowElement extends DocbookElement
+public enum VAlign
 {
 
-   final ElementContainer<CellElement> cells;
+   BOTTOM,
 
-   public RowElement()
-   {
-      this.cells = new ElementContainer<CellElement>(CellElement.class);
-   }
+   MIDDLE,
 
-   public boolean isHead()
-   {
-      for (CellElement cell : cells)
-      {
-         if (!cell.head)
-         {
-            return false;
-         }
-      }
-      return true;
-   }
+   TOP
 
-   public boolean append(DocbookElement elt)
-   {
-      return cells.append(elt);
-   }
 }

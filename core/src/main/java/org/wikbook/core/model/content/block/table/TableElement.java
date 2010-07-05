@@ -37,14 +37,14 @@ public class TableElement extends BlockElement
 {
 
    /** . */
-   private ElementContainer<RowElement> structure;
+   private ElementContainer<TableRowElement> structure;
 
    /** . */
    private final String title;
 
    public TableElement(String title)
    {
-      this.structure = new ElementContainer<RowElement>(RowElement.class);
+      this.structure = new ElementContainer<TableRowElement>(TableRowElement.class);
       this.title = title;
    }
 
@@ -67,16 +67,16 @@ public class TableElement extends BlockElement
 
       // Get column count
       int columnCount = 0;
-      for (RowElement row : structure)
+      for (TableRowElement row : structure)
       {
          columnCount = Math.max(columnCount, row.cells.getSize());
       }
 
       // Determine potential header
-      LinkedList<RowElement> head = new LinkedList<RowElement>();
-      for (Iterator<RowElement> i = structure.iterator(); i.hasNext();)
+      LinkedList<TableRowElement> head = new LinkedList<TableRowElement>();
+      for (Iterator<TableRowElement> i = structure.iterator(); i.hasNext();)
       {
-         RowElement row = i.next();
+         TableRowElement row = i.next();
          if (row.isHead())
          {
             head.addLast(row);
@@ -89,10 +89,10 @@ public class TableElement extends BlockElement
       }
 
       // Determine potential footer
-      LinkedList<RowElement> foot = new LinkedList<RowElement>();
-      for (Iterator<RowElement> i = structure.reverseIterator(); i.hasNext();)
+      LinkedList<TableRowElement> foot = new LinkedList<TableRowElement>();
+      for (Iterator<TableRowElement> i = structure.reverseIterator(); i.hasNext();)
       {
-         RowElement row = i.next();
+         TableRowElement row = i.next();
          if (row.isHead())
          {
             foot.addFirst(row);
@@ -105,15 +105,15 @@ public class TableElement extends BlockElement
       }
 
       //
-      LinkedList<RowElement> body = new LinkedList<RowElement>();
-      for (RowElement row : structure)
+      LinkedList<TableRowElement> body = new LinkedList<TableRowElement>();
+      for (TableRowElement row : structure)
       {
          body.add(row);
       }
 
       //
       ElementEmitter tgroup = tableXML.element("tgroup").withAttribute("cols", "" + columnCount);
-      for (LinkedList<RowElement> a : Arrays.asList(head, body, foot))
+      for (LinkedList<TableRowElement> a : Arrays.asList(head, body, foot))
       {
          if (!a.isEmpty())
          {
@@ -130,12 +130,25 @@ public class TableElement extends BlockElement
             {
                elementXML = tgroup.element("tfoot");
             }
-            for (RowElement row : a)
+            for (TableRowElement row : a)
             {
                ElementEmitter rowXML = elementXML.element("row");
-               for (CellElement cell : row.cells)
+               if (row.getVAlign() != null)
                {
-                  cell.writeTo(rowXML.element("entry"));
+                  rowXML.withAttribute("valign", row.getVAlign().toString().toLowerCase());
+               }
+               for (TableCellElement cell : row.cells)
+               {
+                  ElementEmitter entryXML = rowXML.element("entry");
+                  if (cell.getAlign() != null)
+                  {
+                     entryXML.withAttribute("align", cell.getAlign().toString().toLowerCase());
+                  }
+                  if (cell.getVAlign() != null)
+                  {
+                     entryXML.withAttribute("valign", cell.getVAlign().toString().toLowerCase());
+                  }
+                  cell.writeTo(entryXML);
                }
             }
          }

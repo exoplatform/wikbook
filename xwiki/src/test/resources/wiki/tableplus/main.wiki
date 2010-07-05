@@ -1,2 +1,6 @@
 (% title="foo_title" %)
 |a
+
+(% valign=bottom %)|a
+
+|(% align=left valign=top %)a
