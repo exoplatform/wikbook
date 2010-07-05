@@ -35,7 +35,9 @@ import org.wikbook.core.model.content.block.ListKind;
 import org.wikbook.core.model.content.block.ParagraphElement;
 import org.wikbook.core.model.content.block.ProgramListingElement;
 import org.wikbook.core.model.content.block.ScreenElement;
-import org.wikbook.core.model.content.block.TableElement;
+import org.wikbook.core.model.content.block.table.CellElement;
+import org.wikbook.core.model.content.block.table.RowElement;
+import org.wikbook.core.model.content.block.table.TableElement;
 import org.wikbook.core.model.content.block.list.TermElement;
 import org.wikbook.core.model.content.block.list.VariableListElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
@@ -254,32 +256,32 @@ public class DocbookBuilder
 
    public void beginTableRow(Map<String, String> parameters)
    {
-      ((TableElement)root.peek()).doBeginTableRow(parameters);
+      root.push(new RowElement());
    }
 
    public void endTableRow(Map<String, String> parameters)
    {
-      ((TableElement)root.peek()).doEndTableRow(parameters);
+      root.merge();
    }
 
    public void beginTableCell(Map<String, String> parameters)
    {
-      ((TableElement)root.peek()).doBeginTableCell(parameters);
+      root.push(new CellElement(false));
    }
 
    public void endTableCell(Map<String, String> parameters)
    {
-      ((TableElement)root.peek()).doEndTableCell(parameters);
+      root.merge();
    }
 
    public void beginTableHeadCell(Map<String, String> parameters)
    {
-      ((TableElement)root.peek()).doBeginTableHeadCell(parameters);
+      root.push(new CellElement(true));
    }
 
    public void endTableHeadCell(Map<String, String> parameters)
    {
-      ((TableElement)root.peek()).doEndTableHeadCell(parameters);
+      root.merge();
    }
 
    public void beginDefinitionList(String title)

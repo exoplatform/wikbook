@@ -23,6 +23,7 @@ import org.wikbook.core.xml.XMLEmitter;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -48,6 +49,26 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
       return elements.iterator();
    }
 
+   public Iterator<E> reverseIterator()
+   {
+      final ListIterator<E> delegate = elements.listIterator(elements.size());
+      return new Iterator<E>()
+      {
+         public boolean hasNext()
+         {
+            return delegate.hasPrevious();
+         }
+         public E next()
+         {
+            return delegate.previous();
+         }
+         public void remove()
+         {
+            delegate.remove();
+         }
+      };
+   }
+
    public boolean isNotEmpty()
    {
       return !elements.isEmpty();
@@ -61,6 +82,11 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
    public E getLast()
    {
       return elements.getLast();
+   }
+
+   public int getSize()
+   {
+      return elements.size();
    }
 
    public boolean append(DocbookElement elt)
