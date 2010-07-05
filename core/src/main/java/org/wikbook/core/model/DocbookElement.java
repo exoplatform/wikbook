@@ -19,6 +19,7 @@
 
 package org.wikbook.core.model;
 
+import org.wikbook.core.model.content.inline.InlineElement;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
@@ -178,14 +179,24 @@ public abstract class DocbookElement
       }
 
       //
+      if (elt instanceof InlineElement)
+      {
+         appendedElt.inlineAppended = true;
+      }
+
+      //
       elt.context = context;
 
       //
       return elt;
    }
 
-   // public abstract boolean wantInline();
+   private boolean inlineAppended = false;
 
+   public boolean hasInlineAppended()
+   {
+      return inlineAppended;
+   }
 
    protected boolean append(DocbookElement elt)
    {

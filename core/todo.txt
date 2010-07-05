@@ -1,10 +1,19 @@
+- define semantic for detecting when an image must be inlined or not
 - use xwiki synthetic ID when no anchor is provided in header
-- master.xml really in docbook
-- better property support
-- some kind of entities would be great too
 - on the fly SVG rasterization
 - code line wrapping for XML and Java
 - table cell alignement
+
+Investigate this tip about line wrapping in code:
+
+"Si ça peut aider quelqu'un d'autre, j'ai trouvé une solution à mon problème.
+ J'ai changé un attribut dans la feuille de style qui contient les paramètres
+ pour le fo :
+ <xsl:attribute-set name="monospace.verbatim.properties"
+ use-attribute-sets="verbatim.properties monospace.properties">
+ <xsl:attribute name="text-align">start</xsl:attribute>
+ <xsl:attribute name="wrap-option">wrap</xsl:attribute>
+ </xsl:attribute-set>"
 
 
 Resources:

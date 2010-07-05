@@ -93,22 +93,20 @@ public class ImageElement extends BlockElement
       //
       if (format != null)
       {
-         ElementEmitter figureXML;
+         ElementEmitter mediaObjectXML;
 
          //
          String title = parameters.get("title");
          if (title != null)
          {
-            figureXML = xml.element("figure");
+            ElementEmitter figureXML = xml.element("figure");
             figureXML.element("title").content(title);
+            mediaObjectXML = figureXML.element("mediaobject");
          }
          else
          {
-            figureXML = xml.element("informalfigure");
+            mediaObjectXML = xml.element("inlinemediaobject");
          }
-
-         //
-         ElementEmitter mediaObjectXML = figureXML.element("mediaobject");
 
          //
          for (String output : outputs)
@@ -134,8 +132,6 @@ public class ImageElement extends BlockElement
                }
             }
          }
-
-         //
       }
    }
 

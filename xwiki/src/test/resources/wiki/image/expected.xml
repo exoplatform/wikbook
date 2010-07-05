@@ -3,16 +3,14 @@
   <preface>
     <title>Preface</title>
     <para>
-      <informalfigure>
-        <mediaobject>
-          <imageobject role="fo">
-            <imagedata fileref="img.png" format="PNG"/>
-          </imageobject>
-          <imageobject role="html">
-            <imagedata fileref="img.png" format="PNG"/>
-          </imageobject>
-        </mediaobject>
-      </informalfigure>
+      <inlinemediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="img.png" format="PNG"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="img.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject>
       <figure>
         <title>the title</title>
         <mediaobject>

@@ -241,7 +241,27 @@ Groups are mostly useful for embedding complex structure inside a table. A grou 
 
 === Images ===
 
-Images can be displayed a block elements. Image display can be parameterized for all output but it is possible to
+Simple images can be displayed by using the image syntax.
+
+(% title="Image example" %)
+|((({{code}}
+[[image:images/controller.png]]
+{{/code}})))
+|(((
+[[image:images/controller.png]]
+)))
+
+Images can naturally be inlined when some text is around the image.
+
+(% title="Image example" %)
+|((({{code}}
+An inline [[image:images/smallcontroller.png]] image
+{{/code}})))
+|(((
+An inline [[image:images/smallcontroller.png]] image
+)))
+
+Image display can be parameterized for all output but it is possible to
 target a specific output with a prefix. The //fo// prefix affects the PDF output and the //html// targets the
 HTML content. More details about docbook images parameterization can be found in the docbook
 [[imagedata>>http://www.docbook.org/tdg/en/html/imagedata.html]] reference.
@@ -253,6 +273,7 @@ HTML content. More details about docbook images parameterization can be found in
 |(((
 [[image:images/controller.png||title="The controller" align="center" html:scale="50" fo:width="50mm]]
 )))
+
 
 === Admonitions ===
 

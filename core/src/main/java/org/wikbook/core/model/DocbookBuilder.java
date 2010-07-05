@@ -109,11 +109,13 @@ public class DocbookBuilder
    public boolean isInlineContext()
    {
       // Determine inline according to the docbook context and not according to what the parser tell us
+/*
       DocbookElement elt = root.peek();
 
       //
-
-      return elt instanceof InlineElement;
+      return elt != null && elt.hasInlineAppended();
+*/
+      return false;
    }
 
    public DocbookElement getRoot()
@@ -342,6 +344,15 @@ public class DocbookBuilder
    public void onImage(String imageName, Map<String, String> parameters)
    {
       root.merge(new ImageElement(imageName, parameters));
+/*
+      if (isInlineContext())
+      {
+         throw new UnsupportedOperationException();
+      }
+      else
+      {
+      }
+*/
    }
 
    public void onCode(LanguageSyntax language, Integer indent, String content)
