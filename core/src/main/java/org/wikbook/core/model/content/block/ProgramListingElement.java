@@ -30,7 +30,7 @@ import org.wikbook.core.WikbookException;
 import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.ElementList;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -73,7 +73,7 @@ public class ProgramListingElement extends BlockElement
 {
 
    /** . */
-   private final ElementContainer<CalloutElement> callouts;
+   private final ElementList<CalloutElement> callouts;
 
    /** . */
    private final LanguageSyntax languageSyntax;
@@ -131,7 +131,7 @@ public class ProgramListingElement extends BlockElement
       this.indent = indent;
       this.content = content;
       this.highlightCode = highlightCode;
-      this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
+      this.callouts = new ElementList<CalloutElement>(CalloutElement.class);
       this.documentBuilder = documentBuilder;
       this.xpath = XPathFactory.newInstance().newXPath();
    }

@@ -20,10 +20,9 @@
 package org.wikbook.core.model.structural;
 
 import org.w3c.dom.DocumentFragment;
-import org.w3c.dom.Element;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.content.ContentContainer;
+import org.wikbook.core.model.ElementList;
+import org.wikbook.core.model.content.ContentList;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
@@ -36,10 +35,10 @@ public class BookElement extends StructuralElement
 {
 
    /** . */
-   private final ElementContainer<ComponentElement> chapters = new ElementContainer<ComponentElement>(ComponentElement.class);
+   private final ElementList<ComponentElement> chapters = new ElementList<ComponentElement>(ComponentElement.class);
 
    /** . */
-   private ContentContainer preface = new ContentContainer();
+   private ContentList preface = new ContentList();
 
    /** . */
    private String prefaceTitle;

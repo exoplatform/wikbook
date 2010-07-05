@@ -20,8 +20,8 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.content.ContentContainer;
+import org.wikbook.core.model.ElementList;
+import org.wikbook.core.model.content.ContentList;
 import org.wikbook.core.model.content.inline.InlineElement;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
@@ -47,10 +47,10 @@ public class TableElement extends BlockElement
       private final boolean head;
 
       /** . */
-      private ContentContainer content;
+      private ContentList content;
 
       /** . */
-      private ElementContainer<InlineElement> inline;
+      private ElementList<InlineElement> inline;
 
       private Cell(boolean head)
       {
@@ -69,7 +69,7 @@ public class TableElement extends BlockElement
             {
                if (inline == null)
                {
-                  inline = new ElementContainer<InlineElement>(InlineElement.class);
+                  inline = new ElementList<InlineElement>(InlineElement.class);
                }
                return inline.append(elt);
             }
@@ -80,13 +80,13 @@ public class TableElement extends BlockElement
             {
                if (content == null)
                {
-                  content = new ContentContainer();
+                  content = new ContentList();
                }
                return content.append(elt);
             }
             else
             {
-               content = new ContentContainer();
+               content = new ContentList();
                for (InlineElement i : inline)
                {
                   content.append(i);

@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentContainer;
+import org.wikbook.core.model.content.ContentList;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
@@ -31,7 +31,7 @@ public class BlockQuotationElement extends BlockElement
 {
 
    /** . */
-   protected ContentContainer content = new ContentContainer();
+   protected ContentList content = new ContentList();
 
    @Override
    public boolean append(DocbookElement elt)

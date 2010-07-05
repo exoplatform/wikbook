@@ -19,8 +19,7 @@
 
 package org.wikbook.core.model.content;
 
-import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.ElementList;
 import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
@@ -29,10 +28,10 @@ import org.wikbook.core.xml.XMLEmitter;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ContentContainer extends ElementContainer<ContentElement>
+public class ContentList extends ElementList<ContentElement>
 {
 
-   public ContentContainer()
+   public ContentList()
    {
       super(ContentElement.class);
    }

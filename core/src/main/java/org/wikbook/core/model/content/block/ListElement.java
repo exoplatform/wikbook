@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.ElementList;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -51,7 +51,7 @@ public class ListElement extends BlockElement
    private final ListKind kind;
 
    /** . */
-   private final ElementContainer<ListItemElement> items;
+   private final ElementList<ListItemElement> items;
 
    /** . */
    private final String style;
@@ -59,7 +59,7 @@ public class ListElement extends BlockElement
    public ListElement(ListKind kind, String style)
    {
       this.kind = kind;
-      this.items = new ElementContainer<ListItemElement>(ListItemElement.class);
+      this.items = new ElementList<ListItemElement>(ListItemElement.class);
       this.style = style;
    }
 

@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.inline;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.ElementList;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
@@ -31,7 +31,7 @@ public class FormatElement extends InlineElement
 {
 
    /** . */
-   private ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
+   private ElementList<InlineElement> container = new ElementList<InlineElement>(InlineElement.class);
 
    /** . */
    private final TextFormat format;

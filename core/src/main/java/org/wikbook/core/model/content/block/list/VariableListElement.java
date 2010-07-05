@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block.list;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.ElementList;
 import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.model.content.block.ListItemElement;
 import org.wikbook.core.xml.XMLEmitter;
@@ -33,7 +33,7 @@ public class VariableListElement extends BlockElement
 {
 
    /** . */
-   private final ElementContainer<DocbookElement> container = new ElementContainer<DocbookElement>(DocbookElement.class);
+   private final ElementList<DocbookElement> container = new ElementList<DocbookElement>(DocbookElement.class);
 
    /** . */
    private final String title;

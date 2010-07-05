@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block.list;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.ElementList;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.InlineElement;
 import org.wikbook.core.xml.XMLEmitter;
@@ -33,7 +33,7 @@ public class TermElement extends ContentElement
 {
 
    /** . */
-   private final ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
+   private final ElementList<InlineElement> container = new ElementList<InlineElement>(InlineElement.class);
 
    @Override
    public boolean append(DocbookElement elt)

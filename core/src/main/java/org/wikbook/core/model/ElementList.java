@@ -28,7 +28,7 @@ import java.util.LinkedList;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ElementContainer<E extends DocbookElement> implements Iterable<E>
+public class ElementList<E extends DocbookElement> implements Iterable<E>
 {
 
    /** . */
@@ -37,7 +37,7 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
    /** . */
    private final Class<E> elementType;
 
-   public ElementContainer(Class<E> elementType)
+   public ElementList(Class<E> elementType)
    {
       this.elements = new LinkedList<E>();
       this.elementType = elementType;
