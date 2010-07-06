@@ -175,7 +175,7 @@ public abstract class DocbookElement
       //
       if (!appendedElt.append(elt))
       {
-         throw new AssertionError("Could not append element " + elt.getClass().getName() + " to element " + getClass().getName());
+         throw new AssertionError("Could not append element " + elt.getClass().getName() + " to element " + appendedElt.getClass().getName());
       }
 
       //
