@@ -175,7 +175,7 @@ public abstract class DocbookElement
       //
       if (!appendedElt.append(elt))
       {
-         throw new AssertionError("Could not append element " + elt.getClass().getName() + " to element " + appendedElt.getClass().getName());
+         throw new AssertionError("Could not append element " + elt + " to element " + appendedElt);
       }
 
       //
@@ -206,5 +206,11 @@ public abstract class DocbookElement
    public void writeTo(XMLEmitter xml)
    {
       throw new UnsupportedOperationException("Class " + getClass().getName() + " does not implement writeTo");
+   }
+
+   @Override
+   public String toString()
+   {
+      return getClass().getSimpleName() + "[]";
    }
 }

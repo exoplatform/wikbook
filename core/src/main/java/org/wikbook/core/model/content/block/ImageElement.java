@@ -135,4 +135,9 @@ public class ImageElement extends BlockElement
       }
    }
 
+   @Override
+   public String toString()
+   {
+      return "ImageElement[name=" + name + ",parameters=" + parameters + "]";
+   }
 }
