@@ -56,10 +56,10 @@ public abstract class AbstractSyntaxTestCase extends TestCase
    }
 
    /** . */
-   private static final Test XWIKI_2_0 = new Test("main.wiki", Syntax.XWIKI_2_0.toIdString());
+   private static final Test XWIKI_2_0 = new Test("main", Syntax.XWIKI_2_0.toIdString());
 
    /** . */
-   private static final Test CONFLUENCE_1_0 = new Test("confluence.wiki", Syntax.CONFLUENCE_1_0.toIdString());
+   private static final Test CONFLUENCE_1_0 = new Test("confluence", Syntax.CONFLUENCE_1_0.toIdString());
 
    public void testSyntax()
    {
@@ -92,9 +92,13 @@ public abstract class AbstractSyntaxTestCase extends TestCase
             WikbookConverter converter = new WikbookConverter(context);
             converter.setEmitDoctype(false);
             converter.setSyntaxId(test.syntaxId);
-            converter.convert(test.fileName, dom);
+            converter.convert(test.fileName + ".wiki", dom);
             Document document = (Document)dom.getNode();
-            File expected = new File(path, "expected.xml");
+            File expected = new File(path, test.fileName + ".xml");
+            if (!expected.exists() || !expected.isFile())
+            {
+               expected = new File(path, "expected.xml");
+            }
             if (expected.exists() && expected.isFile())
             {
                Document expectedDocument = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(expected);
