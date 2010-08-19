@@ -88,13 +88,14 @@ class WikiLoader
 
    private Block load(Reader reader, String syntaxId, int baseLevel) throws WikbookException
    {
+      if (syntaxId == null)
+      {
+         throw new NullPointerException("No null syntax accepted");
+      }
+
+      //
       try
       {
-         if (syntaxId == null)
-         {
-            syntaxId = Syntax.XWIKI_2_0.toIdString();
-         }
-
          // Load the text
          String s = Utils.read(reader);
 
