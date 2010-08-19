@@ -74,9 +74,9 @@
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
         <configuration>
-          
+
+          <!-- Source -->
           <sourceDirectory>${project.build.directory}/wikbook/src</sourceDirectory>
-          <targetDirectory>${project.build.directory}/wikbook/output</targetDirectory>
           <includes>index.xml</includes>
 
           <!-- Highlight source code -->
@@ -111,18 +111,21 @@
             <phase>package</phase>
             <configuration>
 
+              <!-- Output -->
+              <targetDirectory>${project.build.directory}/wikbook/output/html</targetDirectory>
+
               <!-- Stylesheets -->
               <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/html.xsl</htmlCustomization>
               <htmlStylesheet>css/html.css</htmlStylesheet>
 
               <!-- Copy the image -->
               <postProcess>
-                <copy todir="${project.build.directory}/wikbook/output/images">
+                <copy todir="${project.build.directory}/wikbook/output/html/images">
                   <fileset dir="${pom.basedir}/src/main/wikbook/images">
                     <include name="**" />
                   </fileset>
                 </copy>
-                <copy todir="${project.build.directory}/wikbook/output">
+                <copy todir="${project.build.directory}/wikbook/output/html">
                   <fileset dir="${project.build.directory}/wikbook/src/resources">
                     <include name="**/*.css" />
                     <include name="**/*.png" />
@@ -142,7 +145,13 @@
             <phase>package</phase>
             <configuration>
 
+              <!-- Output -->
+              <targetDirectory>${project.build.directory}/wikbook/output/pdf</targetDirectory>
+
+              <!-- Stylesheet -->
               <foCustomization>${project.build.directory}/wikbook/src/resources/xsl/fopdf.xsl</foCustomization>
+
+              <!-- Image configuration -->
               <imgSrcPath>${pom.basedir}/src/main/wikbook/</imgSrcPath>
               <admonGraphicsPath>${project.build.directory}/wikbook/src/resources/images/admons/</admonGraphicsPath>
               

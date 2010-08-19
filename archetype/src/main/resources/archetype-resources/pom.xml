@@ -81,8 +81,8 @@
            <version>${docbkx.version}</version>
            <configuration>
 
+             <!-- Source -->
              <sourceDirectory>\${wikbook.target}/src</sourceDirectory>
-             <targetDirectory>\${wikbook.target}/output</targetDirectory>
              <includes>index.xml</includes>
 
              <!-- Highlight source code -->
@@ -117,18 +117,21 @@
                <phase>package</phase>
                <configuration>
 
+                 <!-- Output -->
+                 <targetDirectory>\${wikbook.target}/output/html</targetDirectory>
+
                  <!-- Stylesheet -->
                  <htmlCustomization>\${wikbook.target}/src/resources/xsl/html.xsl</htmlCustomization>
                  <htmlStylesheet>css/html.css</htmlStylesheet>
 
-                 <!-- Copy the image for HTML-->
+                 <!-- Copy the image -->
                  <postProcess>
-                   <copy todir="\${wikbook.target}/output/images">
+                   <copy todir="\${wikbook.target}/output/html/images">
                      <fileset dir="\${wikbook.source}/images">
                        <include name="**"/>
                      </fileset>
                    </copy>
-                   <copy todir="\${wikbook.target}/output">
+                   <copy todir="\${wikbook.target}/output/html">
                      <fileset dir="\${wikbook.target}/src/resources">
                        <include name="**/*.css"/>
                        <include name="**/*.png"/>
@@ -147,6 +150,9 @@
                </goals>
                <phase>package</phase>
                <configuration>
+
+                 <!-- Output -->
+                 <targetDirectory>\${wikbook.target}/output/pdf</targetDirectory>
 
                  <!-- Stylesheet -->
                  <foCustomization>\${wikbook.target}/src/resources/xsl/fopdf.xsl</foCustomization>
