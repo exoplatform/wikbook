@@ -3,22 +3,27 @@
   <preface>
     <title>Preface</title>
     <note>
-      <para>note_value</para>
+      <para>note value</para>
     </note>
     <note>
-      <para>info_value</para>
+      <para>info value</para>
     </note>
     <important>
-      <para>important_value</para>
+      <para>important value</para>
     </important>
     <tip>
-      <para>tip_value</para>
+      <para>tip value</para>
     </tip>
     <caution>
-      <para>caution_value</para>
+      <para>caution value</para>
     </caution>
     <warning>
-      <para>warning_value</para>
+      <para>warning value</para>
     </warning>
+    <note>
+      <para>
+        <emphasis role="bold">bold note value</emphasis>
+      </para>
+    </note>
   </preface>
 </book>

@@ -229,7 +229,7 @@ class XDOMTransformer implements Listener
       if (admonition != null)
       {
          WikiLoader loader = new WikiLoader(context);
-         Block block = loader.load(new StringReader(content), null);
+         Block block = loader.load(new StringReader(content), context.syntaxStack.getLast());
 
          //
          builder.beginAdmonition(admonition);

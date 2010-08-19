@@ -1,13 +1,14 @@
-{note}note_value{note}
+{note}note value{note}
 
-{info}info_value{info}
+{info}info value{info}
 
-{important}important_value{important}
+{important}important value{important}
 
-{tip}tip_value{tip}
+{tip}tip value{tip}
 
-{caution}caution_value{caution}
+{caution}caution value{caution}
 
-{warning}warning_value{warning}
+{warning}warning value{warning}
 
+{note}*bold note value*{note}
 
