@@ -85,7 +85,7 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       context.setProperty("property_name", "propertyvalue");
       for (Test test : tests)
       {
-         File file = new File(path, test.fileName);
+         File file = new File(path, test.fileName + ".xml");
          if (file.exists())
          {
             DOMResult dom = new DOMResult();
