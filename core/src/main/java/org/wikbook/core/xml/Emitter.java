@@ -48,11 +48,6 @@ public class Emitter<N extends Node>
    {
       Document doc = node instanceof Document ? (Document)node : node.getOwnerDocument();
       Element elt = (Element)node.appendChild(doc.createElement(qName));
-      ElementEmitter emitter = new ElementEmitter(this, elt);
-      return emitter;
-   }
-
-   public final void close()
-   {
+      return new ElementEmitter(this, elt);
    }
 }
