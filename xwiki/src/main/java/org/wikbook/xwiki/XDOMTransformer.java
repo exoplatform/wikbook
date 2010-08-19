@@ -25,6 +25,7 @@ import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ListKind;
+import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.content.inline.TextFormat;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -332,6 +333,10 @@ class XDOMTransformer implements Listener
          builder.beginExample(macroParameters.get("title"));
          block.traverse(this);
          builder.endExample(macroParameters.get("title"));
+      }
+      else if ("noformat".equals(id))
+      {
+         builder.onVerbatim(content);
       }
       else
       {
