@@ -46,6 +46,8 @@ public abstract class AbstractXDOMDocbookBuilderContext extends DocbookBuilderCo
       this.syntaxStack = new LinkedList<String>();
    }
 
+   protected abstract String getCharsetName();
+
    /**
     * Load the document with the specified id.
     *
@@ -60,7 +62,16 @@ public abstract class AbstractXDOMDocbookBuilderContext extends DocbookBuilderCo
       {
          throw new IOException("Could not load wiki document: " + id);
       }
-      return Utils.read(main);
+
+      //
+      String charsetName = getCharsetName();
+      if (charsetName == null)
+      {
+         throw new IOException("No charset name specified");
+      }
+
+      //
+      return Utils.read(main, charsetName);
    }
 
    public void build(Reader reader, String syntaxId, DocbookBuilder builder)

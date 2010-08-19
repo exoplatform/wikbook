@@ -55,6 +55,9 @@ public class SimpleXDOMDocbookBuilderContext extends AbstractXDOMDocbookBuilderC
    /** . */
    private ValidationMode validationMode;
 
+   /** . */
+   private String charsetName;
+
    public SimpleXDOMDocbookBuilderContext(File base)
    {
       if (base == null)
@@ -66,6 +69,7 @@ public class SimpleXDOMDocbookBuilderContext extends AbstractXDOMDocbookBuilderC
       this.emitDoctype = true;
       this.highlightCode = true;
       this.validationMode = ValidationMode.STRICT;
+      this.charsetName = "UTF-8";
    }
 
    public ValidationMode getValidationMode()
@@ -148,5 +152,16 @@ public class SimpleXDOMDocbookBuilderContext extends AbstractXDOMDocbookBuilderC
    public void setHighlightCode(boolean highlightCode)
    {
       this.highlightCode = highlightCode;
+   }
+
+
+   public String getCharsetName()
+   {
+      return charsetName;
+   }
+
+   public void setCharsetName(String charsetName)
+   {
+      this.charsetName = charsetName;
    }
 }

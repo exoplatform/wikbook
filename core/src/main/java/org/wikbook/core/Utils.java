@@ -80,13 +80,13 @@ public class Utils
       };
    }
 
-   public static Reader read(URL url) throws IOException
+   public static Reader read(URL url, String charsetName) throws IOException
    {
       if (url == null)
       {
          throw new NullPointerException();
       }
-      return new InputStreamReader(url.openStream(), "UTF-8");
+      return new InputStreamReader(url.openStream(), charsetName);
    }
 
    public static String read(Reader reader) throws IOException

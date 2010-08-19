@@ -120,18 +120,25 @@ public class WikBookMojo extends AbstractMojo
    private String validationMode;
 
    /**
-    * .
+    * Any XML that should be inserted before the book body.
     *
     * @parameter default-value=""
     */
    private String beforeBookBodyXML;
 
    /**
-    * .
+    * Any XML that should be inserted after the book body.
     *
     * @parameter default-value=""
     */
    private String afterBookBodyXML;
+
+   /**
+    * The charset name when reading wiki files, the default value is the UTF-8 charset.
+    *
+    * @parameter default-value="UTF-8"
+    */
+   private String charset;
 
    /**
     * INTERNAL : The representation of the maven execution.
@@ -383,6 +390,12 @@ public class WikBookMojo extends AbstractMojo
       {
          Properties properties = session.getCurrentProject().getProperties();
          return properties.getProperty(propertyName);
+      }
+
+      @Override
+      protected String getCharsetName()
+      {
+         return charset;
       }
    };
 }

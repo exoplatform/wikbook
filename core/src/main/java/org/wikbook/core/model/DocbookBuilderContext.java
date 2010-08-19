@@ -103,6 +103,7 @@ public abstract class DocbookBuilderContext
     * Build with the provided reader stream and the provided builder.
     *
     * @param reader the reader
+    * @param syntaxId the syntax id
     * @param builder the builder
     */
    public abstract void build(Reader reader, String syntaxId, DocbookBuilder builder);
