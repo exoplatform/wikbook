@@ -13,6 +13,12 @@
         <include>**/*</include>
       </includes>
     </fileSet>
+    <fileSet filtered="false">
+      <directory>src/main/assembly</directory>
+      <includes>
+        <include>**/*</include>
+      </includes>
+    </fileSet>
   </fileSets>
 
 </archetype-descriptor>
