@@ -1,0 +1,14 @@
+= section1 =
+{{include document="x1.wiki" /}}
+== section2 ==
+{{include document="x1.wiki" /}}
+= section3 =
+a
+{{include document="x1.wiki" /}}
+= section4 =
+{{include document="x2.wiki" /}}
+== section5 ==
+{{include document="x2.wiki" /}}
+= section6 =
+a
+{{include document="x2.wiki" /}}

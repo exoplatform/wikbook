@@ -56,7 +56,7 @@ public abstract class AbstractSyntaxTestCase extends TestCase
    }
 
    /** . */
-   private static final Test XWIKI_2_0 = new Test("main", Syntax.XWIKI_2_0.toIdString());
+   private static final Test XWIKI_2_0 = new Test("x", Syntax.XWIKI_2_0.toIdString());
 
    /** . */
    private static final Test CONFLUENCE_1_0 = new Test("confluence", Syntax.CONFLUENCE_1_0.toIdString());
