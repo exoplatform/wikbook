@@ -79,52 +79,50 @@
            <groupId>com.agilejava.docbkx</groupId>
            <artifactId>docbkx-maven-plugin</artifactId>
            <version>${docbkx.version}</version>
+           <configuration>
+
+             <sourceDirectory>\${wikbook.target}/src</sourceDirectory>
+             <targetDirectory>\${wikbook.target}/output</targetDirectory>
+             <includes>index.xml</includes>
+
+             <!-- Highlight source code -->
+             <highlightSource>1</highlightSource>
+
+             <!-- We need to support xinclude -->
+             <xincludeSupported>true</xincludeSupported>
+
+             <!--
+               |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
+               |  Callouts on imported text
+               -->
+             <useExtensions>1</useExtensions>
+             <calloutsExtension>1</calloutsExtension>
+
+             <!-- Copy any docbook XML -->
+             <preProcess>
+               <copy todir="\${wikbook.target}/src">
+                 <fileset dir="\${wikbook.source}/en/en-US">
+                   <include name="**/*.xml" />
+                 </fileset>
+               </copy>
+             </preProcess>
+
+           </configuration>
            <executions>
              <execution>
+               <id>generate-html</id>
                <goals>
                  <goal>generate-html</goal>
-                 <goal>generate-pdf</goal>
                </goals>
                <phase>package</phase>
                <configuration>
-                 <sourceDirectory>\${wikbook.target}/src</sourceDirectory>
-                 <targetDirectory>\${wikbook.target}/output</targetDirectory>
-                 <includes>index.xml</includes>
 
-                 <!-- HTML -->
+                 <!-- Stylesheet -->
                  <htmlCustomization>\${wikbook.target}/src/resources/xsl/html.xsl</htmlCustomization>
                  <htmlStylesheet>css/html.css</htmlStylesheet>
 
-                 <!-- PDF -->
-                 <foCustomization>\${wikbook.target}/src/resources/xsl/fopdf.xsl</foCustomization>
-                 <imgSrcPath>\${wikbook.source}/</imgSrcPath>
-                 <admonGraphicsPath>\${wikbook.target}/src/resources/images/admons/</admonGraphicsPath>
-
-                 <!-- Highlight source code -->
-                 <highlightSource>1</highlightSource>
-
-                 <!-- We need to support xinclude -->
-                 <xincludeSupported>true</xincludeSupported>
-
-                 <!--
-                   |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
-                   |  Callouts on imported text
-                   -->
-                 <useExtensions>1</useExtensions>
-                 <calloutsExtension>1</calloutsExtension>
-
-                 <!-- Copy any docbook XML -->
-                 <preProcess>
-                   <copy todir="\${wikbook.target}/src">
-                     <fileset dir="\${wikbook.source}/en/en-US">
-                       <include name="**/*.xml" />
-                     </fileset>
-                   </copy>
-                 </preProcess>
-
                  <!-- Copy the image for HTML-->
                  <postProcess>
-
                    <copy todir="\${wikbook.target}/output/images">
                      <fileset dir="\${wikbook.source}/images">
                        <include name="**"/>
@@ -138,8 +136,24 @@
                        <include name="**/*.jpg"/>
                      </fileset>
                    </copy>
-
                  </postProcess>
+
+               </configuration>
+             </execution>
+             <execution>
+               <id>generate-pdf</id>
+               <goals>
+                 <goal>generate-pdf</goal>
+               </goals>
+               <phase>package</phase>
+               <configuration>
+
+                 <!-- Stylesheet -->
+                 <foCustomization>\${wikbook.target}/src/resources/xsl/fopdf.xsl</foCustomization>
+
+                 <!-- Image configuration -->
+                 <imgSrcPath>\${wikbook.source}/</imgSrcPath>
+                 <admonGraphicsPath>\${wikbook.target}/src/resources/images/admons/</admonGraphicsPath>
 
                </configuration>
              </execution>

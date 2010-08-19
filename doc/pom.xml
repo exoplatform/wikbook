@@ -43,7 +43,7 @@
            <sourceFileName>book.wiki</sourceFileName>
            <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
            <destinationFileName>index.xml</destinationFileName>
-           <emitDoctype>false</emitDoctype>
+           <emitDoctype>true</emitDoctype>
            <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
          </configuration>
        </plugin>
@@ -73,52 +73,50 @@
       <plugin>
         <groupId>com.agilejava.docbkx</groupId>
         <artifactId>docbkx-maven-plugin</artifactId>
+        <configuration>
+          
+          <sourceDirectory>${project.build.directory}/wikbook/src</sourceDirectory>
+          <targetDirectory>${project.build.directory}/wikbook/output</targetDirectory>
+          <includes>index.xml</includes>
+
+          <!-- Highlight source code -->
+          <highlightSource>1</highlightSource>
+
+          <!-- We need to support xinclude -->
+          <xincludeSupported>true</xincludeSupported>
+
+          <!--
+            |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
+            |  Callouts on imported text
+            -->
+          <useExtensions>1</useExtensions>
+          <calloutsExtension>1</calloutsExtension>
+
+          <!-- Copy any docbook XML -->
+          <preProcess>
+            <copy todir="${project.build.directory}/wikbook/src">
+              <fileset dir="${pom.basedir}/src/main/wikbook/en/en-US">
+                <include name="**/*.xml" />
+              </fileset>
+            </copy>
+          </preProcess>
+          
+        </configuration>
         <executions>
           <execution>
+            <id>generate-html</id>
             <goals>
               <goal>generate-html</goal>
-              <goal>generate-pdf</goal>
             </goals>
             <phase>package</phase>
             <configuration>
-              <sourceDirectory>${project.build.directory}/wikbook/src</sourceDirectory>
-              <targetDirectory>${project.build.directory}/wikbook/output</targetDirectory>
-              <includes>index.xml</includes>
 
-              <!-- HTML -->
+              <!-- Stylesheets -->
               <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/html.xsl</htmlCustomization>
               <htmlStylesheet>css/html.css</htmlStylesheet>
 
-              <!-- PDF -->
-              <foCustomization>${project.build.directory}/wikbook/src/resources/xsl/fopdf.xsl</foCustomization>
-              <imgSrcPath>${pom.basedir}/src/main/wikbook/</imgSrcPath>
-              <admonGraphicsPath>${project.build.directory}/wikbook/src/resources/images/admons/</admonGraphicsPath>
-
-              <!-- Highlight source code -->
-              <highlightSource>1</highlightSource>
-
-              <!-- We need to support xinclude -->
-              <xincludeSupported>true</xincludeSupported>
-
-              <!--
-                |  See http://www.sagehill.net/docbookxsl/AnnotateListing.html
-                |  Callouts on imported text
-                -->
-              <useExtensions>1</useExtensions>
-              <calloutsExtension>1</calloutsExtension>
-
-              <!-- Copy any docbook XML -->
-              <preProcess>
-                <copy todir="${project.build.directory}/wikbook/src">
-                  <fileset dir="${pom.basedir}/src/main/wikbook/en/en-US">
-                    <include name="**/*.xml" />
-                  </fileset>
-                </copy>
-              </preProcess>
-
-              <!-- Copy the image for HTML-->
+              <!-- Copy the image -->
               <postProcess>
-
                 <copy todir="${project.build.directory}/wikbook/output/images">
                   <fileset dir="${pom.basedir}/src/main/wikbook/images">
                     <include name="**" />
@@ -132,9 +130,22 @@
                     <include name="**/*.jpg" />
                   </fileset>
                 </copy>
-
               </postProcess>
+              
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-pdf</id>
+            <goals>
+              <goal>generate-pdf</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
 
+              <foCustomization>${project.build.directory}/wikbook/src/resources/xsl/fopdf.xsl</foCustomization>
+              <imgSrcPath>${pom.basedir}/src/main/wikbook/</imgSrcPath>
+              <admonGraphicsPath>${project.build.directory}/wikbook/src/resources/images/admons/</admonGraphicsPath>
+              
             </configuration>
           </execution>
         </executions>
