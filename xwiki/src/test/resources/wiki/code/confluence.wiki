@@ -6,6 +6,14 @@ foo
 <foo/>
 {code}
 
+{code:xml}
+<bar/>
+{code}
+
 {code:language=java}
 x = x + 1;
+{code}
+
+{code:java}
+y = y + 1;
 {code}

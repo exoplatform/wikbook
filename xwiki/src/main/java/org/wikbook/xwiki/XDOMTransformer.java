@@ -298,6 +298,23 @@ class XDOMTransformer implements Listener
                {
                   languageSyntax = LanguageSyntax.XML;
                }
+
+               // Support Confluence code:java and code:xml
+               if (language == null)
+               {
+                  String value = macroParameters.get("value");
+                  if (value != null)
+                  {
+                     if ("java".equalsIgnoreCase(value))
+                     {
+                        languageSyntax = LanguageSyntax.JAVA;
+                     }
+                     else if ("xml".equalsIgnoreCase(value))
+                     {
+                        languageSyntax = LanguageSyntax.XML;
+                     }
+                  }
+               }
             }
 
             //
