@@ -57,12 +57,17 @@ public class TableElement extends BlockElement
    @Override
    public void writeTo(XMLEmitter xml)
    {
-      XMLEmitter tableXML = xml.element("table");
+      XMLEmitter tableXML;
 
       //
       if (title != null)
       {
+         tableXML = xml.element("table");
          tableXML.element("title").content(title);
+      }
+      else
+      {
+         tableXML = xml.element("informaltable");
       }
 
       // Get column count

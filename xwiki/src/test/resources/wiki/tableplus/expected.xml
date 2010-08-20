@@ -12,7 +12,7 @@
         </tbody>
       </tgroup>
     </table>
-    <table>
+    <informaltable>
       <tgroup cols="1">
         <tbody>
           <row valign="bottom">
@@ -20,8 +20,8 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="1">
         <tbody>
           <row>
@@ -29,6 +29,6 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
+    </informaltable>
   </preface>
 </book>

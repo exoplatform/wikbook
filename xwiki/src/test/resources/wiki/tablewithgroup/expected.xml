@@ -2,7 +2,7 @@
 <book>
   <preface>
     <title>Preface</title>
-    <table>
+    <informaltable>
       <tgroup cols="1">
         <tbody>
           <row>
@@ -12,8 +12,8 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="1">
         <tbody>
           <row>
@@ -27,6 +27,6 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
+    </informaltable>
   </preface>
 </book>

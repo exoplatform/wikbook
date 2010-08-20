@@ -2,7 +2,7 @@
 <book>
   <preface>
     <title>Preface</title>
-    <table>
+    <informaltable>
       <tgroup cols="2">
         <tbody>
           <row>
@@ -11,8 +11,8 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="2">
         <thead>
           <row>
@@ -21,8 +21,8 @@
           </row>
         </thead>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="2">
         <thead>
           <row>
@@ -37,8 +37,8 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="2">
         <tbody>
           <row>
@@ -53,8 +53,8 @@
           </row>
         </tfoot>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="2">
         <thead>
           <row>
@@ -75,8 +75,8 @@
           </row>
         </tfoot>
       </tgroup>
-    </table>
-    <table>
+    </informaltable>
+    <informaltable>
       <tgroup cols="2">
         <tbody>
           <row>
@@ -88,6 +88,6 @@
           </row>
         </tbody>
       </tgroup>
-    </table>
+    </informaltable>
   </preface>
 </book>
