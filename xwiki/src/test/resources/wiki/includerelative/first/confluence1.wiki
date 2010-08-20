@@ -1,0 +1,2 @@
+{include:document="confluence1_.wiki"}
+{include:document="second/confluence2.wiki"}

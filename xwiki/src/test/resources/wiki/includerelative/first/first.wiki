@@ -1,2 +1,0 @@
-{{include document="first_.wiki" /}}
-{{include document="second/second.wiki" /}}
