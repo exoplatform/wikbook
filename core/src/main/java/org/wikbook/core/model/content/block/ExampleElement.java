@@ -54,7 +54,7 @@ public class ExampleElement extends ContentElement
    {
       if (title == null)
       {
-         xml = xml.element("example");
+         xml = xml.element("informalexample");
       }
       else
       {

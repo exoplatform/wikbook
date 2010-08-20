@@ -3,7 +3,7 @@
   <preface>
     <title>Preface</title>
     <para>
-      <example>
+      <informalexample>
         <itemizedlist>
           <listitem>
             <para>a</para>
@@ -12,7 +12,7 @@
             <para>b</para>
           </listitem>
         </itemizedlist>
-      </example>
+      </informalexample>
       <example>
         <title>the title</title>
         <itemizedlist>

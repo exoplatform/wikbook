@@ -11,9 +11,9 @@
       </listitem>
     </itemizedlist>
     <para>
-      <example>* a
+      <informalexample>* a
 * b
-</example>
+</informalexample>
     </para>
   </preface>
 </book>
