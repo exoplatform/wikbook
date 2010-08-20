@@ -29,7 +29,9 @@ import org.xwiki.rendering.syntax.Syntax;
 import java.io.IOException;
 import java.io.Reader;
 import java.net.URL;
+import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -51,13 +53,14 @@ public abstract class AbstractXDOMDocbookBuilderContext extends DocbookBuilderCo
    /**
     * Load the document with the specified id.
     *
+    * @param path the relative document path
     * @param id the document id
     * @return a reader for the document
     * @throws java.io.IOException any io exception
     */
-   Reader _load(String id) throws IOException
+   Reader read(Iterable<String> path, String id) throws IOException
    {
-      URL main = resolveResource(ResourceType.WIKI, id);
+      URL main = resolveResource(ResourceType.WIKI, path, id);
       if (main == null)
       {
          throw new IOException("Could not load wiki document: " + id);
@@ -72,6 +75,19 @@ public abstract class AbstractXDOMDocbookBuilderContext extends DocbookBuilderCo
 
       //
       return Utils.read(main, charsetName);
+   }
+
+   public abstract List<URL> resolveResources(ResourceType type, Iterable<String> path, String id) throws IOException;
+
+   public final URL resolveResource(ResourceType type, Iterable<String> path, String id) throws IOException
+   {
+      List<URL> found = resolveResources(type, path, id);
+      return found.isEmpty() ? null : found.get(0);
+   }
+
+   public final List<URL> resolveResources(ResourceType type, String id) throws IOException
+   {
+      return resolveResources(type, null, id);
    }
 
    public void build(Reader reader, String syntaxId, DocbookBuilder builder)

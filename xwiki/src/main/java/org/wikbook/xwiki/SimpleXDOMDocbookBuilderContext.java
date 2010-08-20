@@ -30,6 +30,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -109,15 +110,32 @@ public class SimpleXDOMDocbookBuilderContext extends AbstractXDOMDocbookBuilderC
       setProperty(propertyName, null);
    }
 
-   public List<URL> resolveResources(ResourceType type, String id) throws IOException
+   @Override
+   public List<URL> resolveResources(ResourceType type, Iterable<String> path, String id) throws IOException
    {
       if (id.length() > 0)
       {
          File resolved;
+         out:
          switch (type)
          {
             case WIKI:
-               resolved = new File(base, id);
+               File current = base;
+               for (String segment : path)
+               {
+                  File relative = new File(current, segment);
+                  if (relative.exists())
+                  {
+                     current = relative.getParentFile();
+                  }
+                  else
+                  {
+                     break out;
+                  }
+               }
+
+               //
+               resolved = new File(current, id);
                if (resolved != null && resolved.isFile())
                {
                   return Arrays.asList(resolved.toURI().toURL());

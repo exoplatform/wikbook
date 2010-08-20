@@ -58,6 +58,9 @@ class WikiLoader
    /** . */
    private final EmbeddableComponentManager ecm;
 
+   /** . */
+   private final LinkedList<String> resourceIdStack;
+
    public WikiLoader(AbstractXDOMDocbookBuilderContext context) throws WikbookException
    {
       EmbeddableComponentManager ecm = new EmbeddableComponentManager();
@@ -66,6 +69,7 @@ class WikiLoader
       //
       this.context = context;
       this.ecm = ecm;
+      this.resourceIdStack = new LinkedList<String>();
    }
 
    public Block load(Reader reader, String syntaxId) throws WikbookException
@@ -77,8 +81,22 @@ class WikiLoader
    {
       try
       {
-         Reader reader = context._load(id);
-         return load(reader, syntaxId, baseLevel);
+         // Obtain reader
+         Reader reader = context.read(resourceIdStack, id);
+
+         // Push resource id
+         resourceIdStack.addLast(id);
+
+         // Perform inclusion
+         try
+         {
+            return load(reader, syntaxId, baseLevel);
+         }
+         finally
+         {
+            // Pop resource id
+            resourceIdStack.removeLast();
+         }
       }
       catch (IOException e)
       {

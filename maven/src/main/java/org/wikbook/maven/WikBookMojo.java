@@ -326,17 +326,34 @@ public class WikBookMojo extends AbstractMojo
          }
       }
 
-      public List<URL> resolveResources(ResourceType type, String id) throws IOException
+      @Override
+      public List<URL> resolveResources(ResourceType type, Iterable<String> path, String id) throws IOException
       {
          if (id.length() > 0)
          {
+            out:
             switch (type)
             {
                case WIKI:
-                  File f = new File(sourceDirectory, id);
-                  if (f.exists() && f.isFile())
+                  File current = sourceDirectory;
+                  for (String segment : path)
                   {
-                     return Arrays.asList(f.toURI().toURL());
+                     File relative = new File(current, segment);
+                     if (relative.exists())
+                     {
+                        current = relative.getParentFile();
+                     }
+                     else
+                     {
+                        break out;
+                     }
+                  }
+
+                  //
+                  File resolved = new File(current, id);
+                  if (resolved != null && resolved.isFile())
+                  {
+                     return Arrays.asList(resolved.toURI().toURL());
                   }
                   break;
                case XML:

@@ -20,16 +20,15 @@
 package org.wikbook.xwiki;
 
 import junit.framework.TestCase;
-import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
+import java.util.Collections;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -54,7 +53,7 @@ public class WikiFileEncodingTestCase extends TestCase
 
       //
       SimpleXDOMDocbookBuilderContext ctx = new SimpleXDOMDocbookBuilderContext(wiki.getParentFile());
-      Reader reader = ctx._load(wiki.getName());
+      Reader reader = ctx.read(Collections.<String>emptyList(), wiki.getName());
       String actual = Utils.read(reader);
       reader.close();
       assertEquals(expected, actual);

@@ -36,6 +36,7 @@ import javax.xml.transform.stream.StreamResult;
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringWriter;
+import java.util.Collections;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -161,7 +162,7 @@ public class WikbookConverter
 
    private void _convert2(String id, Result result) throws Exception
    {
-      Reader reader = context._load(id);
+      Reader reader = context.read(Collections.<String>emptyList(), id);
 
       //
       BookElement elt = new BookElement();
