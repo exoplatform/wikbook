@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting language="xml">
+&lt;foo&gt;
+  &lt;bar/&gt;
+&lt;/foo&gt;
+      </programlisting>
+    </programlistingco>
+  </preface>
+</book>

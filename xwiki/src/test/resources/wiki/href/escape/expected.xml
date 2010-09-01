@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <para>
+      <programlistingco>
+        <areaspec units="linecolumn"/>
+        <programlisting language="java">
+package wiki.href.escape;
+class A {
+}
+        </programlisting>
+      </programlistingco>
+      <programlistingco>
+        <areaspec units="linecolumn"/>
+        <programlisting language="java">
+package wiki.href.escape;
+class A {
+}
+        </programlisting>
+      </programlistingco>
+      <programlistingco>
+        <areaspec units="linecolumn"/>
+        <programlisting language="java">
+package wiki.href.escape;
+public class B {
+}
+        </programlisting>
+      </programlistingco>
+      <programlistingco>
+        <areaspec units="linecolumn"/>
+        <programlisting language="java">
+package wiki.href.escape;
+public class B {
+}
+        </programlisting>
+      </programlistingco>
+      <programlistingco>
+        <areaspec units="linecolumn"/>
+        <programlisting language="xml">
+&lt;foo&gt;
+  &lt;bar/&gt;
+&lt;/foo&gt;
+        </programlisting>
+      </programlistingco>
+      <programlistingco>
+        <areaspec units="linecolumn"/>
+        <programlisting language="xml">
+&lt;foo&gt;
+  &lt;bar/&gt;
+&lt;/foo&gt;
+        </programlisting>
+      </programlistingco>
+    </para>
+  </preface>
+</book>

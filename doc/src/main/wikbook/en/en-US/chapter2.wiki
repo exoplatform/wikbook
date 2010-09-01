@@ -302,10 +302,17 @@ are available that makes it very powerful
 |((({{code}}{{code language=java}}x = x + 1;{{/code}}{{/code}})))
 |((({{code language=java}}x = x + 1;{{/code}})))
 
+(% title="A sample Groovy code" %)
+|((({{code}}{{code language=groovy}}x = x + 2;{{/code}}{{/code}})))
+|((({{code language=groovy}}x = x + 2;{{/code}})))
+
 (% title="A sample XML code" %)
 |((({{code}}{{code language=xml}}<valid/>{{/code}}{{/code}})))
 |((({{code language=xml}}<valid/>{{/code}})))
 
+(% title="A sample code from a file" %)
+|((({{code}}{{code language=java href="org/wikbook/A.java"/}}{{/code}}{{/code}})))
+|((({{code language=java}}// Content of the A.java file{{/code}})))
 
 ==== Java code ====
 

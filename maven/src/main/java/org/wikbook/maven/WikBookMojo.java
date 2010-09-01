@@ -357,11 +357,12 @@ public class WikBookMojo extends AbstractMojo
                   }
                   break;
                case XML:
+               case JAVA:
+               case DEFAULT:
                   if (id.startsWith("/"))
                   {
                      id = id.substring(1);
                   }
-               case JAVA:
                   LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
 
                   //

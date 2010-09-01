@@ -213,7 +213,7 @@ public class ProgramListingElement extends BlockElement
             try
             {
                // Wrap the whole document with a root and declares the internal wikbook namespace
-               String data = "<root xmlns:wikbook=\"urn:wikbook:internal\">" + content + "</root>";
+               String data = "<root xmlns:wikbook=\"urn:wikbook:internal\">" + content.replaceAll("<\\?xml.*\\?>", "") + "</root>";
 
                // Parse the resulting document
                Document doc = documentBuilder.parse(new InputSource(new StringReader(data)));

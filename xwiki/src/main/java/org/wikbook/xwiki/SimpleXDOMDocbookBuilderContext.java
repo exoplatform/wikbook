@@ -142,11 +142,12 @@ public class SimpleXDOMDocbookBuilderContext extends AbstractXDOMDocbookBuilderC
                }
                break;
             case XML:
+            case JAVA:
+            case DEFAULT:
                if (id.startsWith("/"))
                {
                   id = id.substring(1);
                }
-            case JAVA:
                Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(id);
                List<URL> streams = new ArrayList<URL>();
                while (urls.hasMoreElements())

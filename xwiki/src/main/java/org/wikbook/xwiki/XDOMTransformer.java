@@ -20,6 +20,8 @@
 package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
+import org.wikbook.core.ResourceType;
+import org.wikbook.core.Utils;
 import org.wikbook.core.model.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.content.block.AdmonitionKind;
@@ -41,7 +43,11 @@ import org.xwiki.rendering.syntax.Syntax;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.Reader;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -294,9 +300,26 @@ class XDOMTransformer implements Listener
                {
                   languageSyntax = LanguageSyntax.JAVA;
                }
+               else if ("groovy".equalsIgnoreCase(language))
+               {
+                  languageSyntax = LanguageSyntax.JAVA;
+               }
                else if ("xml".equalsIgnoreCase(language))
                {
                   languageSyntax = LanguageSyntax.XML;
+               }
+
+               String href = macroParameters.get("href");
+               if (href != null)
+               {
+                  try
+                  {
+                    content = Utils.read(Utils.read(context.resolveResource(ResourceType.DEFAULT, href), context.getCharsetName()));
+                  }
+                  catch (IOException e)
+                  {
+                    content = Utils.toString(e);
+                  }
                }
 
                // Support Confluence code:java and code:xml
@@ -306,6 +329,10 @@ class XDOMTransformer implements Listener
                   if (value != null)
                   {
                      if ("java".equalsIgnoreCase(value))
+                     {
+                        languageSyntax = LanguageSyntax.JAVA;
+                     }
+                     else if ("groovy".equalsIgnoreCase(value))
                      {
                         languageSyntax = LanguageSyntax.JAVA;
                      }

@@ -1,0 +1,6 @@
+{{code language="groovy" href="wiki/href/escape/A.groovy"/}}
+{{code language="groovy" href="/wiki/href/escape/A.groovy"/}}
+{{code language="java" href="wiki/href/escape/B.java"/}}
+{{code language="java" href="/wiki/href/escape/B.java"/}}
+{{code language="xml" href="wiki/href/escape/input.xml"/}}
+{{code language="xml" href="/wiki/href/escape/input.xml"/}}
