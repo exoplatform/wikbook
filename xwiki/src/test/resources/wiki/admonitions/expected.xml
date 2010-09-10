@@ -25,5 +25,10 @@
         <emphasis role="bold">bold note value</emphasis>
       </para>
     </note>
+    <note>
+      <para>
+        <xref linkend="foo"/>
+      </para>
+    </note>
   </preface>
 </book>

@@ -11,3 +11,5 @@
 {{warning}}warning value{{/warning}}
 
 {{note}}**bold note value**{{/note}}
+
+{{note}}[[#foo]]{{/note}}
