@@ -252,6 +252,14 @@ class XDOMTransformer implements Listener
       else if ("anchor".equals(id))
       {
          String anchor = macroParameters.get("id");
+
+         // Special confluence support for anchor:foo
+         if (anchor == null)
+         {
+            anchor = macroParameters.get("value");
+         }
+
+         //
          builder.onAnchor(anchor);
       }
       else if ("docbook".equals(id))
