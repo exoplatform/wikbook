@@ -85,10 +85,29 @@ such as this documentation.
 (% title="Verbatim text" %)
 |(((
 {{code}}
-{{{[foo>>#bar]}}}
+{{{[#bar]}}}
 {{/code}})))|(((
 {{code language=xml indent=2}}
-<para>[foo>>#bar]</para>
+<para>[#bar]</para>
+{{/code}})))
+
+It is also possible to escape a single character with a backslash. A backslash will generate a vertatim block around the
+escaped char. A double back slash will produce a single backslash.
+
+(% title="Char escape" %)
+|(((
+{{code}}
+\\[#bar\\]
+{{/code}})))|(((
+{{code language=xml indent=2}}
+<para>[#bar]</para>
+{{/code}})))
+
+(% title="Backslash escape" %)
+|(((
+{{code}}\\\\{{/code}})))|(((
+{{code language=xml indent=2}}
+<para>\\</para>
 {{/code}})))
 
 == Blocks ==

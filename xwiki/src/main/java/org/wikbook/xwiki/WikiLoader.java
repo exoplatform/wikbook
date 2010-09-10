@@ -42,8 +42,10 @@ import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -51,6 +53,15 @@ import java.util.List;
  */
 class WikiLoader
 {
+
+   /** . */
+   private static final Map<String, PatternFilter> ESCAPE_FILTER_MAP = new HashMap<String, PatternFilter>()
+   {
+      {
+         put(Syntax.XWIKI_2_0.toIdString(), new PatternFilter.Escape("{{{", "}}}"));
+         put(Syntax.CONFLUENCE_1_0.toIdString(), new PatternFilter.Escape("{{{", "}}}"));
+      }
+   };
 
    /** . */
    private final AbstractXDOMDocbookBuilderContext context;
@@ -117,8 +128,15 @@ class WikiLoader
          // Load the text
          String s = Utils.read(reader);
 
+         // Filter escapes
+         PatternFilter filter = ESCAPE_FILTER_MAP.get(syntaxId);
+         if (filter != null)
+         {
+            s = filter.filter(s);
+         }
+
          // Filter properties
-         s = new PropertyFilter()
+         s = new PatternFilter.Properties()
          {
             @Override
             protected String resolveProperty(String propertyname)
