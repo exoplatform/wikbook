@@ -21,9 +21,6 @@ package org.wikbook.core.render.docbook;
 
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
@@ -140,26 +137,30 @@ public abstract class ElementWriter<E extends DocbookElement>
       return writer;
    }
 
-/*
-   protected <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
-   {
-      if (elements instanceof ElementContainer)
-      {
-         write((ElementContainer<E>)elements, emitter);
-      }
-      else
-      {
-         write((ElementContainer)elements, emitter);
-      }
-   }
-*/
+   /**
+    * <p>Write an element container to the specified emitter.</p>
+    *
+    * <p>When the argument {@code blockContainer} value is false, the writing process iterates over the container elements
+    * and render them sequentially.</p>
 
-   protected <E extends DocbookElement> void write(ElementContainer<E> elements, boolean blockContainer, XMLEmitter emitter)
+    * <p>When the argument {@code blockContainer} value is true, the container is considered as a block container,
+    * the writing process takes care of wrapping the elements that are not block elements by a paragraph element (which
+    * is a block itself).</p>
+    *
+    * @param container the container
+    * @param blockContainer denotes a container acting as a block container when set to true
+    * @param emitter the emmitter
+    * @param <E> the container element parameter type
+    */
+   protected <E extends DocbookElement> void write(
+      ElementContainer<E> container,
+      boolean blockContainer,
+      XMLEmitter emitter)
    {
       if (blockContainer)
       {
          ElementEmitter paraXML = null;
-         for (DocbookElement e : elements)
+         for (DocbookElement e : container)
          {
             ElementWriter<DocbookElement> writer = getWriter(e);
             if (e instanceof BlockElement)
@@ -182,7 +183,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       }
       else
       {
-         for (E elt : elements)
+         for (E elt : container)
          {
             ElementWriter<E> writer = getWriter(elt);
             writer.write(elt, emitter);
@@ -190,44 +191,12 @@ public abstract class ElementWriter<E extends DocbookElement>
       }
    }
 
-/*
-   private <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
-   {
-      for (E elt : elements)
-      {
-         ElementWriter<E> writer = getWriter(elt);
-         writer.write(elt, emitter);
-      }
-   }
-
-   private void write(ElementContainer elements, XMLEmitter emitter)
-   {
-
-      //
-      ElementEmitter paraXML = null;
-      for (ContentElement e : elements)
-      {
-         ElementWriter<ContentElement> writer = getWriter(e);
-         if (e instanceof BlockElement)
-         {
-            if (paraXML != null)
-            {
-               paraXML = null;
-            }
-            writer.write(e, emitter);
-         }
-         else
-         {
-            if (paraXML == null)
-            {
-               paraXML = emitter.element("para");
-            }
-            writer.write(e, paraXML);
-         }
-      }
-   }
-
-*/
+   /**
+    * Writes an element to the emitter.
+    *
+    * @param element the element to write
+    * @param emitter the emitter
+    */
    public abstract void write(E element, XMLEmitter emitter);
 
 }
