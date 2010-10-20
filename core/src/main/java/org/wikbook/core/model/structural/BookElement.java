@@ -22,7 +22,6 @@ package org.wikbook.core.model.structural;
 import org.w3c.dom.DocumentFragment;
 import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 
 /**
@@ -36,10 +35,7 @@ public class BookElement extends StructuralElement
    private final AnyElementContainer<ComponentElement> chapters = new AnyElementContainer<ComponentElement>(ComponentElement.class);
 
    /** . */
-   private PrefaceElement preface = new PrefaceElement();
-
-   /** . */
-   private String prefaceTitle;
+   private PrefaceElement preface;
 
    /** . */
    private boolean omitRootNode;
@@ -53,7 +49,6 @@ public class BookElement extends StructuralElement
    public BookElement()
    {
       this.omitRootNode = false;
-      this.prefaceTitle = "Preface";
    }
 
    public AnyElementContainer<ComponentElement> getChapters()
@@ -64,16 +59,6 @@ public class BookElement extends StructuralElement
    public PrefaceElement getPreface()
    {
       return preface;
-   }
-
-   public String getPrefaceTitle()
-   {
-      return prefaceTitle;
-   }
-
-   public void setPrefaceTitle(String prefaceTitle)
-   {
-      this.prefaceTitle = prefaceTitle;
    }
 
    public boolean getOmitRootNode()
@@ -111,6 +96,10 @@ public class BookElement extends StructuralElement
    {
       if (elt instanceof ContentElement)
       {
+         if (preface == null)
+         {
+            preface = new PrefaceElement();
+         }
          return preface.append(elt);
       }
       else if (elt instanceof ComponentElement)

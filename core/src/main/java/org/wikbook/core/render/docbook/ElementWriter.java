@@ -48,6 +48,7 @@ import org.wikbook.core.model.content.inline.LinkElement;
 import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.model.structural.ComponentElement;
+import org.wikbook.core.model.structural.PrefaceElement;
 import org.wikbook.core.render.docbook.content.block.AdmonitionWriter;
 import org.wikbook.core.render.docbook.content.block.BlockQuotationWriter;
 import org.wikbook.core.render.docbook.content.block.CalloutWriter;
@@ -71,6 +72,7 @@ import org.wikbook.core.render.docbook.content.inline.LinkWriter;
 import org.wikbook.core.render.docbook.content.inline.TextWriter;
 import org.wikbook.core.render.docbook.structural.BookWriter;
 import org.wikbook.core.render.docbook.structural.ComponentWriter;
+import org.wikbook.core.render.docbook.structural.PrefaceWriter;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -91,6 +93,7 @@ public abstract class ElementWriter<E extends DocbookElement>
    {
       writers.put(BookElement.class, new BookWriter());
       writers.put(ComponentElement.class, new ComponentWriter());
+      writers.put(PrefaceElement.class, new PrefaceWriter());
 
       //
       writers.put(AnchorElement.class, new AnchorWriter());

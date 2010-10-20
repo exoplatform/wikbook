@@ -19,7 +19,7 @@
 
 package org.wikbook.core.render.docbook.structural;
 
-import org.wikbook.core.model.structural.BookElement;
+import org.wikbook.core.model.structural.PrefaceElement;
 import org.wikbook.core.render.docbook.ElementWriter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -27,34 +27,15 @@ import org.wikbook.core.xml.XMLEmitter;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class BookWriter extends ElementWriter<BookElement>
+public class PrefaceWriter extends ElementWriter<PrefaceElement>
 {
-
    @Override
-   public void write(BookElement element, XMLEmitter emitter)
+   public void write(PrefaceElement element, XMLEmitter emitter)
    {
-      if (!element.getOmitRootNode())
+      if (element.getPrefaceTitle() != null)
       {
-         emitter = emitter.element("book");
+         emitter.element("title").content("Preface");
       }
-
-      //
-      if (element.getBeforeBodyXML() != null) {
-         emitter.append(element.getBeforeBodyXML());
-      }
-
-      //
-      if (element.getPreface() != null)
-      {
-         getWriter(element.getPreface()).write(element.getPreface(), emitter.element("preface"));
-      }
-
-      //
-      write(element.getChapters(), emitter);
-
-      //
-      if (element.getAfterBodyXML() != null) {
-         emitter.append(element.getAfterBodyXML());
-      }
+      write(element.getContent(), emitter);
    }
 }

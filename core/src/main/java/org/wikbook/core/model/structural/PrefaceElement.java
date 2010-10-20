@@ -32,6 +32,19 @@ public class PrefaceElement extends StructuralElement
    /** . */
    protected ContentElementContainer content = new ContentElementContainer();
 
+   /** . */
+   private String prefaceTitle = "Preface";
+
+   public String getPrefaceTitle()
+   {
+      return prefaceTitle;
+   }
+
+   public void setPrefaceTitle(String prefaceTitle)
+   {
+      this.prefaceTitle = prefaceTitle;
+   }
+
    public ContentElementContainer getContent()
    {
       return content;
