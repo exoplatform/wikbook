@@ -137,7 +137,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       return writer;
    }
 
-   public <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
+   protected <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
    {
       if (elements instanceof AnyElementContainer)
       {
@@ -149,7 +149,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       }
    }
 
-   public <E extends DocbookElement> void write(AnyElementContainer<E> elements, XMLEmitter emitter)
+   private <E extends DocbookElement> void write(AnyElementContainer<E> elements, XMLEmitter emitter)
    {
       for (E elt : elements)
       {
@@ -158,7 +158,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       }
    }
 
-   public void write(ContentElementContainer elements, XMLEmitter emitter)
+   private void write(ContentElementContainer elements, XMLEmitter emitter)
    {
 
       //
