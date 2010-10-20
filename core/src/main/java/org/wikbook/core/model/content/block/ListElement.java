@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.block;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 
 import java.util.EnumMap;
@@ -49,7 +49,7 @@ public class ListElement extends BlockElement
    private final ListKind kind;
 
    /** . */
-   private final AnyElementContainer<ListItemElement> items;
+   private final ElementContainer<ListItemElement> items;
 
    /** . */
    private final String style;
@@ -57,11 +57,11 @@ public class ListElement extends BlockElement
    public ListElement(ListKind kind, String style)
    {
       this.kind = kind;
-      this.items = new AnyElementContainer<ListItemElement>(ListItemElement.class);
+      this.items = new ElementContainer<ListItemElement>(ListItemElement.class);
       this.style = style;
    }
 
-   public AnyElementContainer<ListItemElement> getItems()
+   public ElementContainer<ListItemElement> getItems()
    {
       return items;
    }

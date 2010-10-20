@@ -38,7 +38,7 @@ public class LinkWriter extends ElementWriter<LinkElement>
          case ANCHOR:
             if (element.getContainer().isNotEmpty())
             {
-               write(element.getContainer(), emitter.element("link").withAttribute("linkend", element.getRef()));
+               write(element.getContainer(), false, emitter.element("link").withAttribute("linkend", element.getRef()));
             }
             else
             {
@@ -54,7 +54,7 @@ public class LinkWriter extends ElementWriter<LinkElement>
             {
                if (element.getContainer().isNotEmpty())
                {
-                  write(element.getContainer(), emitter.element("ulink").withAttribute("url", element.getRef()));
+                  write(element.getContainer(), false, emitter.element("ulink").withAttribute("url", element.getRef()));
                }
                else
                {

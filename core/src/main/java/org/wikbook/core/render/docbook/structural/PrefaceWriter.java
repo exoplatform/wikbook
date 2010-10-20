@@ -36,6 +36,6 @@ public class PrefaceWriter extends ElementWriter<PrefaceElement>
       {
          emitter.element("title").content("Preface");
       }
-      write(element.getContent(), emitter);
+      write(element.getContent(), true, emitter);
    }
 }

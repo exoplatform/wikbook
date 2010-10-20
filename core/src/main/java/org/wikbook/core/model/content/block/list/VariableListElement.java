@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.block.list;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.model.content.block.ListItemElement;
@@ -32,7 +32,7 @@ public class VariableListElement extends BlockElement
 {
 
    /** . */
-   private final AnyElementContainer<DocbookElement> container = new AnyElementContainer<DocbookElement>(DocbookElement.class);
+   private final ElementContainer<DocbookElement> container = new ElementContainer<DocbookElement>(DocbookElement.class);
 
    /** . */
    private final String title;
@@ -47,7 +47,7 @@ public class VariableListElement extends BlockElement
       return title;
    }
 
-   public AnyElementContainer<DocbookElement> getContainer()
+   public ElementContainer<DocbookElement> getContainer()
    {
       return container;
    }

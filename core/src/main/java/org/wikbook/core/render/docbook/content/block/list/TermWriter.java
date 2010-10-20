@@ -32,6 +32,6 @@ public class TermWriter extends ElementWriter<TermElement>
    @Override
    public void write(TermElement element, XMLEmitter emitter)
    {
-      write(element.getContainer(), emitter.element("term"));
+      write(element.getContainer(), false, emitter.element("term"));
    }
 }

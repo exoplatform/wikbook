@@ -32,6 +32,6 @@ public class ListItemWriter extends ElementWriter<ListItemElement>
    @Override
    public void write(ListItemElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), emitter.element("listitem"));
+      write(element.getContent(), true, emitter.element("listitem"));
    }
 }

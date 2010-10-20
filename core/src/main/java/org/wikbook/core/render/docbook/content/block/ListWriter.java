@@ -61,6 +61,6 @@ public class ListWriter extends ElementWriter<ListElement>
       }
 
       //
-      write(element.getItems(), listXML);
+      write(element.getItems(), false, listXML);
    }
 }

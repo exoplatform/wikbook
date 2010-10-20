@@ -20,7 +20,7 @@
 package org.wikbook.core.model.content.block.table;
 
 import org.wikbook.core.VAlign;
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 
 /**
@@ -31,18 +31,18 @@ public class TableRowElement extends DocbookElement
 {
 
    /** . */
-   final AnyElementContainer<TableCellElement> cells;
+   final ElementContainer<TableCellElement> cells;
 
    /** . */
    private final VAlign valign;
 
    public TableRowElement(VAlign valign)
    {
-      this.cells = new AnyElementContainer<TableCellElement>(TableCellElement.class);
+      this.cells = new ElementContainer<TableCellElement>(TableCellElement.class);
       this.valign = valign;
    }
 
-   public AnyElementContainer<TableCellElement> getCells()
+   public ElementContainer<TableCellElement> getCells()
    {
       return cells;
    }

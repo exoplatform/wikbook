@@ -65,7 +65,7 @@ public class ProgramListingWriter extends ElementWriter<ProgramListingElement>
       //
       if (element.getCallouts().isNotEmpty())
       {
-         write(element.getCallouts(), programListingCoXML.element("calloutlist"));
+         write(element.getCallouts(), false, programListingCoXML.element("calloutlist"));
       }
 
       //

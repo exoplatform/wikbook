@@ -41,6 +41,6 @@ public class ExampleWriter extends ElementWriter<ExampleElement>
          emitter = emitter.element("example");
          emitter.element("title").content(element.getTitle());
       }
-      write(element.getContent(), emitter);
+      write(element.getContent(), false, emitter);
    }
 }

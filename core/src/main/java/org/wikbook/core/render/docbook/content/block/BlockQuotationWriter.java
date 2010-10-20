@@ -33,6 +33,6 @@ public class BlockQuotationWriter extends ElementWriter<BlockQuotationElement>
    @Override
    public void write(BlockQuotationElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), emitter.element("blockquote"));
+      write(element.getContent(), true, emitter.element("blockquote"));
    }
 }

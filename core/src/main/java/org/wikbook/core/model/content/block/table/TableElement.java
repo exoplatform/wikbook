@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.block.table;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.BlockElement;
 
@@ -31,14 +31,14 @@ public class TableElement extends BlockElement
 {
 
    /** . */
-   private AnyElementContainer<TableRowElement> structure;
+   private ElementContainer<TableRowElement> structure;
 
    /** . */
    private final String title;
 
    public TableElement(String title)
    {
-      this.structure = new AnyElementContainer<TableRowElement>(TableRowElement.class);
+      this.structure = new ElementContainer<TableRowElement>(TableRowElement.class);
       this.title = title;
    }
 
@@ -47,7 +47,7 @@ public class TableElement extends BlockElement
       return title;
    }
 
-   public AnyElementContainer<TableRowElement> getStructure()
+   public ElementContainer<TableRowElement> getStructure()
    {
       return structure;
    }

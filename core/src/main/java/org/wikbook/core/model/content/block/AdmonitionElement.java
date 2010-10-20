@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.block;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.ContentElement;
 
@@ -34,12 +34,12 @@ public class AdmonitionElement extends BlockElement
    private final AdmonitionKind kind;
 
    /** . */
-   private AnyElementContainer<ContentElement> content;
+   private ElementContainer<ContentElement> content;
 
    public AdmonitionElement(AdmonitionKind kind)
    {
       this.kind = kind;
-      this.content = new AnyElementContainer<ContentElement>(ContentElement.class);
+      this.content = new ElementContainer<ContentElement>(ContentElement.class);
    }
 
    public AdmonitionKind getKind()
@@ -47,7 +47,7 @@ public class AdmonitionElement extends BlockElement
       return kind;
    }
 
-   public AnyElementContainer<ContentElement> getContent()
+   public ElementContainer<ContentElement> getContent()
    {
       return content;
    }

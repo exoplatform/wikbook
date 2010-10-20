@@ -34,11 +34,11 @@ public class TableCellWriter extends ElementWriter<TableCellElement>
    {
       if (element.getContent() != null)
       {
-         write(element.getContent(), emitter);
+         write(element.getContent(), true, emitter);
       }
       else if (element.getInline() != null)
       {
-         write(element.getInline(), emitter);
+         write(element.getInline(), false, emitter);
       }
    }
 }

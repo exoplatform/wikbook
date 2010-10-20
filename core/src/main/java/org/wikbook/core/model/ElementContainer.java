@@ -27,7 +27,7 @@ import java.util.ListIterator;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class ElementContainer<E extends DocbookElement> implements Iterable<E>
+public class ElementContainer<E extends DocbookElement> implements Iterable<E>
 {
 
    /** . */

@@ -20,7 +20,8 @@
 package org.wikbook.core.model.content.block;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentElementContainer;
+import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.ContentElement;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -30,9 +31,9 @@ public class BlockQuotationElement extends BlockElement
 {
 
    /** . */
-   protected ContentElementContainer content = new ContentElementContainer();
+   protected ElementContainer<ContentElement> content = new ElementContainer<ContentElement>(ContentElement.class);
 
-   public ContentElementContainer getContent()
+   public ElementContainer<ContentElement> getContent()
    {
       return content;
    }

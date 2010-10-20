@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.inline;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 
 /**
@@ -30,7 +30,7 @@ public class FormatElement extends InlineElement
 {
 
    /** . */
-   private AnyElementContainer<InlineElement> container = new AnyElementContainer<InlineElement>(InlineElement.class);
+   private ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
 
    /** . */
    private final TextFormat format;
@@ -40,7 +40,7 @@ public class FormatElement extends InlineElement
       this.format = format;
    }
 
-   public AnyElementContainer<InlineElement> getContainer()
+   public ElementContainer<InlineElement> getContainer()
    {
       return container;
    }

@@ -32,6 +32,6 @@ public class GroupWriter extends ElementWriter<GroupElement>
    @Override
    public void write(GroupElement element, XMLEmitter emitter)
    {
-      write(element.getContainer(), emitter);
+      write(element.getContainer(), true, emitter);
    }
 }

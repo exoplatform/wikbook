@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.inline;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 
 /**
@@ -36,7 +36,7 @@ public class LinkElement extends InlineElement
    private final String ref;
 
    /** . */
-   private final AnyElementContainer<InlineElement> container = new AnyElementContainer<InlineElement>(InlineElement.class);
+   private final ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
 
    public LinkElement(LinkType type, String ref)
    {
@@ -49,7 +49,7 @@ public class LinkElement extends InlineElement
       return ref;
    }
 
-   public AnyElementContainer<InlineElement> getContainer()
+   public ElementContainer<InlineElement> getContainer()
    {
       return container;
    }

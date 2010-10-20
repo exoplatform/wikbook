@@ -33,6 +33,6 @@ public class ParagraphWriter extends ElementWriter<ParagraphElement>
    @Override
    public void write(ParagraphElement element, XMLEmitter emitter)
    {
-      write(element.getContainer(), emitter.element("para"));
+      write(element.getContainer(), false, emitter.element("para"));
    }
 }

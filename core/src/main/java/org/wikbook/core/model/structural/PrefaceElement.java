@@ -20,7 +20,8 @@
 package org.wikbook.core.model.structural;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentElementContainer;
+import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.ContentElement;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -30,7 +31,7 @@ public class PrefaceElement extends StructuralElement
 {
 
    /** . */
-   protected ContentElementContainer content = new ContentElementContainer();
+   protected ElementContainer<ContentElement> content = new ElementContainer<ContentElement>(ContentElement.class);
 
    /** . */
    private String prefaceTitle = "Preface";
@@ -45,7 +46,7 @@ public class PrefaceElement extends StructuralElement
       this.prefaceTitle = prefaceTitle;
    }
 
-   public ContentElementContainer getContent()
+   public ElementContainer<ContentElement> getContent()
    {
       return content;
    }

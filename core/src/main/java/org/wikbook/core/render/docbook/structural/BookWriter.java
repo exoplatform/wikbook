@@ -50,7 +50,7 @@ public class BookWriter extends ElementWriter<BookElement>
       }
 
       //
-      write(element.getChapters(), emitter);
+      write(element.getChapters(), false, emitter);
 
       //
       if (element.getAfterBodyXML() != null) {

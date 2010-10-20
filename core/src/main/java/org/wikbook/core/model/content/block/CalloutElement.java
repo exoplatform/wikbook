@@ -19,7 +19,7 @@
 
 package org.wikbook.core.model.content.block;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.text.Position;
@@ -34,7 +34,7 @@ public class CalloutElement extends ContentElement
 {
 
    /** . */
-   private final AnyElementContainer<ContentElement> content;
+   private final ElementContainer<ContentElement> content;
 
    /** . */
    private LinkedHashMap<String, Position> ids;
@@ -44,12 +44,12 @@ public class CalloutElement extends ContentElement
 
    public CalloutElement(LinkedHashMap<String, Position> ids, String text)
    {
-      this.content = new AnyElementContainer<ContentElement>(ContentElement.class);
+      this.content = new ElementContainer<ContentElement>(ContentElement.class);
       this.ids = ids;
       this.text = text;
    }
 
-   public AnyElementContainer<ContentElement> getContent()
+   public ElementContainer<ContentElement> getContent()
    {
       return content;
    }

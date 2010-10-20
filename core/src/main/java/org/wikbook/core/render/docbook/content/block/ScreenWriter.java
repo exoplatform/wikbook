@@ -32,6 +32,6 @@ public class ScreenWriter extends ElementWriter<ScreenElement>
    @Override
    public void write(ScreenElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), emitter.element("screen"));
+      write(element.getContent(), false, emitter.element("screen"));
    }
 }

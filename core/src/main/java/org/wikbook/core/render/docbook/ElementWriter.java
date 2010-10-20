@@ -19,11 +19,11 @@
 
 package org.wikbook.core.render.docbook;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.model.content.ContentElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
@@ -140,19 +140,58 @@ public abstract class ElementWriter<E extends DocbookElement>
       return writer;
    }
 
+/*
    protected <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
    {
-      if (elements instanceof AnyElementContainer)
+      if (elements instanceof ElementContainer)
       {
-         write((AnyElementContainer<E>)elements, emitter);
+         write((ElementContainer<E>)elements, emitter);
       }
       else
       {
-         write((ContentElementContainer)elements, emitter);
+         write((ElementContainer)elements, emitter);
+      }
+   }
+*/
+
+   protected <E extends DocbookElement> void write(ElementContainer<E> elements, boolean blockContainer, XMLEmitter emitter)
+   {
+      if (blockContainer)
+      {
+         ElementEmitter paraXML = null;
+         for (DocbookElement e : elements)
+         {
+            ElementWriter<DocbookElement> writer = getWriter(e);
+            if (e instanceof BlockElement)
+            {
+               if (paraXML != null)
+               {
+                  paraXML = null;
+               }
+               writer.write(e, emitter);
+            }
+            else
+            {
+               if (paraXML == null)
+               {
+                  paraXML = emitter.element("para");
+               }
+               writer.write(e, paraXML);
+            }
+         }
+      }
+      else
+      {
+         for (E elt : elements)
+         {
+            ElementWriter<E> writer = getWriter(elt);
+            writer.write(elt, emitter);
+         }
       }
    }
 
-   private <E extends DocbookElement> void write(AnyElementContainer<E> elements, XMLEmitter emitter)
+/*
+   private <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
    {
       for (E elt : elements)
       {
@@ -161,7 +200,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       }
    }
 
-   private void write(ContentElementContainer elements, XMLEmitter emitter)
+   private void write(ElementContainer elements, XMLEmitter emitter)
    {
 
       //
@@ -188,6 +227,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       }
    }
 
+*/
    public abstract void write(E element, XMLEmitter emitter);
 
 }

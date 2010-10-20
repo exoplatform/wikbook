@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookBuilderContext;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.WikbookException;
@@ -71,7 +71,7 @@ public class ProgramListingElement extends BlockElement
 {
 
    /** . */
-   private final AnyElementContainer<CalloutElement> callouts;
+   private final ElementContainer<CalloutElement> callouts;
 
    /** . */
    private final LanguageSyntax languageSyntax;
@@ -129,7 +129,7 @@ public class ProgramListingElement extends BlockElement
       this.indent = indent;
       this.content = content;
       this.highlightCode = highlightCode;
-      this.callouts = new AnyElementContainer<CalloutElement>(CalloutElement.class);
+      this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
       this.documentBuilder = documentBuilder;
       this.xpath = XPathFactory.newInstance().newXPath();
    }
@@ -149,7 +149,7 @@ public class ProgramListingElement extends BlockElement
       return highlightCode;
    }
 
-   public AnyElementContainer<CalloutElement> getCallouts()
+   public ElementContainer<CalloutElement> getCallouts()
    {
       return callouts;
    }

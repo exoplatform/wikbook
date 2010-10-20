@@ -21,9 +21,10 @@ package org.wikbook.core.model.content.block.table;
 
 import org.wikbook.core.Align;
 import org.wikbook.core.VAlign;
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentElementContainer;
+import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.InlineElement;
 
 /**
@@ -37,10 +38,10 @@ public class TableCellElement extends DocbookElement
    final boolean head;
 
    /** . */
-   private ContentElementContainer content;
+   private ElementContainer<ContentElement> content;
 
    /** . */
-   private AnyElementContainer<InlineElement> inline;
+   private ElementContainer<InlineElement> inline;
 
    /** . */
    private final Align align;
@@ -55,12 +56,12 @@ public class TableCellElement extends DocbookElement
       this.valign = valign;
    }
 
-   public AnyElementContainer<InlineElement> getInline()
+   public ElementContainer<InlineElement> getInline()
    {
       return inline;
    }
 
-   public ContentElementContainer getContent()
+   public ElementContainer<ContentElement> getContent()
    {
       return content;
    }
@@ -87,7 +88,7 @@ public class TableCellElement extends DocbookElement
          {
             if (inline == null)
             {
-               inline = new AnyElementContainer<InlineElement>(InlineElement.class);
+               inline = new ElementContainer<InlineElement>(InlineElement.class);
             }
             return inline.append(elt);
          }
@@ -98,13 +99,13 @@ public class TableCellElement extends DocbookElement
          {
             if (content == null)
             {
-               content = new ContentElementContainer();
+               content = new ElementContainer<ContentElement>(ContentElement.class);
             }
             return content.append(elt);
          }
          else
          {
-            content = new ContentElementContainer();
+            content = new ElementContainer<ContentElement>(ContentElement.class);
             for (InlineElement i : inline)
             {
                content.append(i);

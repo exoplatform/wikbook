@@ -40,15 +40,15 @@ public class ComponentWriter extends ElementWriter<ComponentElement>
       }
       if (element.getTitle() != null)
       {
-         write(element.getTitle(), chapterXML.element("title"));
+         write(element.getTitle(), false, chapterXML.element("title"));
       }
       if (element.getContent() != null)
       {
-         write(element.getContent(), chapterXML);
+         write(element.getContent(), true, chapterXML);
       }
       if (element.getComponents() != null)
       {
-         write(element.getComponents(), chapterXML);
+         write(element.getComponents(), false, chapterXML);
       }
    }
 }

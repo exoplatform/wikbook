@@ -19,10 +19,11 @@
 
 package org.wikbook.core.model.structural;
 
-import org.wikbook.core.model.AnyElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.ContentElementContainer;
+import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
+import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.InlineElement;
 
@@ -37,13 +38,13 @@ public class ComponentElement extends StructuralElement
    private boolean doTitle;
 
    /** . */
-   protected AnyElementContainer<InlineElement> title;
+   protected ElementContainer<InlineElement> title;
 
    /** . */
-   protected ContentElementContainer content = null;
+   protected ElementContainer<ContentElement> content = null;
 
    /** . */
-   protected AnyElementContainer<ComponentElement> components = null;
+   protected ElementContainer<ComponentElement> components = null;
 
    /** . */
    protected String id;
@@ -61,17 +62,17 @@ public class ComponentElement extends StructuralElement
       return level;
    }
 
-   public AnyElementContainer<InlineElement> getTitle()
+   public ElementContainer<InlineElement> getTitle()
    {
       return title;
    }
 
-   public AnyElementContainer<ComponentElement> getComponents()
+   public ElementContainer<ComponentElement> getComponents()
    {
       return components;
    }
 
-   public ContentElementContainer getContent()
+   public ElementContainer<ContentElement> getContent()
    {
       return content;
    }
@@ -93,7 +94,7 @@ public class ComponentElement extends StructuralElement
       {
          if (title == null)
          {
-            title = new AnyElementContainer<InlineElement>(InlineElement.class);
+            title = new ElementContainer<InlineElement>(InlineElement.class);
          }
          if (elt instanceof AnchorElement)
          {
@@ -113,7 +114,7 @@ public class ComponentElement extends StructuralElement
          }
          if (content == null)
          {
-            content = new ContentElementContainer();
+            content = new ElementContainer<ContentElement>(ContentElement.class);
          }
          return content.append(elt);
       }
@@ -121,7 +122,7 @@ public class ComponentElement extends StructuralElement
       {
          if (components == null)
          {
-            components = new AnyElementContainer<ComponentElement>(ComponentElement.class);
+            components = new ElementContainer<ComponentElement>(ComponentElement.class);
          }
          ComponentElement componentElt = (ComponentElement)elt;
          componentElt.level = level + 1;

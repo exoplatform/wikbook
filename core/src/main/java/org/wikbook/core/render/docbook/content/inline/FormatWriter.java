@@ -36,26 +36,26 @@ public class FormatWriter extends ElementWriter<FormatElement>
       switch (element.getFormat())
       {
          case BOLD:
-            write(element.getContainer(), emitter.element("emphasis").withAttribute("role", "bold"));
+            write(element.getContainer(), false, emitter.element("emphasis").withAttribute("role", "bold"));
             break;
          case ITALIC:
-            write(element.getContainer(), emitter.element("emphasis").withAttribute("role", "italic"));
+            write(element.getContainer(), false, emitter.element("emphasis").withAttribute("role", "italic"));
             break;
          case CODE:
          case MONOSPACE:
-            write(element.getContainer(), emitter.element("code"));
+            write(element.getContainer(), false, emitter.element("code"));
             break;
          case SUPERSCRIPT:
-            write(element.getContainer(), emitter.element("superscript"));
+            write(element.getContainer(), false, emitter.element("superscript"));
             break;
          case SUBSCRIPT:
-            write(element.getContainer(), emitter.element("subscript"));
+            write(element.getContainer(), false, emitter.element("subscript"));
             break;
          case UNDERLINE:
-            write(element.getContainer(), emitter.element("emphasis").withAttribute("role", "underline"));
+            write(element.getContainer(), false, emitter.element("emphasis").withAttribute("role", "underline"));
             break;
          case STRIKE:
-            write(element.getContainer(), emitter.element("emphasis").withAttribute("role", "strikethrough"));
+            write(element.getContainer(), false, emitter.element("emphasis").withAttribute("role", "strikethrough"));
             break;
          default:
             throw new AssertionError();

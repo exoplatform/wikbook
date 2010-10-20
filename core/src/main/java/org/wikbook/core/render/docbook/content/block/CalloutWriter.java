@@ -51,6 +51,6 @@ public class CalloutWriter extends ElementWriter<CalloutElement>
       calloutXML.withAttribute("arearefs", sb.toString());
 
       //
-      write(element.getContent(), calloutXML);
+      write(element.getContent(), false, calloutXML);
    }
 }

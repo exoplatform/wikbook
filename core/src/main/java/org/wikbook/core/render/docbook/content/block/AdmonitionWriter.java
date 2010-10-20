@@ -32,6 +32,6 @@ public class AdmonitionWriter extends ElementWriter<AdmonitionElement>
    @Override
    public void write(AdmonitionElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), emitter.element(element.getKind().toString().toLowerCase()));
+      write(element.getContent(), false, emitter.element(element.getKind().toString().toLowerCase()));
    }
 }
