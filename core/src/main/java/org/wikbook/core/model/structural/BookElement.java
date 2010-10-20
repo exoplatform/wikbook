@@ -36,7 +36,7 @@ public class BookElement extends StructuralElement
    private final AnyElementContainer<ComponentElement> chapters = new AnyElementContainer<ComponentElement>(ComponentElement.class);
 
    /** . */
-   private ContentElementContainer preface = new ContentElementContainer();
+   private PrefaceElement preface = new PrefaceElement();
 
    /** . */
    private String prefaceTitle;
@@ -61,7 +61,7 @@ public class BookElement extends StructuralElement
       return chapters;
    }
 
-   public ContentElementContainer getPreface()
+   public PrefaceElement getPreface()
    {
       return preface;
    }

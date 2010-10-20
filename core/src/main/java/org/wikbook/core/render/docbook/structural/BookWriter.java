@@ -45,14 +45,14 @@ public class BookWriter extends ElementWriter<BookElement>
       }
 
       //
-      if (element.getPreface().isNotEmpty())
+      if (element.getPreface().getContent().isNotEmpty())
       {
          ElementEmitter prefaceXML = emitter.element("preface");
          if (element.getPrefaceTitle() != null)
          {
             prefaceXML.element("title").content("Preface");
          }
-         write(element.getPreface(), prefaceXML);
+         write(element.getPreface().getContent(), prefaceXML);
       }
 
       //

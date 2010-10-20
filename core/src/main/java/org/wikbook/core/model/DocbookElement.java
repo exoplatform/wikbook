@@ -203,7 +203,7 @@ public abstract class DocbookElement
       return inlineAppended;
    }
 
-   protected boolean append(DocbookElement elt)
+   public boolean append(DocbookElement elt)
    {
       return false;
    }
