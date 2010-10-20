@@ -19,6 +19,7 @@
 
 package org.wikbook.core.render.docbook;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
@@ -137,6 +138,18 @@ public abstract class ElementWriter<E extends DocbookElement>
    }
 
    public <E extends DocbookElement> void write(ElementContainer<E> elements, XMLEmitter emitter)
+   {
+      if (elements instanceof AnyElementContainer)
+      {
+         write((AnyElementContainer<E>)elements, emitter);
+      }
+      else
+      {
+         write((ContentElementContainer)elements, emitter);
+      }
+   }
+
+   public <E extends DocbookElement> void write(AnyElementContainer<E> elements, XMLEmitter emitter)
    {
       for (E elt : elements)
       {
