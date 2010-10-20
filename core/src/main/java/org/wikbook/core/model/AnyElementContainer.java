@@ -17,51 +17,16 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.inline;
-
-import org.wikbook.core.model.AnyElementContainer;
-import org.wikbook.core.model.DocbookElement;
+package org.wikbook.core.model;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class LinkElement extends InlineElement
+public class AnyElementContainer<E extends DocbookElement> extends ElementContainer<E>
 {
-
-   /** . */
-   private final LinkType type;
-
-   /** . */
-   private final String ref;
-
-   /** . */
-   private final AnyElementContainer<InlineElement> container = new AnyElementContainer<InlineElement>(InlineElement.class);
-
-   public LinkElement(LinkType type, String ref)
+   public AnyElementContainer(Class<E> elementType)
    {
-      this.type = type;
-      this.ref = ref;
-   }
-
-   public String getRef()
-   {
-      return ref;
-   }
-
-   public AnyElementContainer<InlineElement> getContainer()
-   {
-      return container;
-   }
-
-   public LinkType getLinkType()
-   {
-      return type;
-   }
-
-   @Override
-   public boolean append(DocbookElement elt)
-   {
-      return container.append(elt);
+      super(elementType);
    }
 }

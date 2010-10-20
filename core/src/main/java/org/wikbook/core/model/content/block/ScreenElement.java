@@ -19,8 +19,8 @@
 
 package org.wikbook.core.model.content.block;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.inline.InlineElement;
 
 /**
@@ -31,9 +31,9 @@ public class ScreenElement extends BlockElement
 {
 
    /** . */
-   private ElementContainer<InlineElement> content = new ElementContainer<InlineElement>(InlineElement.class);
+   private AnyElementContainer<InlineElement> content = new AnyElementContainer<InlineElement>(InlineElement.class);
 
-   public ElementContainer<InlineElement> getContent()
+   public AnyElementContainer<InlineElement> getContent()
    {
       return content;
    }

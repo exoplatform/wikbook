@@ -19,8 +19,8 @@
 
 package org.wikbook.core.model.content.block;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 
 /**
@@ -31,18 +31,18 @@ public class ExampleElement extends ContentElement
 {
 
    /** . */
-   private ElementContainer<ContentElement> content;
+   private AnyElementContainer<ContentElement> content;
 
    /** . */
    private final String title;
 
    public ExampleElement(String title)
    {
-      this.content = new ElementContainer<ContentElement>(ContentElement.class);
+      this.content = new AnyElementContainer<ContentElement>(ContentElement.class);
       this.title = title;
    }
 
-   public ElementContainer<ContentElement> getContent()
+   public AnyElementContainer<ContentElement> getContent()
    {
       return content;
    }

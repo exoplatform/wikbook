@@ -20,8 +20,8 @@
 package org.wikbook.core.model.content.block.table;
 
 import org.wikbook.core.VAlign;
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -31,18 +31,18 @@ public class TableRowElement extends DocbookElement
 {
 
    /** . */
-   final ElementContainer<TableCellElement> cells;
+   final AnyElementContainer<TableCellElement> cells;
 
    /** . */
    private final VAlign valign;
 
    public TableRowElement(VAlign valign)
    {
-      this.cells = new ElementContainer<TableCellElement>(TableCellElement.class);
+      this.cells = new AnyElementContainer<TableCellElement>(TableCellElement.class);
       this.valign = valign;
    }
 
-   public ElementContainer<TableCellElement> getCells()
+   public AnyElementContainer<TableCellElement> getCells()
    {
       return cells;
    }

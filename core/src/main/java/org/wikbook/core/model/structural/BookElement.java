@@ -20,8 +20,8 @@
 package org.wikbook.core.model.structural;
 
 import org.w3c.dom.DocumentFragment;
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 
@@ -33,7 +33,7 @@ public class BookElement extends StructuralElement
 {
 
    /** . */
-   private final ElementContainer<ComponentElement> chapters = new ElementContainer<ComponentElement>(ComponentElement.class);
+   private final AnyElementContainer<ComponentElement> chapters = new AnyElementContainer<ComponentElement>(ComponentElement.class);
 
    /** . */
    private ContentElementContainer preface = new ContentElementContainer();
@@ -56,7 +56,7 @@ public class BookElement extends StructuralElement
       this.prefaceTitle = "Preface";
    }
 
-   public ElementContainer<ComponentElement> getChapters()
+   public AnyElementContainer<ComponentElement> getChapters()
    {
       return chapters;
    }

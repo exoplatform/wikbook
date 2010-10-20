@@ -21,8 +21,8 @@ package org.wikbook.core.model.content.block.table;
 
 import org.wikbook.core.Align;
 import org.wikbook.core.VAlign;
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.inline.InlineElement;
 
@@ -40,7 +40,7 @@ public class TableCellElement extends DocbookElement
    private ContentElementContainer content;
 
    /** . */
-   private ElementContainer<InlineElement> inline;
+   private AnyElementContainer<InlineElement> inline;
 
    /** . */
    private final Align align;
@@ -55,7 +55,7 @@ public class TableCellElement extends DocbookElement
       this.valign = valign;
    }
 
-   public ElementContainer<InlineElement> getInline()
+   public AnyElementContainer<InlineElement> getInline()
    {
       return inline;
    }
@@ -87,7 +87,7 @@ public class TableCellElement extends DocbookElement
          {
             if (inline == null)
             {
-               inline = new ElementContainer<InlineElement>(InlineElement.class);
+               inline = new AnyElementContainer<InlineElement>(InlineElement.class);
             }
             return inline.append(elt);
          }

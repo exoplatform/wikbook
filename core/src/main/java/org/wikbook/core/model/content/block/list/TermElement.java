@@ -19,8 +19,8 @@
 
 package org.wikbook.core.model.content.block.list;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.InlineElement;
 
@@ -32,9 +32,9 @@ public class TermElement extends ContentElement
 {
 
    /** . */
-   private final ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
+   private final AnyElementContainer<InlineElement> container = new AnyElementContainer<InlineElement>(InlineElement.class);
 
-   public ElementContainer<InlineElement> getContainer()
+   public AnyElementContainer<InlineElement> getContainer()
    {
       return container;
    }

@@ -19,8 +19,8 @@
 
 package org.wikbook.core.model.content.inline;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -30,7 +30,7 @@ public class FormatElement extends InlineElement
 {
 
    /** . */
-   private ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
+   private AnyElementContainer<InlineElement> container = new AnyElementContainer<InlineElement>(InlineElement.class);
 
    /** . */
    private final TextFormat format;
@@ -40,7 +40,7 @@ public class FormatElement extends InlineElement
       this.format = format;
    }
 
-   public ElementContainer<InlineElement> getContainer()
+   public AnyElementContainer<InlineElement> getContainer()
    {
       return container;
    }

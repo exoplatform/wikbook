@@ -19,8 +19,8 @@
 
 package org.wikbook.core.model.content.block;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 
 /**
@@ -31,9 +31,9 @@ public class ParagraphElement extends BlockElement
 {
 
    /** . */
-   private final ElementContainer<ContentElement> container = new ElementContainer<ContentElement>(ContentElement.class);
+   private final AnyElementContainer<ContentElement> container = new AnyElementContainer<ContentElement>(ContentElement.class);
 
-   public ElementContainer<ContentElement> getContainer()
+   public AnyElementContainer<ContentElement> getContainer()
    {
       return container;
    }

@@ -19,8 +19,8 @@
 
 package org.wikbook.core.model.structural;
 
+import org.wikbook.core.model.AnyElementContainer;
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
@@ -37,13 +37,13 @@ public class ComponentElement extends StructuralElement
    private boolean doTitle;
 
    /** . */
-   protected ElementContainer<InlineElement> title;
+   protected AnyElementContainer<InlineElement> title;
 
    /** . */
    protected ContentElementContainer content = null;
 
    /** . */
-   protected ElementContainer<ComponentElement> components = null;
+   protected AnyElementContainer<ComponentElement> components = null;
 
    /** . */
    protected String id;
@@ -61,12 +61,12 @@ public class ComponentElement extends StructuralElement
       return level;
    }
 
-   public ElementContainer<InlineElement> getTitle()
+   public AnyElementContainer<InlineElement> getTitle()
    {
       return title;
    }
 
-   public ElementContainer<ComponentElement> getComponents()
+   public AnyElementContainer<ComponentElement> getComponents()
    {
       return components;
    }
@@ -93,7 +93,7 @@ public class ComponentElement extends StructuralElement
       {
          if (title == null)
          {
-            title = new ElementContainer<InlineElement>(InlineElement.class);
+            title = new AnyElementContainer<InlineElement>(InlineElement.class);
          }
          if (elt instanceof AnchorElement)
          {
@@ -121,7 +121,7 @@ public class ComponentElement extends StructuralElement
       {
          if (components == null)
          {
-            components = new ElementContainer<ComponentElement>(ComponentElement.class);
+            components = new AnyElementContainer<ComponentElement>(ComponentElement.class);
          }
          ComponentElement componentElt = (ComponentElement)elt;
          componentElt.level = level + 1;
