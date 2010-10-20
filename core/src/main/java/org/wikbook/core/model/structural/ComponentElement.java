@@ -25,8 +25,6 @@ import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.InlineElement;
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -52,6 +50,31 @@ public class ComponentElement extends StructuralElement
 
    /** . */
    protected int level = 0;
+
+   public String getId()
+   {
+      return id;
+   }
+
+   public int getLevel()
+   {
+      return level;
+   }
+
+   public ElementContainer<InlineElement> getTitle()
+   {
+      return title;
+   }
+
+   public ElementContainer<ComponentElement> getComponents()
+   {
+      return components;
+   }
+
+   public ContentElementContainer getContent()
+   {
+      return content;
+   }
 
    public void beginTitle()
    {
@@ -107,28 +130,6 @@ public class ComponentElement extends StructuralElement
       else
       {
          return false;
-      }
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      ElementEmitter chapterXML = xml.element(level == 0 ? "chapter" : "section");
-      if (id != null)
-      {
-         chapterXML.withAttribute("id", id);
-      }
-      if (title != null)
-      {
-         title.writeTo(chapterXML.element("title"));
-      }
-      if (content != null)
-      {
-         content.writeTo(chapterXML);
-      }
-      if (components != null)
-      {
-         components.writeTo(chapterXML);
       }
    }
 }

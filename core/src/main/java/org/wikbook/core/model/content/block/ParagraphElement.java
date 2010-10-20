@@ -22,7 +22,6 @@ package org.wikbook.core.model.content.block;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -33,6 +32,11 @@ public class ParagraphElement extends BlockElement
 
    /** . */
    private final ElementContainer<ContentElement> container = new ElementContainer<ContentElement>(ContentElement.class);
+
+   public ElementContainer<ContentElement> getContainer()
+   {
+      return container;
+   }
 
    @Override
    public boolean append(DocbookElement elt)
@@ -45,11 +49,5 @@ public class ParagraphElement extends BlockElement
       {
          return false;
       }
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      container.writeTo(xml.element("para"));
    }
 }

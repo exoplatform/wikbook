@@ -31,10 +31,8 @@ import org.wikbook.core.codesource.CodeContext;
 import org.wikbook.core.codesource.CodeProcessor;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
-import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
 import org.xml.sax.InputSource;
@@ -134,6 +132,26 @@ public class ProgramListingElement extends BlockElement
       this.callouts = new ElementContainer<CalloutElement>(CalloutElement.class);
       this.documentBuilder = documentBuilder;
       this.xpath = XPathFactory.newInstance().newXPath();
+   }
+
+   public String getListing()
+   {
+      return listing;
+   }
+
+   public LanguageSyntax getLanguageSyntax()
+   {
+      return languageSyntax;
+   }
+
+   public boolean isHighlightCode()
+   {
+      return highlightCode;
+   }
+
+   public ElementContainer<CalloutElement> getCallouts()
+   {
+      return callouts;
    }
 
    private void performIncludes(Element elt)
@@ -300,43 +318,6 @@ public class ProgramListingElement extends BlockElement
    public boolean append(DocbookElement elt)
    {
       return callouts.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      ElementEmitter programListingCoXML = xml.element("programlistingco");
-
-      //
-      ElementEmitter areaspecXML = programListingCoXML.element("areaspec").withAttribute("units", "linecolumn");
-
-      //
-      for (CalloutElement calloutElt : callouts)
-      {
-         for (Map.Entry<String, Position> target : calloutElt.getIds().entrySet())
-         {
-            areaspecXML.element("area").
-               withAttribute("id", target.getKey() + "-co").
-               withAttribute("linkends", target.getKey()).
-               withAttribute("coords", (target.getValue().getLine() + 1) + " " + (target.getValue().getColumn() + 1));
-         }
-      }
-
-      //
-      ElementEmitter programListingXML = programListingCoXML.element("programlisting");
-      if (highlightCode && languageSyntax != LanguageSyntax.UNKNOWN)
-      {
-         programListingXML.withAttribute("language", languageSyntax.name().toLowerCase());
-      }
-
-      //
-      if (callouts.isNotEmpty())
-      {
-         callouts.writeTo(programListingCoXML.element("calloutlist"));
-      }
-
-      //
-      programListingXML.content(listing, true);
    }
 
    private class CodeContextImpl implements CodeContext

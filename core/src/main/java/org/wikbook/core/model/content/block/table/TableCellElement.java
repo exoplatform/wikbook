@@ -25,7 +25,6 @@ import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.inline.InlineElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -54,6 +53,16 @@ public class TableCellElement extends DocbookElement
       this.head = head;
       this.align = align;
       this.valign = valign;
+   }
+
+   public ElementContainer<InlineElement> getInline()
+   {
+      return inline;
+   }
+
+   public ContentElementContainer getContent()
+   {
+      return content;
    }
 
    public Align getAlign()
@@ -105,17 +114,4 @@ public class TableCellElement extends DocbookElement
          }
       }
    }
-
-   public void writeTo(XMLEmitter emitter)
-   {
-      if (content != null)
-      {
-         content.writeTo(emitter);
-      }
-      else if (inline != null)
-      {
-         inline.writeTo(emitter);
-      }
-   }
-
 }

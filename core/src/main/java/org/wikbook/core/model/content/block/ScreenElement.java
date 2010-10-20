@@ -22,7 +22,6 @@ package org.wikbook.core.model.content.block;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.inline.InlineElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -34,15 +33,14 @@ public class ScreenElement extends BlockElement
    /** . */
    private ElementContainer<InlineElement> content = new ElementContainer<InlineElement>(InlineElement.class);
 
+   public ElementContainer<InlineElement> getContent()
+   {
+      return content;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
       return content.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      content.writeTo(xml.element("screen"));
    }
 }

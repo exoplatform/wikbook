@@ -23,7 +23,6 @@ import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
 import org.wikbook.core.model.content.inline.InlineElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -35,15 +34,14 @@ public class TermElement extends ContentElement
    /** . */
    private final ElementContainer<InlineElement> container = new ElementContainer<InlineElement>(InlineElement.class);
 
+   public ElementContainer<InlineElement> getContainer()
+   {
+      return container;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
       return container.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      container.writeTo(xml.element("term"));
    }
 }

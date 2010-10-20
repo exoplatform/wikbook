@@ -21,7 +21,6 @@ package org.wikbook.core.model.content.inline;
 
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -41,6 +40,16 @@ public class FormatElement extends InlineElement
       this.format = format;
    }
 
+   public ElementContainer<InlineElement> getContainer()
+   {
+      return container;
+   }
+
+   public TextFormat getFormat()
+   {
+      return format;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
@@ -51,38 +60,6 @@ public class FormatElement extends InlineElement
       else
       {
          return false;
-      }
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      switch (format)
-      {
-         case BOLD:
-            container.writeTo(xml.element("emphasis").withAttribute("role", "bold"));
-            break;
-         case ITALIC:
-            container.writeTo(xml.element("emphasis").withAttribute("role", "italic"));
-            break;
-         case CODE:
-         case MONOSPACE:
-            container.writeTo(xml.element("code"));
-            break;
-         case SUPERSCRIPT:
-            container.writeTo(xml.element("superscript"));
-            break;
-         case SUBSCRIPT:
-            container.writeTo(xml.element("subscript"));
-            break;
-         case UNDERLINE:
-            container.writeTo(xml.element("emphasis").withAttribute("role", "underline"));
-            break;
-         case STRIKE:
-            container.writeTo(xml.element("emphasis").withAttribute("role", "strikethrough"));
-            break;
-         default:
-            throw new AssertionError();
       }
    }
 }

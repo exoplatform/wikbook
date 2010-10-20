@@ -22,12 +22,6 @@ package org.wikbook.core.model.content.block.table;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.block.BlockElement;
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
-
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.LinkedList;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -48,115 +42,19 @@ public class TableElement extends BlockElement
       this.title = title;
    }
 
+   public String getTitle()
+   {
+      return title;
+   }
+
+   public ElementContainer<TableRowElement> getStructure()
+   {
+      return structure;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
       return structure.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      XMLEmitter tableXML;
-
-      //
-      if (title != null)
-      {
-         tableXML = xml.element("table");
-         tableXML.element("title").content(title);
-      }
-      else
-      {
-         tableXML = xml.element("informaltable");
-      }
-
-      // Get column count
-      int columnCount = 0;
-      for (TableRowElement row : structure)
-      {
-         columnCount = Math.max(columnCount, row.cells.getSize());
-      }
-
-      // Determine potential header
-      LinkedList<TableRowElement> head = new LinkedList<TableRowElement>();
-      for (Iterator<TableRowElement> i = structure.iterator(); i.hasNext();)
-      {
-         TableRowElement row = i.next();
-         if (row.isHead())
-         {
-            head.addLast(row);
-            i.remove();
-         }
-         else
-         {
-            break;
-         }
-      }
-
-      // Determine potential footer
-      LinkedList<TableRowElement> foot = new LinkedList<TableRowElement>();
-      for (Iterator<TableRowElement> i = structure.reverseIterator(); i.hasNext();)
-      {
-         TableRowElement row = i.next();
-         if (row.isHead())
-         {
-            foot.addFirst(row);
-            i.remove();
-         }
-         else
-         {
-            break;
-         }
-      }
-
-      //
-      LinkedList<TableRowElement> body = new LinkedList<TableRowElement>();
-      for (TableRowElement row : structure)
-      {
-         body.add(row);
-      }
-
-      //
-      ElementEmitter tgroup = tableXML.element("tgroup").withAttribute("cols", "" + columnCount);
-      for (LinkedList<TableRowElement> a : Arrays.asList(head, body, foot))
-      {
-         if (!a.isEmpty())
-         {
-            ElementEmitter elementXML;
-            if (a == head)
-            {
-               elementXML = tgroup.element("thead");
-            }
-            else if (a == body)
-            {
-               elementXML = tgroup.element("tbody");
-            }
-            else
-            {
-               elementXML = tgroup.element("tfoot");
-            }
-            for (TableRowElement row : a)
-            {
-               ElementEmitter rowXML = elementXML.element("row");
-               if (row.getVAlign() != null)
-               {
-                  rowXML.withAttribute("valign", row.getVAlign().toString().toLowerCase());
-               }
-               for (TableCellElement cell : row.cells)
-               {
-                  ElementEmitter entryXML = rowXML.element("entry");
-                  if (cell.getAlign() != null)
-                  {
-                     entryXML.withAttribute("align", cell.getAlign().toString().toLowerCase());
-                  }
-                  if (cell.getVAlign() != null)
-                  {
-                     entryXML.withAttribute("valign", cell.getVAlign().toString().toLowerCase());
-                  }
-                  cell.writeTo(entryXML);
-               }
-            }
-         }
-      }
    }
 }

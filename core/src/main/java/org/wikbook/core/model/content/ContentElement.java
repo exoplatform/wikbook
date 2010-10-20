@@ -25,6 +25,6 @@ import org.wikbook.core.model.DocbookElement;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ContentElement extends DocbookElement
+public abstract class ContentElement extends DocbookElement
 {
 }

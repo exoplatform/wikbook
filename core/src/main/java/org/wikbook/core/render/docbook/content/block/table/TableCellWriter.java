@@ -17,27 +17,28 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.render.docbook.content.block.table;
 
-import org.w3c.dom.Element;
+import org.wikbook.core.model.content.block.table.TableCellElement;
+import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class DOMElement extends BlockElement
+public class TableCellWriter extends ElementWriter<TableCellElement>
 {
-
-   /** . */
-   private final Element elt;
-
-   public DOMElement(Element elt)
+   @Override
+   public void write(TableCellElement element, XMLEmitter emitter)
    {
-      this.elt = elt;
-   }
-
-   public Element getElement()
-   {
-      return elt;
+      if (element.getContent() != null)
+      {
+         write(element.getContent(), emitter);
+      }
+      else if (element.getInline() != null)
+      {
+         write(element.getInline(), emitter);
+      }
    }
 }

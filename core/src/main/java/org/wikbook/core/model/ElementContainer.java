@@ -19,8 +19,6 @@
 
 package org.wikbook.core.model;
 
-import org.wikbook.core.xml.XMLEmitter;
-
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -69,6 +67,11 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
       };
    }
 
+   public Class<E> getElementType()
+   {
+      return elementType;
+   }
+
    public boolean isNotEmpty()
    {
       return !elements.isEmpty();
@@ -99,19 +102,6 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
       else
       {
          return false;
-      }
-   }
-
-   public void writeTo(XMLEmitter emitter)
-   {
-      write(elements, emitter);
-   }
-
-   protected void write(Iterable<E> elements, XMLEmitter emitter)
-   {
-      for (E elt : elements)
-      {
-         elt.writeTo(emitter);
       }
    }
 }

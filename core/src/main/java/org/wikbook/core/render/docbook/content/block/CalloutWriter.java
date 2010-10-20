@@ -17,27 +17,40 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.render.docbook.content.block;
 
-import org.w3c.dom.Element;
+import org.wikbook.core.model.content.block.CalloutElement;
+import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.xml.ElementEmitter;
+import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class DOMElement extends BlockElement
+public class CalloutWriter extends ElementWriter<CalloutElement>
 {
 
-   /** . */
-   private final Element elt;
-
-   public DOMElement(Element elt)
+   @Override
+   public void write(CalloutElement element, XMLEmitter emitter)
    {
-      this.elt = elt;
-   }
+      ElementEmitter calloutXML = emitter.element("callout");
 
-   public Element getElement()
-   {
-      return elt;
+      //
+      StringBuffer sb = new StringBuffer();
+      for (String coId : element.getIds().keySet())
+      {
+         if (sb.length() > 0)
+         {
+            sb.append(" ");
+         }
+         sb.append(coId).append("-co");
+      }
+
+      //
+      calloutXML.withAttribute("arearefs", sb.toString());
+
+      //
+      write(element.getContent(), calloutXML);
    }
 }

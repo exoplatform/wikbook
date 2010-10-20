@@ -17,27 +17,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.render.docbook.content.block.list;
 
-import org.w3c.dom.Element;
+import org.wikbook.core.model.content.block.list.TermElement;
+import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class DOMElement extends BlockElement
+public class TermWriter extends ElementWriter<TermElement>
 {
-
-   /** . */
-   private final Element elt;
-
-   public DOMElement(Element elt)
+   @Override
+   public void write(TermElement element, XMLEmitter emitter)
    {
-      this.elt = elt;
-   }
-
-   public Element getElement()
-   {
-      return elt;
+      write(element.getContainer(), emitter.element("term"));
    }
 }

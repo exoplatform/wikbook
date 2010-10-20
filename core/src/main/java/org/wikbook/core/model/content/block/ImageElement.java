@@ -19,9 +19,6 @@
 
 package org.wikbook.core.model.content.block;
 
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
@@ -77,62 +74,14 @@ public class ImageElement extends BlockElement
       this.parameters = parameters;
    }
 
-   @Override
-   public void writeTo(XMLEmitter xml)
+   public String getName()
    {
-      String extension = "";
-      int lastDot = name.lastIndexOf('.');
-      if (lastDot > -1)
-      {
-         extension = name.substring(lastDot + 1).toLowerCase();
-      }
+      return name;
+   }
 
-      //
-      String format = formats.get(extension);
-
-      //
-      if (format != null)
-      {
-         ElementEmitter mediaObjectXML;
-
-         //
-         String title = parameters.get("title");
-         if (title != null)
-         {
-            ElementEmitter figureXML = xml.element("figure");
-            figureXML.element("title").content(title);
-            mediaObjectXML = figureXML.element("mediaobject");
-         }
-         else
-         {
-            mediaObjectXML = xml.element("inlinemediaobject");
-         }
-
-         //
-         for (String output : outputs)
-         {
-            ElementEmitter imageDataXML = mediaObjectXML.element("imageobject").withAttribute("role", output).
-               element("imagedata").
-               withAttribute("fileref", name).
-               withAttribute("format", format);
-
-            //
-            for (Map.Entry<String, String> entry : parameters.entrySet())
-            {
-               String key = entry.getKey();
-               int colonIndex = key.indexOf(":");
-               String prefix = colonIndex != -1 ? key.substring(0, colonIndex + 1) : "";
-               if (prefix.length() == 0 || prefix.equals(output + ":"))
-               {
-                  String attrName = key.substring(prefix.length());
-                  if (imageDataAttributes.contains(attrName))
-                  {
-                     imageDataXML.withAttribute(attrName, entry.getValue());
-                  }
-               }
-            }
-         }
-      }
+   public Map<String, String> getParameters()
+   {
+      return parameters;
    }
 
    @Override

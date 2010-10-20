@@ -17,44 +17,38 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.render.docbook.content.block.list;
 
 import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.content.ContentElement;
+import org.wikbook.core.model.content.block.list.TermElement;
+import org.wikbook.core.model.content.block.list.VariableListElement;
+import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ExampleElement extends ContentElement
+public class VariableListWriter extends ElementWriter<VariableListElement>
 {
-
-   /** . */
-   private ElementContainer<ContentElement> content;
-
-   /** . */
-   private final String title;
-
-   public ExampleElement(String title)
-   {
-      this.content = new ElementContainer<ContentElement>(ContentElement.class);
-      this.title = title;
-   }
-
-   public ElementContainer<ContentElement> getContent()
-   {
-      return content;
-   }
-
-   public String getTitle()
-   {
-      return title;
-   }
-
    @Override
-   public boolean append(DocbookElement elt)
+   public void write(VariableListElement element, XMLEmitter emitter)
    {
-      return content.append(elt);
+      XMLEmitter listXML = emitter.element("variablelist");
+      if (element.getTitle() != null)
+      {
+         listXML.element("title").content(element.getTitle());
+      }
+      XMLEmitter entryXML = null;
+      for (DocbookElement elt : element.getContainer())
+      {
+         if (elt instanceof TermElement)
+         {
+            entryXML = listXML.element("varlistentry");
+         }
+         // Investigate that cast
+         ElementWriter<DocbookElement> writer = getWriter(elt.getType());
+         writer.write(elt, entryXML);
+      }
    }
 }

@@ -17,10 +17,13 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.ElementContainer;
+import org.wikbook.core.model.content.block.ListElement;
+import org.wikbook.core.model.content.block.ListKind;
+import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.xml.ElementEmitter;
+import org.wikbook.core.xml.XMLEmitter;
 
 import java.util.EnumMap;
 
@@ -28,7 +31,7 @@ import java.util.EnumMap;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ListElement extends BlockElement
+public class ListWriter extends ElementWriter<ListElement>
 {
 
    /** . */
@@ -45,40 +48,19 @@ public class ListElement extends BlockElement
       styleMap.put(ListKind.NUMBERED, "numeration");
    }
 
-   /** . */
-   private final ListKind kind;
-
-   /** . */
-   private final ElementContainer<ListItemElement> items;
-
-   /** . */
-   private final String style;
-
-   public ListElement(ListKind kind, String style)
-   {
-      this.kind = kind;
-      this.items = new ElementContainer<ListItemElement>(ListItemElement.class);
-      this.style = style;
-   }
-
-   public ElementContainer<ListItemElement> getItems()
-   {
-      return items;
-   }
-
-   public String getStyle()
-   {
-      return style;
-   }
-
-   public ListKind getKind()
-   {
-      return kind;
-   }
 
    @Override
-   public boolean append(DocbookElement elt)
+   public void write(ListElement element, XMLEmitter emitter)
    {
-      return items.append(elt);
+      ElementEmitter listXML = emitter.element(ListKindMap.get(element.getKind()));
+
+      //
+      if (element.getStyle() != null)
+      {
+         listXML.withAttribute(styleMap.get(element.getKind()), element.getStyle());
+      }
+
+      //
+      write(element.getItems(), listXML);
    }
 }

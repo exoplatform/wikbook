@@ -21,7 +21,6 @@ package org.wikbook.core.model.content.inline;
 
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -45,46 +44,24 @@ public class LinkElement extends InlineElement
       this.ref = ref;
    }
 
+   public String getRef()
+   {
+      return ref;
+   }
+
+   public ElementContainer<InlineElement> getContainer()
+   {
+      return container;
+   }
+
+   public LinkType getLinkType()
+   {
+      return type;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
       return container.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      switch (type)
-      {
-         case ANCHOR:
-            if (container.isNotEmpty())
-            {
-               container.writeTo(xml.element("link").withAttribute("linkend", ref));
-            }
-            else
-            {
-               xml.element("xref").withAttribute("linkend", ref);
-            }
-            break;
-         case URL:
-            if (ref.startsWith("mailto:"))
-            {
-               xml.element("email").content(ref.substring("mailto:".length()));
-            }
-            else
-            {
-               if (container.isNotEmpty())
-               {
-                  container.writeTo(xml.element("ulink").withAttribute("url", ref));
-               }
-               else
-               {
-                  xml.element("ulink").withAttribute("url", ref).content(ref);
-               }
-            }
-            break;
-         default:
-            throw new AssertionError();
-      }
    }
 }

@@ -20,7 +20,6 @@
 package org.wikbook.core.model;
 
 import org.wikbook.core.model.content.inline.InlineElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -108,6 +107,12 @@ public abstract class DocbookElement
 
       //
       return currentElt;
+   }
+
+   // Investigate something better than that!!!!!!
+   public final Class<DocbookElement> getType()
+   {
+      return (Class<DocbookElement>)getClass();
    }
 
    public final DocbookElement peek()
@@ -201,11 +206,6 @@ public abstract class DocbookElement
    protected boolean append(DocbookElement elt)
    {
       return false;
-   }
-
-   public void writeTo(XMLEmitter xml)
-   {
-      throw new UnsupportedOperationException("Class " + getClass().getName() + " does not implement writeTo");
    }
 
    @Override

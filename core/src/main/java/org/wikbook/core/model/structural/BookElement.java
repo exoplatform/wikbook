@@ -24,8 +24,6 @@ import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -56,6 +54,16 @@ public class BookElement extends StructuralElement
    {
       this.omitRootNode = false;
       this.prefaceTitle = "Preface";
+   }
+
+   public ElementContainer<ComponentElement> getChapters()
+   {
+      return chapters;
+   }
+
+   public ContentElementContainer getPreface()
+   {
+      return preface;
    }
 
    public String getPrefaceTitle()
@@ -110,38 +118,5 @@ public class BookElement extends StructuralElement
          return chapters.append(elt);
       }
       return false;
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      if (!omitRootNode)
-      {
-         xml = xml.element("book");
-      }
-
-      //
-      if (beforeBodyXML != null) {
-         xml.append(beforeBodyXML);
-      }
-
-      //
-      if (preface.isNotEmpty())
-      {
-         ElementEmitter prefaceXML = xml.element("preface");
-         if (prefaceTitle != null)
-         {
-            prefaceXML.element("title").content("Preface");
-         }
-         preface.writeTo(prefaceXML);
-      }
-
-      //
-      chapters.writeTo(xml);
-
-      //
-      if (afterBodyXML != null) {
-         xml.append(afterBodyXML);
-      }
    }
 }

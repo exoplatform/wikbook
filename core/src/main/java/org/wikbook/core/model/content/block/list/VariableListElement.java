@@ -23,7 +23,6 @@ import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.block.BlockElement;
 import org.wikbook.core.model.content.block.ListItemElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -43,6 +42,16 @@ public class VariableListElement extends BlockElement
       this.title = title;
    }
 
+   public String getTitle()
+   {
+      return title;
+   }
+
+   public ElementContainer<DocbookElement> getContainer()
+   {
+      return container;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
@@ -53,25 +62,6 @@ public class VariableListElement extends BlockElement
       else
       {
          return false;
-      }
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      XMLEmitter listXML = xml.element("variablelist");
-      if (title != null)
-      {
-         listXML.element("title").content(title);
-      }
-      XMLEmitter entryXML = null;
-      for (DocbookElement elt : container)
-      {
-         if (elt instanceof TermElement)
-         {
-            entryXML = listXML.element("varlistentry");
-         }
-         elt.writeTo(entryXML);
       }
    }
 }

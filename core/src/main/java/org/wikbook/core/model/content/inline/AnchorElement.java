@@ -19,8 +19,6 @@
 
 package org.wikbook.core.model.content.inline;
 
-import org.wikbook.core.xml.XMLEmitter;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
@@ -39,11 +37,5 @@ public class AnchorElement extends InlineElement
    public String getId()
    {
       return id;
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      xml.element("anchor").withAttribute("id", id);
    }
 }

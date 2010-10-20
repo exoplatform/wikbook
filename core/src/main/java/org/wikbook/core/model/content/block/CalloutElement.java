@@ -22,8 +22,6 @@ package org.wikbook.core.model.content.block;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
 
 import java.util.LinkedHashMap;
@@ -51,6 +49,11 @@ public class CalloutElement extends ContentElement
       this.text = text;
    }
 
+   public ElementContainer<ContentElement> getContent()
+   {
+      return content;
+   }
+
    public LinkedHashMap<String, Position> getIds()
    {
       return ids;
@@ -60,28 +63,5 @@ public class CalloutElement extends ContentElement
    public boolean append(DocbookElement elt)
    {
       return content.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      ElementEmitter calloutXML = xml.element("callout");
-
-      //
-      StringBuffer sb = new StringBuffer();
-      for (String coId : ids.keySet())
-      {
-         if (sb.length() > 0)
-         {
-            sb.append(" ");
-         }
-         sb.append(coId).append("-co");
-      }
-
-      //
-      calloutXML.withAttribute("arearefs", sb.toString());
-
-      //
-      content.writeTo(calloutXML);
    }
 }

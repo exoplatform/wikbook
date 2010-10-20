@@ -20,9 +20,6 @@
 package org.wikbook.core.model.content;
 
 import org.wikbook.core.model.ElementContainer;
-import org.wikbook.core.model.content.block.BlockElement;
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -30,34 +27,8 @@ import org.wikbook.core.xml.XMLEmitter;
  */
 public class ContentElementContainer extends ElementContainer<ContentElement>
 {
-
    public ContentElementContainer()
    {
       super(ContentElement.class);
-   }
-
-   @Override
-   protected void write(Iterable<ContentElement> elements, XMLEmitter emitter)
-   {
-      ElementEmitter paraXML = null;
-      for (ContentElement e : elements)
-      {
-         if (e instanceof BlockElement)
-         {
-            if (paraXML != null)
-            {
-               paraXML = null;
-            }
-            e.writeTo(emitter);
-         }
-         else
-         {
-            if (paraXML == null)
-            {
-               paraXML = emitter.element("para");
-            }
-            e.writeTo(paraXML);
-         }
-      }
    }
 }

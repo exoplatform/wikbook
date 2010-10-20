@@ -22,7 +22,6 @@ package org.wikbook.core.model.content.block;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.ContentElementContainer;
 import org.wikbook.core.model.content.ContentElement;
-import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -40,15 +39,14 @@ public class ListItemElement extends ContentElement
       this.content = new ContentElementContainer();
    }
 
+   public ContentElementContainer getContent()
+   {
+      return content;
+   }
+
    @Override
    public boolean append(DocbookElement elt)
    {
       return content.append(elt);
-   }
-
-   @Override
-   public void writeTo(XMLEmitter xml)
-   {
-      content.writeTo(xml.element("listitem"));
    }
 }

@@ -42,6 +42,11 @@ public class TableRowElement extends DocbookElement
       this.valign = valign;
    }
 
+   public ElementContainer<TableCellElement> getCells()
+   {
+      return cells;
+   }
+
    public VAlign getVAlign()
    {
       return valign;
