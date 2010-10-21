@@ -19,6 +19,7 @@
 
 package org.wikbook.core.model;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ListIterator;
@@ -65,6 +66,11 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
             delegate.remove();
          }
       };
+   }
+
+   public Iterable<E> iterator(int from, int to)
+   {
+      return new ArrayList<E>(elements).subList(from, to);
    }
 
    public Class<E> getElementType()

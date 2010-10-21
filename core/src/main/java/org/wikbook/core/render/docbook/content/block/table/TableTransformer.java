@@ -27,7 +27,6 @@ import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
@@ -53,59 +52,25 @@ public class TableTransformer extends ElementTransformer<TableElement>
       }
 
       // Get column count
-      int columnCount = 0;
-      for (TableRowElement row : element.getStructure())
-      {
-         columnCount = Math.max(columnCount, row.getCells().getSize());
-      }
+      int maxColumn = element.getMaxColumn();
 
       // Determine potential header
-      LinkedList<TableRowElement> head = new LinkedList<TableRowElement>();
-      for (Iterator<TableRowElement> i = element.getStructure().iterator(); i.hasNext();)
-      {
-         TableRowElement row = i.next();
-         if (row.isHead())
-         {
-            head.addLast(row);
-            i.remove();
-         }
-         else
-         {
-            break;
-         }
-      }
+      Iterable<TableRowElement> header = element.getHeaders();
 
       // Determine potential footer
-      LinkedList<TableRowElement> foot = new LinkedList<TableRowElement>();
-      for (Iterator<TableRowElement> i = element.getStructure().reverseIterator(); i.hasNext();)
-      {
-         TableRowElement row = i.next();
-         if (row.isHead())
-         {
-            foot.addFirst(row);
-            i.remove();
-         }
-         else
-         {
-            break;
-         }
-      }
+      Iterable<TableRowElement> footer = element.getFooters();
 
       //
-      LinkedList<TableRowElement> body = new LinkedList<TableRowElement>();
-      for (TableRowElement row : element.getStructure())
-      {
-         body.add(row);
-      }
+      Iterable<TableRowElement> body = element.getBody();
 
       //
-      ElementEmitter tgroup = tableXML.element("tgroup").withAttribute("cols", "" + columnCount);
-      for (LinkedList<TableRowElement> a : Arrays.asList(head, body, foot))
+      ElementEmitter tgroup = tableXML.element("tgroup").withAttribute("cols", "" + maxColumn);
+      for (Iterable<TableRowElement> a : Arrays.asList(header, body, footer))
       {
-         if (!a.isEmpty())
+         if (a.iterator().hasNext())
          {
             ElementEmitter elementXML;
-            if (a == head)
+            if (a == header)
             {
                elementXML = tgroup.element("thead");
             }

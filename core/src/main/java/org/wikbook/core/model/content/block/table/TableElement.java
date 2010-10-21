@@ -23,6 +23,8 @@ import org.wikbook.core.model.ElementContainer;
 import org.wikbook.core.model.DocbookElement;
 import org.wikbook.core.model.content.block.BlockElement;
 
+import java.util.Iterator;
+
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
@@ -40,6 +42,76 @@ public class TableElement extends BlockElement
    {
       this.structure = new ElementContainer<TableRowElement>(TableRowElement.class);
       this.title = title;
+   }
+
+   public int getMaxColumn()
+   {
+      int columnCount = 0;
+
+      //
+      for (TableRowElement row : structure)
+      {
+         columnCount = Math.max(columnCount, row.getCells().getSize());
+      }
+
+      //
+      return columnCount;
+   }
+
+   public int getBodyIndex()
+   {
+      int bodyIndex = 0;
+      for (TableRowElement row : structure)
+      {
+         if (row.isHead())
+         {
+            bodyIndex++;
+         }
+         else
+         {
+            break;
+         }
+      }
+      return bodyIndex;
+   }
+
+   public int getFooterIndex()
+   {
+      int bodyIndex = getBodyIndex();
+      int footerIndex = getRowSize();
+      for (Iterator<TableRowElement> i = structure.reverseIterator(); i.hasNext();)
+      {
+         TableRowElement row = i.next();
+         if (footerIndex > bodyIndex && row.isHead())
+         {
+            footerIndex--;
+         }
+         else
+         {
+            break;
+         }
+      }
+      return footerIndex;
+   }
+
+   public int getRowSize()
+   {
+      return structure.getSize();
+   }
+
+   public Iterable<TableRowElement> getHeaders()
+   {
+      return structure.iterator(0, getBodyIndex());
+   }
+
+   public Iterable<TableRowElement> getBody()
+   {
+      return structure.iterator(getBodyIndex(), getFooterIndex());
+   }
+
+   public Iterable<TableRowElement> getFooters()
+   {
+      return structure.iterator(getFooterIndex(), getRowSize());
    }
 
    public String getTitle()
