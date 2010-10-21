@@ -44,7 +44,12 @@ public class TableElement extends BlockElement
       this.title = title;
    }
 
-   public int getMaxColumn()
+   /**
+    * Returns the maximum size among all the rows of the table.
+    *
+    * @return the maximum column size
+    */
+   public int getColumnMaxSize()
    {
       int columnCount = 0;
 
@@ -58,6 +63,12 @@ public class TableElement extends BlockElement
       return columnCount;
    }
 
+   /**
+    * Returns the index of the body, this value is the index of the first row that does not return true when the
+    * method {@link TableRowElement#isHead()} is invoked starting from the first row and incremeting this row index.
+    *
+    * @return the body index
+    */
    public int getBodyIndex()
    {
       int bodyIndex = 0;
@@ -75,6 +86,13 @@ public class TableElement extends BlockElement
       return bodyIndex;
    }
 
+   /**
+    * Returns the index of the footer, this value is the index of the first row that does not return true when the
+    * method {@link TableRowElement#isHead()} is invoked starting from the last row of the table and by decrementing
+    * this row index.
+    *
+    * @return the footer index
+    */
    public int getFooterIndex()
    {
       int bodyIndex = getBodyIndex();
@@ -94,6 +112,11 @@ public class TableElement extends BlockElement
       return footerIndex;
    }
 
+   /**
+    * Returns the size of the table, i.e the number of rows.
+    *
+    * @return the row size
+    */
    public int getRowSize()
    {
       return structure.getSize();
@@ -117,11 +140,6 @@ public class TableElement extends BlockElement
    public String getTitle()
    {
       return title;
-   }
-
-   public ElementContainer<TableRowElement> getStructure()
-   {
-      return structure;
    }
 
    @Override

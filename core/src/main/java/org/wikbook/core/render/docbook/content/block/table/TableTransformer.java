@@ -27,7 +27,6 @@ import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
 import java.util.Arrays;
-import java.util.LinkedList;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -52,7 +51,7 @@ public class TableTransformer extends ElementTransformer<TableElement>
       }
 
       // Get column count
-      int maxColumn = element.getMaxColumn();
+      int maxColumn = element.getColumnMaxSize();
 
       // Determine potential header
       Iterable<TableRowElement> header = element.getHeaders();
