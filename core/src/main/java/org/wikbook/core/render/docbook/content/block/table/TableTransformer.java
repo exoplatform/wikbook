@@ -22,7 +22,7 @@ package org.wikbook.core.render.docbook.content.block.table;
 import org.wikbook.core.model.content.block.table.TableCellElement;
 import org.wikbook.core.model.content.block.table.TableElement;
 import org.wikbook.core.model.content.block.table.TableRowElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -34,7 +34,7 @@ import java.util.LinkedList;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class TableWriter extends ElementWriter<TableElement>
+public class TableTransformer extends ElementTransformer<TableElement>
 {
    @Override
    public void write(TableElement element, XMLEmitter emitter)

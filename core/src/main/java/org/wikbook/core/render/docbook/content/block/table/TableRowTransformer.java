@@ -17,25 +17,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.structural;
+package org.wikbook.core.render.docbook.content.block.table;
 
-import org.wikbook.core.model.structural.PrefaceElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.table.TableRowElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class PrefaceWriter extends ElementWriter<PrefaceElement>
+public class TableRowTransformer extends ElementTransformer<TableRowElement>
 {
    @Override
-   public void write(PrefaceElement element, XMLEmitter emitter)
+   public void write(TableRowElement element, XMLEmitter emitter)
    {
-      if (element.getPrefaceTitle() != null)
-      {
-         emitter.element("title").content("Preface");
-      }
-      write(element.getContent(), true, emitter);
+      //To change body of implemented methods use File | Settings | File Templates.
    }
 }

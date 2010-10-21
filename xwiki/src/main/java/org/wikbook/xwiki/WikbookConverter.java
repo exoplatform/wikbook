@@ -24,7 +24,7 @@ import org.w3c.dom.DocumentFragment;
 import org.wikbook.core.model.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.structural.BookElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
@@ -182,7 +182,7 @@ public class WikbookConverter
       Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
       //
-      ElementWriter<BookElement> writer = ElementWriter.getWriter(elt);
+      ElementTransformer<BookElement> writer = ElementTransformer.getWriter(elt);
       writer.write(elt, new DocumentEmitter(doc));
 
       //

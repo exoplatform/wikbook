@@ -17,38 +17,22 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.block.list;
+package org.wikbook.core.render.docbook.content.inline;
 
-import org.wikbook.core.model.DocbookElement;
-import org.wikbook.core.model.content.block.list.TermElement;
-import org.wikbook.core.model.content.block.list.VariableListElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.inline.TextElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class VariableListWriter extends ElementWriter<VariableListElement>
+public class TextTransformer extends ElementTransformer<TextElement>
 {
+
    @Override
-   public void write(VariableListElement element, XMLEmitter emitter)
+   public void write(TextElement element, XMLEmitter emitter)
    {
-      XMLEmitter listXML = emitter.element("variablelist");
-      if (element.getTitle() != null)
-      {
-         listXML.element("title").content(element.getTitle());
-      }
-      XMLEmitter entryXML = null;
-      for (DocbookElement elt : element.getContainer())
-      {
-         if (elt instanceof TermElement)
-         {
-            entryXML = listXML.element("varlistentry");
-         }
-         // Investigate that cast
-         ElementWriter<DocbookElement> writer = getWriter(elt.getType());
-         writer.write(elt, entryXML);
-      }
-   }
+      emitter.content(element.getData());
+    }
 }

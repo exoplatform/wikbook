@@ -19,28 +19,19 @@
 
 package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.content.block.ExampleElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.DOMElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ExampleWriter extends ElementWriter<ExampleElement>
+public class DOMTransformer extends ElementTransformer<DOMElement>
 {
    @Override
-   public void write(ExampleElement element, XMLEmitter emitter)
+   public void write(DOMElement element, XMLEmitter emitter)
    {
-      if (element.getTitle() == null)
-      {
-         emitter = emitter.element("informalexample");
-      }
-      else
-      {
-         emitter = emitter.element("example");
-         emitter.element("title").content(element.getTitle());
-      }
-      write(element.getContent(), false, emitter);
+      emitter.append(element.getElement());
    }
 }

@@ -46,30 +46,30 @@ import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.model.structural.ComponentElement;
 import org.wikbook.core.model.structural.PrefaceElement;
-import org.wikbook.core.render.docbook.content.block.AdmonitionWriter;
-import org.wikbook.core.render.docbook.content.block.BlockQuotationWriter;
-import org.wikbook.core.render.docbook.content.block.CalloutWriter;
-import org.wikbook.core.render.docbook.content.block.DOMWriter;
-import org.wikbook.core.render.docbook.content.block.ExampleWriter;
-import org.wikbook.core.render.docbook.content.block.GroupWriter;
-import org.wikbook.core.render.docbook.content.block.ImageWriter;
-import org.wikbook.core.render.docbook.content.block.ListItemWriter;
-import org.wikbook.core.render.docbook.content.block.ListWriter;
-import org.wikbook.core.render.docbook.content.block.ParagraphWriter;
-import org.wikbook.core.render.docbook.content.block.ProgramListingWriter;
-import org.wikbook.core.render.docbook.content.block.ScreenWriter;
-import org.wikbook.core.render.docbook.content.block.list.TermWriter;
-import org.wikbook.core.render.docbook.content.block.list.VariableListWriter;
-import org.wikbook.core.render.docbook.content.block.table.TableCellWriter;
-import org.wikbook.core.render.docbook.content.block.table.TableRowWriter;
-import org.wikbook.core.render.docbook.content.block.table.TableWriter;
-import org.wikbook.core.render.docbook.content.inline.AnchorWriter;
-import org.wikbook.core.render.docbook.content.inline.FormatWriter;
-import org.wikbook.core.render.docbook.content.inline.LinkWriter;
-import org.wikbook.core.render.docbook.content.inline.TextWriter;
-import org.wikbook.core.render.docbook.structural.BookWriter;
-import org.wikbook.core.render.docbook.structural.ComponentWriter;
-import org.wikbook.core.render.docbook.structural.PrefaceWriter;
+import org.wikbook.core.render.docbook.content.block.AdmonitionTransformer;
+import org.wikbook.core.render.docbook.content.block.BlockQuotationTransformer;
+import org.wikbook.core.render.docbook.content.block.CalloutTransformer;
+import org.wikbook.core.render.docbook.content.block.DOMTransformer;
+import org.wikbook.core.render.docbook.content.block.ExampleTransformer;
+import org.wikbook.core.render.docbook.content.block.GroupTransformer;
+import org.wikbook.core.render.docbook.content.block.ImageTransformer;
+import org.wikbook.core.render.docbook.content.block.ListItemTransformer;
+import org.wikbook.core.render.docbook.content.block.ListTransformer;
+import org.wikbook.core.render.docbook.content.block.ParagraphTransformer;
+import org.wikbook.core.render.docbook.content.block.ProgramListingTransformer;
+import org.wikbook.core.render.docbook.content.block.ScreenTransformer;
+import org.wikbook.core.render.docbook.content.block.list.TermTransformer;
+import org.wikbook.core.render.docbook.content.block.list.VariableListTransformer;
+import org.wikbook.core.render.docbook.content.block.table.TableCellTransformer;
+import org.wikbook.core.render.docbook.content.block.table.TableRowTransformer;
+import org.wikbook.core.render.docbook.content.block.table.TableTransformer;
+import org.wikbook.core.render.docbook.content.inline.AnchorTransformer;
+import org.wikbook.core.render.docbook.content.inline.FormatTransformer;
+import org.wikbook.core.render.docbook.content.inline.LinkTransformer;
+import org.wikbook.core.render.docbook.content.inline.TextTransformer;
+import org.wikbook.core.render.docbook.structural.BookTransformer;
+import org.wikbook.core.render.docbook.structural.ComponentTransformer;
+import org.wikbook.core.render.docbook.structural.PrefaceTransformer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -80,56 +80,56 @@ import java.util.Map;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public abstract class ElementWriter<E extends DocbookElement>
+public abstract class ElementTransformer<E extends DocbookElement>
 {
 
    /** . */
-   private static final Map<Class<? extends DocbookElement>, ElementWriter<?>> writers = new HashMap<Class<? extends DocbookElement>, ElementWriter<?>>();
+   private static final Map<Class<? extends DocbookElement>, ElementTransformer<?>> writers = new HashMap<Class<? extends DocbookElement>, ElementTransformer<?>>();
 
    static
    {
-      writers.put(BookElement.class, new BookWriter());
-      writers.put(ComponentElement.class, new ComponentWriter());
-      writers.put(PrefaceElement.class, new PrefaceWriter());
+      writers.put(BookElement.class, new BookTransformer());
+      writers.put(ComponentElement.class, new ComponentTransformer());
+      writers.put(PrefaceElement.class, new PrefaceTransformer());
 
       //
-      writers.put(AnchorElement.class, new AnchorWriter());
-      writers.put(FormatElement.class, new FormatWriter());
-      writers.put(LinkElement.class, new LinkWriter());
-      writers.put(TextElement.class, new TextWriter());
+      writers.put(AnchorElement.class, new AnchorTransformer());
+      writers.put(FormatElement.class, new FormatTransformer());
+      writers.put(LinkElement.class, new LinkTransformer());
+      writers.put(TextElement.class, new TextTransformer());
 
       //
-      writers.put(AdmonitionElement.class, new AdmonitionWriter());
-      writers.put(BlockQuotationElement.class, new BlockQuotationWriter());
-      writers.put(CalloutElement.class, new CalloutWriter());
-      writers.put(DOMElement.class, new DOMWriter());
-      writers.put(ExampleElement.class, new ExampleWriter());
-      writers.put(GroupElement.class, new GroupWriter());
-      writers.put(ImageElement.class, new ImageWriter());
-      writers.put(ListItemElement.class, new ListItemWriter());
-      writers.put(ListElement.class, new ListWriter());
-      writers.put(ParagraphElement.class, new ParagraphWriter());
-      writers.put(ProgramListingElement.class, new ProgramListingWriter());
-      writers.put(ScreenElement.class, new ScreenWriter());
+      writers.put(AdmonitionElement.class, new AdmonitionTransformer());
+      writers.put(BlockQuotationElement.class, new BlockQuotationTransformer());
+      writers.put(CalloutElement.class, new CalloutTransformer());
+      writers.put(DOMElement.class, new DOMTransformer());
+      writers.put(ExampleElement.class, new ExampleTransformer());
+      writers.put(GroupElement.class, new GroupTransformer());
+      writers.put(ImageElement.class, new ImageTransformer());
+      writers.put(ListItemElement.class, new ListItemTransformer());
+      writers.put(ListElement.class, new ListTransformer());
+      writers.put(ParagraphElement.class, new ParagraphTransformer());
+      writers.put(ProgramListingElement.class, new ProgramListingTransformer());
+      writers.put(ScreenElement.class, new ScreenTransformer());
 
       //
-      writers.put(TermElement.class, new TermWriter());
-      writers.put(VariableListElement.class, new VariableListWriter());
+      writers.put(TermElement.class, new TermTransformer());
+      writers.put(VariableListElement.class, new VariableListTransformer());
 
       //
-      writers.put(TableElement.class, new TableWriter());
-      writers.put(TableRowElement.class, new TableRowWriter());
-      writers.put(TableCellElement.class, new TableCellWriter());
+      writers.put(TableElement.class, new TableTransformer());
+      writers.put(TableRowElement.class, new TableRowTransformer());
+      writers.put(TableCellElement.class, new TableCellTransformer());
    }
 
-   public static <E extends DocbookElement> ElementWriter<E> getWriter(Class<E> elementType)
+   public static <E extends DocbookElement> ElementTransformer<E> getWriter(Class<E> elementType)
    {
-      return (ElementWriter<E>)writers.get(elementType);
+      return (ElementTransformer<E>)writers.get(elementType);
    }
 
-   public static <E extends DocbookElement> ElementWriter<E> getWriter(E element)
+   public static <E extends DocbookElement> ElementTransformer<E> getWriter(E element)
    {
-      ElementWriter<E> writer = (ElementWriter<E>)writers.get(element.getType());
+      ElementTransformer<E> writer = (ElementTransformer<E>)writers.get(element.getType());
       if (writer == null)
       {
          throw new IllegalArgumentException("No writer found for element " + element + " of type " + element.getType().getName());
@@ -162,7 +162,7 @@ public abstract class ElementWriter<E extends DocbookElement>
          ElementEmitter paraXML = null;
          for (DocbookElement e : container)
          {
-            ElementWriter<DocbookElement> writer = getWriter(e);
+            ElementTransformer<DocbookElement> writer = getWriter(e);
             if (e instanceof BlockElement)
             {
                if (paraXML != null)
@@ -185,7 +185,7 @@ public abstract class ElementWriter<E extends DocbookElement>
       {
          for (E elt : container)
          {
-            ElementWriter<E> writer = getWriter(elt);
+            ElementTransformer<E> writer = getWriter(elt);
             writer.write(elt, emitter);
          }
       }

@@ -17,22 +17,38 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.block;
+package org.wikbook.core.render.docbook.structural;
 
-import org.wikbook.core.model.content.block.BlockQuotationElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.structural.ComponentElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
+import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class BlockQuotationWriter extends ElementWriter<BlockQuotationElement>
+public class ComponentTransformer extends ElementTransformer<ComponentElement>
 {
-
    @Override
-   public void write(BlockQuotationElement element, XMLEmitter emitter)
+   public void write(ComponentElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), true, emitter.element("blockquote"));
+      ElementEmitter chapterXML = emitter.element(element.getLevel() == 0 ? "chapter" : "section");
+      if (element.getId() != null)
+      {
+         chapterXML.withAttribute("id", element.getId());
+      }
+      if (element.getTitle() != null)
+      {
+         write(element.getTitle(), false, chapterXML.element("title"));
+      }
+      if (element.getContent() != null)
+      {
+         write(element.getContent(), true, chapterXML);
+      }
+      if (element.getComponents() != null)
+      {
+         write(element.getComponents(), false, chapterXML);
+      }
    }
 }

@@ -20,14 +20,14 @@
 package org.wikbook.core.render.docbook.content.inline;
 
 import org.wikbook.core.model.content.inline.FormatElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class FormatWriter extends ElementWriter<FormatElement>
+public class FormatTransformer extends ElementTransformer<FormatElement>
 {
 
    @Override

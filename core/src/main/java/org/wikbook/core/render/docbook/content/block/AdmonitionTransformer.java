@@ -17,22 +17,21 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.inline;
+package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.content.inline.AnchorElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.AdmonitionElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class AnchorWriter extends ElementWriter<AnchorElement>
+public class AdmonitionTransformer extends ElementTransformer<AdmonitionElement>
 {
-
    @Override
-   public void write(AnchorElement element, XMLEmitter emitter)
+   public void write(AdmonitionElement element, XMLEmitter emitter)
    {
-      emitter.element("anchor").withAttribute("id", element.getId());
+      write(element.getContent(), false, emitter.element(element.getKind().toString().toLowerCase()));
    }
 }

@@ -17,21 +17,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.block.table;
+package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.content.block.table.TableRowElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.ExampleElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class TableRowWriter extends ElementWriter<TableRowElement>
+public class ExampleTransformer extends ElementTransformer<ExampleElement>
 {
    @Override
-   public void write(TableRowElement element, XMLEmitter emitter)
+   public void write(ExampleElement element, XMLEmitter emitter)
    {
-      //To change body of implemented methods use File | Settings | File Templates.
+      if (element.getTitle() == null)
+      {
+         emitter = emitter.element("informalexample");
+      }
+      else
+      {
+         emitter = emitter.element("example");
+         emitter.element("title").content(element.getTitle());
+      }
+      write(element.getContent(), false, emitter);
    }
 }

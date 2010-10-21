@@ -20,7 +20,7 @@
 package org.wikbook.core.render.docbook.content.block;
 
 import org.wikbook.core.model.content.block.ImageElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -36,7 +36,7 @@ import java.util.Set;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ImageWriter extends ElementWriter<ImageElement>
+public class ImageTransformer extends ElementTransformer<ImageElement>
 {
 
    /** . */

@@ -19,19 +19,38 @@
 
 package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.content.block.ListItemElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.CalloutElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
+import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ListItemWriter extends ElementWriter<ListItemElement>
+public class CalloutTransformer extends ElementTransformer<CalloutElement>
 {
+
    @Override
-   public void write(ListItemElement element, XMLEmitter emitter)
+   public void write(CalloutElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), true, emitter.element("listitem"));
+      ElementEmitter calloutXML = emitter.element("callout");
+
+      //
+      StringBuffer sb = new StringBuffer();
+      for (String coId : element.getIds().keySet())
+      {
+         if (sb.length() > 0)
+         {
+            sb.append(" ");
+         }
+         sb.append(coId).append("-co");
+      }
+
+      //
+      calloutXML.withAttribute("arearefs", sb.toString());
+
+      //
+      write(element.getContent(), false, calloutXML);
    }
 }

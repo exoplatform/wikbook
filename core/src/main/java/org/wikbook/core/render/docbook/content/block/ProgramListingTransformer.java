@@ -22,7 +22,7 @@ package org.wikbook.core.render.docbook.content.block;
 import org.wikbook.core.model.content.block.CalloutElement;
 import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ProgramListingElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 import org.wikbook.text.Position;
@@ -33,7 +33,7 @@ import java.util.Map;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ProgramListingWriter extends ElementWriter<ProgramListingElement>
+public class ProgramListingTransformer extends ElementTransformer<ProgramListingElement>
 {
    @Override
    public void write(ProgramListingElement element, XMLEmitter emitter)

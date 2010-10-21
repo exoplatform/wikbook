@@ -19,19 +19,20 @@
 
 package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.content.block.ScreenElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.ParagraphElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ScreenWriter extends ElementWriter<ScreenElement>
+public class ParagraphTransformer extends ElementTransformer<ParagraphElement>
 {
+
    @Override
-   public void write(ScreenElement element, XMLEmitter emitter)
+   public void write(ParagraphElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), false, emitter.element("screen"));
+      write(element.getContainer(), false, emitter.element("para"));
    }
 }

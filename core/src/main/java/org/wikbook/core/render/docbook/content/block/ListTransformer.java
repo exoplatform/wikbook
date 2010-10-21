@@ -21,7 +21,7 @@ package org.wikbook.core.render.docbook.content.block;
 
 import org.wikbook.core.model.content.block.ListElement;
 import org.wikbook.core.model.content.block.ListKind;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
@@ -31,7 +31,7 @@ import java.util.EnumMap;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ListWriter extends ElementWriter<ListElement>
+public class ListTransformer extends ElementTransformer<ListElement>
 {
 
    /** . */

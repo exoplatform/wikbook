@@ -19,20 +19,19 @@
 
 package org.wikbook.core.render.docbook.content.block;
 
-import org.wikbook.core.model.content.block.ParagraphElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.content.block.ListItemElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ParagraphWriter extends ElementWriter<ParagraphElement>
+public class ListItemTransformer extends ElementTransformer<ListItemElement>
 {
-
    @Override
-   public void write(ParagraphElement element, XMLEmitter emitter)
+   public void write(ListItemElement element, XMLEmitter emitter)
    {
-      write(element.getContainer(), false, emitter.element("para"));
+      write(element.getContent(), true, emitter.element("listitem"));
    }
 }

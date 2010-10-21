@@ -17,21 +17,44 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.block;
+package org.wikbook.core.render.docbook.structural;
 
-import org.wikbook.core.model.content.block.AdmonitionElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.structural.BookElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class AdmonitionWriter extends ElementWriter<AdmonitionElement>
+public class BookTransformer extends ElementTransformer<BookElement>
 {
+
    @Override
-   public void write(AdmonitionElement element, XMLEmitter emitter)
+   public void write(BookElement element, XMLEmitter emitter)
    {
-      write(element.getContent(), false, emitter.element(element.getKind().toString().toLowerCase()));
+      if (!element.getOmitRootNode())
+      {
+         emitter = emitter.element("book");
+      }
+
+      //
+      if (element.getBeforeBodyXML() != null) {
+         emitter.append(element.getBeforeBodyXML());
+      }
+
+      //
+      if (element.getPreface() != null)
+      {
+         getWriter(element.getPreface()).write(element.getPreface(), emitter.element("preface"));
+      }
+
+      //
+      write(element.getChapters(), false, emitter);
+
+      //
+      if (element.getAfterBodyXML() != null) {
+         emitter.append(element.getAfterBodyXML());
+      }
    }
 }

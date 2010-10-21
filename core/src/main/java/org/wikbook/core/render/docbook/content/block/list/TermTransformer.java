@@ -20,14 +20,14 @@
 package org.wikbook.core.render.docbook.content.block.list;
 
 import org.wikbook.core.model.content.block.list.TermElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class TermWriter extends ElementWriter<TermElement>
+public class TermTransformer extends ElementTransformer<TermElement>
 {
    @Override
    public void write(TermElement element, XMLEmitter emitter)

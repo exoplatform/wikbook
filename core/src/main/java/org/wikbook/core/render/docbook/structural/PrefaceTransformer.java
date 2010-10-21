@@ -17,21 +17,25 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.block;
+package org.wikbook.core.render.docbook.structural;
 
-import org.wikbook.core.model.content.block.GroupElement;
-import org.wikbook.core.render.docbook.ElementWriter;
+import org.wikbook.core.model.structural.PrefaceElement;
+import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class GroupWriter extends ElementWriter<GroupElement>
+public class PrefaceTransformer extends ElementTransformer<PrefaceElement>
 {
    @Override
-   public void write(GroupElement element, XMLEmitter emitter)
+   public void write(PrefaceElement element, XMLEmitter emitter)
    {
-      write(element.getContainer(), true, emitter);
+      if (element.getPrefaceTitle() != null)
+      {
+         emitter.element("title").content("Preface");
+      }
+      write(element.getContent(), true, emitter);
    }
 }
