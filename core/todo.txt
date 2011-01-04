@@ -29,3 +29,6 @@ Resources:
 
 Stylesheet:
 - http://code.google.com/p/asciidoc/
+
+Rendering+Style:
+- http://gradle.codehaus.org/How+to+build+the+documentation
