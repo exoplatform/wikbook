@@ -372,12 +372,23 @@ public class WikBookMojo extends AbstractMojo
             switch (type)
             {
                case WIKI:
+                  // Explanations (or not to self since I was not able to remember what it did and wasted some time)
+                  // The Iterable<String> path when it is not empty is the list of included documents, for instance
+                  // if "book.wiki" includes "a/b.wiki" which includes "c/d.wiki" then the path should be the
+                  // list {"a/b.wiki","c/d.wiki"}.
+                  // The path is therefore a path of included documents used to find a resource, so the code below
+                  // if "d.wiki" includes "e.wiki" in the same directory should follow:
+                  // 1/ current = "/" (the root)
+                  // 2/ current = "/a"
+                  // 3/ current = "/a/c"
+                  // 4/ resolved = "/a/c/e.wiki"
                   for (File root : getRoots())
                   {
                      File current = root;
                      for (String segment : path)
                      {
-                        current = new File(current, segment);
+                        File relative = new File(current, segment);
+                        current = relative.getParentFile();
                      }
                      File resolved = new File(current, id);
                      if (resolved.exists() && resolved.isFile())
