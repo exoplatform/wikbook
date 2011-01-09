@@ -46,6 +46,7 @@ import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.LinkedHashSet;
@@ -69,6 +70,13 @@ public class WikBookMojo extends AbstractMojo
     * @parameter
     */
    private File sourceDirectory;
+
+   /**
+    * The extra source directory.
+    *
+    * @parameter
+    */
+   private File extraSourceDirectory;
 
    /**
     * The source file name.
@@ -192,17 +200,46 @@ public class WikBookMojo extends AbstractMojo
     */
    private List<String> testClasspathElements;
 
+   /** The source roots. */
+   private List<File> roots = null;
+
+   private Iterable<File> getRoots()
+   {
+      if (roots == null)
+      {
+         List<File> roots = new ArrayList<File>();
+         if (sourceDirectory != null)
+         {
+            roots.add(sourceDirectory);
+         }
+         if (extraSourceDirectory != null)
+         {
+            roots.add(extraSourceDirectory);
+         }
+         this.roots = roots;
+      }
+      return roots;
+   }
+
    public void execute() throws MojoExecutionException, MojoFailureException
    {
 
-      File src = new File(sourceDirectory, sourceFileName);
-      if (!src.exists())
+      // Determine initial file
+      File src = null;
+      for (File root : getRoots())
       {
-         throw new MojoFailureException("Source file " + src.getAbsolutePath() + " does not exist");
+         File f = new File(root, sourceFileName);
+         if (f.exists() && f.isFile())
+         {
+            src = f;
+            break;
+         }
       }
-      if (!src.isFile())
+
+      //
+      if (src == null)
       {
-         throw new MojoFailureException("Source file " + src.getAbsolutePath() + " is not a file");
+         throw new MojoFailureException("Source file " + sourceFileName + " is not valid");
       }
 
       //
@@ -329,41 +366,33 @@ public class WikBookMojo extends AbstractMojo
       @Override
       public List<URL> resolveResources(ResourceType type, Iterable<String> path, String id) throws IOException
       {
+         List<URL> urls = Collections.emptyList();
          if (id.length() > 0)
          {
-            out:
             switch (type)
             {
                case WIKI:
-                  File current = sourceDirectory;
-                  for (String segment : path)
+                  for (File root : getRoots())
                   {
-                     File relative = new File(current, segment);
-                     if (relative.exists())
+                     File current = root;
+                     for (String segment : path)
                      {
-                        current = relative.getParentFile();
+                        current = new File(current, segment);
                      }
-                     else
+                     File resolved = new File(current, id);
+                     if (resolved.exists() && resolved.isFile())
                      {
-                        break out;
+                        if (urls.isEmpty())
+                        {
+                           urls = new ArrayList<URL>();
+                        }
+                        urls.add(resolved.toURI().toURL());
                      }
-                  }
-
-                  //
-                  File resolved = new File(current, id);
-                  if (resolved != null && resolved.isFile())
-                  {
-                     return Arrays.asList(resolved.toURI().toURL());
                   }
                   break;
                case XML:
                case JAVA:
                case DEFAULT:
-                  if (id.startsWith("/"))
-                  {
-                     id = id.substring(1);
-                  }
-                  LinkedHashSet<URL> urls = new LinkedHashSet<URL>();
 
                   //
                   List<String> dirs = new ArrayList<String>();
@@ -373,35 +402,38 @@ public class WikBookMojo extends AbstractMojo
                   dirs.addAll(testClasspathElements);
 
                   //
+                  LinkedHashSet<URL> urlSet = new LinkedHashSet<URL>();
+
+                  //
                   for (String elt : dirs)
                   {
                      File eltFile = new File(elt);
                      if (eltFile.exists())
                      {
-                        urls.add(eltFile.toURI().toURL());
+                        urlSet.add(eltFile.toURI().toURL());
                      }
                   }
 
                   //
                   for (Artifact artifact : (Set<Artifact>)session.getCurrentProject().getDependencyArtifacts())
                   {
-                     urls.add(artifact.getFile().toURI().toURL());
+                     urlSet.add(artifact.getFile().toURI().toURL());
                   }
 
-                  //
-                  ClassLoader cl = new URLClassLoader(urls.toArray(new URL[urls.size()]), ClassLoader.getSystemClassLoader());
-                  Enumeration<URL> found = cl.getResources(id);
-                  ArrayList<URL> bilto = new ArrayList<URL>();
-                  while (found.hasMoreElements())
+                  // Remove trailing '/' if any
+                  if (id.startsWith("/"))
                   {
-                     bilto.add(found.nextElement());
+                     id = id.substring(1);
                   }
 
                   //
-                  return bilto;
+                  ClassLoader cl = new URLClassLoader(urlSet.toArray(new URL[urlSet.size()]), ClassLoader.getSystemClassLoader());
+                  urls =Collections.list(cl.getResources(id));
             }
          }
-         return Collections.emptyList();
+
+         //
+         return urls;
       }
 
       public String getProperty(String propertyName)
