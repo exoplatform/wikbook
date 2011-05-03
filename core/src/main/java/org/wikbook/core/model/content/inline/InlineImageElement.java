@@ -16,30 +16,19 @@
  * Software Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
-
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.model.content.inline;
 
 import org.wikbook.core.model.content.Image;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
- * @version $Revision$
  */
-public class ImageElement extends BlockElement
-{
+public class InlineImageElement extends InlineElement {
 
    /** . */
    private final Image image;
 
-   public ImageElement(Image image)
+   public InlineImageElement(Image image)
    {
       this.image = image;
    }
@@ -52,6 +41,6 @@ public class ImageElement extends BlockElement
    @Override
    public String toString()
    {
-      return "ImageElement[" + image + "]";
+      return "InlineImageElement[" + image + "]";
    }
 }

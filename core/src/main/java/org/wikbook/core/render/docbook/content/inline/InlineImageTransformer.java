@@ -17,41 +17,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.model.content.block;
+package org.wikbook.core.render.docbook.content.inline;
 
 import org.wikbook.core.model.content.Image;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import org.wikbook.core.model.content.inline.InlineImageElement;
+import org.wikbook.core.render.docbook.content.AbstractImageTransformer;
+import org.wikbook.core.xml.ElementEmitter;
+import org.wikbook.core.xml.XMLEmitter;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ImageElement extends BlockElement
+public class InlineImageTransformer extends AbstractImageTransformer<InlineImageElement>
 {
 
-   /** . */
-   private final Image image;
-
-   public ImageElement(Image image)
+   @Override
+   protected Image getImage(InlineImageElement element)
    {
-      this.image = image;
-   }
-
-   public Image getImage()
-   {
-      return image;
+      return element.getImage();
    }
 
    @Override
-   public String toString()
+   protected ElementEmitter getWrapper(XMLEmitter emitter, InlineImageElement element, Image img)
    {
-      return "ImageElement[" + image + "]";
+      return emitter.element("inlinemediaobject");
    }
 }

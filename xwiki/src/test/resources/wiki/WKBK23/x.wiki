@@ -1,0 +1,2 @@
+foo image:img.png
+* foo image:img.png

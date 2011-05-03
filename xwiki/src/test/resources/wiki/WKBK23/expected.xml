@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <para>foo <inlinemediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="img.png" format="PNG"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="img.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject>
+    </para>
+    <itemizedlist>
+      <listitem>
+        <para>foo <inlinemediaobject>
+            <imageobject role="fo">
+              <imagedata fileref="img.png" format="PNG"/>
+            </imageobject>
+            <imageobject role="html">
+              <imagedata fileref="img.png" format="PNG"/>
+            </imageobject>
+          </inlinemediaobject>
+        </para>
+      </listitem>
+    </itemizedlist>
+  </preface>
+</book>

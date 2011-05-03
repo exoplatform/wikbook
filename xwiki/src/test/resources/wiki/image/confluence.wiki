@@ -1,2 +1,8 @@
 !img.png!
+
 !img.png|title="the title" width="10" fo:scalefit="1" html:scalefit="0"!
+
+an inline !img.png! image
+
+an inline !img.png|title="the title" width="10" fo:scalefit="1" html:scalefit="0"! image
+

@@ -3,14 +3,16 @@
   <preface>
     <title>Preface</title>
     <para>
-      <inlinemediaobject>
+      <mediaobject>
         <imageobject role="fo">
           <imagedata fileref="img.png" format="PNG"/>
         </imageobject>
         <imageobject role="html">
           <imagedata fileref="img.png" format="PNG"/>
         </imageobject>
-      </inlinemediaobject>
+      </mediaobject>
+    </para>
+    <para>
       <figure>
         <title>the title</title>
         <mediaobject>
@@ -23,5 +25,21 @@
         </mediaobject>
       </figure>
     </para>
+    <para>an inline <inlinemediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="img.png" format="PNG"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="img.png" format="PNG"/>
+        </imageobject>
+      </inlinemediaobject> image</para>
+    <para>an inline <inlinemediaobject>
+        <imageobject role="fo">
+          <imagedata fileref="img.png" format="PNG" scalefit="1" width="10"/>
+        </imageobject>
+        <imageobject role="html">
+          <imagedata fileref="img.png" format="PNG" scalefit="0" width="10"/>
+        </imageobject>
+      </inlinemediaobject> image</para>
   </preface>
 </book>

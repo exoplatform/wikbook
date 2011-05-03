@@ -23,6 +23,7 @@ import org.w3c.dom.Element;
 import org.wikbook.core.Align;
 import org.wikbook.core.ResourceType;
 import org.wikbook.core.VAlign;
+import org.wikbook.core.model.content.Image;
 import org.wikbook.core.model.content.block.AdmonitionElement;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.BlockQuotationElement;
@@ -44,6 +45,7 @@ import org.wikbook.core.model.content.block.list.TermElement;
 import org.wikbook.core.model.content.block.list.VariableListElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.FormatElement;
+import org.wikbook.core.model.content.inline.InlineImageElement;
 import org.wikbook.core.model.content.inline.LinkElement;
 import org.wikbook.core.model.content.inline.LinkType;
 import org.wikbook.core.model.content.inline.TextElement;
@@ -110,13 +112,10 @@ public class DocbookBuilder
    public boolean isInlineContext()
    {
       // Determine inline according to the docbook context and not according to what the parser tell us
-/*
       DocbookElement elt = root.peek();
 
       //
       return elt != null && elt.hasInlineAppended();
-*/
-      return false;
    }
 
    public DocbookElement getRoot()
@@ -409,16 +408,14 @@ public class DocbookBuilder
 
    public void onImage(String imageName, Map<String, String> parameters)
    {
-      root.merge(new ImageElement(imageName, parameters));
-/*
       if (isInlineContext())
       {
-         throw new UnsupportedOperationException();
+         root.merge(new InlineImageElement(new Image(imageName, parameters)));
       }
       else
       {
+         root.merge(new ImageElement(new Image(imageName, parameters)));
       }
-*/
    }
 
    public void onCode(LanguageSyntax language, Integer indent, String content)

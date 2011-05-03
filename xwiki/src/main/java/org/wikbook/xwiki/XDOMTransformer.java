@@ -376,10 +376,10 @@ class XDOMTransformer implements Listener
       }
       else if ("example".equals(id))
       {
-         if (isInline)
-         {
-            throw new UnsupportedOperationException();
-         }
+//         if (isInline)
+//         {
+//            throw new UnsupportedOperationException();
+//         }
          WikiLoader loader = new WikiLoader(context);
          Block block = loader.load(new StringReader(content), context.syntaxStack.getLast());
          builder.beginExample(macroParameters.get("title"));

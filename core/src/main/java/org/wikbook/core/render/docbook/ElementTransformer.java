@@ -41,6 +41,7 @@ import org.wikbook.core.model.content.block.table.TableElement;
 import org.wikbook.core.model.content.block.table.TableRowElement;
 import org.wikbook.core.model.content.inline.AnchorElement;
 import org.wikbook.core.model.content.inline.FormatElement;
+import org.wikbook.core.model.content.inline.InlineImageElement;
 import org.wikbook.core.model.content.inline.LinkElement;
 import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.structural.BookElement;
@@ -65,6 +66,7 @@ import org.wikbook.core.render.docbook.content.block.table.TableRowTransformer;
 import org.wikbook.core.render.docbook.content.block.table.TableTransformer;
 import org.wikbook.core.render.docbook.content.inline.AnchorTransformer;
 import org.wikbook.core.render.docbook.content.inline.FormatTransformer;
+import org.wikbook.core.render.docbook.content.inline.InlineImageTransformer;
 import org.wikbook.core.render.docbook.content.inline.LinkTransformer;
 import org.wikbook.core.render.docbook.content.inline.TextTransformer;
 import org.wikbook.core.render.docbook.structural.BookTransformer;
@@ -97,6 +99,7 @@ public abstract class ElementTransformer<E extends DocbookElement>
       writers.put(FormatElement.class, new FormatTransformer());
       writers.put(LinkElement.class, new LinkTransformer());
       writers.put(TextElement.class, new TextTransformer());
+      writers.put(InlineImageElement.class, new InlineImageTransformer());
 
       //
       writers.put(AdmonitionElement.class, new AdmonitionTransformer());

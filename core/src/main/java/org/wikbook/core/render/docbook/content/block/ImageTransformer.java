@@ -19,109 +19,38 @@
 
 package org.wikbook.core.render.docbook.content.block;
 
+import org.wikbook.core.model.content.Image;
 import org.wikbook.core.model.content.block.ImageElement;
-import org.wikbook.core.render.docbook.ElementTransformer;
+import org.wikbook.core.render.docbook.content.AbstractImageTransformer;
 import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
-
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class ImageTransformer extends ElementTransformer<ImageElement>
+public class ImageTransformer extends AbstractImageTransformer<ImageElement>
 {
 
-   /** . */
-   private static final Map<String, String> formats = new HashMap<String, String>();
-
-   /** . */
-   private static final List<String> outputs = Collections.unmodifiableList(Arrays.asList("fo", "html"));
-
-   /** . */
-   private static final Set<String> imageDataAttributes = new HashSet<String>();
-
-   static
+   @Override
+   protected Image getImage(ImageElement element)
    {
-      formats.put("png", "PNG");
-      formats.put("gif", "GIF");
-      formats.put("jpg", "JPG");
-      formats.put("jpeg", "JPG");
-      formats.put("tiff", "TIFF");
-
-      //
-      imageDataAttributes.add("align");
-      imageDataAttributes.add("valign");
-      imageDataAttributes.add("width");
-      imageDataAttributes.add("depth");
-      imageDataAttributes.add("scale");
-      imageDataAttributes.add("scalefit");
-      imageDataAttributes.add("contentwidth");
-      imageDataAttributes.add("contentdepth");
+      return element.getImage();
    }
 
    @Override
-   public void write(ImageElement element, XMLEmitter emitter)
+   protected ElementEmitter getWrapper(XMLEmitter emitter, ImageElement element, Image img)
    {
-      String extension = "";
-      int lastDot = element.getName().lastIndexOf('.');
-      if (lastDot > -1)
+      String title = img.getParameters().get("title");
+      if (title != null)
       {
-         extension = element.getName().substring(lastDot + 1).toLowerCase();
+         ElementEmitter figureXML = emitter.element("figure");
+         figureXML.element("title").content(title);
+         return figureXML.element("mediaobject");
       }
-
-      //
-      String format = formats.get(extension);
-
-      //
-      if (format != null)
+      else
       {
-         ElementEmitter mediaObjectXML;
-
-         //
-         String title = element.getParameters().get("title");
-         if (title != null)
-         {
-            ElementEmitter figureXML = emitter.element("figure");
-            figureXML.element("title").content(title);
-            mediaObjectXML = figureXML.element("mediaobject");
-         }
-         else
-         {
-            mediaObjectXML = emitter.element("inlinemediaobject");
-         }
-
-         //
-         for (String output : outputs)
-         {
-            ElementEmitter imageDataXML = mediaObjectXML.element("imageobject").withAttribute("role", output).
-               element("imagedata").
-               withAttribute("fileref", element.getName()).
-               withAttribute("format", format);
-
-            //
-            for (Map.Entry<String, String> entry : element.getParameters().entrySet())
-            {
-               String key = entry.getKey();
-               int colonIndex = key.indexOf(":");
-               String prefix = colonIndex != -1 ? key.substring(0, colonIndex + 1) : "";
-               if (prefix.length() == 0 || prefix.equals(output + ":"))
-               {
-                  String attrelementName = key.substring(prefix.length());
-                  if (imageDataAttributes.contains(attrelementName))
-                  {
-                     imageDataXML.withAttribute(attrelementName, entry.getValue());
-                  }
-               }
-            }
-         }
+         return emitter.element("mediaobject");
       }
    }
 }
