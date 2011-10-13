@@ -25,6 +25,12 @@
     </license>
   </licenses>
 
+  <scm>
+    <connection>scm:git:git://github.com/vietj/wikbook.git</connection>
+    <developerConnection>scm:git:ssh://git@github.com/vietj/wikbook.git</developerConnection>
+    <url>https://github.com/vietj/wikbook</url>
+  </scm>
+
   <distributionManagement>
     <repository>
       <id>repository.exoplatform.org</id>
@@ -53,6 +59,10 @@
     <wikbook.version>${project.version}</wikbook.version>
     <wikbook.releases.repo.url>http://repository.exoplatform.org/content/repositories/wikbook-releases/</wikbook.releases.repo.url>
     <wikbook.snapshots.repo.url>http://repository.exoplatform.org/content/repositories/wikbook-snapshots/</wikbook.snapshots.repo.url>
+
+    <!-- maven-release-plugin -->
+    <useReleaseProfile>false</useReleaseProfile>
+    <autoVersionSubmodules>true</autoVersionSubmodules>
   </properties>
 
   <modules>
