@@ -71,7 +71,7 @@
     <arguments>-Prelease,sign-artifacts</arguments>
     <autoVersionSubmodules>true</autoVersionSubmodules>
 
-    <docbkx.version>2.0.7</docbkx.version>
+    <docbkx.version>2.0.13</docbkx.version>
     <dependency.version>2.1</dependency.version>
   </properties>
 
