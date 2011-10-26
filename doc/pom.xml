@@ -28,25 +28,25 @@
 
        <!-- The wikbook maven plugin generates the docbook document from the wiki source -->
       <plugin>
-         <groupId>org.wikbook</groupId>
-         <artifactId>wikbook.maven</artifactId>
-         <executions>
-           <execution>
-             <phase>prepare-package</phase>
-             <goals>
-               <goal>transform</goal>
-             </goals>
-           </execution>
-         </executions>
-         <configuration>
-           <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
-           <sourceFileName>book.wiki</sourceFileName>
-           <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
-           <destinationFileName>index.xml</destinationFileName>
-           <emitDoctype>true</emitDoctype>
-           <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
-         </configuration>
-       </plugin>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.maven</artifactId>
+        <executions>
+          <execution>
+            <phase>prepare-package</phase>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
+          <sourceFileName>book.wiki</sourceFileName>
+          <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
+          <destinationFileName>index.xml</destinationFileName>
+          <emitDoctype>true</emitDoctype>
+          <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
+        </configuration>
+      </plugin>
 
       <!-- Unpacks the docbook style resources for the docbkx plugin -->
       <plugin>
@@ -116,7 +116,6 @@
 
               <!-- Stylesheets -->
               <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/html.xsl</htmlCustomization>
-              <htmlStylesheet>css/html.css</htmlStylesheet>
 
               <!-- Copy the image -->
               <postProcess>
@@ -134,27 +133,39 @@
                   </fileset>
                 </copy>
               </postProcess>
-              
             </configuration>
           </execution>
           <execution>
-            <id>generate-pdf</id>
+            <id>generate-xhtml</id>
             <goals>
-              <goal>generate-pdf</goal>
+              <goal>generate-xhtml</goal>
             </goals>
             <phase>package</phase>
             <configuration>
 
               <!-- Output -->
-              <targetDirectory>${project.build.directory}/wikbook/output/pdf</targetDirectory>
+              <targetDirectory>${project.build.directory}/wikbook/output/xhtml</targetDirectory>
+              <targetFileExtension>html</targetFileExtension>
 
-              <!-- Stylesheet -->
-              <foCustomization>${project.build.directory}/wikbook/src/resources/xsl/fopdf.xsl</foCustomization>
+              <!-- Stylesheets -->
+              <xhtmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/pdf.xsl</xhtmlCustomization>
 
-              <!-- Image configuration -->
-              <imgSrcPath>${pom.basedir}/src/main/wikbook/</imgSrcPath>
-              <admonGraphicsPath>${project.build.directory}/wikbook/src/resources/images/admons/</admonGraphicsPath>
-              
+              <!-- Copy the image -->
+              <postProcess>
+                <copy todir="${project.build.directory}/wikbook/output/xhtml/images">
+                  <fileset dir="${pom.basedir}/src/main/wikbook/images">
+                    <include name="**" />
+                  </fileset>
+                </copy>
+                <copy todir="${project.build.directory}/wikbook/output/xhtml">
+                  <fileset dir="${project.build.directory}/wikbook/src/resources">
+                    <include name="**/*.css" />
+                    <include name="**/*.png" />
+                    <include name="**/*.gif" />
+                    <include name="**/*.jpg" />
+                  </fileset>
+                </copy>
+              </postProcess>
             </configuration>
           </execution>
         </executions>
@@ -166,6 +177,25 @@
             <scope>runtime</scope>
           </dependency>
         </dependencies>
+      </plugin>
+
+      <plugin>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.html2pdf</artifactId>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>transform</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <sourceDirectory>${project.build.directory}/wikbook/output/xhtml</sourceDirectory>
+          <sourceFileName>index.html</sourceFileName>
+          <destinationDirectory>${project.build.directory}/wikbook/output/pdf</destinationDirectory>
+          <destinationFileName>index.pdf</destinationFileName>
+        </configuration>
       </plugin>
 
       <!-- Attach the HTML zip -->
@@ -210,7 +240,7 @@
       </plugin>
 
     </plugins>
-   </build>
+  </build>
 
 </project>
     

@@ -1,107 +1,87 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- 
-    This is the XSL HTML configuration file for the Spring
-    Reference Documentation.
--->
-<xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
-                xmlns:fo="http://www.w3.org/1999/XSL/Format"
-                xmlns:xslthl="http://xslthl.sf.net"
-                exclude-result-prefixes="xslthl"
-                version="1.0">
-                
-    <xsl:import href="urn:docbkx:stylesheet"/>
-    <xsl:import href="highlight.xsl"/>
+<!--
+  ~ Copyright 2010 the original author or authors.
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~      http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+<xsl:stylesheet
+        xmlns:xsl="http://www.w3.org/1999/XSL/Transform" version="1.0">
+    <xsl:import href="urn:docbkx:stylesheet/chunkfast.xsl"/>
+    <xsl:import href="htmlCommon.xsl"/>
 
-  <!--###################################################
-                  HTML Settings
- ################################################### -->
+    <xsl:param name="root.filename">guide</xsl:param>
+    <xsl:param name="chunk.section.depth">0</xsl:param>
+    <xsl:param name="chunk.quietly">1</xsl:param>
+    <xsl:param name="use.id.as.filename">1</xsl:param>
 
-  <!-- These extensions are required for table printing and other stuff -->
-  <xsl:param name="tablecolumns.extension">0</xsl:param>
-    <xsl:param name="graphicsize.extension">0</xsl:param>
-    <xsl:param name="ignore.image.scaling">1</xsl:param>
+    <!-- HEADERS AND FOOTERS -->
 
-  <!--###################################################
-                   Table Of Contents
- ################################################### -->
-
-  <!-- Generate the TOCs for named components only -->
-  <xsl:param name="generate.toc">
-        book toc
-    </xsl:param>
-
-  <!-- Show only Sections up to level 3 in the TOCs -->
-  <xsl:param name="toc.section.depth">3</xsl:param>
-
-  <!--###################################################
-                      Labels
- ################################################### -->
-
-  <!-- Label Chapters and Sections (numbering) -->
-  <xsl:param name="chapter.autolabel">1</xsl:param>
-    <xsl:param name="section.autolabel" select="1"/>
-    <xsl:param name="section.label.includes.component.label" select="1"/>
-
-  <!--###################################################
-                      Callouts
- ################################################### -->
-
-  <!-- Use images for callouts instead of (1) (2) (3) -->
-  <xsl:param name="callout.graphics">1</xsl:param>
-
-  <!-- Place callout marks at this column in annotated areas -->
-  <xsl:param name="callout.defaultcolumn">90</xsl:param>
-
-  <!--###################################################
-                    Admonitions
- ################################################### -->
-
-  <!-- Use nice graphics for admonitions -->
-  <xsl:param name="admon.graphics">1</xsl:param>
-  <xsl:param name="admon.graphics.path">images/admons/</xsl:param>
-  <!--###################################################
-                       Misc
- ################################################### -->
-  <!-- Placement of titles -->
-  <xsl:param name="formal.title.placement">
-        figure after
-        example before
-        equation before
-        table before
-        procedure before
-    </xsl:param>
-    <xsl:template match="author" mode="titlepage.mode">
-        <xsl:if test="name(preceding-sibling::*[1]) = 'author'">
-            <xsl:text>, </xsl:text>
+    <!-- Use custom header -->
+    <xsl:template name="header.navigation">
+        <xsl:param name="next"/>
+        <xsl:param name="prev"/>
+        <xsl:if test=". != /book">
+            <div class='navheader'>
+                <xsl:call-template name="navlinks">
+                    <xsl:with-param name="next" select="$next"/>
+                    <xsl:with-param name="prev" select="$prev"/>
+                </xsl:call-template>
+            </div>
         </xsl:if>
-        <span class="{name(.)}">
-            <xsl:call-template name="person.name"/> 
-            (<xsl:value-of select="affiliation"/>)
-            <xsl:apply-templates mode="titlepage.mode" select="./contrib"/>
-        </span>
     </xsl:template>
-    <xsl:template match="authorgroup" mode="titlepage.mode">
-        <div class="{name(.)}">
-            <h2>Authors</h2>
-            <p/>
-            <xsl:apply-templates mode="titlepage.mode"/>
+
+    <!-- Use custom footer -->
+    <xsl:template name="footer.navigation">
+        <xsl:param name="next"/>
+        <xsl:param name="prev"/>
+        <div class='navfooter'>
+            <xsl:call-template name="navlinks">
+                <xsl:with-param name="next" select="$next"/>
+                <xsl:with-param name="prev" select="$prev"/>
+            </xsl:call-template>
         </div>
     </xsl:template>
-  <!--###################################################
-                  Headers and Footers
- ################################################### -->
-  <!-- let's have a Spring and I21 banner across the top of each page -->
-  <xsl:template name="user.header.navigation">
-        <div style="background-color:white;border:none;height:73px;border:1px solid black;">
-            <a style="border:none;" href="http://www.springframework.org/osgi/"
-               title="The Spring Framework - Spring Dynamic Modules">
-                <img style="border:none;" src="images/xdev-spring_logo.jpg"/>
-            </a>
-            <a style="border:none;" href="http://www.SpringSource.com/" title="SpringSource - Spring from the Source">
-                <img style="border:none;position:absolute;padding-top:5px;right:42px;" src="images/s2-banner-rhs.png"/>
-            </a>
+
+    <xsl:template name="navlinks">
+        <xsl:param name="next"/>
+        <xsl:param name="prev"/>
+        <div>
+            <div class="navbar">
+                <xsl:if test="count($prev)>0">
+                    <xsl:call-template name="customXref">
+                        <xsl:with-param name="target" select="$prev"/>
+                        <xsl:with-param name="content">
+                            <xsl:text>Previous</xsl:text>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                    <span>|</span>
+                </xsl:if>
+                <xsl:call-template name="customXref">
+                    <xsl:with-param name="target" select="/book"/>
+                    <xsl:with-param name="content">
+                        <xsl:text>Contents</xsl:text>
+                    </xsl:with-param>
+                </xsl:call-template>
+                <xsl:if test="count($next)>0">
+                    <span>|</span>
+                    <xsl:call-template name="customXref">
+                        <xsl:with-param name="target" select="$next"/>
+                        <xsl:with-param name="content">
+                            <xsl:text>Next</xsl:text>
+                        </xsl:with-param>
+                    </xsl:call-template>
+                </xsl:if>
+            </div>
         </div>
     </xsl:template>
 
 </xsl:stylesheet>
-
