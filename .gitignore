@@ -1,3 +1,6 @@
+*.ipr
+*.iml
+*.iws
 ide
 target
 release.properties

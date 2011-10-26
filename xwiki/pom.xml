@@ -16,11 +16,6 @@
 
     <dependency>
       <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.dependencies</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.wikbook</groupId>
       <artifactId>wikbook.core</artifactId>
     </dependency>
 
@@ -34,6 +29,27 @@
       <groupId>xmlunit</groupId>
       <artifactId>xmlunit</artifactId>
       <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.xwiki.commons</groupId>
+      <artifactId>xwiki-commons-component-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.commons</groupId>
+      <artifactId>xwiki-commons-component-default</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.commons</groupId>
+      <artifactId>xwiki-commons-component-observation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.rendering</groupId>
+      <artifactId>xwiki-rendering-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.xwiki.rendering</groupId>
+      <artifactId>xwiki-rendering-syntax-xwiki2</artifactId>
     </dependency>
 
   </dependencies>

@@ -80,11 +80,6 @@
       
       <dependency>
         <groupId>org.wikbook</groupId>
-        <artifactId>wikbook.dependencies</artifactId>
-        <version>0.9.33-SNAPSHOT</version>
-      </dependency>
-      <dependency>
-        <groupId>org.wikbook</groupId>
         <artifactId>wikbook.codesource</artifactId>
         <version>0.9.33-SNAPSHOT</version>
       </dependency>
@@ -129,11 +124,48 @@
         <artifactId>cojen</artifactId>
         <version>2.0</version>
       </dependency>
+
+      <dependency>
+        <groupId>commons-logging</groupId>
+        <artifactId>commons-logging</artifactId>
+        <version>1.1.1</version>
+      </dependency>
+      <dependency>
+        <groupId>com.google.code.javaparser</groupId>
+        <artifactId>javaparser</artifactId>
+        <version>1.0.8</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.xwiki.commons</groupId>
+        <artifactId>xwiki-commons-component-api</artifactId>
+        <version>3.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.xwiki.commons</groupId>
+        <artifactId>xwiki-commons-component-default</artifactId>
+        <version>3.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.xwiki.commons</groupId>
+        <artifactId>xwiki-commons-component-observation</artifactId>
+        <version>3.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.xwiki.rendering</groupId>
+        <artifactId>xwiki-rendering-api</artifactId>
+        <version>3.2</version>
+      </dependency>
+      <dependency>
+        <groupId>org.xwiki.rendering</groupId>
+        <artifactId>xwiki-rendering-syntax-xwiki2</artifactId>
+        <version>3.2</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
   <modules>
-    <module>dependencies</module>
     <module>codesource</module>
     <module>core</module>
     <module>xwiki</module>

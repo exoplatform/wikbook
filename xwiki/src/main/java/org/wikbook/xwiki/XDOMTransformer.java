@@ -20,34 +20,30 @@
 package org.wikbook.xwiki;
 
 import org.w3c.dom.Document;
-import org.wikbook.core.ResourceType;
 import org.wikbook.core.Utils;
 import org.wikbook.core.model.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.content.block.AdmonitionKind;
 import org.wikbook.core.model.content.block.LanguageSyntax;
 import org.wikbook.core.model.content.block.ListKind;
-import org.wikbook.core.model.content.inline.TextElement;
 import org.wikbook.core.model.content.inline.TextFormat;
 import org.wikbook.core.xml.OutputFormat;
 import org.wikbook.core.xml.XML;
 import org.xwiki.rendering.block.Block;
 import org.xwiki.rendering.listener.Format;
 import org.xwiki.rendering.listener.HeaderLevel;
-import org.xwiki.rendering.listener.Image;
-import org.xwiki.rendering.listener.Link;
 import org.xwiki.rendering.listener.ListType;
 import org.xwiki.rendering.listener.Listener;
+import org.xwiki.rendering.listener.MetaData;
+import org.xwiki.rendering.listener.reference.ResourceReference;
+import org.xwiki.rendering.listener.reference.ResourceType;
 import org.xwiki.rendering.syntax.Syntax;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.dom.DOMResult;
 import javax.xml.transform.stream.StreamSource;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Reader;
 import java.io.StringReader;
-import java.net.URL;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
@@ -107,11 +103,19 @@ class XDOMTransformer implements Listener
       this.builder = builder;
    }
 
-   public void beginDocument(Map<String, String> parameters)
+   public void beginDocument(MetaData metaData)
    {
    }
 
-   public void endDocument(Map<String, String> parameters)
+   public void endDocument(MetaData metaData)
+   {
+   }
+
+   public void beginMetaData(MetaData metaData)
+   {
+   }
+
+   public void endMetaData(MetaData metaData)
    {
    }
 
@@ -322,7 +326,7 @@ class XDOMTransformer implements Listener
                {
                   try
                   {
-                    content = Utils.read(Utils.read(context.resolveResource(ResourceType.DEFAULT, href), context.getCharsetName()));
+                    content = Utils.read(Utils.read(context.resolveResource(org.wikbook.core.ResourceType.DEFAULT, href), context.getCharsetName()));
                   }
                   catch (IOException e)
                   {
@@ -398,49 +402,49 @@ class XDOMTransformer implements Listener
 
    //
 
-   public void beginLink(Link link, boolean isFreeStandingURI, Map<String, String> parameters)
+   public void beginLink(ResourceReference link, boolean isFreeStandingURI, Map<String, String> parameters)
    {
-      switch (link.getType())
+      if (link.getType() == ResourceType.URL)
       {
-         case URI:
-            String ref = link.getReference();
-            org.wikbook.core.model.content.inline.LinkType type;
-            if (ref.startsWith("#"))
-            {
-               ref = ref.substring(1);
-               type = org.wikbook.core.model.content.inline.LinkType.ANCHOR;
-            }
-            else
-            {
-               type = org.wikbook.core.model.content.inline.LinkType.URL;
-            }
-            builder.beginLink(type, ref);
-            break;
-         default:
-            context.onValidationError("Unsupported link type " + link.getType());
+         String ref = link.getReference();
+         org.wikbook.core.model.content.inline.LinkType type;
+         if (ref.startsWith("#"))
+         {
+            ref = ref.substring(1);
+            type = org.wikbook.core.model.content.inline.LinkType.ANCHOR;
+         }
+         else
+         {
+            type = org.wikbook.core.model.content.inline.LinkType.URL;
+         }
+         builder.beginLink(type, ref);
+      }
+      else
+      {
+         context.onValidationError("Unsupported link type " + link.getType());
       }
    }
 
-   public void endLink(Link link, boolean isFreeStandingURI, Map<String, String> parameters)
+   public void endLink(ResourceReference link, boolean isFreeStandingURI, Map<String, String> parameters)
    {
-      switch (link.getType())
+      if (link.getType() == ResourceType.URL)
       {
-         case URI:
-            String ref = link.getReference();
-            org.wikbook.core.model.content.inline.LinkType type;
-            if (ref.startsWith("#"))
-            {
-               ref = ref.substring(1);
-               type = org.wikbook.core.model.content.inline.LinkType.ANCHOR;
-            }
-            else
-            {
-               type = org.wikbook.core.model.content.inline.LinkType.URL;
-            }
-            builder.endLink(type, ref);
-            break;
-         default:
-            context.onValidationError("Unsupported link type " + link.getType());
+         String ref = link.getReference();
+         org.wikbook.core.model.content.inline.LinkType type;
+         if (ref.startsWith("#"))
+         {
+            ref = ref.substring(1);
+            type = org.wikbook.core.model.content.inline.LinkType.ANCHOR;
+         }
+         else
+         {
+            type = org.wikbook.core.model.content.inline.LinkType.URL;
+         }
+         builder.endLink(type, ref);
+      }
+      else
+      {
+         context.onValidationError("Unsupported link type " + link.getType());
       }
    }
 
@@ -588,8 +592,8 @@ class XDOMTransformer implements Listener
       context.onValidationError("Not supported");
    }
 
-   public void onImage(Image image, boolean isFreeStandingURI, Map<String, String> parameters)
+   public void onImage(ResourceReference image, boolean isFreeStandingURI, Map<String, String> parameters)
    {
-      builder.onImage(image.getName(), parameters);
+      builder.onImage(image.getReference(), parameters);
    }
 }

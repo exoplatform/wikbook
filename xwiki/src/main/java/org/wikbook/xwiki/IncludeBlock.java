@@ -19,7 +19,7 @@
 
 package org.wikbook.xwiki;
 
-import org.xwiki.rendering.block.AbstractFatherBlock;
+import org.xwiki.rendering.block.AbstractBlock;
 import org.xwiki.rendering.block.Block;
 import org.xwiki.rendering.listener.Listener;
 
@@ -31,7 +31,7 @@ import java.util.List;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-class IncludeBlock extends AbstractFatherBlock
+class IncludeBlock extends AbstractBlock
 {
 
    /** . */

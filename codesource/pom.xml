@@ -15,13 +15,13 @@
   <dependencies>
 
     <dependency>
-      <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.dependencies</artifactId>
+      <groupId>org.cojen</groupId>
+      <artifactId>cojen</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.cojen</groupId>
-      <artifactId>cojen</artifactId>
+      <groupId>com.google.code.javaparser</groupId>
+      <artifactId>javaparser</artifactId>
     </dependency>
 
     <dependency>
