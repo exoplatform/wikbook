@@ -13,7 +13,8 @@ structure with the following rules:
 {{code}}
 = Section 1 =
 == Section 2 ==
-{{/code}})))|(((
+{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <chapter>
   <title>Section 1</title>
@@ -63,7 +64,8 @@ in a section title.
 A [[link>>#chapter_1]] to the chapter 1
 The [[#chapter_1]] can be linked
 A [[link>>#foo]] to an anchor {{anchor id=foo /}}
-{{/code}})))|((({{code language=xml indent=2}}
+{{/code}})))
+|((({{code language=xml indent=2}}
 <chapter>
   <title>Chapter 1</title>
   <para>A <link linkend="chapter_1">link</link> to the chapter 1</para>
@@ -86,7 +88,8 @@ such as this documentation.
 |(((
 {{code}}
 {{{[#bar]}}}
-{{/code}})))|(((
+{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <para>[#bar]</para>
 {{/code}})))
@@ -98,14 +101,16 @@ escaped char. A double back slash will produce a single backslash.
 |(((
 {{code}}
 \\[#bar\\]
-{{/code}})))|(((
+{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <para>[#bar]</para>
 {{/code}})))
 
 (% title="Backslash escape" %)
 |(((
-{{code}}\\\\{{/code}})))|(((
+{{code}}\\\\{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <para>\\</para>
 {{/code}})))
@@ -128,7 +133,8 @@ The paragraph of the section 1.
 The first paragraph of the section 2.
 
 The second paragraph of the section 2.
-{{/code}})))|(((
+{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <chapter>
   <title>Chapter 1</title>
@@ -518,7 +524,8 @@ Wiki definition lists are managed as docbook variable lists.
 {{code}}
 ; term
 : definition
-{{/code}})))|(((
+{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <variablelist>
   <varlistentry>
@@ -528,14 +535,17 @@ Wiki definition lists are managed as docbook variable lists.
     </listitem>
   </varlistentry>
 </variablelist>
-{{/code}})))|(((; term
+{{/code}})))
+|(((; term
 : definition)))
+
 |(((
 {{code}}
 (% title="the title" %)
 ; term
 : definition
-{{/code}})))|(((
+{{/code}})))
+|(((
 {{code language=xml indent=2}}
 <variablelist>
   <title>the title</title>
@@ -546,7 +556,8 @@ Wiki definition lists are managed as docbook variable lists.
     </listitem>
   </varlistentry>
 </variablelist>
-{{/code}})))|((((% title="the title" %)
+{{/code}})))
+|((((% title="the title" %)
 ; term
 : definition)))
 
@@ -556,13 +567,17 @@ Docbook defines a tag for creating examples. It gives the capability to give the
 it generates a list of all examples in the book.
 
 (% title="An example" %)
-|((({{code}}{{example}}an example{{/example}}{{/code}})))|((({{example}}an example{{/example}})))
-|((({{code}}{{example title="my example"}}an example with a title{{/example}}{{/code}})))|((({{example}}an example with a title{{/example}})))
+|((({{code}}{{example}}an example{{/example}}{{/code}})))
+|((({{example}}an example{{/example}})))
+
+|((({{code}}{{example title="my example"}}an example with a title{{/example}}{{/code}})))
+|((({{example}}an example with a title{{/example}})))
 
 The example macro can easily be combined, for instance a code example can be created by combining the example and code macros.
 
 (% title="A code example combining the example and code macros" %)
-|((({{code}}{{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}}{{/code}})))|((({{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}})))
+|((({{code}}{{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}}{{/code}})))
+|((({{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}})))
 
 == Quotation ==
 
