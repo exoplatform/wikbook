@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<book>
+  <chapter>
+    <title>1</title>
+    <section>
+      <title>1.1</title>
+      <section>
+        <title>1.1.1</title>
+      </section>
+      <section>
+        <title>1.1.2</title>
+      </section>
+    </section>
+    <section>
+      <title>1.2</title>
+    </section>
+  </chapter>
+  <chapter>
+    <title>2</title>
+  </chapter>
+</book>

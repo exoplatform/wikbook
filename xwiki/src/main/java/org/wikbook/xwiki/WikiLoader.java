@@ -177,7 +177,7 @@ class WikiLoader
             }
 
             //
-            List<Substitution> substitutions = visit(xdom, syntaxId);
+            List<Substitution> substitutions = visit(xdom, baseLevel, syntaxId);
 
             //
             if (substitutions.size() > 0)

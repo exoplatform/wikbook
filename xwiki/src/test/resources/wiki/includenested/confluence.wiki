@@ -1,0 +1,3 @@
+h1. 1
+{include:document=confluence1.wiki}
+h1. 2
