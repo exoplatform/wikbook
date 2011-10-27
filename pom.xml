@@ -166,6 +166,7 @@
   </dependencyManagement>
 
   <modules>
+    <module>html2pdf</module>
     <module>codesource</module>
     <module>core</module>
     <module>xwiki</module>
