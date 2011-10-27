@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<book>
+  <chapter>
+    <title>foo</title>
+    <programlistingco>
+      <areaspec units="linecolumn"/>
+      <programlisting>bar</programlisting>
+    </programlistingco>
+  </chapter>
+</book>

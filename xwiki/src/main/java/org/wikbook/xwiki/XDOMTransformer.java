@@ -288,95 +288,86 @@ class XDOMTransformer implements Listener
       }
       else if ("code".equals(id) || "java".equals(id) || "xml".equals(id))
       {
-         if (isInline)
+         LanguageSyntax languageSyntax = LanguageSyntax.UNKNOWN;
+         if ("java".equals(id))
          {
-            builder.beginFormat(TextFormat.CODE);
-            builder.onText(content);
-            builder.endFormat(TextFormat.CODE);
+            languageSyntax = LanguageSyntax.JAVA;
+         }
+         else if ("xml".equals(id))
+         {
+            languageSyntax = LanguageSyntax.XML;
          }
          else
          {
-            LanguageSyntax languageSyntax = LanguageSyntax.UNKNOWN;
-            if ("java".equals(id))
+            String language = macroParameters.get("language");
+            if ("java".equalsIgnoreCase(language))
             {
                languageSyntax = LanguageSyntax.JAVA;
             }
-            else if ("xml".equals(id))
+            else if ("groovy".equalsIgnoreCase(language))
+            {
+               languageSyntax = LanguageSyntax.JAVA;
+            }
+            else if ("xml".equalsIgnoreCase(language))
             {
                languageSyntax = LanguageSyntax.XML;
             }
-            else
-            {
-               String language = macroParameters.get("language");
-               if ("java".equalsIgnoreCase(language))
-               {
-                  languageSyntax = LanguageSyntax.JAVA;
-               }
-               else if ("groovy".equalsIgnoreCase(language))
-               {
-                  languageSyntax = LanguageSyntax.JAVA;
-               }
-               else if ("xml".equalsIgnoreCase(language))
-               {
-                  languageSyntax = LanguageSyntax.XML;
-               }
 
-               String href = macroParameters.get("href");
-               if (href != null)
-               {
-                  try
-                  {
-                    content = Utils.read(Utils.read(context.resolveResource(org.wikbook.core.ResourceType.DEFAULT, href), context.getCharsetName()));
-                  }
-                  catch (IOException e)
-                  {
-                    content = Utils.toString(e);
-                  }
-               }
-
-               // Support Confluence code:java and code:xml
-               if (language == null)
-               {
-                  String value = macroParameters.get("value");
-                  if (value != null)
-                  {
-                     if ("java".equalsIgnoreCase(value))
-                     {
-                        languageSyntax = LanguageSyntax.JAVA;
-                     }
-                     else if ("groovy".equalsIgnoreCase(value))
-                     {
-                        languageSyntax = LanguageSyntax.JAVA;
-                     }
-                     else if ("xml".equalsIgnoreCase(value))
-                     {
-                        languageSyntax = LanguageSyntax.XML;
-                     }
-                  }
-               }
-            }
-
-            //
-            Integer indent = null;
-            if (macroParameters.get("indent") != null)
+            String href = macroParameters.get("href");
+            if (href != null)
             {
                try
                {
-                  indent = Integer.parseInt(macroParameters.get("indent"));
+                 content = Utils.read(Utils.read(context.resolveResource(org.wikbook.core.ResourceType.DEFAULT, href), context.getCharsetName()));
                }
-               catch (NumberFormatException e)
+               catch (IOException e)
                {
-                  e.printStackTrace();
+                 content = Utils.toString(e);
                }
             }
 
-            //
-            builder.onCode(
-               languageSyntax,
-               indent,
-               content
-            );
+            // Support Confluence code:java and code:xml
+            if (language == null)
+            {
+               String value = macroParameters.get("value");
+               if (value != null)
+               {
+                  if ("java".equalsIgnoreCase(value))
+                  {
+                     languageSyntax = LanguageSyntax.JAVA;
+                  }
+                  else if ("groovy".equalsIgnoreCase(value))
+                  {
+                     languageSyntax = LanguageSyntax.JAVA;
+                  }
+                  else if ("xml".equalsIgnoreCase(value))
+                  {
+                     languageSyntax = LanguageSyntax.XML;
+                  }
+               }
+            }
          }
+
+         //
+         Integer indent = null;
+         if (macroParameters.get("indent") != null)
+         {
+            try
+            {
+               indent = Integer.parseInt(macroParameters.get("indent"));
+            }
+            catch (NumberFormatException e)
+            {
+               e.printStackTrace();
+            }
+         }
+
+         //
+         builder.onCode(
+            languageSyntax,
+            indent,
+            content
+         );
       }
       else if ("example".equals(id))
       {

@@ -41,7 +41,6 @@ public class FormatTransformer extends ElementTransformer<FormatElement>
          case ITALIC:
             write(element.getContainer(), false, emitter.element("emphasis").withAttribute("role", "italic"));
             break;
-         case CODE:
          case MONOSPACE:
             write(element.getContainer(), false, emitter.element("code"));
             break;
