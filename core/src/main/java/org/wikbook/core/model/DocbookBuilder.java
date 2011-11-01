@@ -192,27 +192,27 @@ public class DocbookBuilder
 
    public void beginAdmonition(AdmonitionKind admonition)
    {
-      if (isInlineContext())
-      {
-         context.onValidationError("No admonition " + admonition + " allowed inside");
-      }
-      else
-      {
-         AdmonitionElement admonitionElt = new AdmonitionElement(admonition);
-         root.push(admonitionElt);
-      }
+//      if (isInlineContext())
+//      {
+//         context.onValidationError("No admonition " + admonition + " allowed inside");
+//      }
+//      else
+//      {
+      AdmonitionElement admonitionElt = new AdmonitionElement(admonition);
+      root.push(admonitionElt);
+//      }
    }
 
    public void endAdmonition(AdmonitionKind admonition)
    {
-      if (isInlineContext())
-      {
-         context.onValidationError("No admonition " + admonition + " allowed inside");
-      }
-      else
-      {
-         root.merge();
-      }
+//      if (isInlineContext())
+//      {
+//         context.onValidationError("No admonition " + admonition + " allowed inside");
+//      }
+//      else
+//      {
+      root.merge();
+//      }
    }
 
    public void beginExample(String title)

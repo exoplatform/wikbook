@@ -31,4 +31,10 @@
       </para>
     </note>
   </preface>
+  <chapter>
+    <title>Chapter</title>
+    <note>
+      <para>note value</para>
+    </note>
+  </chapter>
 </book>

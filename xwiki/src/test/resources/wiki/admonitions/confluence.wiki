@@ -13,3 +13,6 @@
 {note}*bold note value*{note}
 
 {note}[#foo]{note}
+
+h1. Chapter
+{note}note value{note}
