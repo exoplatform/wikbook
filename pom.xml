@@ -141,6 +141,7 @@
     <module>docbkxstyle</module>
     <module>archetype</module>
     <module>doc</module>
+    <module>template</module>
   </modules>
 
   <build>
