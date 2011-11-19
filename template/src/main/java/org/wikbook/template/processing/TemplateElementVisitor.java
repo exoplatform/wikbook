@@ -88,7 +88,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       for (Method method : clazz.getMethods()) {
         if (method.getDeclaringClass().equals(clazz)) {
           try {
-            annotation.simpleValue(method.getName(), (String) method.invoke(a));
+            annotation.simpleValue(method.getName(), method.invoke(a).toString());
           } catch (Exception e) {
             e.printStackTrace();
           }
