@@ -95,7 +95,11 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
         }
       }
 
+      //
       String documentation = ctx.getUtils().getDocComment(el);
+      if (documentation == null) return annotation;
+
+      //
       Scanner sc = new Scanner(documentation);
       String currentName = null;
       StringBuilder b = new StringBuilder();

@@ -22,6 +22,7 @@ import java.util.*;
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
+@SupportedOptions({"wikbook.template.annotations"})
 public class TemplateProcessor extends AbstractProcessor {
 
   private Class[] classes;
@@ -32,6 +33,8 @@ public class TemplateProcessor extends AbstractProcessor {
   public boolean process(Set<? extends TypeElement> typeElements, RoundEnvironment roundEnvironment) {
 
     classes = annotations();
+    if (classes.length == 0) return false;
+
     this.filer = processingEnv.getFiler();
     this.utils = processingEnv.getElementUtils();
 
@@ -42,9 +45,11 @@ public class TemplateProcessor extends AbstractProcessor {
     for (Class clazz : classes) {
       Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(clazz);
       for (Element element : elements) {
-        
+
         if (element.getKind() == ElementKind.CLASS) {
           MetaModel metamodel = buildMetaModel((TypeElement) element, ctx);
+
+          writeState(metamodel);
 
           try {
             copyTemplate();
@@ -69,7 +74,12 @@ public class TemplateProcessor extends AbstractProcessor {
 
     List<Class> classes = new ArrayList<Class>();
 
-    String annotationNames = System.getProperty("wikbook.template.annotations");
+    String annotationNames = processingEnv.getOptions().get("wikbook.template.annotations");
+
+    // No annotations to process
+    if (annotationNames == null) return new Class[]{};
+
+    // Building annotations to process
     String[] annotations = annotationNames.split(",");
     for (String annotationName : annotations) {
       try {
@@ -106,6 +116,21 @@ public class TemplateProcessor extends AbstractProcessor {
     }
     template.flush();
     template.close();
+  }
+
+  private void writeState(MetaModel metaModel) {
+
+    try {
+      FileObject servicesfile = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "metaModel", null);
+      ObjectOutputStream oos = new ObjectOutputStream(servicesfile.openOutputStream());
+      oos.writeObject(metaModel);
+      oos.flush();
+      oos.close();
+    }
+    catch (IOException e) {
+      e.printStackTrace();
+    }
+
   }
 
 }

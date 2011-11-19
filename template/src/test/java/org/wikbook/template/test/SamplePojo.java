@@ -12,7 +12,7 @@ import javax.xml.ws.Response;
  * @version 1.0.0-alpha2
  */
 @Path("a")
-public class A {
+public class SamplePojo {
 
   /**
    */

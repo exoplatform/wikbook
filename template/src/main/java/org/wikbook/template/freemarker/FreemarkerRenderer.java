@@ -34,7 +34,7 @@ public class FreemarkerRenderer {
       cfg.setDirectoryForTemplateLoading(new File("templates"));
       cfg.setObjectWrapper(new DefaultObjectWrapper());
 
-      Template temp = cfg.getTemplate("templateTmp.wiki");
+      Template temp = cfg.getTemplate("templateTmp.txt");
       OutputStreamWriter osw = new OutputStreamWriter(os);
       
       temp.process(data, osw);

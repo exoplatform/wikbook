@@ -12,6 +12,12 @@
   <artifactId>wikbook.template</artifactId>
 
   <dependencies>
+    
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
 
     <dependency>
       <groupId>javax.ws.rs</groupId>
