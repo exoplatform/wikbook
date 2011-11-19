@@ -14,11 +14,13 @@ public class Annotation implements Serializable {
 
   private String name;
   private Map<String, String> simpleValues;
+  private Map<String, String> javadocValues;
   private List<Annotation> annotationsValues;
 
   public Annotation(String name) {
     this.name = "@" + name;
     this.simpleValues = new HashMap<String, String>();
+    this.javadocValues = new HashMap<String, String>();
     this.annotationsValues = new ArrayList<Annotation>();
   }
 
@@ -32,6 +34,14 @@ public class Annotation implements Serializable {
 
   public Map<String, ? extends Object> simpleValues() {
     return simpleValues;
+  }
+
+  public void javadocValue(String name, String value) {
+    javadocValues.put(name, value);
+  }
+
+  public Map<String, String> javadocValues() {
+    return javadocValues;
   }
 
   public void add(Annotation annotation) {

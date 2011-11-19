@@ -126,10 +126,12 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
   private void doc(Annotation annotation, String name, StringBuilder b) {
 
     if (name == null) {
-      name = "@";
+      annotation.javadocValue(null, b.toString());
+    }
+    else {
+      annotation.javadocValue(name.substring(1), b.toString());
     }
 
-    annotation.simpleValue(name, b.toString());
     b.delete(0, b.length());
 
   }
