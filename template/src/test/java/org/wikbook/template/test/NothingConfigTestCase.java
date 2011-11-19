@@ -1,5 +1,7 @@
 package org.wikbook.template.test;
 
+import org.wikbook.template.processing.metamodel.MetaModel;
+
 import java.io.FileNotFoundException;
 
 /**
@@ -29,13 +31,12 @@ public class NothingConfigTestCase extends AbstractProcessorTestCase {
 
   public void testB() throws Exception {
 
-    try {
-      buildClass("B");
-      fail();
-    }
-    catch (FileNotFoundException e) {
-      // no processing done
-    }
+    MetaModel metaModel = buildClass("B");
+    assertEquals(1, metaModel.getAnnotations().size());
+    assertEquals("@Path", metaModel.getAnnotations().get(0).getName());
+    assertEquals(1, metaModel.getAnnotations().get(0).simpleValues().size());
+    assertEquals("value", metaModel.getAnnotations().get(0).simpleValues().keySet().iterator().next());
+    assertEquals("b", metaModel.getAnnotations().get(0).simpleValues().values().iterator().next());
 
   }
 

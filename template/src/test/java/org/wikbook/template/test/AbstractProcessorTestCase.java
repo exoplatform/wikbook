@@ -42,7 +42,7 @@ public abstract class AbstractProcessorTestCase extends TestCase {
   protected MetaModel buildClass(String name) throws IOException, ClassNotFoundException {
 
     //
-    new File("target/test-classes/target/metaModel").delete();
+    new File("target/metaModel").delete();
 
 
     List<File> files = new ArrayList<File>();
@@ -87,7 +87,7 @@ public abstract class AbstractProcessorTestCase extends TestCase {
 
   private MetaModel readMetaModel() throws ClassNotFoundException, IOException {
 
-    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("target/test-classes/target/metaModel"));
+    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("target/metaModel"));
     return (MetaModel) ois.readObject();
 
   }
