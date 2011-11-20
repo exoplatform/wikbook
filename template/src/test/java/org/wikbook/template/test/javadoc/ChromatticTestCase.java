@@ -1,6 +1,7 @@
-package org.wikbook.template.test;
+package org.wikbook.template.test.javadoc;
 
 import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.test.AbstractProcessorTestCase;
 
 import java.util.Map;
 

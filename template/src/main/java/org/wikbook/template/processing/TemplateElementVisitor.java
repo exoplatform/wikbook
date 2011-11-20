@@ -108,8 +108,14 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
         if (line.startsWith("@")) {
           doc(annotation, currentName, b);
           int delimiterPos = line.indexOf(" ");
-          currentName = line.substring(0, delimiterPos);
-          b.append(line.substring(delimiterPos + 1));
+          if (delimiterPos != -1) {
+            currentName = line.substring(0, delimiterPos);
+            b.append(line.substring(delimiterPos + 1));
+          }
+          else {
+            currentName = line;
+            b.append(line.substring(1));
+          }
         }
         else {
           b.append(line + " ");

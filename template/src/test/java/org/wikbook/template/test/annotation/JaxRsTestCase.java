@@ -1,6 +1,7 @@
-package org.wikbook.template.test;
+package org.wikbook.template.test.annotation;
 
 import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.test.AbstractProcessorTestCase;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -18,12 +19,13 @@ public class JaxRsTestCase extends AbstractProcessorTestCase {
 
   public void testSimpleValue() throws Exception {
 
-    MetaModel metaModel = buildClass("B_JaxRs");
+    MetaModel metaModel = buildClass("C_JaxRs");
     assertEquals(1, metaModel.getAnnotations().size());
     assertEquals("@Path", metaModel.getAnnotations().get(0).getName());
-    assertEquals(1, metaModel.getAnnotations().get(0).simpleValues().size());
-    assertEquals("value", metaModel.getAnnotations().get(0).simpleValues().keySet().iterator().next());
-    assertEquals("b", metaModel.getAnnotations().get(0).simpleValues().values().iterator().next());
+    assertEquals(3, metaModel.getAnnotations().get(0).javadocValues().size());
+    assertEquals("General comment. ", metaModel.getAnnotations().get(0).javadocValues().get(null));
+    assertEquals("foo", metaModel.getAnnotations().get(0).javadocValues().get("author"));
+    assertEquals("deprecated", metaModel.getAnnotations().get(0).javadocValues().get("deprecated"));
 
   }
 }
