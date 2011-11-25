@@ -65,7 +65,7 @@
         </executions>
       </plugin>
 
-      <plugin>
+      <!--<plugin>
       <groupId>org.bsc.maven</groupId>
       <artifactId>maven-processor-plugin</artifactId>
       <executions>
@@ -84,7 +84,7 @@
           </configuration>
         </execution>
       </executions>
-    </plugin>
+    </plugin>-->
 
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>

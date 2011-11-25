@@ -1,15 +1,23 @@
 package org.wikbook.template.freemarker;
 
+import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.wikbook.template.processing.metamodel.MetaModel;
 
-import java.io.File;
+import javax.annotation.processing.Filer;
+import javax.tools.FileObject;
+import javax.tools.StandardLocation;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.util.Map;
 
 /**
@@ -24,17 +32,17 @@ public class FreemarkerRenderer {
     builder = new FreemarkerModelBuilder();
   }
 
-  public void render(String template, MetaModel model, OutputStream os) throws IOException {
+  public void render(String template, MetaModel model, OutputStream os, Filer filer) throws IOException {
 
     Map<String, Object> data = builder.build(model);
     Configuration cfg = new Configuration();
 
     try {
 
-      cfg.setDirectoryForTemplateLoading(new File("templates"));
+      cfg.setTemplateLoader(new FilerTemplateLoader(filer));
       cfg.setObjectWrapper(new DefaultObjectWrapper());
 
-      Template temp = cfg.getTemplate(template + "Tmp.txt");
+      Template temp = cfg.getTemplate(template + ".template");
       OutputStreamWriter osw = new OutputStreamWriter(os);
       
       temp.process(data, osw);
@@ -45,7 +53,6 @@ public class FreemarkerRenderer {
     } catch (TemplateException e) {
       e.printStackTrace();
     }
-
 
   }
 

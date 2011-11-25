@@ -53,11 +53,10 @@ public class TemplateProcessor extends AbstractProcessor {
 
           try {
             String templateName = clazz.getSimpleName();
-            copyTemplate(templateName);
-            FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "", "" + ((TypeElement) element).getQualifiedName() + ".txt", null);
+            FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + ((TypeElement) element).getQualifiedName() + ".txt", null);
             OutputStream os = file.openOutputStream();
 
-            new FreemarkerRenderer().render(templateName, metamodel, os);
+            new FreemarkerRenderer().render(templateName, metamodel, os, filer);
 
           } catch (IOException e) {
             e.printStackTrace();
@@ -101,22 +100,6 @@ public class TemplateProcessor extends AbstractProcessor {
     MetaModel model = el.accept(visitor, ctx);
     return model;
     
-  }
-
-  private void copyTemplate(String name) throws IOException {
-
-    //
-    FileObject fileObjectTemplate = filer.getResource(StandardLocation.SOURCE_PATH, "templates", name + ".template");
-    InputStream sourceTemplate = fileObjectTemplate.openInputStream();
-
-    new File("templates").mkdir();
-    FileOutputStream template = new FileOutputStream("templates/" + name + "Tmp.txt");
-    Scanner scanner = new Scanner(sourceTemplate);
-    while (scanner.hasNextLine()) {
-      template.write((scanner.nextLine() + "\n").getBytes());
-    }
-    template.flush();
-    template.close();
   }
 
   private void writeState(MetaModel metaModel) {

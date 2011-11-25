@@ -1,8 +1,0 @@
-h1. ${@Path.value}
-Version : ${@Path.@version}
-Author : ${@Path.@author}
-${@Path.@}
-
-<#list @Path.@Path as method>
-${method.value}
-</#list>
