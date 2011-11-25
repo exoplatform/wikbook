@@ -1,3 +1,9 @@
-${@Path.value}
-${@Path.@("author")}
-${@Path.@()}
+Path : ${@Path.value}
+Author : ${@Path.doc("author")}
+${@Path.doc()}
+
+<#list @Path.children("@POST") as post>
+Method :
+by ${post.doc("author")}
+${post.doc()}
+</#list>

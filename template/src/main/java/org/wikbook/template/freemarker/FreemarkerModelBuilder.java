@@ -3,9 +3,7 @@ package org.wikbook.template.freemarker;
 import org.wikbook.template.processing.metamodel.Annotation;
 import org.wikbook.template.processing.metamodel.MetaModel;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -23,17 +21,12 @@ public class FreemarkerModelBuilder {
       //
       Map<String, Object> data = new HashMap<String, Object>();
       data.putAll(annotation.getValues());
-      data.put("@", new JavadocCallerMethod(annotation.getJavadoc()));
+      data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
+      data.put("children", new ChildrenCallerMethod(annotation.getChildren()));
 
       //
       root.put(annotation.getName(), data);
-
-      //
-      List<Map<String, ? extends Object>> child = new ArrayList<Map<String, ? extends Object>>();
-      for (Annotation annotationChild : annotation.getChildren()) {
-        child.add(annotationChild.getValues());
-      }
-      ((Map<String, Object>)root.get(annotation.getName())).put("@Path", child);
+      
     }
 
     return root;

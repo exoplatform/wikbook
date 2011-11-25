@@ -13,13 +13,13 @@ import java.util.Map;
 public class Annotation implements Serializable {
 
   private String name;
-  private Map<String, String> values;
+  private Map<String, Object> values;
   private Map<String, String> javadoc;
   private List<Annotation> childs;
 
   public Annotation(String name) {
     this.name = "@" + name;
-    this.values = new HashMap<String, String>();
+    this.values = new HashMap<String, Object>();
     this.javadoc = new HashMap<String, String>();
     this.childs = new ArrayList<Annotation>();
   }
@@ -28,11 +28,11 @@ public class Annotation implements Serializable {
     return name;
   }
 
-  public void addValue(String name, String value) {
+  public void addValue(String name, Object value) {
     values.put(name, value);
   }
 
-  public Map<String, ? extends Object> getValues() {
+  public Map<String, Object> getValues() {
     return values;
   }
 
