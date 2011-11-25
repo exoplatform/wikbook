@@ -24,9 +24,9 @@ public class ChromatticTestCase extends AbstractProcessorTestCase {
     MetaModel metaModel = buildClass("B_Chromattic");
     assertEquals(1, metaModel.getAnnotations().size());
     assertEquals("@PrimaryType", metaModel.getAnnotations().get(0).getName());
-    assertEquals(3, metaModel.getAnnotations().get(0).simpleValues().size());
+    assertEquals(3, metaModel.getAnnotations().get(0).getValues().size());
 
-    Map<String, ? extends Object> data = metaModel.getAnnotations().get(0).simpleValues();
+    Map<String, ? extends Object> data = metaModel.getAnnotations().get(0).getValues();
     assertEquals("b", data.get("name"));
     assertEquals("true", data.get("orderable"));
     assertEquals("true", data.get("abstract_"));

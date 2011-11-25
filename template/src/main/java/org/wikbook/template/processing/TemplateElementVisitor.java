@@ -65,7 +65,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     for (Class clazz : ctx.getClasses()) {
       Annotation annotation = createAnnotation(executableElement, clazz, ctx);
       if (annotation != null) {
-        ctx.getCurrentAnnotation().add(annotation);
+        ctx.getCurrentAnnotation().addChild(annotation);
       }
     }
     return null;
@@ -88,7 +88,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       for (Method method : clazz.getMethods()) {
         if (method.getDeclaringClass().equals(clazz)) {
           try {
-            annotation.simpleValue(method.getName(), method.invoke(a).toString());
+            annotation.addValue(method.getName(), method.invoke(a).toString());
           } catch (Exception e) {
             e.printStackTrace();
           }
@@ -132,10 +132,10 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
   private void doc(Annotation annotation, String name, StringBuilder b) {
 
     if (name == null) {
-      annotation.javadocValue(null, b.toString());
+      annotation.addJavadoc(null, b.toString());
     }
     else {
-      annotation.javadocValue(name.substring(1), b.toString());
+      annotation.addJavadoc(name.substring(1), b.toString());
     }
 
     b.delete(0, b.length());

@@ -22,16 +22,16 @@ public class FreemarkerModelBuilder {
 
       //
       Map<String, Object> data = new HashMap<String, Object>();
-      data.putAll(annotation.simpleValues());
-      data.put("@", new JavadocCallerMethod(annotation.javadocValues()));
+      data.putAll(annotation.getValues());
+      data.put("@", new JavadocCallerMethod(annotation.getJavadoc()));
 
       //
       root.put(annotation.getName(), data);
 
       //
       List<Map<String, ? extends Object>> child = new ArrayList<Map<String, ? extends Object>>();
-      for (Annotation annotationChild : annotation.getAnnotationsValues()) {
-        child.add(annotationChild.simpleValues());
+      for (Annotation annotationChild : annotation.getChildren()) {
+        child.add(annotationChild.getValues());
       }
       ((Map<String, Object>)root.get(annotation.getName())).put("@Path", child);
     }

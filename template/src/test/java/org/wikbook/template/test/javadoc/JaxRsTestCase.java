@@ -22,9 +22,9 @@ public class JaxRsTestCase extends AbstractProcessorTestCase {
     MetaModel metaModel = buildClass("B_JaxRs");
     assertEquals(1, metaModel.getAnnotations().size());
     assertEquals("@Path", metaModel.getAnnotations().get(0).getName());
-    assertEquals(1, metaModel.getAnnotations().get(0).simpleValues().size());
-    assertEquals("value", metaModel.getAnnotations().get(0).simpleValues().keySet().iterator().next());
-    assertEquals("b", metaModel.getAnnotations().get(0).simpleValues().values().iterator().next());
+    assertEquals(1, metaModel.getAnnotations().get(0).getValues().size());
+    assertEquals("value", metaModel.getAnnotations().get(0).getValues().keySet().iterator().next());
+    assertEquals("b", metaModel.getAnnotations().get(0).getValues().values().iterator().next());
 
   }
 }

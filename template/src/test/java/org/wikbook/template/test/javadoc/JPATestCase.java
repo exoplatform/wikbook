@@ -22,9 +22,9 @@ public class JPATestCase extends AbstractProcessorTestCase {
     MetaModel metaModel = buildClass("B_JPA");
     assertEquals(1, metaModel.getAnnotations().size());
     assertEquals("@Entity", metaModel.getAnnotations().get(0).getName());
-    assertEquals(1, metaModel.getAnnotations().get(0).simpleValues().size());
-    assertEquals("name", metaModel.getAnnotations().get(0).simpleValues().keySet().iterator().next());
-    assertEquals("b", metaModel.getAnnotations().get(0).simpleValues().values().iterator().next());
+    assertEquals(1, metaModel.getAnnotations().get(0).getValues().size());
+    assertEquals("name", metaModel.getAnnotations().get(0).getValues().keySet().iterator().next());
+    assertEquals("b", metaModel.getAnnotations().get(0).getValues().values().iterator().next());
 
   }
 }

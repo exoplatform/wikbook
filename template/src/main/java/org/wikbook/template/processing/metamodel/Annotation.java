@@ -13,42 +13,43 @@ import java.util.Map;
 public class Annotation implements Serializable {
 
   private String name;
-  private Map<String, String> simpleValues;
-  private Map<String, String> javadocValues;
-  private List<Annotation> annotationsValues;
+  private Map<String, String> values;
+  private Map<String, String> javadoc;
+  private List<Annotation> childs;
 
   public Annotation(String name) {
     this.name = "@" + name;
-    this.simpleValues = new HashMap<String, String>();
-    this.javadocValues = new HashMap<String, String>();
-    this.annotationsValues = new ArrayList<Annotation>();
+    this.values = new HashMap<String, String>();
+    this.javadoc = new HashMap<String, String>();
+    this.childs = new ArrayList<Annotation>();
   }
 
   public String getName() {
     return name;
   }
 
-  public void simpleValue(String name, String value) {
-    simpleValues.put(name, value);
+  public void addValue(String name, String value) {
+    values.put(name, value);
   }
 
-  public Map<String, ? extends Object> simpleValues() {
-    return simpleValues;
+  public Map<String, ? extends Object> getValues() {
+    return values;
   }
 
-  public void javadocValue(String name, String value) {
-    javadocValues.put(name, value);
+  public void addJavadoc(String name, String value) {
+    javadoc.put(name, value);
   }
 
-  public Map<String, String> javadocValues() {
-    return javadocValues;
+  public Map<String, String> getJavadoc() {
+    return javadoc;
   }
 
-  public void add(Annotation annotation) {
-    this.annotationsValues.add(annotation);
+  public void addChild(Annotation annotation) {
+    this.childs.add(annotation);
   }
 
-  public List<Annotation> getAnnotationsValues() {
-    return annotationsValues;
+  public List<Annotation> getChildren() {
+    return childs;
   }
+
 }
