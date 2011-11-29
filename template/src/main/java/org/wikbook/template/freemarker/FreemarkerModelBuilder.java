@@ -1,6 +1,6 @@
 package org.wikbook.template.freemarker;
 
-import org.wikbook.template.processing.metamodel.Annotation;
+import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.MetaModel;
 
 import java.util.HashMap;
@@ -16,13 +16,14 @@ public class FreemarkerModelBuilder {
 
     Map<String, Object> root = new HashMap<String, Object>();
 
-    for (Annotation annotation : model.getAnnotations()) {
+    for (TemplateAnnotation annotation : model.getAnnotations()) {
 
       //
       Map<String, Object> data = new HashMap<String, Object>();
       data.putAll(annotation.getValues());
       data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
       data.put("children", new ChildrenCallerMethod(annotation.getChildren()));
+      data.put("elementName", annotation.getElement().getName());
 
       //
       root.put(annotation.getName(), data);

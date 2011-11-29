@@ -1,8 +1,9 @@
 package org.wikbook.template.processing;
 
-import org.wikbook.template.processing.metamodel.Annotation;
+import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.ModelContext;
+import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import javax.lang.model.element.*;
 import java.lang.reflect.Method;
@@ -39,7 +40,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       
       if (a != null) {
 
-        Annotation annotation = createAnnotation(typeElement, clazz, ctx);
+        TemplateAnnotation annotation = createAnnotation(typeElement, clazz, ctx);
         
         model.add(annotation);
         ctx.setCurrentAnnotation(annotation);
@@ -63,7 +64,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
   public MetaModel visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
 
     for (Class clazz : ctx.getClasses()) {
-      Annotation annotation = createAnnotation(executableElement, clazz, ctx);
+      TemplateAnnotation annotation = createAnnotation(executableElement, clazz, ctx);
       if (annotation != null) {
         ctx.getCurrentAnnotation().addChild(annotation);
       }
@@ -79,12 +80,13 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     return null;
   }
 
-  private Annotation createAnnotation(Element el, Class clazz, ModelContext ctx) {
+  private TemplateAnnotation createAnnotation(Element el, Class clazz, ModelContext ctx) {
 
     Object a = el.getAnnotation(clazz);
 
     if (a != null) {
-      Annotation annotation = new Annotation(clazz.getSimpleName());
+      TemplateElement templateElement = new TemplateElement(el.getSimpleName().toString());
+      TemplateAnnotation annotation = new TemplateAnnotation(clazz.getSimpleName(), templateElement);
       for (Method method : clazz.getMethods()) {
         if (method.getDeclaringClass().equals(clazz)) {
           try {
@@ -129,7 +131,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     return null;
   }
 
-  private void doc(Annotation annotation, String name, StringBuilder b) {
+  private void doc(TemplateAnnotation annotation, String name, StringBuilder b) {
 
     if (name == null) {
       annotation.addJavadoc(null, b.toString());

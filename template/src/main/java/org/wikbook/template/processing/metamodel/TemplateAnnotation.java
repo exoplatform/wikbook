@@ -10,18 +10,20 @@ import java.util.Map;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class Annotation implements Serializable {
+public class TemplateAnnotation implements Serializable {
 
   private String name;
   private Map<String, Object> values;
   private Map<String, String> javadoc;
-  private List<Annotation> childs;
+  private List<TemplateAnnotation> childs;
+  private TemplateElement element;
 
-  public Annotation(String name) {
+  public TemplateAnnotation(String name, TemplateElement element) {
     this.name = "@" + name;
+    this.element = element;
     this.values = new HashMap<String, Object>();
     this.javadoc = new HashMap<String, String>();
-    this.childs = new ArrayList<Annotation>();
+    this.childs = new ArrayList<TemplateAnnotation>();
   }
 
   public String getName() {
@@ -44,12 +46,16 @@ public class Annotation implements Serializable {
     return javadoc;
   }
 
-  public void addChild(Annotation annotation) {
+  public void addChild(TemplateAnnotation annotation) {
     this.childs.add(annotation);
   }
 
-  public List<Annotation> getChildren() {
+  public List<TemplateAnnotation> getChildren() {
     return childs;
   }
 
+  public TemplateElement getElement() {
+    return element;
+  }
+  
 }

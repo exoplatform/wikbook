@@ -26,6 +26,7 @@ public class ChromatticTestCase extends AbstractProcessorTestCase {
     assertEquals("General comment. ", metaModel.getAnnotations().get(0).getJavadoc().get(null));
     assertEquals("foo", metaModel.getAnnotations().get(0).getJavadoc().get("author"));
     assertEquals("deprecated", metaModel.getAnnotations().get(0).getJavadoc().get("deprecated"));
+    assertEquals("C_Chromattic", metaModel.getAnnotations().get(0).getElement().getName());
 
   }
 }

@@ -8,7 +8,7 @@ import javax.lang.model.util.Elements;
  */
 public class ModelContext {
 
-  private Annotation currentAnnotation;
+  private TemplateAnnotation currentAnnotation;
   private Class[] classes;
   private Elements utils;
 
@@ -28,11 +28,11 @@ public class ModelContext {
     this.utils = utils;
   }
 
-  public Annotation getCurrentAnnotation() {
+  public TemplateAnnotation getCurrentAnnotation() {
     return currentAnnotation;
   }
 
-  public void setCurrentAnnotation(Annotation currentAnnotation) {
+  public void setCurrentAnnotation(TemplateAnnotation currentAnnotation) {
     this.currentAnnotation = currentAnnotation;
   }
   
