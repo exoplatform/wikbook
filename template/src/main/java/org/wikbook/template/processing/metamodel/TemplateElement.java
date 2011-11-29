@@ -18,6 +18,10 @@
 package org.wikbook.template.processing.metamodel;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -26,13 +30,23 @@ import java.io.Serializable;
 public class TemplateElement implements Serializable {
 
   private String name;
+  private Map<String, TemplateAnnotation> annotations;
 
   public TemplateElement(final String name) {
     this.name = name;
+    this.annotations = new HashMap<String, TemplateAnnotation>();
   }
 
   public String getName() {
     return name;
+  }
+
+  public void addAnnotation(TemplateAnnotation annotation) {
+    annotations.put(annotation.getName(), annotation);
+  }
+
+  public TemplateAnnotation getAnnotation(String name) {
+    return annotations.get(name);
   }
   
 }

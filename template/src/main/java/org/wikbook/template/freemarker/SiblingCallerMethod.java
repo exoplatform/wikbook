@@ -20,8 +20,8 @@ package org.wikbook.template.freemarker;
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
+import org.wikbook.template.processing.metamodel.TemplateElement;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,30 +29,26 @@ import java.util.Map;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class ChildrenCallerMethod implements TemplateMethodModel {
+public class SiblingCallerMethod implements TemplateMethodModel {
 
-  private List<TemplateAnnotation> children;
+  private TemplateElement element;
 
-  public ChildrenCallerMethod(final List<TemplateAnnotation> children) {
-    this.children = children;
+  public SiblingCallerMethod(final TemplateElement element) {
+    this.element = element;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
-
-    for(TemplateAnnotation child : children) {
-      if (arguments.contains(child.getName())) {
-        Map<String, Object> data = child.getValues();
-        data.put("doc", new JavadocCallerMethod(child.getJavadoc()));
-        data.put("sibling", new SiblingCallerMethod(child.getElement()));
-        data.put("elementName", child.getElement().getName());
-        l.add(data);
-      }
+    TemplateAnnotation found = element.getAnnotation((String) arguments.get(0));
+    if (found != null) {
+      Map<String, Object> data = found.getValues();
+      data.put("doc", new JavadocCallerMethod(found.getJavadoc()));
+      data.put("sibling", new SiblingCallerMethod(found.getElement()));
+      data.put("elementName", found.getElement().getName());
+      return data;
     }
-    
-    return l;
-    
+    else {
+      return null;
+    }
   }
-  
 }

@@ -29,6 +29,8 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
   public MetaModel visitType(TypeElement typeElement, ModelContext ctx) {
 
+    TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString());
+
     if (ctx == null) {
       throw new NullPointerException();
     }
@@ -40,7 +42,8 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       
       if (a != null) {
 
-        TemplateAnnotation annotation = createAnnotation(typeElement, clazz, ctx);
+        TemplateAnnotation annotation = createAnnotation(typeElement, clazz, ctx, classElement);
+        classElement.addAnnotation(annotation);
         
         model.add(annotation);
         ctx.setCurrentAnnotation(annotation);
@@ -63,9 +66,12 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
   public MetaModel visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
 
+    TemplateElement methodElement = new TemplateElement(executableElement.getSimpleName().toString());
+
     for (Class clazz : ctx.getClasses()) {
-      TemplateAnnotation annotation = createAnnotation(executableElement, clazz, ctx);
+      TemplateAnnotation annotation = createAnnotation(executableElement, clazz, ctx, methodElement);
       if (annotation != null) {
+        methodElement.addAnnotation(annotation);
         ctx.getCurrentAnnotation().addChild(annotation);
       }
     }
@@ -80,13 +86,12 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     return null;
   }
 
-  private TemplateAnnotation createAnnotation(Element el, Class clazz, ModelContext ctx) {
+  private TemplateAnnotation createAnnotation(Element el, Class clazz, ModelContext ctx, TemplateElement element) {
 
     Object a = el.getAnnotation(clazz);
 
     if (a != null) {
-      TemplateElement templateElement = new TemplateElement(el.getSimpleName().toString());
-      TemplateAnnotation annotation = new TemplateAnnotation(clazz.getSimpleName(), templateElement);
+      TemplateAnnotation annotation = new TemplateAnnotation(clazz.getSimpleName(), element);
       for (Method method : clazz.getMethods()) {
         if (method.getDeclaringClass().equals(clazz)) {
           try {

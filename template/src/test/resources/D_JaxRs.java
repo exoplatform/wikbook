@@ -8,7 +8,8 @@ public class D_JaxRs {
    * My method.
    * @author foo
    */
-  @POST()
+  @POST
+  @Path("bar")
   void m() {}
 
 }

@@ -5,4 +5,5 @@ ${@Path.doc()}
 <#list @Path.children("@POST") as post>
 Method : ${post.elementName} by ${post.doc("author")}
 ${post.doc()}
+${post.sibling("@Path").value}
 </#list>
