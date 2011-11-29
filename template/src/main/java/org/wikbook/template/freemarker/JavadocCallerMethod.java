@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public class JavadocCallerMethod implements TemplateMethodModel {
 
-  private Map<String, String> details = new HashMap<String, String>();
+  private Map<String, List<String>> details = new HashMap<String, List<String>>();
 
-  public JavadocCallerMethod(Map<String, String> details) {
+  public JavadocCallerMethod(Map<String, List<String>> details) {
     this.details = details;
   }
 
@@ -24,13 +24,22 @@ public class JavadocCallerMethod implements TemplateMethodModel {
 
     switch (list.size()) {
       case 0:
-        return new SimpleScalar(details.get(null));
+        return new SimpleScalar(get(details.get(null)));
       case 1:
-        return new SimpleScalar(details.get(list.get(0)));
+        return new SimpleScalar(get(details.get(list.get(0))));
       default:
         throw new RuntimeException("Cannot have many names");
 
     }
 
+  }
+
+  private String get(List<String> values) {
+    if (values != null && values.size() > 0) {
+      return values.get(0);
+    }
+    else {
+      return "";
+    }
   }
 }

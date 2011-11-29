@@ -45,6 +45,7 @@ public class ChildrenCallerMethod implements TemplateMethodModel {
       if (arguments.contains(child.getName())) {
         Map<String, Object> data = child.getValues();
         data.put("doc", new JavadocCallerMethod(child.getJavadoc()));
+        data.put("children", new ChildrenCallerMethod(child.getChildren()));
         data.put("sibling", new SiblingCallerMethod(child.getElement()));
         data.put("elementName", child.getElement().getName());
         data.put("name", child.getName().substring(1));

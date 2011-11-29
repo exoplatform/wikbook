@@ -6,4 +6,15 @@ ${@Path.doc()}
 ${verb.name} ${verb.elementName} by ${verb.doc("author")}
 ${verb.doc()}
 ${verb.sibling("@Path").value}
+
+Path parameters :
+<#list verb.children("@PathParam") as param>
+* ${param.value} : ${param.doc()}
+</#list>
+
+Optional parameters :
+<#list verb.children("@QueryParam") as param>
+* ${param.value} : ${param.doc()}
+</#list>
+
 </#list>
