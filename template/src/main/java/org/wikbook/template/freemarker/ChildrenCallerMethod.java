@@ -47,6 +47,7 @@ public class ChildrenCallerMethod implements TemplateMethodModel {
         data.put("doc", new JavadocCallerMethod(child.getJavadoc()));
         data.put("sibling", new SiblingCallerMethod(child.getElement()));
         data.put("elementName", child.getElement().getName());
+        data.put("name", child.getName().substring(1));
         l.add(data);
       }
     }

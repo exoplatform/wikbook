@@ -45,6 +45,7 @@ public class SiblingCallerMethod implements TemplateMethodModel {
       data.put("doc", new JavadocCallerMethod(found.getJavadoc()));
       data.put("sibling", new SiblingCallerMethod(found.getElement()));
       data.put("elementName", found.getElement().getName());
+      data.put("name", found.getName().substring(1));
       return data;
     }
     else {

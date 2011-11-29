@@ -2,8 +2,8 @@ Path : ${@Path.value}
 Author : ${@Path.doc("author")}
 ${@Path.doc()}
 
-<#list @Path.children("@POST") as post>
-Method : ${post.elementName} by ${post.doc("author")}
-${post.doc()}
-${post.sibling("@Path").value}
+<#list @Path.children("@POST", "@GET") as verb>
+${verb.name} ${verb.elementName} by ${verb.doc("author")}
+${verb.doc()}
+${verb.sibling("@Path").value}
 </#list>
