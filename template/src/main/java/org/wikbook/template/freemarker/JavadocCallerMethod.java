@@ -3,6 +3,7 @@ package org.wikbook.template.freemarker;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
+import freemarker.template.TemplateScalarModel;
 
 import java.util.HashMap;
 import java.util.List;
@@ -24,9 +25,9 @@ public class JavadocCallerMethod implements TemplateMethodModel {
 
     switch (list.size()) {
       case 0:
-        return new SimpleScalar(get(details.get(null)));
+        return get(details.get(null));
       case 1:
-        return new SimpleScalar(get(details.get(list.get(0))));
+        return get(details.get(list.get(0)));
       default:
         throw new RuntimeException("Cannot have many names");
 
@@ -34,12 +35,33 @@ public class JavadocCallerMethod implements TemplateMethodModel {
 
   }
 
-  private String get(List<String> values) {
-    if (values != null && values.size() > 0) {
-      return values.get(0);
+  private Object get(List<String> values) {
+
+    if (values != null) {
+      if (values.size() == 1) {
+        return new SimpleScalar(values.get(0));
+      }
+      else if (values.size() > 1) {
+        return new SimpleScalar(asString(values));
+      }
     }
-    else {
-      return "";
-    }
+
+    return "";
+
   }
+
+  private String asString(List<String> l) {
+
+    StringBuilder sb = new StringBuilder();
+    for (String v : l) {
+      if (sb.length() > 0) {
+        sb.append(", ");
+      }
+      sb.append(v);
+    }
+
+    return sb.toString();
+
+  }
+
 }
