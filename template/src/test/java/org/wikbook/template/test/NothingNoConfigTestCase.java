@@ -25,7 +25,7 @@ public class NothingNoConfigTestCase extends AbstractProcessorTestCase {
   public void testB() throws Exception {
 
     try {
-      buildClass("B_JaxRs");
+      buildClass("B");
       fail();
     }
     catch (FileNotFoundException e) {

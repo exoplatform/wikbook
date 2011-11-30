@@ -6,20 +6,18 @@ import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
 @Path("d")
-public class E_JaxRs {
+public class E {
 
   /**
-   * Foo.
-   * @author foo
    * @param uriInfo A
    * @param pathParameter Path parameter description
    * @param queryParameter Query parameter description
    */
-  @POST
   @Path("bar")
   void m(
       @Context UriInfo uriInfo,
       @PathParam("pathParameter") String pathParameter,
-      @QueryParam("queryParameter") String queryParameter) {}
+      @QueryParam("queryParameter") String queryParameter,
+      String nothing) {}
 
 }
