@@ -75,7 +75,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
             docParam(annotation, variableElement, paramsDoc);
           }
         }
-        paramElement.addAnnotation(annotation);
+        paramElement.addAnnotation(methodAnnotation);
         methodAnnotation.addChild(annotation);
       }
     }
@@ -160,7 +160,6 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       }
       doc(annotation, currentName, b);
 
-
       return annotation;
     }
     return null;
@@ -184,7 +183,13 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     for (String docValue : paramsDoc) {
       String elementName  = variableElement.getSimpleName().toString();
       if (docValue.startsWith(elementName)) {
-        annotation.getJavadoc(null).add(docValue.substring(elementName.length() + 1));
+        int pos = elementName.length() + 1;
+        if (pos < docValue.length()) {
+          annotation.getJavadoc(null).add(docValue.substring(pos));
+        }
+        else {
+          annotation.getJavadoc(null).add("");
+        }
       }
     }
 
