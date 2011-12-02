@@ -6,6 +6,9 @@ ${@Path.doc()}
 
 <#list @Path.children("@POST", "@GET") as verb>
 ${verb.name} ${verb.elementName} by ${verb.doc("flat:author")}
+<#if verb.sibling("@Consumes")??>
+Consumes : ${verb.sibling("@Consumes").attribute("flat:value")}
+</#if>
 ${verb.doc()}
 ${verb.sibling("@Path").attribute("value")}
 

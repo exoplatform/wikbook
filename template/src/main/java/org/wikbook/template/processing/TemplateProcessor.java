@@ -34,6 +34,7 @@ public class TemplateProcessor extends AbstractProcessor {
 
     classes = annotations();
     if (classes.length == 0) return false;
+    List<Element> done = new ArrayList<Element>();
 
     this.filer = processingEnv.getFiler();
     this.utils = processingEnv.getElementUtils();
@@ -45,6 +46,9 @@ public class TemplateProcessor extends AbstractProcessor {
     for (Class clazz : classes) {
       Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(clazz);
       for (Element element : elements) {
+
+        if (done.contains(element))
+          continue;
 
         if (element.getKind() == ElementKind.CLASS) {
           MetaModel metamodel = buildMetaModel((TypeElement) element, ctx);
@@ -63,6 +67,7 @@ public class TemplateProcessor extends AbstractProcessor {
           }
 
         }
+        done.add(element);
       }
     }
 

@@ -30,15 +30,16 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
   public void setUp() throws Exception {
 
     super.setUp();
-    annotations = "javax.ws.rs.Path";
+    annotations = "javax.ws.rs.Path,javax.ws.rs.Consumes";
 
   }
 
   public void testExist() throws Exception {
 
     MetaModel metaModel = buildClass("B");
-    assertEquals(1, metaModel.getAnnotations().size());
+    assertEquals(2, metaModel.getAnnotations().size());
     assertEquals("@Path", metaModel.getAnnotations().get(0).getName());
+    assertEquals("@Consumes", metaModel.getAnnotations().get(1).getName());
 
   }
 

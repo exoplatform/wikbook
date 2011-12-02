@@ -23,6 +23,7 @@ import org.wikbook.template.test.AbstractFreemarkerTestCase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -36,15 +37,17 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void setUp() throws Exception {
 
     super.setUp();
-    annotations = "javax.ws.rs.Path";
+    annotations = "javax.ws.rs.Path,javax.ws.rs.Consumes";
 
   }
 
   public void testExist() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    assertEquals(1, data.size());
-    assertEquals("@Path", data.keySet().iterator().next());
+    assertEquals(2, data.size());
+    Iterator i = data.keySet().iterator();
+    assertEquals("@Path", i.next());
+    assertEquals("@Consumes", i.next());
 
   }
 
@@ -52,7 +55,31 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
 
     Map<String, Object> data = buildModel("B");
     AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Path")).get("attribute");
-    assertEquals("b", attributeCaller.exec(Arrays.asList("value")));
+    assertEquals("b", attributeCaller.exec(Arrays.asList("value")).toString());
+
+  }
+
+  public void testAnnotationMultipleValues() throws Exception {
+
+    Map<String, Object> data = buildModel("B");
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Consumes")).get("attribute");
+    assertEquals("[a/b, c/d]", attributeCaller.exec(Arrays.asList("value")).toString());
+
+  }
+
+  public void testAnnotationMultipleListValues() throws Exception {
+
+    Map<String, Object> data = buildModel("B");
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Consumes")).get("attribute");
+    assertEquals("[a/b, c/d]", attributeCaller.exec(Arrays.asList("list:value")).toString());
+
+  }
+
+  public void testAnnotationMultipleFlatValues() throws Exception {
+
+    Map<String, Object> data = buildModel("B");
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Consumes")).get("attribute");
+    assertEquals("a/b, c/d", attributeCaller.exec(Arrays.asList("flat:value")).toString());
 
   }
 

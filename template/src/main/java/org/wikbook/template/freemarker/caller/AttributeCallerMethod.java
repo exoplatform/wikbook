@@ -17,9 +17,12 @@
 
 package org.wikbook.template.freemarker.caller;
 
+import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
+import org.wikbook.template.freemarker.ExpressionHandler;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
@@ -37,25 +40,20 @@ public class AttributeCallerMethod implements TemplateMethodModel {
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    StringBuilder sb = new StringBuilder();
+    ExpressionHandler eh = new ExpressionHandler((String) arguments.get(0));
+    Object got = attributes.get(eh.getValue());
+    if (got != null) {
 
-    //
-    for (String arg : (List<String>) arguments) {
-      Object o = attributes.get(arg);
-      if (o != null) {
-        if (sb.length() != 0) {
-          sb.append(", ");
-        }
-        sb.append(o.toString());
+      if (got.getClass().isArray()) {
+        return eh.get(Arrays.asList((Object[])got));
       }
-    }
+      else {
+        return new SimpleScalar(got.toString());
+      }
 
-    //
-    if (sb.length() == 0) {
-      return null;
     }
     else {
-      return sb.toString();
+      return null;
     }
 
   }

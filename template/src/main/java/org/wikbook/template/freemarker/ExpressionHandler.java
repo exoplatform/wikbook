@@ -17,6 +17,13 @@
 
 package org.wikbook.template.freemarker;
 
+import freemarker.ext.beans.CollectionModel;
+import freemarker.template.DefaultObjectWrapper;
+import freemarker.template.SimpleScalar;
+
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
@@ -82,8 +89,51 @@ public class ExpressionHandler {
     return value;
   }
 
-  public Output getOutput() {
-    return output;
+  public Object get(List<? extends Object> values) {
+
+    if (values != null) {
+
+      //
+      switch (output) {
+
+        case FLAT:
+          return new SimpleScalar(asString(values));
+
+        case LIST:
+          return new CollectionModel(values, new DefaultObjectWrapper());
+
+        case NONE:
+          return new CollectionModel(values, new DefaultObjectWrapper());
+
+        case NOEXPR:
+          return new SimpleScalar(asString(values));
+
+      }
+
+    }
+
+    //
+    if (output.equals(ExpressionHandler.Output.LIST)) {
+      return new CollectionModel(Arrays.asList(), new DefaultObjectWrapper());
+    }
+
+    //
+    return "";
+
+  }
+
+  private String asString(List<? extends Object> l) {
+
+    StringBuilder sb = new StringBuilder();
+    for (Object v : l) {
+      if (sb.length() > 0) {
+        sb.append(", ");
+      }
+      sb.append(v.toString());
+    }
+
+    return sb.toString();
+
   }
   
 }

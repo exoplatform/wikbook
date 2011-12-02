@@ -30,7 +30,7 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
   public void setUp() throws Exception {
 
     super.setUp();
-    annotations = "javax.ws.rs.Path,javax.ws.rs.POST";
+    annotations = "javax.ws.rs.Path,javax.ws.rs.POST,javax.ws.rs.Consumes";
 
   }
 

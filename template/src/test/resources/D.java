@@ -1,3 +1,4 @@
+import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 
@@ -13,6 +14,7 @@ public class D {
    */
   @POST
   @Path("bar")
+  @Consumes({"a/b", "c/d"})
   void m() {}
 
 }
