@@ -15,13 +15,13 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.wikbook.template.freemarker;
+package org.wikbook.template.freemarker.caller;
 
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
-import org.wikbook.template.processing.metamodel.TemplateElement;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,27 +29,33 @@ import java.util.Map;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class SiblingCallerMethod implements TemplateMethodModel {
+public class ChildrenCallerMethod implements TemplateMethodModel {
 
-  private TemplateElement element;
+  private List<TemplateAnnotation> children;
 
-  public SiblingCallerMethod(final TemplateElement element) {
-    this.element = element;
+  public ChildrenCallerMethod(final List<TemplateAnnotation> children) {
+    this.children = children;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    TemplateAnnotation found = element.getAnnotation((String) arguments.get(0));
-    if (found != null) {
-      Map<String, Object> data = found.getValues();
-      data.put("doc", new JavadocCallerMethod(found.getJavadoc()));
-      data.put("sibling", new SiblingCallerMethod(found.getElement()));
-      data.put("elementName", found.getElement().getName());
-      data.put("name", found.getName().substring(1));
-      return data;
+    List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
+
+    for(TemplateAnnotation child : children) {
+      if (arguments.contains(child.getName())) {
+        Map<String, Object> data = child.getValues();
+        data.put("attribute", new AttributeCallerMethod(child.getValues()));
+        data.put("doc", new JavadocCallerMethod(child.getJavadoc()));
+        data.put("children", new ChildrenCallerMethod(child.getChildren()));
+        data.put("sibling", new SiblingCallerMethod(child.getElement()));
+        data.put("elementName", child.getElement().getName());
+        data.put("name", child.getName().substring(1));
+        l.add(data);
+      }
     }
-    else {
-      return null;
-    }
+    
+    return l;
+    
   }
+  
 }

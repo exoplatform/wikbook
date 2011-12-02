@@ -1,10 +1,15 @@
-package org.wikbook.template.freemarker;
+package org.wikbook.template.freemarker.caller;
 
+import freemarker.ext.beans.ArrayModel;
+import freemarker.ext.beans.CollectionModel;
+import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
 import freemarker.template.TemplateScalarModel;
+import org.wikbook.template.freemarker.ExpressionHandler;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -25,9 +30,11 @@ public class JavadocCallerMethod implements TemplateMethodModel {
 
     switch (list.size()) {
       case 0:
-        return get(details.get(null));
+        ExpressionHandler eh = new ExpressionHandler();
+      return get(details.get(null), eh);
       case 1:
-        return get(details.get(list.get(0)));
+        ExpressionHandler eh2 = new ExpressionHandler((String) list.get(0));
+        return get(details.get(eh2.getValue()), eh2);
       default:
         throw new RuntimeException("Cannot have many names");
 
@@ -35,17 +42,35 @@ public class JavadocCallerMethod implements TemplateMethodModel {
 
   }
 
-  private Object get(List<String> values) {
+  private Object get(List<String> values, ExpressionHandler eh) {
 
     if (values != null) {
-      if (values.size() == 1) {
-        return new SimpleScalar(values.get(0));
+
+      //
+      switch (eh.getOutput()) {
+
+        case FLAT:
+          return new SimpleScalar(asString(values));
+
+        case LIST:
+          return new CollectionModel(values, new DefaultObjectWrapper());
+
+        case NONE:
+          return new CollectionModel(values, new DefaultObjectWrapper());
+
+        case NOEXPR:
+          return new SimpleScalar(asString(values));
+
       }
-      else if (values.size() > 1) {
-        return new SimpleScalar(asString(values));
-      }
+
     }
 
+    //
+    if (eh.getOutput().equals(ExpressionHandler.Output.LIST)) {
+      return new CollectionModel(Arrays.asList(), new DefaultObjectWrapper());
+    }
+
+    //
     return "";
 
   }

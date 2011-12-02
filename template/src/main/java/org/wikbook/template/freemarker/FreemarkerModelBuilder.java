@@ -1,5 +1,9 @@
 package org.wikbook.template.freemarker;
 
+import org.wikbook.template.freemarker.caller.AttributeCallerMethod;
+import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
+import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
+import org.wikbook.template.freemarker.caller.SiblingCallerMethod;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.MetaModel;
 
@@ -20,7 +24,7 @@ public class FreemarkerModelBuilder {
 
       //
       Map<String, Object> data = new HashMap<String, Object>();
-      data.putAll(annotation.getValues());
+      data.put("attribute", new AttributeCallerMethod(annotation.getValues()));
       data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
       data.put("children", new ChildrenCallerMethod(annotation.getChildren()));
       data.put("sibling", new SiblingCallerMethod(annotation.getElement()));

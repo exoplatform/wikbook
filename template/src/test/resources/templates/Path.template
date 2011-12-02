@@ -1,20 +1,22 @@
-Path : ${@Path.value}
-Author : ${@Path.doc("author")}
+Path : ${@Path.attribute("value")}
+<#list @Path.doc("list:author") as author>
+Author : ${author}
+</#list>
 ${@Path.doc()}
 
 <#list @Path.children("@POST", "@GET") as verb>
-${verb.name} ${verb.elementName} by ${verb.doc("author")}
+${verb.name} ${verb.elementName} by ${verb.doc("flat:author")}
 ${verb.doc()}
-${verb.sibling("@Path").value}
+${verb.sibling("@Path").attribute("value")}
 
 Path parameters :
 <#list verb.children("@PathParam") as param>
-* ${param.value} : ${param.doc()}
+* ${param.attribute("value")} : ${param.doc()}
 </#list>
 
 Optional parameters :
 <#list verb.children("@QueryParam") as param>
-* ${param.value} : ${param.doc()}
+* ${param.attribute("value")} : ${param.doc()}
 </#list>
 
 </#list>

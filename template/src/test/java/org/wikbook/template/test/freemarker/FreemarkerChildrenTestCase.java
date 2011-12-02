@@ -17,12 +17,10 @@
 
 package org.wikbook.template.test.freemarker;
 
-import org.wikbook.template.freemarker.ChildrenCallerMethod;
-import org.wikbook.template.freemarker.JavadocCallerMethod;
-import org.wikbook.template.freemarker.SiblingCallerMethod;
-import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
+import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
+import org.wikbook.template.freemarker.caller.SiblingCallerMethod;
 import org.wikbook.template.test.AbstractFreemarkerTestCase;
-import org.wikbook.template.test.AbstractProcessorTestCase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -97,22 +95,85 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
   public void testJavadocSingleValue() throws Exception {
 
-    assertEquals("1.0", postDocCaller.exec(Arrays.asList("since")).toString());
-    assertEquals("1.0", pathDocCaller.exec(Arrays.asList("since")).toString());
+    assertEquals("[1.0]", postDocCaller.exec(Arrays.asList("since")).toString());
+    assertEquals("[1.0]", pathDocCaller.exec(Arrays.asList("since")).toString());
 
   }
 
   public void testJavadocMultipleValue() throws Exception {
 
-    assertEquals("foo, bar", postDocCaller.exec(Arrays.asList("author")).toString());
-    assertEquals("foo, bar", pathDocCaller.exec(Arrays.asList("author")).toString());
+    assertEquals("[foo, bar]", postDocCaller.exec(Arrays.asList("author")).toString());
+    assertEquals("[foo, bar]", pathDocCaller.exec(Arrays.asList("author")).toString());
 
   }
 
   public void testJavadocNoValue() throws Exception {
 
-    assertEquals("deprecated", postDocCaller.exec(Arrays.asList("deprecated")).toString());
-    assertEquals("deprecated", pathDocCaller.exec(Arrays.asList("deprecated")).toString());
+    assertEquals("[deprecated]", postDocCaller.exec(Arrays.asList("deprecated")).toString());
+    assertEquals("[deprecated]", pathDocCaller.exec(Arrays.asList("deprecated")).toString());
+
+  }
+
+  public void testJavadocDoesntExist() throws Exception {
+
+    assertEquals("", postDocCaller.exec(Arrays.asList("foo")).toString());
+    assertEquals("", pathDocCaller.exec(Arrays.asList("foo")).toString());
+
+  }
+
+  public void testJavadocSingleListValue() throws Exception {
+
+    assertEquals("[1.0]", postDocCaller.exec(Arrays.asList("list:since")).toString());
+    assertEquals("[1.0]", pathDocCaller.exec(Arrays.asList("list:since")).toString());
+
+  }
+
+  public void testJavadocMultipleListValue() throws Exception {
+
+    assertEquals("[foo, bar]", postDocCaller.exec(Arrays.asList("list:author")).toString());
+    assertEquals("[foo, bar]", pathDocCaller.exec(Arrays.asList("list:author")).toString());
+
+  }
+
+  public void testJavadocListNoValue() throws Exception {
+
+    assertEquals("[deprecated]", postDocCaller.exec(Arrays.asList("list:deprecated")).toString());
+    assertEquals("[deprecated]", pathDocCaller.exec(Arrays.asList("list:deprecated")).toString());
+
+  }
+
+  public void testJavadocListDoesntExist() throws Exception {
+
+    assertEquals("[]", postDocCaller.exec(Arrays.asList("list:foo")).toString());
+    assertEquals("[]", pathDocCaller.exec(Arrays.asList("list:foo")).toString());
+
+  }
+
+  public void testJavadocSingleFlatValue() throws Exception {
+
+    assertEquals("1.0", postDocCaller.exec(Arrays.asList("flat:since")).toString());
+    assertEquals("1.0", pathDocCaller.exec(Arrays.asList("flat:since")).toString());
+
+  }
+
+  public void testJavadocMultipleFlatValue() throws Exception {
+
+    assertEquals("foo, bar", postDocCaller.exec(Arrays.asList("flat:author")).toString());
+    assertEquals("foo, bar", pathDocCaller.exec(Arrays.asList("flat:author")).toString());
+
+  }
+
+  public void testJavadocFlatNoValue() throws Exception {
+
+    assertEquals("deprecated", postDocCaller.exec(Arrays.asList("flat:deprecated")).toString());
+    assertEquals("deprecated", pathDocCaller.exec(Arrays.asList("flat:deprecated")).toString());
+
+  }
+
+  public void testJavadocFlatDoesntExist() throws Exception {
+
+    assertEquals("", postDocCaller.exec(Arrays.asList("flat:foo")).toString());
+    assertEquals("", pathDocCaller.exec(Arrays.asList("flat:foo")).toString());
 
   }
 

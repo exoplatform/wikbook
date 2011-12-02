@@ -15,13 +15,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.wikbook.template.freemarker;
+package org.wikbook.template.freemarker.caller;
 
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
-import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -29,32 +27,37 @@ import java.util.Map;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class ChildrenCallerMethod implements TemplateMethodModel {
+public class AttributeCallerMethod implements TemplateMethodModel {
 
-  private List<TemplateAnnotation> children;
+  private Map<String, Object> attributes;
 
-  public ChildrenCallerMethod(final List<TemplateAnnotation> children) {
-    this.children = children;
+  public AttributeCallerMethod(final Map<String, Object> attributes) {
+    this.attributes = attributes;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
+    StringBuilder sb = new StringBuilder();
 
-    for(TemplateAnnotation child : children) {
-      if (arguments.contains(child.getName())) {
-        Map<String, Object> data = child.getValues();
-        data.put("doc", new JavadocCallerMethod(child.getJavadoc()));
-        data.put("children", new ChildrenCallerMethod(child.getChildren()));
-        data.put("sibling", new SiblingCallerMethod(child.getElement()));
-        data.put("elementName", child.getElement().getName());
-        data.put("name", child.getName().substring(1));
-        l.add(data);
+    //
+    for (String arg : (List<String>) arguments) {
+      Object o = attributes.get(arg);
+      if (o != null) {
+        if (sb.length() != 0) {
+          sb.append(", ");
+        }
+        sb.append(o.toString());
       }
     }
-    
-    return l;
-    
+
+    //
+    if (sb.length() == 0) {
+      return null;
+    }
+    else {
+      return sb.toString();
+    }
+
   }
-  
+
 }

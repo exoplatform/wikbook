@@ -17,9 +17,8 @@
 
 package org.wikbook.template.test.freemarker;
 
-import org.wikbook.template.freemarker.ChildrenCallerMethod;
-import org.wikbook.template.freemarker.JavadocCallerMethod;
-import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
+import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.test.AbstractFreemarkerTestCase;
 
 import java.util.ArrayList;
