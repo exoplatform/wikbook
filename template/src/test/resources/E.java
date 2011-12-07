@@ -13,6 +13,7 @@ public class E {
    * @param pathParameter Path parameter description
    * @param queryParameter Query parameter description
    */
+  @POST
   @Path("bar")
   void m(
       @Context UriInfo uriInfo,

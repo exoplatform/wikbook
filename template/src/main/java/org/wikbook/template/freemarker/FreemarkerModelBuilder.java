@@ -6,6 +6,7 @@ import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.freemarker.caller.SiblingCallerMethod;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,20 +21,24 @@ public class FreemarkerModelBuilder {
 
     Map<String, Object> root = new HashMap<String, Object>();
 
-    for (TemplateAnnotation annotation : model.getAnnotations()) {
+    for (TemplateElement el : model.getElements()) {
 
-      //
-      Map<String, Object> data = new HashMap<String, Object>();
-      data.put("attribute", new AttributeCallerMethod(annotation.getValues()));
-      data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
-      data.put("children", new ChildrenCallerMethod(annotation.getChildren()));
-      data.put("sibling", new SiblingCallerMethod(annotation.getElement()));
-      data.put("elementName", annotation.getElement().getName());
-      data.put("name", annotation.getName().substring(1));
+      for (TemplateAnnotation annotation : el.getAnnotations().values()) {
 
-      //
-      root.put(annotation.getName(), data);
-      
+        //
+        Map<String, Object> data = new HashMap<String, Object>();
+        data.put("attribute", new AttributeCallerMethod(annotation.getValues()));
+        data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
+        data.put("children", new ChildrenCallerMethod(annotation.getChildren()));
+        data.put("sibling", new SiblingCallerMethod(annotation.getElement()));
+        data.put("elementName", annotation.getElement().getName());
+        data.put("name", annotation.getName().substring(1));
+
+        //
+        root.put(annotation.getName(), data);
+
+      }
+
     }
 
     return root;

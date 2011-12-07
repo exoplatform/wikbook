@@ -4,7 +4,7 @@ Author : ${author}
 </#list>
 ${@Path.doc()}
 
-<#list @Path.children("@POST", "@GET") as verb>
+<#list @Path.children("@POST") as verb>
 ${verb.name} ${verb.elementName} by ${verb.doc("flat:author")}
 <#if verb.sibling("@Consumes")??>
 Consumes : ${verb.sibling("@Consumes").attribute("flat:value")}

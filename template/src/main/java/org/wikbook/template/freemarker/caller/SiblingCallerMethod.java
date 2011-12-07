@@ -43,9 +43,10 @@ public class SiblingCallerMethod implements TemplateMethodModel {
     if (found != null) {
       Map<String, Object> data = found.getValues();
       data.put("attribute", new AttributeCallerMethod(found.getValues()));
-      data.put("doc", new JavadocCallerMethod(found.getJavadoc()));
-      data.put("sibling", new SiblingCallerMethod(found.getElement()));
-      data.put("elementName", found.getElement().getName());
+      data.put("doc", new JavadocCallerMethod(element.getJavadoc()));
+      data.put("children", new ChildrenCallerMethod(found.getChildren()));
+      data.put("sibling", new SiblingCallerMethod(element));
+      data.put("elementName", element.getName());
       data.put("name", found.getName().substring(1));
       return data;
     }

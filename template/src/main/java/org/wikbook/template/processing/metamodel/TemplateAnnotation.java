@@ -14,16 +14,12 @@ public class TemplateAnnotation implements Serializable {
 
   private String name;
   private Map<String, Object> values;
-  private Map<String, List<String>> javadoc;
-  private List<TemplateAnnotation> childs;
   private TemplateElement element;
 
   public TemplateAnnotation(String name, TemplateElement element) {
     this.name = "@" + name;
     this.element = element;
     this.values = new HashMap<String, Object>();
-    this.javadoc = new HashMap<String, List<String>>();
-    this.childs = new ArrayList<TemplateAnnotation>();
   }
 
   public String getName() {
@@ -38,32 +34,24 @@ public class TemplateAnnotation implements Serializable {
     return values;
   }
 
-  public void addJavadoc(String name, List<String> value) {
-    javadoc.put(name, value);
-  }
-
-  public Map<String, List<String>> getJavadoc() {
-    return javadoc;
-  }
-
-  public List<String> getJavadoc(String name) {
-    List<String> got = javadoc.get(name);
-    if (got == null) {
-      javadoc.put(name, got = new ArrayList<String>());
-    }
-    return got;
-  }
-
-  public void addChild(TemplateAnnotation annotation) {
-    this.childs.add(annotation);
-  }
-
-  public List<TemplateAnnotation> getChildren() {
-    return childs;
+  public List<TemplateElement> getChildren() {
+    return element.getElement();
   }
 
   public TemplateElement getElement() {
     return element;
+  }
+
+  public void addJavadoc(String name, List<String> value) {
+    element.addJavadoc(name, value);
+  }
+
+  public Map<String, List<String>> getJavadoc() {
+    return element.getJavadoc();
+  }
+
+  public List<String> getJavadoc(String name) {
+    return element.getJavadoc(name);
   }
   
 }

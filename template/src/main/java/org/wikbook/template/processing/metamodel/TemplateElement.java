@@ -31,10 +31,14 @@ public class TemplateElement implements Serializable {
 
   private String name;
   private Map<String, TemplateAnnotation> annotations;
+  private List<TemplateElement> children;
+  private Map<String, List<String>> javadoc;
 
   public TemplateElement(final String name) {
     this.name = name;
     this.annotations = new HashMap<String, TemplateAnnotation>();
+    this.children = new ArrayList<TemplateElement>();
+    this.javadoc = new HashMap<String, List<String>>();
   }
 
   public String getName() {
@@ -47,6 +51,34 @@ public class TemplateElement implements Serializable {
 
   public TemplateAnnotation getAnnotation(String name) {
     return annotations.get(name);
+  }
+
+  public Map<String, TemplateAnnotation> getAnnotations() {
+    return annotations;
+  }
+
+  public void addElement(TemplateElement element) {
+    children.add(element);
+  }
+
+  public List<TemplateElement> getElement() {
+    return children;
+  }
+
+  public void addJavadoc(String name, List<String> value) {
+    javadoc.put(name, value);
+  }
+
+  public Map<String, List<String>> getJavadoc() {
+    return javadoc;
+  }
+
+  public List<String> getJavadoc(String name) {
+    List<String> got = javadoc.get(name);
+    if (got == null) {
+      javadoc.put(name, got = new ArrayList<String>());
+    }
+    return got;
   }
   
 }

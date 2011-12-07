@@ -32,23 +32,27 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
     TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString());
 
+    applyDoc(typeElement, classElement, ctx);
+
     if (ctx == null) {
       throw new NullPointerException();
     }
 
     MetaModel model = new MetaModel();
+    ctx.setTypeElement(classElement);
 
     for (Class clazz : ctx.getClasses()) {
       Object a = typeElement.getAnnotation(clazz);
-      
+
       if (a != null) {
 
         TemplateAnnotation annotation = createAnnotation(typeElement, clazz, ctx, classElement);
 
         classElement.addAnnotation(annotation);
-        model.add(annotation);
+        if (!model.getElements().contains(classElement)) {
+          model.add(classElement);
+        }
 
-        ctx.setCurrentAnnotation(annotation);
         for (Element child : typeElement.getEnclosedElements()) {
           child.accept(this, ctx);
         }
@@ -64,19 +68,21 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
   public MetaModel visitVariable(VariableElement variableElement, ModelContext ctx) {
 
     TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString());
-    TemplateAnnotation methodAnnotation = ctx.getCurrentAnnotation();
+    TemplateElement methodElement = ctx.getExecutableElement();
 
     for (Class clazz : ctx.getClasses()) {
       TemplateAnnotation annotation = createAnnotation(variableElement, clazz, ctx, paramElement);
       if (annotation != null) {
-        for (String key : methodAnnotation.getJavadoc().keySet()) {
+        for (String key : methodElement.getJavadoc().keySet()) {
           if ("param".equals(key)) {
-            List<String> paramsDoc = methodAnnotation.getJavadoc().get(key);
+            List<String> paramsDoc = methodElement.getJavadoc().get(key);
             docParam(annotation, variableElement, paramsDoc);
           }
         }
-        paramElement.addAnnotation(methodAnnotation);
-        methodAnnotation.addChild(annotation);
+        paramElement.addAnnotation(annotation);
+        if (!methodElement.getElement().contains(paramElement)) {
+          methodElement.addElement(paramElement);
+        }
       }
     }
 
@@ -86,24 +92,25 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
   public MetaModel visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
 
     TemplateElement methodElement = new TemplateElement(executableElement.getSimpleName().toString());
-    TemplateAnnotation typeAnnotation = ctx.getCurrentAnnotation();
+    TemplateElement typeElement = ctx.getTypeElement();
+
+    applyDoc(executableElement, methodElement, ctx);
 
     for (Class clazz : ctx.getClasses()) {
 
       TemplateAnnotation annotation = createAnnotation(executableElement, clazz, ctx, methodElement);
-
       if (annotation != null) {
 
         methodElement.addAnnotation(annotation);
-        typeAnnotation.addChild(annotation);
-
-        ctx.setCurrentAnnotation(annotation);
-        for (VariableElement e : executableElement.getParameters()) {
-          e.accept(this, ctx);
+        if (!typeElement.getElement().contains(methodElement)) {
+          typeElement.addElement(methodElement);ctx.setExecutableElement(methodElement);
+          for (VariableElement e : executableElement.getParameters()) {
+            e.accept(this, ctx);
+          }
         }
       }
     }
-    
+
     return null;
 
   }
@@ -132,50 +139,53 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
         }
       }
 
-      //
-      String documentation = ctx.getUtils().getDocComment(el);
-      if (documentation == null) return annotation;
-
-      //
-      Scanner sc = new Scanner(documentation);
-      String currentName = null;
-      StringBuilder b = new StringBuilder();
-      while (sc.hasNextLine()) {
-        String line = sc.nextLine().trim();
-        if (line.startsWith("@")) {
-          doc(annotation, currentName, b);
-          int delimiterPos = line.indexOf(" ");
-          if (delimiterPos != -1) {
-            currentName = line.substring(0, delimiterPos);
-            b.append(line.substring(delimiterPos + 1));
-          }
-          else {
-            currentName = line;
-            b.append(line.substring(1));
-          }
-        }
-        else {
-          b.append(line + " ");
-        }
-      }
-      doc(annotation, currentName, b);
-
       return annotation;
     }
     return null;
   }
 
-  private void doc(TemplateAnnotation annotation, String name, StringBuilder b) {
+  private void doc(TemplateElement tel, String name, StringBuilder b) {
 
     if (name == null) {
-      annotation.getJavadoc(null).add(b.toString().trim());
+      tel.getJavadoc(null).add(b.toString().trim());
     }
     else {
-      annotation.getJavadoc(name.substring(1)).add(b.toString().trim());
+      tel.getJavadoc(name.substring(1)).add(b.toString().trim());
     }
 
     b.delete(0, b.length());
 
+  }
+
+  private void applyDoc(Element el, TemplateElement tel, ModelContext ctx) {
+    
+    //
+    String documentation = ctx.getUtils().getDocComment(el);
+    if (documentation == null) return;
+
+    //
+    Scanner sc = new Scanner(documentation);
+    String currentName = null;
+    StringBuilder b = new StringBuilder();
+    while (sc.hasNextLine()) {
+      String line = sc.nextLine().trim();
+      if (line.startsWith("@")) {
+        doc(tel, currentName, b);
+        int delimiterPos = line.indexOf(" ");
+        if (delimiterPos != -1) {
+          currentName = line.substring(0, delimiterPos);
+          b.append(line.substring(delimiterPos + 1));
+        }
+        else {
+          currentName = line;
+          b.append(line.substring(1));
+        }
+      }
+      else {
+        b.append(line + " ");
+      }
+    }
+    doc(tel, currentName, b);
   }
 
   private void docParam(TemplateAnnotation annotation, VariableElement variableElement, List<String> paramsDoc) {

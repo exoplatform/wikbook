@@ -1,5 +1,8 @@
 package org.wikbook.template.processing.metamodel;
 
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
 /**
@@ -8,7 +11,9 @@ import javax.lang.model.util.Elements;
  */
 public class ModelContext {
 
-  private TemplateAnnotation currentAnnotation;
+  private TemplateElement typeElement;
+  private TemplateElement executableElement;
+  private TemplateElement variableElement;
   private Class[] classes;
   private Elements utils;
 
@@ -28,12 +33,28 @@ public class ModelContext {
     this.utils = utils;
   }
 
-  public TemplateAnnotation getCurrentAnnotation() {
-    return currentAnnotation;
+  public TemplateElement getTypeElement() {
+    return typeElement;
   }
 
-  public void setCurrentAnnotation(TemplateAnnotation currentAnnotation) {
-    this.currentAnnotation = currentAnnotation;
+  public void setTypeElement(final TemplateElement typeElement) {
+    this.typeElement = typeElement;
+  }
+
+  public TemplateElement getExecutableElement() {
+    return executableElement;
+  }
+
+  public void setExecutableElement(final TemplateElement executableElement) {
+    this.executableElement = executableElement;
+  }
+
+  public TemplateElement getVariableElement() {
+    return variableElement;
+  }
+
+  public void setVariableElement(final TemplateElement variableElement) {
+    this.variableElement = variableElement;
   }
   
 }

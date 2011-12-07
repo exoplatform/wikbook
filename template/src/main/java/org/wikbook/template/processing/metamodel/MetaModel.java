@@ -10,18 +10,18 @@ import java.util.List;
  */
 public class MetaModel implements Serializable {
 
-  private List<TemplateAnnotation> annotations;
+  private List<TemplateElement> elements;
 
   public MetaModel() {
-    this.annotations = new ArrayList<TemplateAnnotation>();
+    this.elements = new ArrayList<TemplateElement>();
   }
 
-  public List<TemplateAnnotation> getAnnotations() {
-    return annotations;
+  public List<TemplateElement> getElements() {
+    return elements;
   }
 
-  public void add(TemplateAnnotation annotation) {
-    this.annotations.add(annotation);
+  public void add(TemplateElement element) {
+    this.elements.add(element);
   }
   
 }

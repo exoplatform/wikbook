@@ -37,24 +37,26 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
   public void testExists() throws Exception {
 
     MetaModel metaModel = buildClass("E");
-    assertEquals("@PathParam", metaModel.getAnnotations().get(0).getChildren().get(0).getChildren().get(0).getName());
-    assertEquals("@QueryParam", metaModel.getAnnotations().get(0).getChildren().get(0).getChildren().get(1).getName());
+    assertEquals("@PathParam", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getName());
+    assertEquals("@QueryParam", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getName());
 
   }
 
   public void testElementName() throws Exception {
 
     MetaModel metaModel = buildClass("E");
-    assertEquals("pathParameter", metaModel.getAnnotations().get(0).getChildren().get(0).getChildren().get(0).getElement().getName());
-    assertEquals("queryParameter", metaModel.getAnnotations().get(0).getChildren().get(0).getChildren().get(1).getElement().getName());
+
+    assertEquals("pathParameter", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getName());
+    assertEquals("queryParameter", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getName());
 
   }
 
   public void testJavadoc() throws Exception {
 
     MetaModel metaModel = buildClass("E");
-    assertEquals("[Path parameter description]", metaModel.getAnnotations().get(0).getChildren().get(0).getChildren().get(0).getJavadoc(null).toString());
-    assertEquals("[Query parameter description]", metaModel.getAnnotations().get(0).getChildren().get(0).getChildren().get(1).getJavadoc(null).toString());
+
+    assertEquals("[Path parameter description]", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getJavadoc(null).toString());
+    assertEquals("[Query parameter description]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getJavadoc(null).toString());
 
   }
 
