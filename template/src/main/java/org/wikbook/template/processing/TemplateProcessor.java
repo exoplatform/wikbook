@@ -22,7 +22,7 @@ import java.util.*;
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
-@SupportedOptions({"wikbook.template.annotations"})
+@SupportedOptions({"wikbook.template.annotations", "wikbook.template.ext"})
 public class TemplateProcessor extends AbstractProcessor {
 
   private Class[] classes;
@@ -57,7 +57,7 @@ public class TemplateProcessor extends AbstractProcessor {
 
           try {
             String templateName = clazz.getSimpleName();
-            FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + ((TypeElement) element).getQualifiedName() + ".txt", null);
+            FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + ((TypeElement) element).getQualifiedName() + ext(), null);
             OutputStream os = file.openOutputStream();
 
             new FreemarkerRenderer().render(templateName, metamodel, os, filer);
@@ -96,6 +96,19 @@ public class TemplateProcessor extends AbstractProcessor {
     }
     
     return classes.toArray(new Class[]{});
+
+  }
+
+  private String ext() {
+
+    String ext = processingEnv.getOptions().get("wikbook.template.ext");
+
+    if (ext == null) {
+      return "";
+    }
+    else {
+      return "." + ext;
+    }
 
   }
 

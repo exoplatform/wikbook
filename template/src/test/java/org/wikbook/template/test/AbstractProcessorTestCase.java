@@ -58,6 +58,7 @@ public abstract class AbstractProcessorTestCase extends TestCase {
     List<String> options = new ArrayList<String>();
     options.add("-sourcepath");
     options.add("src/test/resources");
+    options.add("-Awikbook.template.ext=wiki");
     if (annotations != null) {
       options.add("-Awikbook.template.annotations=" + annotations);
     }
