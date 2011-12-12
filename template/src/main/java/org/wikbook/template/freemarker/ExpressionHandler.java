@@ -21,6 +21,7 @@ import freemarker.ext.beans.CollectionModel;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.SimpleScalar;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -41,6 +42,12 @@ public class ExpressionHandler {
     LIST () {
       public String prefix() {
         return "list:";
+      }
+    },
+
+    BLOC () {
+      public String prefix() {
+        return "bloc:";
       }
     },
 
@@ -75,6 +82,10 @@ public class ExpressionHandler {
       output = Output.FLAT;
       value = expression.substring(Output.FLAT.prefix().length());
     }
+    else if (expression.startsWith(Output.BLOC.prefix())) {
+      output = Output.BLOC;
+      value = expression.substring(Output.BLOC.prefix().length());
+    }
     else if (expression.startsWith(Output.LIST.prefix())) {
       output = Output.LIST;
       value = expression.substring(Output.LIST.prefix().length());
@@ -89,7 +100,57 @@ public class ExpressionHandler {
     return value;
   }
 
-  public Object get(List<? extends Object> values) {
+  public Object getJavadoc(List<List<String>> values) {
+
+    if (values != null) {
+
+      List<String> c = new ArrayList<String>();
+      for (List<String> lv : values) {
+        StringBuffer sb = new StringBuffer();
+        for (String v : lv) {
+          if (output.equals(Output.BLOC)) {
+            sb.append(v + "\n");
+          }
+          else {
+            sb.append(v);
+          }
+        }
+        c.add(sb.toString());
+      }
+
+      //
+      switch (output) {
+
+        case FLAT:
+          return new SimpleScalar(asString(c));
+
+        case BLOC:
+          return new SimpleScalar(asString(c));
+
+        case LIST:
+          return new CollectionModel(c, new DefaultObjectWrapper());
+
+        case NONE:
+          return new CollectionModel(c, new DefaultObjectWrapper());
+
+        case NOEXPR:
+          return new SimpleScalar(asString(c));
+
+      }
+
+    }
+
+    //
+    if (output.equals(ExpressionHandler.Output.LIST)) {
+      return new CollectionModel(Arrays.asList(), new DefaultObjectWrapper());
+    }
+
+    //
+    return "";
+
+  }
+
+  public Object getAttribute(List<String> values) {
 
     if (values != null) {
 
@@ -97,6 +158,9 @@ public class ExpressionHandler {
       switch (output) {
 
         case FLAT:
+          return new SimpleScalar(asString(values));
+
+        case BLOC:
           return new SimpleScalar(asString(values));
 
         case LIST:

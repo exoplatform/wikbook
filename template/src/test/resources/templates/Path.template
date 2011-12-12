@@ -3,9 +3,11 @@ Path : ${@Path.attribute("value")}
 Author : ${author}
 </#list>
 ${@Path.doc()}
+${@Path.doc("bloc:data")}
 
 <#list @Path.children("@POST") as verb>
 ${verb.name} ${verb.elementName} by ${verb.doc("flat:author")}
+${verb.doc("bloc:data")}
 <#if verb.sibling("@Consumes")??>
 Consumes : ${verb.sibling("@Consumes").attribute("flat:value")}
 </#if>

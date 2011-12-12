@@ -42,15 +42,15 @@ public class TemplateAnnotation implements Serializable {
     return element;
   }
 
-  public void addJavadoc(String name, List<String> value) {
+  public void addJavadoc(String name, List<List<String>> value) {
     element.addJavadoc(name, value);
   }
 
-  public Map<String, List<String>> getJavadoc() {
+  public Map<String, List<List<String>>> getJavadoc() {
     return element.getJavadoc();
   }
 
-  public List<String> getJavadoc(String name) {
+  public List<List<String>> getJavadoc(String name) {
     return element.getJavadoc(name);
   }
   

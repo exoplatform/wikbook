@@ -14,9 +14,9 @@ import java.util.Map;
  */
 public class JavadocCallerMethod implements TemplateMethodModel {
 
-  private Map<String, List<String>> details = new HashMap<String, List<String>>();
+  private Map<String, List<List<String>>> details = new HashMap<String, List<List<String>>>();
 
-  public JavadocCallerMethod(Map<String, List<String>> details) {
+  public JavadocCallerMethod(Map<String, List<List<String>>> details) {
     this.details = details;
   }
 
@@ -25,10 +25,10 @@ public class JavadocCallerMethod implements TemplateMethodModel {
     switch (list.size()) {
       case 0:
         ExpressionHandler eh = new ExpressionHandler();
-      return eh.get(details.get(null));
+      return eh.getJavadoc(details.get(null));
       case 1:
         ExpressionHandler eh2 = new ExpressionHandler((String) list.get(0));
-        return eh2.get(details.get(eh2.getValue()));
+        return eh2.getJavadoc(details.get(eh2.getValue()));
       default:
         throw new RuntimeException("Cannot have many names");
 

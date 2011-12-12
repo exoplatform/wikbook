@@ -45,7 +45,7 @@ public class AttributeCallerMethod implements TemplateMethodModel {
     if (got != null) {
 
       if (got.getClass().isArray()) {
-        return eh.get(Arrays.asList((Object[])got));
+        return eh.getAttribute(Arrays.asList((String[])got));
       }
       else {
         return new SimpleScalar(got.toString());

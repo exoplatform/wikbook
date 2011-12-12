@@ -7,6 +7,8 @@ import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import javax.lang.model.element.*;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -75,7 +77,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       if (annotation != null) {
         for (String key : methodElement.getJavadoc().keySet()) {
           if ("param".equals(key)) {
-            List<String> paramsDoc = methodElement.getJavadoc().get(key);
+            List<List<String>> paramsDoc = methodElement.getJavadoc().get(key);
             docParam(annotation, variableElement, paramsDoc);
           }
         }
@@ -103,7 +105,8 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
         methodElement.addAnnotation(annotation);
         if (!typeElement.getElement().contains(methodElement)) {
-          typeElement.addElement(methodElement);ctx.setExecutableElement(methodElement);
+          typeElement.addElement(methodElement);
+          ctx.setExecutableElement(methodElement);
           for (VariableElement e : executableElement.getParameters()) {
             e.accept(this, ctx);
           }
@@ -144,16 +147,16 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     return null;
   }
 
-  private void doc(TemplateElement tel, String name, StringBuilder b) {
+  private void doc(TemplateElement tel, String name, List<String> l) {
 
     if (name == null) {
-      tel.getJavadoc(null).add(b.toString().trim());
+      tel.getJavadoc(null).add(new ArrayList<String>(l));
     }
     else {
-      tel.getJavadoc(name.substring(1)).add(b.toString().trim());
+      tel.getJavadoc(name.substring(1)).add(new ArrayList<String>(l));
     }
 
-    b.delete(0, b.length());
+    l.clear();
 
   }
 
@@ -166,39 +169,42 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     //
     Scanner sc = new Scanner(documentation);
     String currentName = null;
-    StringBuilder b = new StringBuilder();
+    List<String> l = new ArrayList<String>();
     while (sc.hasNextLine()) {
       String line = sc.nextLine().trim();
       if (line.startsWith("@")) {
-        doc(tel, currentName, b);
+        doc(tel, currentName, l);
         int delimiterPos = line.indexOf(" ");
         if (delimiterPos != -1) {
           currentName = line.substring(0, delimiterPos);
-          b.append(line.substring(delimiterPos + 1));
+          l.add(line.substring(delimiterPos + 1));
         }
         else {
           currentName = line;
-          b.append(line.substring(1));
+          l.add(line.substring(1));
         }
       }
       else {
-        b.append(line + " ");
+        l.add(line);
       }
     }
-    doc(tel, currentName, b);
+    doc(tel, currentName, l);
   }
 
-  private void docParam(TemplateAnnotation annotation, VariableElement variableElement, List<String> paramsDoc) {
+  private void docParam(TemplateAnnotation annotation, VariableElement variableElement, List<List<String>> paramsDoc) {
 
-    for (String docValue : paramsDoc) {
-      String elementName  = variableElement.getSimpleName().toString();
-      if (docValue.startsWith(elementName)) {
-        int pos = elementName.length() + 1;
-        if (pos < docValue.length()) {
-          annotation.getJavadoc(null).add(docValue.substring(pos));
-        }
-        else {
-          annotation.getJavadoc(null).add("");
+    for (List<String> docValue : paramsDoc) {
+      if (docValue.size() > 0) {
+        String elementName  = variableElement.getSimpleName().toString();
+        if (docValue.get(0).startsWith(elementName)) {
+          int pos = elementName.length() + 1;
+          if (pos < docValue.get(0).length()) {
+            docValue.set(0, docValue.get(0).substring(pos));
+            annotation.getJavadoc(null).add(docValue);
+          }
+          else {
+            annotation.getJavadoc(null).add(new ArrayList<String>());
+          }
         }
       }
     }

@@ -9,6 +9,9 @@ public class D {
    * General comment.
    * @author foo
    * @author bar
+   * @data here there is
+   * a
+   * bloc
    * @since 1.0
    * @deprecated
    */

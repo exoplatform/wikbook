@@ -67,28 +67,28 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
   public void testJavadocGeneralComment() throws Exception {
 
     MetaModel metaModel = buildClass("C");
-    assertEquals("[General comment.]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get(null).toString());
+    assertEquals("[[General comment.]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get(null).toString());
 
   }
 
   public void testJavadocSingleValue() throws Exception {
 
     MetaModel metaModel = buildClass("C");
-    assertEquals("[1.0]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("since").toString());
+    assertEquals("[[1.0]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("since").toString());
 
   }
 
   public void testJavadocMultipleValue() throws Exception {
 
     MetaModel metaModel = buildClass("C");
-    assertEquals("[foo, bar]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("author").toString());
+    assertEquals("[[foo], [bar]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("author").toString());
 
   }
 
   public void testJavadocNoValue() throws Exception {
 
     MetaModel metaModel = buildClass("C");
-    assertEquals("[deprecated]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("deprecated").toString());
+    assertEquals("[[deprecated]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("deprecated").toString());
 
   }
   

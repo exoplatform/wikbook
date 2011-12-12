@@ -55,8 +55,8 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("E");
 
-    assertEquals("[Path parameter description]", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getJavadoc(null).toString());
-    assertEquals("[Query parameter description]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getJavadoc(null).toString());
+    assertEquals("[[Path parameter description]]", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getJavadoc(null).toString());
+    assertEquals("[[Query parameter description]]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getJavadoc(null).toString());
 
   }
 
