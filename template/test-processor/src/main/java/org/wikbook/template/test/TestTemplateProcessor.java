@@ -40,7 +40,7 @@ import javax.ws.rs.QueryParam;
 public class TestTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
-  protected Class[] classes() {
+  protected Class[] annotations() {
     return new Class[] {
         Path.class,
         GET.class,

@@ -8,7 +8,6 @@ import org.wikbook.template.processing.metamodel.TemplateElement;
 import javax.lang.model.element.*;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -43,7 +42,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     MetaModel model = new MetaModel();
     ctx.setTypeElement(classElement);
 
-    for (Class clazz : ctx.getClasses()) {
+    for (Class clazz : ctx.getAnnotations()) {
       Object a = typeElement.getAnnotation(clazz);
 
       if (a != null) {
@@ -72,7 +71,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString());
     TemplateElement methodElement = ctx.getExecutableElement();
 
-    for (Class clazz : ctx.getClasses()) {
+    for (Class clazz : ctx.getAnnotations()) {
       TemplateAnnotation annotation = createAnnotation(variableElement, clazz, ctx, paramElement);
       if (annotation != null) {
         for (String key : methodElement.getJavadoc().keySet()) {
@@ -98,7 +97,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
     applyDoc(executableElement, methodElement, ctx);
 
-    for (Class clazz : ctx.getClasses()) {
+    for (Class clazz : ctx.getAnnotations()) {
 
       TemplateAnnotation annotation = createAnnotation(executableElement, clazz, ctx, methodElement);
       if (annotation != null) {

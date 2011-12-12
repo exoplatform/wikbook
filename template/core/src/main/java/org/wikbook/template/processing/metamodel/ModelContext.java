@@ -14,15 +14,15 @@ public class ModelContext {
   private TemplateElement typeElement;
   private TemplateElement executableElement;
   private TemplateElement variableElement;
-  private Class[] classes;
+  private Class[] annotations;
   private Elements utils;
 
-  public Class[] getClasses() {
-    return classes;
+  public Class[] getAnnotations() {
+    return annotations;
   }
 
   public void setClasses(Class[] classes) {
-    this.classes = classes;
+    this.annotations = classes;
   }
 
   public Elements getUtils() {

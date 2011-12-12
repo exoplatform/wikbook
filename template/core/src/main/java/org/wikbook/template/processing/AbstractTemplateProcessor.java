@@ -20,7 +20,7 @@ import java.util.*;
  */
 public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
-  private Class[] classes;
+  private Class[] annotations;
   private Filer filer;
   private Elements utils;
   private String ext;
@@ -29,8 +29,8 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   public boolean process(Set<? extends TypeElement> typeElements, RoundEnvironment roundEnvironment) {
 
     //
-    classes = classes();
-    if (classes == null) {
+    annotations = annotations();
+    if (annotations == null) {
       throw new NullPointerException();
     }
 
@@ -44,7 +44,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
     }
 
     //
-    if (classes.length == 0) return false;
+    if (annotations.length == 0) return false;
 
     //
     List<Element> done = new ArrayList<Element>();
@@ -53,11 +53,11 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
     //
     ModelContext ctx = new ModelContext();
-    ctx.setClasses(classes);
+    ctx.setClasses(annotations);
     ctx.setUtils(utils);
 
     //
-    for (Class clazz : classes) {
+    for (Class clazz : annotations) {
       Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(clazz);
       for (Element element : elements) {
 
@@ -112,7 +112,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
   }
 
-  protected abstract Class[] classes();
+  protected abstract Class[] annotations();
   protected abstract String ext();
 
 }
