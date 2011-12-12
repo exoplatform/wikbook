@@ -3,21 +3,24 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <parent>
-    <artifactId>wikbook.parent</artifactId>
+    <artifactId>wikbook.template</artifactId>
     <groupId>org.wikbook</groupId>
     <version>0.9.33-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>wikbook.template</artifactId>
-  <packaging>pom</packaging>
+  <artifactId>wikbook.template.core</artifactId>
+  <packaging>jar</packaging>
+  
+  <name>Wikbook templating implementation</name>
 
-  <name>Wikbook templating</name>
+  <dependencies>
 
-  <modules>
-    <module>core</module>
-    <module>test-processor</module>
-    <module>test-processing</module>
-  </modules>
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+    </dependency>
+
+  </dependencies>
 
 </project>

@@ -113,6 +113,37 @@
         <artifactId>wikbook.doc</artifactId>
         <version>0.9.33-SNAPSHOT</version>
       </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.template</artifactId>
+        <version>0.9.33-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.template.core</artifactId>
+        <version>0.9.33-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.template.test-processor</artifactId>
+        <version>0.9.33-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.template.test-processing</artifactId>
+        <version>0.9.33-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>javax.ws.rs</groupId>
+        <artifactId>jsr311-api</artifactId>
+        <version>1.0</version>
+      </dependency>
+      <dependency>
+        <groupId>org.freemarker</groupId>
+        <artifactId>freemarker</artifactId>
+        <version>2.3.18</version>
+      </dependency>
       
       <dependency>
         <groupId>junit</groupId>
@@ -148,6 +179,11 @@
 
     <pluginManagement>
       <plugins>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>2.3.2</version>
+        </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-dependency-plugin</artifactId>
