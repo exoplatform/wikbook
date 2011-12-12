@@ -54,6 +54,11 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
   }
 
   @Override
+  protected String templateName() {
+    return "test.tmpl";
+  }
+
+  @Override
   protected String ext() {
     return "test";
   }

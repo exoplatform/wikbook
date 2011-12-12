@@ -23,6 +23,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   private Class[] annotations;
   private Filer filer;
   private Elements utils;
+  private String templateName;
   private String ext;
 
   @Override
@@ -41,6 +42,12 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
     }
     else {
       ext = "." + ext;
+    }
+
+    //
+    templateName = templateName();
+    if (templateName == null) {
+      throw new NullPointerException();
     }
 
     //
@@ -70,7 +77,6 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
           writeState(metamodel);
 
           try {
-            String templateName = clazz.getSimpleName();
             FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + ((TypeElement) element).getQualifiedName() + ext, null);
             OutputStream os = file.openOutputStream();
 
@@ -113,6 +119,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   }
 
   protected abstract Class[] annotations();
+  protected abstract String templateName();
   protected abstract String ext();
 
 }

@@ -32,7 +32,7 @@ public class FreemarkerRenderer {
     builder = new FreemarkerModelBuilder();
   }
 
-  public void render(String template, MetaModel model, OutputStream os, Filer filer) throws IOException {
+  public void render(String templateName, MetaModel model, OutputStream os, Filer filer) throws IOException {
 
     Map<String, Object> data = builder.build(model);
     Configuration cfg = new Configuration();
@@ -42,7 +42,7 @@ public class FreemarkerRenderer {
       cfg.setTemplateLoader(new FilerTemplateLoader(filer));
       cfg.setObjectWrapper(new DefaultObjectWrapper());
 
-      Template temp = cfg.getTemplate(template + ".template");
+      Template temp = cfg.getTemplate(templateName);
       OutputStreamWriter osw = new OutputStreamWriter(os);
       
       temp.process(data, osw);
