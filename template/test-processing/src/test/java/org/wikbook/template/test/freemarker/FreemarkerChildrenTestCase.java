@@ -17,6 +17,7 @@
 
 package org.wikbook.template.test.freemarker;
 
+import org.wikbook.template.freemarker.caller.AttributeCallerMethod;
 import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
 import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.freemarker.caller.SiblingCallerMethod;
@@ -34,6 +35,7 @@ import java.util.Map;
 public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
   private ChildrenCallerMethod childrenCaller;
+  private AttributeCallerMethod attributeCaller;
 
   private List<Map<String, Object>> posts;
   private List<Map<String, Object>> paths;
@@ -52,6 +54,7 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
     Map<String, Object> data = buildModel("D");
 
     childrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@Path")).get("children");
+    attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Path")).get("attribute");
 
     posts = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@POST"));
     paths = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@Path"));

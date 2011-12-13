@@ -6,6 +6,7 @@ ${@Path.doc()}
 ${@Path.doc("bloc:data")}
 
 <#list @Path.children("@POST") as verb>
+${verb.typeName}
 ${verb.name} ${verb.elementName} by ${verb.doc("flat:author")}
 ${verb.doc("bloc:data")}
 <#if verb.sibling("@Consumes")??>

@@ -49,13 +49,16 @@ public class ChildrenCallerMethod implements TemplateMethodModel {
         TemplateAnnotation childAnnotation = child.getAnnotation(argument);
 
         if (childAnnotation != null) {
-          Map<String, Object> data = childAnnotation.getValues();
+          Map<String, Object> data = new HashMap<String, Object>();
           data.put("attribute", new AttributeCallerMethod(childAnnotation.getValues()));
           data.put("doc", new JavadocCallerMethod(child.getJavadoc()));
           data.put("children", new ChildrenCallerMethod(child.getElement()));
           data.put("sibling", new SiblingCallerMethod(child));
           data.put("elementName", child.getName());
           data.put("name", childAnnotation.getName().substring(1));
+          data.put("typeName", child.getTypeName());
+          data.put("isArray", child.isArray().toString());
+
           l.add(data);
         }
 

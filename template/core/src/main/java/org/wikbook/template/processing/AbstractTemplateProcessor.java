@@ -9,6 +9,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 import javax.tools.FileObject;
 import javax.tools.StandardLocation;
 import java.io.*;
@@ -22,7 +23,8 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
   private Class[] annotations;
   private Filer filer;
-  private Elements utils;
+  private Elements elementsUtils;
+  private Types typesUtils;
   private String templateName;
   private String ext;
 
@@ -56,12 +58,14 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
     //
     List<Element> done = new ArrayList<Element>();
     this.filer = processingEnv.getFiler();
-    this.utils = processingEnv.getElementUtils();
+    this.elementsUtils = processingEnv.getElementUtils();
+    this.typesUtils = processingEnv.getTypeUtils();
 
     //
     ModelContext ctx = new ModelContext();
     ctx.setClasses(annotations);
-    ctx.setUtils(utils);
+    ctx.setElementsUtils(elementsUtils);
+    ctx.setTypesUtils(typesUtils);
 
     //
     for (Class clazz : annotations) {

@@ -33,6 +33,8 @@ public class FreemarkerModelBuilder {
         data.put("sibling", new SiblingCallerMethod(annotation.getElement()));
         data.put("elementName", annotation.getElement().getName());
         data.put("name", annotation.getName().substring(1));
+        data.put("typeName", annotation.getElement().getTypeName());
+        data.put("isArray", annotation.getElement().isArray().toString());
 
         //
         root.put(annotation.getName(), data);

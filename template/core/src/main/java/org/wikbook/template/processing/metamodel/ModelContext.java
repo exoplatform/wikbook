@@ -4,6 +4,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -15,7 +16,8 @@ public class ModelContext {
   private TemplateElement executableElement;
   private TemplateElement variableElement;
   private Class[] annotations;
-  private Elements utils;
+  private Elements elementsUtils;
+  private Types typesUtils;
 
   public Class[] getAnnotations() {
     return annotations;
@@ -25,12 +27,20 @@ public class ModelContext {
     this.annotations = classes;
   }
 
-  public Elements getUtils() {
-    return utils;
+  public Elements getElementsUtils() {
+    return elementsUtils;
   }
 
-  public void setUtils(Elements utils) {
-    this.utils = utils;
+  public void setElementsUtils(final Elements elementsUtils) {
+    this.elementsUtils = elementsUtils;
+  }
+
+  public Types getTypesUtils() {
+    return typesUtils;
+  }
+
+  public void setTypesUtils(final Types typesUtils) {
+    this.typesUtils = typesUtils;
   }
 
   public TemplateElement getTypeElement() {

@@ -6,6 +6,8 @@ import org.wikbook.template.processing.metamodel.ModelContext;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import javax.lang.model.element.*;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -31,7 +33,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
   public MetaModel visitType(TypeElement typeElement, ModelContext ctx) {
 
-    TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString());
+    TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString(), typeElement.getSimpleName().toString(), false);
 
     applyDoc(typeElement, classElement, ctx);
 
@@ -68,7 +70,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
   public MetaModel visitVariable(VariableElement variableElement, ModelContext ctx) {
 
-    TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString());
+    TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString(), variableElement.getSimpleName().toString(), false);
     TemplateElement methodElement = ctx.getExecutableElement();
 
     for (Class clazz : ctx.getAnnotations()) {
@@ -92,7 +94,14 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
   public MetaModel visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
 
-    TemplateElement methodElement = new TemplateElement(executableElement.getSimpleName().toString());
+    TypeMirror returnType = executableElement.getReturnType();
+    Element returnElement = ctx.getTypesUtils().asElement(returnType);
+
+    String executableName = executableElement.getSimpleName().toString();
+    String returnName = returnElement == null ? "" : returnElement.getSimpleName().toString();
+    Boolean isArray = TypeKind.ARRAY.equals(returnType.getKind());
+
+    TemplateElement methodElement = new TemplateElement(executableName, returnName, isArray);
     TemplateElement typeElement = ctx.getTypeElement();
 
     applyDoc(executableElement, methodElement, ctx);
@@ -162,7 +171,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
   private void applyDoc(Element el, TemplateElement tel, ModelContext ctx) {
     
     //
-    String documentation = ctx.getUtils().getDocComment(el);
+    String documentation = ctx.getElementsUtils().getDocComment(el);
     if (documentation == null) return;
 
     //
