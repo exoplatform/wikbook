@@ -4,6 +4,7 @@ import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.ModelContext;
 import org.wikbook.template.processing.metamodel.TemplateElement;
+import org.wikbook.template.processing.metamodel.TemplateType;
 
 import javax.lang.model.element.*;
 import javax.lang.model.type.TypeKind;
@@ -17,23 +18,24 @@ import java.util.Scanner;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelContext> {
+public class TemplateElementVisitor implements ElementVisitor<List<TemplateElement>, ModelContext> {
 
-  public MetaModel visit(Element element, ModelContext ctx) {
+  public List<TemplateElement> visit(Element element, ModelContext ctx) {
     return null;
   }
 
-  public MetaModel visit(Element element) {
+  public List<TemplateElement> visit(Element element) {
     return null;
   }
 
-  public MetaModel visitPackage(PackageElement packageElement, ModelContext ctx) {
+  public List<TemplateElement> visitPackage(PackageElement packageElement, ModelContext ctx) {
     return null;
   }
 
-  public MetaModel visitType(TypeElement typeElement, ModelContext ctx) {
+  public List<TemplateElement> visitType(TypeElement typeElement, ModelContext ctx) {
 
-    TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString(), typeElement.getSimpleName().toString(), false);
+    TemplateType type = new TemplateType(typeElement.getSimpleName().toString(), typeElement.getQualifiedName().toString(), false);
+    TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString(), type);
 
     applyDoc(typeElement, classElement, ctx);
 
@@ -41,7 +43,7 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
       throw new NullPointerException();
     }
 
-    MetaModel model = new MetaModel();
+    List<TemplateElement> elements = new ArrayList<TemplateElement>();
     ctx.setTypeElement(classElement);
 
     for (Class clazz : ctx.getAnnotations()) {
@@ -52,8 +54,8 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
         TemplateAnnotation annotation = createAnnotation(typeElement, clazz, ctx, classElement);
 
         classElement.addAnnotation(annotation);
-        if (!model.getElements().contains(classElement)) {
-          model.add(classElement);
+        if (!elements.contains(classElement)) {
+          elements.add(classElement);
         }
 
         for (Element child : typeElement.getEnclosedElements()) {
@@ -64,13 +66,17 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     }
 
 
-    return model;
+    return elements;
     
   }
 
-  public MetaModel visitVariable(VariableElement variableElement, ModelContext ctx) {
+  public List<TemplateElement> visitVariable(VariableElement variableElement, ModelContext ctx) {
 
-    TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString(), variableElement.getSimpleName().toString(), false);
+
+    Boolean isArray = TypeKind.ARRAY.equals(variableElement.getKind());
+
+    TemplateType type = new TemplateType(variableElement.getSimpleName().toString(), isArray);
+    TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString(), type);
     TemplateElement methodElement = ctx.getExecutableElement();
 
     for (Class clazz : ctx.getAnnotations()) {
@@ -92,16 +98,24 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
     return null;
   }
 
-  public MetaModel visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
+  public List<TemplateElement> visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
 
     TypeMirror returnType = executableElement.getReturnType();
-    Element returnElement = ctx.getTypesUtils().asElement(returnType);
+    TypeElement returnElement = (TypeElement) ctx.getTypesUtils().asElement(returnType);
 
     String executableName = executableElement.getSimpleName().toString();
     String returnName = returnElement == null ? "" : returnElement.getSimpleName().toString();
+    String returnFullName = returnElement == null ? "" : returnElement.getQualifiedName().toString();
     Boolean isArray = TypeKind.ARRAY.equals(returnType.getKind());
+    if (isArray) {
+      returnFullName = returnType.toString();
+      int lastDot = returnType.toString().lastIndexOf(".");
+      returnName = returnType.toString().substring(lastDot + 1);
+    }
 
-    TemplateElement methodElement = new TemplateElement(executableName, returnName, isArray);
+
+    TemplateType type = new TemplateType(returnName, returnFullName, isArray);
+    TemplateElement methodElement = new TemplateElement(executableName, type);
     TemplateElement typeElement = ctx.getTypeElement();
 
     applyDoc(executableElement, methodElement, ctx);
@@ -126,11 +140,11 @@ public class TemplateElementVisitor implements ElementVisitor<MetaModel, ModelCo
 
   }
 
-  public MetaModel visitTypeParameter(TypeParameterElement typeParameterElement, ModelContext ctx) {
+  public List<TemplateElement> visitTypeParameter(TypeParameterElement typeParameterElement, ModelContext ctx) {
     return null;
   }
 
-  public MetaModel visitUnknown(Element element, ModelContext ctx) {
+  public List<TemplateElement> visitUnknown(Element element, ModelContext ctx) {
     return null;
   }
 

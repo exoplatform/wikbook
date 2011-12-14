@@ -6,6 +6,7 @@ import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
 import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import javax.annotation.processing.Filer;
 import javax.tools.FileObject;
@@ -32,9 +33,9 @@ public class FreemarkerRenderer {
     builder = new FreemarkerModelBuilder();
   }
 
-  public void render(String templateName, MetaModel model, OutputStream os, Filer filer) throws IOException {
+  public void render(MetaModel model, String templateName, TemplateElement element, OutputStream os, Filer filer) throws IOException {
 
-    Map<String, Object> data = builder.build(model);
+    Map<String, Object> data = builder.build(model, element);
     Configuration cfg = new Configuration();
 
     try {

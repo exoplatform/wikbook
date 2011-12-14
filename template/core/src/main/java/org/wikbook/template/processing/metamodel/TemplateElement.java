@@ -30,16 +30,14 @@ import java.util.Map;
 public class TemplateElement implements Serializable {
 
   private String name;
-  private String typeName;
-  private Boolean isArray;
+  private TemplateType type;
   private Map<String, TemplateAnnotation> annotations;
   private List<TemplateElement> children;
   private Map<String, List<List<String>>> javadoc;
 
-  public TemplateElement(final String name, final String typeName, final Boolean isArray) {
+  public TemplateElement(final String name, final TemplateType type) {
     this.name = name;
-    this.typeName = typeName;
-    this.isArray = isArray;
+    this.type = type;
     this.annotations = new HashMap<String, TemplateAnnotation>();
     this.children = new ArrayList<TemplateElement>();
     this.javadoc = new HashMap<String, List<List<String>>>();
@@ -49,12 +47,8 @@ public class TemplateElement implements Serializable {
     return name;
   }
 
-  public String getTypeName() {
-    return typeName;
-  }
-
-  public Boolean isArray() {
-    return isArray;
+  public TemplateType getType() {
+    return type;
   }
 
   public void addAnnotation(TemplateAnnotation annotation) {
@@ -92,4 +86,5 @@ public class TemplateElement implements Serializable {
     }
     return got;
   }
+  
 }

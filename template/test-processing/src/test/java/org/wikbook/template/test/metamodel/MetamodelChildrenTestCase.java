@@ -88,4 +88,36 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
 
   }
 
+
+  public void testTypeName() throws Exception {
+
+    MetaModel metaModel = buildClass("F");
+    assertEquals("Response", metaModel.getElements().get(0).getAnnotation("@Path").getChildren().get(1).getType().getName());
+    assertEquals("javax.ws.rs.core.Response", metaModel.getElements().get(0).getAnnotation("@Path").getChildren().get(1).getType().getFullName());
+
+    MetaModel g = buildClass("G");
+    assertEquals("Response[]", g.getElements().get(0).getAnnotation("@Path").getChildren().get(0).getType().getName());
+    assertEquals("javax.ws.rs.core.Response[]", g.getElements().get(0).getAnnotation("@Path").getChildren().get(0).getType().getFullName());
+
+  }
+
+  public void testTypeVoid() throws Exception {
+
+    MetaModel metaModel = buildClass("F");
+    assertEquals("", metaModel.getElements().get(0).getAnnotation("@Path").getChildren().get(0).getType().getName());
+    assertEquals("", metaModel.getElements().get(0).getAnnotation("@Path").getChildren().get(0).getType().getFullName());
+    assertEquals(false, metaModel.getElements().get(0).getAnnotation("@Path").getChildren().get(0).getType().isArray().booleanValue());
+
+  }
+
+  public void testTypeIsArray() throws Exception {
+
+    MetaModel f = buildClass("F");
+    assertEquals(false, f.getElements().get(0).getAnnotation("@Path").getChildren().get(1).getType().isArray().booleanValue());
+
+    MetaModel g = buildClass("G");
+    assertEquals(true, g.getElements().get(0).getAnnotation("@Path").getChildren().get(0).getType().isArray().booleanValue());
+
+  }
+
 }

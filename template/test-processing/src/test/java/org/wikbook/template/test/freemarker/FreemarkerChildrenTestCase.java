@@ -88,6 +88,83 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
   }
 
+  public void testTypeName() throws Exception {
+
+    Map<String, Object> fData = buildModel("F");
+
+    ChildrenCallerMethod dChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) fData.get("@Path")).get("children");
+
+    List<Map<String, Object>> dGets = (List<Map<String, Object>>) dChildrenCaller.exec(Arrays.asList("@GET"));
+    List<Map<String, Object>> dPaths = (List<Map<String, Object>>) dChildrenCaller.exec(Arrays.asList("@Path"));
+
+    assertEquals("Response", ((Map<String, Object>) dGets.get(0).get("type")).get("name"));
+    assertEquals("Response", ((Map<String, Object>) dPaths.get(1).get("type")).get("name"));
+
+    assertEquals("javax.ws.rs.core.Response", ((Map<String, Object>) dGets.get(0).get("type")).get("fullName"));
+    assertEquals("javax.ws.rs.core.Response", ((Map<String, Object>) dPaths.get(1).get("type")).get("fullName"));
+
+    assertEquals("false", ((Map<String, Object>) dGets.get(0).get("type")).get("isArray"));
+    assertEquals("false", ((Map<String, Object>) dPaths.get(1).get("type")).get("isArray"));
+
+    Map<String, Object> gData = buildModel("G");
+
+    ChildrenCallerMethod gChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) gData.get("@Path")).get("children");
+
+    List<Map<String, Object>> gGets = (List<Map<String, Object>>) gChildrenCaller.exec(Arrays.asList("@GET"));
+    List<Map<String, Object>> gPaths = (List<Map<String, Object>>) gChildrenCaller.exec(Arrays.asList("@Path"));
+
+    assertEquals("Response[]", ((Map<String, Object>) gGets.get(0).get("type")).get("name"));
+    assertEquals("Response[]", ((Map<String, Object>) gPaths.get(0).get("type")).get("name"));
+
+    assertEquals("javax.ws.rs.core.Response[]", ((Map<String, Object>) gGets.get(0).get("type")).get("fullName"));
+    assertEquals("javax.ws.rs.core.Response[]", ((Map<String, Object>) gPaths.get(0).get("type")).get("fullName"));
+
+    assertEquals("true", ((Map<String, Object>) gGets.get(0).get("type")).get("isArray"));
+    assertEquals("true", ((Map<String, Object>) gPaths.get(0).get("type")).get("isArray"));
+
+  }
+
+  public void testTypeNotIsArray() throws Exception {
+
+    Map<String, Object> fData = buildModel("F");
+
+    ChildrenCallerMethod fChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) fData.get("@Path")).get("children");
+
+    List<Map<String, Object>> fGets = (List<Map<String, Object>>) fChildrenCaller.exec(Arrays.asList("@GET"));
+    List<Map<String, Object>> fPaths = (List<Map<String, Object>>) fChildrenCaller.exec(Arrays.asList("@Path"));
+
+    assertEquals("false", ((Map<String, Object>) fGets.get(0).get("type")).get("isArray"));
+    assertEquals("false", ((Map<String, Object>) fPaths.get(1).get("type")).get("isArray"));
+
+  }
+
+  public void testTypeIsArray() throws Exception {
+
+    Map<String, Object> gData = buildModel("G");
+
+    ChildrenCallerMethod gChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) gData.get("@Path")).get("children");
+
+    List<Map<String, Object>> gGets = (List<Map<String, Object>>) gChildrenCaller.exec(Arrays.asList("@GET"));
+    List<Map<String, Object>> gPaths = (List<Map<String, Object>>) gChildrenCaller.exec(Arrays.asList("@Path"));
+
+    assertEquals("true", ((Map<String, Object>) gGets.get(0).get("type")).get("isArray"));
+    assertEquals("true", ((Map<String, Object>) gPaths.get(0).get("type")).get("isArray"));
+
+  }
+
+  public void testTypeVoidName() throws Exception {
+
+    assertEquals("", ((Map<String, Object>) posts.get(0).get("type")).get("name"));
+    assertEquals("", ((Map<String, Object>) paths.get(0).get("type")).get("name"));
+
+    assertEquals("", ((Map<String, Object>) posts.get(0).get("type")).get("fullName"));
+    assertEquals("", ((Map<String, Object>) paths.get(0).get("type")).get("fullName"));
+
+    assertEquals("false", ((Map<String, Object>) posts.get(0).get("type")).get("isArray"));
+    assertEquals("false", ((Map<String, Object>) paths.get(0).get("type")).get("isArray"));
+
+  }
+
   public void testJavadocGeneralComment() throws Exception {
 
     assertEquals("General comment.", postDocCaller.exec(new ArrayList()).toString());
@@ -179,11 +256,11 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
   }
 
-  public void testSibling() throws Exception {
+  /*public void testSibling() throws Exception {
 
     assertEquals(paths.get(0), postSiblingCaller.exec(Arrays.asList("@Path")));
     assertEquals(posts.get(0), pathSiblingCaller.exec(Arrays.asList("@POST")));
 
-  }
+  }*/
   
 }

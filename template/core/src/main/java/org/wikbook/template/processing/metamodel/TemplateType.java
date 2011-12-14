@@ -15,25 +15,42 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.wikbook.template.test;
+package org.wikbook.template.processing.metamodel;
 
-import org.wikbook.template.freemarker.FreemarkerModelBuilder;
-import org.wikbook.template.processing.metamodel.MetaModel;
-
-import java.io.IOException;
-import java.util.Map;
+import java.io.Serializable;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public abstract class AbstractFreemarkerTestCase extends AbstractProcessorTestCase {
+public class TemplateType implements Serializable {
 
-  public Map<String, Object> buildModel(String className) throws ClassNotFoundException, IOException {
+  private String name;
+  private String fullName;
+  private Boolean isArray;
 
-    FreemarkerModelBuilder builder = new FreemarkerModelBuilder();
-    MetaModel model = buildClass(className);
-    return builder.build(model, model.getElements().get(0));
-
+  public TemplateType(final String name, final String fullname, final Boolean isArray) {
+    this.name = name;
+    this.fullName = fullname;
+    this.isArray = isArray;
   }
+
+  public TemplateType(final String name, final Boolean isArray) {
+    this.name = name;
+    this.fullName = name;
+    this.isArray = isArray;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getFullName() {
+    return fullName;
+  }
+
+  public Boolean isArray() {
+    return isArray;
+  }
+  
 }

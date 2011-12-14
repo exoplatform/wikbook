@@ -3,6 +3,7 @@ package org.wikbook.template.processing;
 import org.wikbook.template.freemarker.FreemarkerRenderer;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.ModelContext;
+import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import javax.annotation.processing.*;
 import javax.lang.model.element.Element;
@@ -27,6 +28,11 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   private Types typesUtils;
   private String templateName;
   private String ext;
+  private MetaModel metaModel;
+
+  protected AbstractTemplateProcessor() {
+    this.metaModel = new MetaModel();
+  }
 
   @Override
   public boolean process(Set<? extends TypeElement> typeElements, RoundEnvironment roundEnvironment) {
@@ -76,34 +82,44 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
           continue;
 
         if (element.getKind() == ElementKind.CLASS) {
-          MetaModel metamodel = buildMetaModel((TypeElement) element, ctx);
-
-          writeState(metamodel);
-
-          try {
-            FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + ((TypeElement) element).getQualifiedName() + ext, null);
-            OutputStream os = file.openOutputStream();
-
-            new FreemarkerRenderer().render(templateName, metamodel, os, filer);
-
-          } catch (IOException e) {
-            e.printStackTrace();
-          }
+          List<TemplateElement> modelElements = buildElements((TypeElement) element, ctx);
+          metaModel.addAll(modelElements);
 
         }
         done.add(element);
       }
     }
 
+    if (roundEnvironment.processingOver()) {
+
+      writeState(metaModel);
+
+      for (TemplateElement el : metaModel.getElements()) {
+
+        try {
+          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + el.getType().getFullName() + ext, null);
+          OutputStream os = file.openOutputStream();
+
+          new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);
+
+        } catch (IOException e) {
+          e.printStackTrace();
+        }
+        
+      }
+
+
+    }
+
     return false;
     
   }
 
-  private MetaModel buildMetaModel(TypeElement el, ModelContext ctx) {
+  private List<TemplateElement> buildElements(TypeElement el, ModelContext ctx) {
 
     TemplateElementVisitor visitor = new TemplateElementVisitor();
-    MetaModel model = el.accept(visitor, ctx);
-    return model;
+    List<TemplateElement> elements = el.accept(visitor, ctx);
+    return elements;
     
   }
 

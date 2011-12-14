@@ -23,8 +23,8 @@ import org.wikbook.template.freemarker.MemberHandler;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.TemplateElement;
+import org.wikbook.template.processing.metamodel.TemplateType;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,37 +33,31 @@ import java.util.Map;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class ChildrenCallerMethod implements TemplateMethodModel {
+public class AnnotationCallerMethod implements TemplateMethodModel {
 
-  private List<TemplateElement> children;
+  private TemplateType type;
   private MemberHandler handler;
 
-  public ChildrenCallerMethod(final MemberHandler handler, final List<TemplateElement> children) {
-    this.children = children;
+  public AnnotationCallerMethod(final MemberHandler handler, final TemplateType type) {
+    this.type = type;
     this.handler = handler;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
+    for (TemplateElement element : handler.getModel().getElements()) {
+      if (element.getName().equals(type.getName())) {
 
-    for(TemplateElement child : children) {
-      for (String argument : (List<String>) arguments) {
-
-        TemplateAnnotation childAnnotation = child.getAnnotation(argument);
-
-        if (childAnnotation != null) {
-
-          Map<String, Object> data = handler.handle(childAnnotation);
-          l.add(data);
-
+        TemplateAnnotation annotation = element.getAnnotation((String) arguments.get(0));
+        if (annotation != null) {
+          return handler.handle(annotation);
         }
-
+        
       }
     }
 
-    return l;
-    
+    return null;
+
   }
-  
+
 }

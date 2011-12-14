@@ -1,5 +1,6 @@
 package org.wikbook.template.freemarker;
 
+import org.wikbook.template.freemarker.caller.AnnotationCallerMethod;
 import org.wikbook.template.freemarker.caller.AttributeCallerMethod;
 import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
 import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
@@ -9,6 +10,7 @@ import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -17,29 +19,15 @@ import java.util.Map;
  */
 public class FreemarkerModelBuilder {
 
-  public Map<String, Object> build(MetaModel model) {
+  public Map<String, Object> build(MetaModel model, TemplateElement element) {
 
+    MemberHandler handler = new MemberHandler(model);
     Map<String, Object> root = new HashMap<String, Object>();
 
-    for (TemplateElement el : model.getElements()) {
+    for (TemplateAnnotation annotation : element.getAnnotations().values()) {
 
-      for (TemplateAnnotation annotation : el.getAnnotations().values()) {
-
-        //
-        Map<String, Object> data = new HashMap<String, Object>();
-        data.put("attribute", new AttributeCallerMethod(annotation.getValues()));
-        data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
-        data.put("children", new ChildrenCallerMethod(annotation.getChildren()));
-        data.put("sibling", new SiblingCallerMethod(annotation.getElement()));
-        data.put("elementName", annotation.getElement().getName());
-        data.put("name", annotation.getName().substring(1));
-        data.put("typeName", annotation.getElement().getTypeName());
-        data.put("isArray", annotation.getElement().isArray().toString());
-
-        //
-        root.put(annotation.getName(), data);
-
-      }
+      Map<String, Object> data = handler.handle(annotation);
+      root.put(annotation.getName(), data);
 
     }
 

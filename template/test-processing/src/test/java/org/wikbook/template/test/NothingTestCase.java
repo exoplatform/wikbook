@@ -16,7 +16,7 @@ public class NothingTestCase extends AbstractProcessorTestCase {
     super.setUp();
   }
 
-  public void testA() throws Exception {
+  /*public void testA() throws Exception {
 
     try {
       buildClass("A");
@@ -26,7 +26,7 @@ public class NothingTestCase extends AbstractProcessorTestCase {
       // no processing done
     }
     
-  }
+  }*/
 
   public void testB() throws Exception {
 
