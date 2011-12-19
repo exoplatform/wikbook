@@ -27,6 +27,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   private Elements elementsUtils;
   private Types typesUtils;
   private String templateName;
+  private String generatedDirectory;
   private String ext;
   private MetaModel metaModel;
 
@@ -55,6 +56,12 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
     //
     templateName = templateName();
     if (templateName == null) {
+      throw new NullPointerException();
+    }
+
+    //
+    generatedDirectory = generatedDirectory();
+    if (generatedDirectory == null) {
       throw new NullPointerException();
     }
 
@@ -97,7 +104,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
       for (TemplateElement el : metaModel.getElements()) {
 
         try {
-          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "generated/" + el.getType().getFullName() + ext, null);
+          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + el.getType().getFullName() + ext, null);
           OutputStream os = file.openOutputStream();
 
           new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);
@@ -126,7 +133,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   private void writeState(MetaModel metaModel) {
 
     try {
-      FileObject servicesfile = filer.createResource(StandardLocation.SOURCE_OUTPUT, "target", "metaModel", null);
+      FileObject servicesfile = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "metaModel", null);
       ObjectOutputStream oos = new ObjectOutputStream(servicesfile.openOutputStream());
       oos.writeObject(metaModel);
       oos.flush();
@@ -140,6 +147,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
   protected abstract Class[] annotations();
   protected abstract String templateName();
+  protected abstract String generatedDirectory();
   protected abstract String ext();
 
 }

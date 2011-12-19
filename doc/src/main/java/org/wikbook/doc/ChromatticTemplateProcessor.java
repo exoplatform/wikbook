@@ -15,21 +15,22 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.wikbook.template.test;
+package org.wikbook.doc;
 
+import org.chromattic.api.annotations.ManyToOne;
+import org.chromattic.api.annotations.MappedBy;
+import org.chromattic.api.annotations.MixinType;
+import org.chromattic.api.annotations.OneToMany;
+import org.chromattic.api.annotations.OneToOne;
+import org.chromattic.api.annotations.Owner;
+import org.chromattic.api.annotations.PrimaryType;
+import org.chromattic.api.annotations.Properties;
+import org.chromattic.api.annotations.Property;
 import org.wikbook.template.processing.AbstractTemplateProcessor;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -37,25 +38,26 @@ import javax.ws.rs.QueryParam;
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
-public class TestTemplateProcessor extends AbstractTemplateProcessor {
+public class ChromatticTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected Class[] annotations() {
     return new Class[] {
-        Path.class,
-        GET.class,
-        POST.class,
-        PUT.class,
-        DELETE.class,
-        PathParam.class,
-        QueryParam.class,
-        Consumes.class
+        PrimaryType.class,
+        MixinType.class,
+        Property.class,
+        Properties.class,
+        MappedBy.class,
+        OneToOne.class,
+        OneToMany.class,
+        ManyToOne.class,
+        Owner.class
     };
   }
 
   @Override
   protected String templateName() {
-    return "test.tmpl";
+    return "chromattic.tmpl";
   }
 
   @Override
@@ -65,7 +67,7 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected String ext() {
-    return "test";
+    return "wiki";
   }
-  
+
 }

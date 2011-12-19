@@ -1,0 +1,344 @@
+= Setup =
+
+== Create your processing module ==
+The documentation generation use annotation processing. Wikbook module only provide an abstract processig : AbstractTemplateProcessor
+In this module you will extend the abstract processor and write your templates.
+
+You need to use wikbook/template/core module :
+{{example title="Maven wikbook dependency"}}
+{{code language=xml}}
+<dependency>
+  <groupId>org.wikbook</groupId>
+  <artifactId>wikbook.template.core</artifactId>
+  <version>0.9.33</version>
+</dependency>
+{{/code}}
+{{/example}}
+
+== Create your processor ==
+Don't freak out, your processor will not be a full processor. All the processing will be done by AbstractTemplateProcessor, you only have to configure it.
+
+The requited values data are :
+* Processed annotations as Class[]
+* Template name as String
+* Output directory as String
+* Generated extension as String (only used for file name)
+
+{{example title="Typical jaxrs processor"}}
+{{code language=java}}{@include org.wikbook.doc.JaxrsTemplateProcessor}{{/code}}
+{{/example}}
+
+{{example title="Typical chromattic processor"}}
+{{code language=java}}{@include org.wikbook.doc.ChromatticTemplateProcessor}{{/code}}
+{{/example}}
+
+== Enable processing with service ==
+To enable your processors as service just create the following file :
+{{example title="META-INF/services/javax.annotation.processing.Processor"}}
+{{code}}
+org.wikbook.doc.JaxrsTemplateProcessor
+org.wikbook.doc.ChromatticTemplateProcessor
+{{/code}}
+{{/example}}
+
+{{important}}You can have only one processor.{{/important}}
+
+== Create your template ==
+Each processor will use a template. A section is dedicated to these templates.
+
+== Package template with classifier ==
+To be able to use the templates during the processing, you have to package yours templates with a classifier (we will use "templates" classifier).
+
+{{example title="Package templates with maven"}}
+{{code language=xml}}
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <executions>
+        <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>jar</goal>
+          </goals>
+          <configuration>
+            <classifier>templates</classifier>
+            <includes>
+              <include>**/templates/*</include>
+            </includes>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+{{/code}}
+{{/example}}
+
+== Generate ! ==
+
+Now you are ready to generate the documentation of existing module. Since you have declared your processors as service, just add it to classpath.
+You need to add some maven configuration to perform some stuff like unpack templates, use it, and package the generated files.
+
+{{example title="Add your processors to the classpath"}}
+{{code language=xml}}
+<dependency>
+  <groupId>my.group.id</groupId>
+  <artifactId>my.artifact.id</artifactId>
+  <scope>compile</scope>
+  <optional>true</optional>
+</dependency>
+
+<dependency>
+  <groupId>my.group.id</groupId>
+  <artifactId>my.artifact.id</artifactId>
+  <classifier>templates</classifier>
+</dependency>
+{{/code}}
+{{/example}}
+
+{{example title="Unpack your templates and use it"}}
+{{code language=xml}}
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <version>2.1</version>
+  <executions>
+    <execution>
+      <id>unpack-templates</id>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>unpack-dependencies</goal>
+      </goals>
+      <configuration>
+        <includeGroupIds>org.exoplatform.social</includeGroupIds>
+        <includeArtifactIds>exo.social.docs.gen</includeArtifactIds>
+        <includeClassifiers>templates</includeClassifiers>
+        <excludes>META-INF/**</excludes>
+        <outputDirectory>${project.build.directory}/templates</outputDirectory>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>2.3.2</version>
+  <executions>
+    <execution>
+      <id>default-compile</id>
+      <goals>
+        <goal>compile</goal>
+      </goals>
+      <phase>compile</phase>
+      <configuration>
+        <compilerArguments>
+          <sourcepath>${project.build.directory}/templates</sourcepath>
+        </compilerArguments>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+{{/code}}
+{{/example}}
+
+{{example title="Package generated files"}}
+{{code language=xml}}
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-jar-plugin</artifactId>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+      <configuration>
+        <classifier>doc-generated</classifier>
+        <includes>
+          <include>**/generated/*</include>
+        </includes>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+{{/code}}
+{{/example}}
+
+= Templates =
+Each type which are annoted by one processed annotation will generate a file.
+When a file is generated the template is applied. In the template you can print and browse the annotation.
+Freemarker is used as template engine, that means you can use all freemarker feature like loop or conditional structure.
+Please have a look to the freemarker documentaton : http://freemarker.sourceforge.net/docs
+
+In the template you can do simple actions like print type name, element name, but you can also do more complex operations like get children, get sibling, get the javadoc and more things.
+
+== Root elements ==
+The root data are the annotation name like "@Path" for jaxrs using. Only the type annotations are considered as root data.
+
+== Annotation name ==
+To print the annotation name you can use "name" property.
+
+{{example}}
+{{code language=java}}
+@Annotation
+class A {}
+{{/code}}
+{{/example}}
+{{example}}
+{{code}}
+Name : ${@Annotation.name} // print "Annotation"
+{{/code}}
+{{/example}}
+
+Actually this time we already know the name, but sometimes it can be useful (when you don't know which annotation you are working on).
+
+== Element name ==
+It's the element's name. It can be the class name, method name, or parameter name which are annoted by the current annotation.
+
+{{example}}
+{{code language=java}}
+@Annotation
+class A {}
+{{/code}}
+{{/example}}
+{{example}}
+{{code}}
+Name : ${@Annotation.elementName} // print "A"
+{{/code}}
+{{/example}}
+
+== Type ==
+The type property have many values and provide a way to get more things about the type. It returns type, parameter type.
+
+{{example}}
+{{code language=java}}
+// ...
+  @Annotation
+  String[] m() { /* ... */ }
+// ...
+{{/code}}
+{{/example}}
+{{example}}
+{{code}}
+Name : ${annotation.type.name} // print "Name : String[]"
+Full name : ${annotation.type.fullName} // print "Full name : java.lang.String[]"
+Is array : ${annotation.type.isArray} // print "Is array : true"
+{{/code}}
+{{/example}}
+
+== Javadoc ==
+The javadoc is accessible with the "doc" property.
+
+=== General Javadoc ===
+{{example}}
+{{code language=java}}
+/**
+ * This is the documentation.
+ * It can use a lot on line
+ * because wikbook will remove these lines.
+ */
+@Annotation
+class A {}
+{{/code}}
+{{/example}}
+{{example}}
+{{code}}
+Documentation : ${@Annotation.doc()} // print "Documentation : This is the documentation. It can use a lot on line because wikbook will remove these lines."
+{{/code}}
+{{/example}}
+
+{{important}}Don't forget "()", actually doc isn't a variable, it's a method.{{/important}}
+
+=== Javadoc with one key ===
+You can get a specific documentation part like "author" in this way :
+
+{{example}}
+{{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @author foo
+ */
+@Annotation
+class A {}
+{{/code}}
+{{/example}}
+{{example}}
+{{code}}
+Documentation : ${@Annotation.doc()} // print "Documentation : This is the documentation."
+Author : ${@Annotation.doc("author")} // print "Author : foo"
+{{/code}}
+{{/example}}
+
+=== Javadoc with many keys ===
+
+Sometimes the documentation can have many times the same key. You can either iterate on each key, or ask wikbook to display all items
+
+{{example}}
+{{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @author foo
+ * @author bar
+ */
+@Annotation
+class A {}
+{{/code}}
+{{/example}}
+
+
+{{example title="Use 'flat' prefix to display all values separated by coma"}}
+{{code}}
+Documentation : ${@Annotation.doc()} // print "Documentation : This is the documentation."
+Authors : ${@Annotation.doc("flat:author")} // print "Authors : foo, bar"
+{{/code}}
+{{/example}}
+
+{{example title="Use 'list' prefix to make iteration possible"}}
+{{code}}
+<#list @Annotation.doc("list:author") as author>
+Author : ${author}
+</#list>
+
+// print both lines :
+// Author : foo
+// Author : bar
+{{/code}}
+{{/example}}
+
+=== Get documentation as block ===
+
+You could need to keep the documentation as it. For exemple you could wish to store some exemple without remove formatting.
+
+{{example}}
+{{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @exemple
+ * class A {
+ *   // Here there is the code
+ * }
+ }
+ */
+@Annotation
+class A {}
+{{/code}}
+{{/example}}
+
+
+{{example title="Use 'flat' prefix to display all values separated by coma"}}
+{{code}}
+Code :
+${@Annotation.doc("bloc:exemple")}
+
+// will print this :
+class A {
+  // Here there is the code
+}
+{{/code}}
+{{/example}}

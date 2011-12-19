@@ -15,7 +15,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-package org.wikbook.template.test;
+package org.wikbook.doc;
 
 import org.wikbook.template.processing.AbstractTemplateProcessor;
 
@@ -37,7 +37,7 @@ import javax.ws.rs.QueryParam;
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
-public class TestTemplateProcessor extends AbstractTemplateProcessor {
+public class JaxrsTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected Class[] annotations() {
@@ -55,7 +55,7 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected String templateName() {
-    return "test.tmpl";
+    return "jaxrs.tmpl";
   }
 
   @Override
@@ -65,7 +65,7 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected String ext() {
-    return "test";
+    return "wiki";
   }
-  
+
 }
