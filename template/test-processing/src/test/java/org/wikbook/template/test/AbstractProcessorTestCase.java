@@ -49,7 +49,7 @@ public abstract class AbstractProcessorTestCase extends TestCase {
 
 
     List<File> files = new ArrayList<File>();
-    URL url = Thread.currentThread().getContextClassLoader().getResource(name + ".java");
+    URL url = Thread.currentThread().getContextClassLoader().getResource("model/" + name + ".java");
     try {
       files.add(new File(url.toURI()));
     }

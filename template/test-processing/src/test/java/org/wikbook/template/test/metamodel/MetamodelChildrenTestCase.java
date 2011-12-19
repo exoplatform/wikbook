@@ -59,8 +59,8 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
   public void testJavadocGeneralComment() throws Exception {
 
     MetaModel metaModel = buildClass("D");
-    assertEquals("[[General comment.]]", metaModel.getElements().get(0).getElement().get(0).getAnnotation("@POST").getJavadoc().get(null).toString());
-    assertEquals("[[General comment.]]", metaModel.getElements().get(0).getElement().get(0).getAnnotation("@Path").getJavadoc().get(null).toString());
+    assertEquals("[[ General comment.]]", metaModel.getElements().get(0).getElement().get(0).getAnnotation("@POST").getJavadoc().get(null).toString());
+    assertEquals("[[ General comment.]]", metaModel.getElements().get(0).getElement().get(0).getAnnotation("@Path").getJavadoc().get(null).toString());
 
   }
 

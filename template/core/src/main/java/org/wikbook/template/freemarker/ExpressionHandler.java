@@ -109,7 +109,10 @@ public class ExpressionHandler {
         StringBuffer sb = new StringBuffer();
         for (String v : lv) {
           if (output.equals(Output.BLOC)) {
-            sb.append(v + "\n");
+            if (sb.length() > 0) {
+              sb.append("\n");
+            }
+            sb.append(v);
           }
           else {
             sb.append(v);
@@ -134,7 +137,7 @@ public class ExpressionHandler {
           return new CollectionModel(c, new DefaultObjectWrapper());
 
         case NOEXPR:
-          return new SimpleScalar(asString(c));
+          return new SimpleScalar(asString(c).trim());
 
       }
 

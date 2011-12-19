@@ -17,8 +17,12 @@
 
 package org.wikbook.template.test.metamodel;
 
+import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.test.AbstractProcessorTestCase;
+
+import java.util.Arrays;
+import java.util.Map;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -49,6 +53,15 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
 
   }
 
+  public void testTypeName() throws Exception {
+
+    MetaModel metaModel = buildClass("B");
+    assertEquals("B", metaModel.getElements().get(0).getAnnotation("@Path").getElement().getType().getName());
+    assertEquals("model.B", metaModel.getElements().get(0).getAnnotation("@Path").getElement().getType().getFullName());
+    assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getAnnotation("@Path").getElement().getType().isArray());
+
+  }
+
   public void testElementName() throws Exception {
 
     MetaModel metaModel = buildClass("B");
@@ -66,7 +79,7 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
   public void testJavadocGeneralComment() throws Exception {
 
     MetaModel metaModel = buildClass("C");
-    assertEquals("[[General comment.]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get(null).toString());
+    assertEquals("[[ General comment.]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get(null).toString());
 
   }
 
@@ -88,6 +101,14 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("C");
     assertEquals("[[deprecated]]", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("deprecated").toString());
+
+  }
+  public void testJavadocBloc() throws Exception {
+
+    MetaModel metaModel = buildClass("C");
+    assertEquals(" here there is", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("data").get(0).get(0));
+    assertEquals("   a", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("data").get(0).get(1));
+    assertEquals(" bloc", metaModel.getElements().get(0).getAnnotation("@Path").getJavadoc().get("data").get(0).get(2));
 
   }
   

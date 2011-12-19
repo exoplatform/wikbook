@@ -180,17 +180,19 @@ The root data are the annotation name like "@Path" for jaxrs using. Only the typ
 
 == Annotation name ==
 To print the annotation name you can use "name" property.
-
-{{example}}
-{{code language=java}}
+{{example title="Simple annotation name"}}
+|Code|((({{code language=java}}
 @Annotation
 class A {}
-{{/code}}
-{{/example}}
-{{example}}
+{{/code}})))
+|Template|(((
 {{code}}
-Name : ${@Annotation.name} // print "Annotation"
-{{/code}}
+Name : ${@Annotation.name}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : Annotation
+{{/code}})))
 {{/example}}
 
 Actually this time we already know the name, but sometimes it can be useful (when you don't know which annotation you are working on).
@@ -198,65 +200,192 @@ Actually this time we already know the name, but sometimes it can be useful (whe
 == Element name ==
 It's the element's name. It can be the class name, method name, or parameter name which are annoted by the current annotation.
 
-{{example}}
-{{code language=java}}
+{{example title="Class element name"}}
+|Code|((({{code language=java}}
 @Annotation
 class A {}
-{{/code}}
-{{/example}}
-{{example}}
+{{/code}})))
+|Template|(((
 {{code}}
-Name : ${@Annotation.elementName} // print "A"
-{{/code}}
+Name : ${@Annotation.elementName}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : A
+{{/code}})))
+{{/example}}
+
+{{example title="Method element name"}}
+|Code|((({{code language=java}}
+// ...
+  @Annotation
+  String m() { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.elementName}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : m
+// ...
+{{/code}})))
+{{/example}}
+
+{{example title="Parameter element name"}}
+|Code|((({{code language=java}}
+// ...
+  String m(@Annotation String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.elementName}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : p
+// ...
+{{/code}})))
 {{/example}}
 
 == Type ==
 The type property have many values and provide a way to get more things about the type. It returns type, parameter type.
 
-{{example}}
-{{code language=java}}
+{{example title="Class type values"}}
+|Code|((({{code language=java}}
+package p;
+
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Name : ${@Annotation.type.name}
+Full name : ${@Annotation.type.fullName}
+Is array : ${@Annotation.type.isArray}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : A
+Full name : p.A
+Is array : false
+{{/code}})))
+{{/example}}
+
+{{example title="Method type values"}}
+|Code|((({{code language=java}}
 // ...
   @Annotation
   String[] m() { /* ... */ }
 // ...
-{{/code}}
-{{/example}}
-{{example}}
+{{/code}})))
+|Template|(((
 {{code}}
-Name : ${annotation.type.name} // print "Name : String[]"
-Full name : ${annotation.type.fullName} // print "Full name : java.lang.String[]"
-Is array : ${annotation.type.isArray} // print "Is array : true"
-{{/code}}
+// ...
+Name : ${a.type.name}
+Full name : ${a.type.fullName}
+Is array : ${a.type.isArray}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : String[]
+Full name : java.lang.String[]
+Is array : true
+// ...
+{{/code}})))
+{{/example}}
+
+{{example title="Parameter type values"}}
+|Code|((({{code language=java}}
+// ...
+  Integer[] m(@Annotation String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.type.name}
+Full name : ${a.type.fullName}
+Is array : ${a.type.isArray}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : String
+Full name : java.lang.String
+Is array : false
+// ...
+{{/code}})))
 {{/example}}
 
 == Javadoc ==
 The javadoc is accessible with the "doc" property.
 
 === General Javadoc ===
-{{example}}
-{{code language=java}}
+
+{{example title="Class or method general documentation"}}
+|Code|((({{code language=java}}
 /**
- * This is the documentation.
- * It can use a lot on line
- * because wikbook will remove these lines.
+ * This is
+ * the documentation.
  */
 @Annotation
 class A {}
-{{/code}}
-{{/example}}
-{{example}}
+{{/code}})))
+|Template|(((
 {{code}}
-Documentation : ${@Annotation.doc()} // print "Documentation : This is the documentation. It can use a lot on line because wikbook will remove these lines."
-{{/code}}
+Documentation : ${@Annotation.doc()}
+{{/code}})))
+|Output|(((
+{{code}}
+Documentation : This is the documentation.
+{{/code}})))
 {{/example}}
 
-{{important}}Don't forget "()", actually doc isn't a variable, it's a method.{{/important}}
+You can use doc() for class or method documentation.
+You can also get the javadoc from a parameter. In this case you have only default javadoc which are corresponding do the parameter's javadoc
+
+{{example title="Parameter documentation"}}
+|Code|((({{code language=java}}
+// ...
+  /**
+   * General method documentation.
+   * 
+   * @param p The parameter documentation
+   */
+  Integer m(@Annotation String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Documentation : ${a.doc()}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Documentation : The parameter documentation
+// ...
+{{/code}})))
+{{/example}}
 
 === Javadoc with one key ===
 You can get a specific documentation part like "author" in this way :
 
-{{example}}
-{{code language=java}}
+{{example title="Get the author"}}
+|Code|((({{code language=java}}
 /**
  * This is the documentation.
  *
@@ -264,21 +393,25 @@ You can get a specific documentation part like "author" in this way :
  */
 @Annotation
 class A {}
-{{/code}}
-{{/example}}
-{{example}}
+{{/code}})))
+|Template|(((
 {{code}}
-Documentation : ${@Annotation.doc()} // print "Documentation : This is the documentation."
-Author : ${@Annotation.doc("author")} // print "Author : foo"
-{{/code}}
+Documentation : ${@Annotation.doc()}
+Author : ${@Annotation.doc("author")}
+{{/code}})))
+|Output|(((
+{{code}}
+Documentation : This is the documentation.
+Author : foo
+{{/code}})))
 {{/example}}
 
 === Javadoc with many keys ===
 
-Sometimes the documentation can have many times the same key. You can either iterate on each key, or ask wikbook to display all items
+Sometimes the documentation can have many times the same key. You can either iterate on each key, or ask wikbook to display all items.
 
-{{example}}
-{{code language=java}}
+{{example title="Use 'flat' prefix to display all values separated by coma"}}
+|Code|((({{code language=java}}
 /**
  * This is the documentation.
  *
@@ -287,35 +420,49 @@ Sometimes the documentation can have many times the same key. You can either ite
  */
 @Annotation
 class A {}
-{{/code}}
-{{/example}}
-
-
-{{example title="Use 'flat' prefix to display all values separated by coma"}}
+{{/code}})))
+|Template|(((
 {{code}}
-Documentation : ${@Annotation.doc()} // print "Documentation : This is the documentation."
-Authors : ${@Annotation.doc("flat:author")} // print "Authors : foo, bar"
-{{/code}}
+Documentation : ${@Annotation.doc()}
+Authors : ${@Annotation.doc("flat:author")}
+{{/code}})))
+|Output|(((
+{{code}}
+Documentation : This is the documentation.
+Authors : foo, bar
+{{/code}})))
 {{/example}}
 
 {{example title="Use 'list' prefix to make iteration possible"}}
+|Code|((({{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @author foo
+ * @author bar
+ */
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
 {{code}}
 <#list @Annotation.doc("list:author") as author>
 Author : ${author}
 </#list>
-
-// print both lines :
-// Author : foo
-// Author : bar
-{{/code}}
+{{/code}})))
+|Output|(((
+{{code}}
+Author : foo
+Author : bar
+{{/code}})))
 {{/example}}
 
 === Get documentation as block ===
 
 You could need to keep the documentation as it. For exemple you could wish to store some exemple without remove formatting.
 
-{{example}}
-{{code language=java}}
+{{example title="Use 'block' prefix to keep formatting"}}
+|Code|((({{code language=java}}
 /**
  * This is the documentation.
  *
@@ -327,18 +474,17 @@ You could need to keep the documentation as it. For exemple you could wish to st
  */
 @Annotation
 class A {}
-{{/code}}
-{{/example}}
-
-
-{{example title="Use 'flat' prefix to display all values separated by coma"}}
+{{/code}})))
+|Template|(((
 {{code}}
 Code :
 ${@Annotation.doc("bloc:exemple")}
-
-// will print this :
+{{/code}})))
+|Output|(((
+{{code}}
+Code :
 class A {
   // Here there is the code
 }
-{{/code}}
+{{/code}})))
 {{/example}}

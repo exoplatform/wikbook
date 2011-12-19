@@ -1,3 +1,5 @@
+package model;
+
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -18,7 +20,7 @@ public class E {
   void m(
       @Context UriInfo uriInfo,
       @PathParam("pathParameter") String pathParameter,
-      @QueryParam("queryParameter") String queryParameter,
+      @QueryParam("queryParameter") String[] queryParameter,
       String nothing) {}
 
 }

@@ -72,10 +72,8 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
   public List<TemplateElement> visitVariable(VariableElement variableElement, ModelContext ctx) {
 
-
-    Boolean isArray = TypeKind.ARRAY.equals(variableElement.getKind());
-
-    TemplateType type = new TemplateType(variableElement.getSimpleName().toString(), isArray);
+    TypeMirror paramType = variableElement.asType();
+    TemplateType type = buildTemplateType(paramType, ctx);
     TemplateElement paramElement = new TemplateElement(variableElement.getSimpleName().toString(), type);
     TemplateElement methodElement = ctx.getExecutableElement();
 
@@ -101,20 +99,8 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
   public List<TemplateElement> visitExecutable(ExecutableElement executableElement, ModelContext ctx) {
 
     TypeMirror returnType = executableElement.getReturnType();
-    TypeElement returnElement = (TypeElement) ctx.getTypesUtils().asElement(returnType);
-
+    TemplateType type = buildTemplateType(returnType, ctx);
     String executableName = executableElement.getSimpleName().toString();
-    String returnName = returnElement == null ? "" : returnElement.getSimpleName().toString();
-    String returnFullName = returnElement == null ? "" : returnElement.getQualifiedName().toString();
-    Boolean isArray = TypeKind.ARRAY.equals(returnType.getKind());
-    if (isArray) {
-      returnFullName = returnType.toString();
-      int lastDot = returnType.toString().lastIndexOf(".");
-      returnName = returnType.toString().substring(lastDot + 1);
-    }
-
-
-    TemplateType type = new TemplateType(returnName, returnFullName, isArray);
     TemplateElement methodElement = new TemplateElement(executableName, type);
     TemplateElement typeElement = ctx.getTypeElement();
 
@@ -175,6 +161,9 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
       tel.getJavadoc(null).add(new ArrayList<String>(l));
     }
     else {
+      if (l.size() == 0) {
+        l.add(name.substring(1));
+      }
       tel.getJavadoc(name.substring(1)).add(new ArrayList<String>(l));
     }
 
@@ -193,7 +182,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     String currentName = null;
     List<String> l = new ArrayList<String>();
     while (sc.hasNextLine()) {
-      String line = sc.nextLine().trim();
+      String line = cleanLeft(sc.nextLine());
       if (line.startsWith("@")) {
         doc(tel, currentName, l);
         int delimiterPos = line.indexOf(" ");
@@ -203,7 +192,6 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
         }
         else {
           currentName = line;
-          l.add(line.substring(1));
         }
       }
       else {
@@ -230,6 +218,44 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
         }
       }
     }
+
+  }
+
+  private TemplateType buildTemplateType(TypeMirror typeMirror, ModelContext ctx) {
+
+    TypeElement returnTypeElement = (TypeElement) ctx.getTypesUtils().asElement(typeMirror);
+    String returnName = returnTypeElement == null ? "" : returnTypeElement.getSimpleName().toString();
+    String returnFullName = returnTypeElement == null ? "" : returnTypeElement.getQualifiedName().toString();
+    
+    Boolean isArray = TypeKind.ARRAY.equals(typeMirror.getKind());
+    if (isArray) {
+      returnFullName = typeMirror.toString();
+      int lastDot = typeMirror.toString().lastIndexOf(".");
+      returnName = typeMirror.toString().substring(lastDot + 1);
+    }
+
+    return new TemplateType(returnName, returnFullName, isArray);
+
+  }
+
+  private String cleanLeft(String newJavadocEntry) {
+    
+    for (int i = 0; i < newJavadocEntry.length(); ++i) {
+
+      switch (newJavadocEntry.charAt(i)) {
+        case ' ':
+          continue;
+
+        case '@':
+          return newJavadocEntry.substring(i);
+
+        default:
+          return newJavadocEntry;
+      }
+
+    }
+
+    return "";
 
   }
 

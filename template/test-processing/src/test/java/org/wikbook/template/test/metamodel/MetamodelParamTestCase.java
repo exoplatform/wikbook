@@ -59,4 +59,24 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
   }
 
+  public void testTypeName() throws Exception {
+
+    MetaModel metaModel = buildClass("E");
+
+    assertEquals("String", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getType().getName());
+    assertEquals("java.lang.String", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getType().getFullName());
+    assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getType().isArray());
+
+  }
+
+  public void testArrayTypeName() throws Exception {
+
+    MetaModel metaModel = buildClass("E");
+
+    assertEquals("String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getType().getName());
+    assertEquals("java.lang.String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getType().getFullName());
+    assertEquals(Boolean.TRUE, metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getType().isArray());
+
+  }
+
 }

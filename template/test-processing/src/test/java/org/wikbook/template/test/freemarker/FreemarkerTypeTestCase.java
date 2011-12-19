@@ -82,6 +82,15 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
 
   }
 
+  public void testTypeName() throws Exception {
+
+    Map<String, Object> data = buildModel("B");
+    assertEquals("B", ((Map<String, Map<String, String>>) data.get("@Consumes")).get("type").get("name"));
+    assertEquals("model.B", ((Map<String, Map<String, String>>) data.get("@Consumes")).get("type").get("fullName"));
+    assertEquals("false", ((Map<String, Map<String, String>>) data.get("@Consumes")).get("type").get("isArray"));
+
+  }
+
   public void testElementName() throws Exception {
 
     Map<String, Object> data = buildModel("B");
@@ -197,6 +206,18 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
     Map<String, Object> data = buildModel("C");
     JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
     assertEquals("", docCaller.exec(Arrays.asList("flat:foo")).toString());
+
+  }
+
+  public void testJavadocBloc() throws Exception {
+
+    Map<String, Object> data = buildModel("C");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    assertEquals(
+        " here there is\n" +
+        "   a\n" +
+        " bloc",
+        docCaller.exec(Arrays.asList("bloc:data")).toString());
 
   }
   
