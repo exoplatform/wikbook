@@ -488,3 +488,60 @@ class A {
 }
 {{/code}})))
 {{/example}}
+
+== Browse children ==
+
+Each annotation allow to get children annotations. You just need to provide what annotation you are looking for and iterate.
+You can also set many param to look for many annotations in the same browsing.
+
+{{example title="Browse"}}
+|Code|((({{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @exemple
+ * class A {
+ *   // Here there is the code
+ * }
+ }
+ */
+@Annotation
+class A {
+
+  @A
+  void m() {}
+
+  @B
+  void m2() {}
+  
+  @A
+  void m3() {}
+}
+{{/code}})))
+|Template|(((
+{{code}}
+Annoted by @A :
+<#list @Annotation.children("@A") as a>
+Method : ${a.elementName}
+</#list>
+
+Annoted by @A or @B :
+<#list @Annotation.children("@A", "@B") as ab>
+Method : ${ab.elementName} (${ab.name})
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Annoted by @A:
+Method : m
+Method : m3
+
+Annoted by @A or @B :
+Method : m (A)
+Method : m2 (B)
+Method : m3 (A)
+{{/code}})))
+{{/example}}
+
+== Get sibling ==
+== Get attributes ==

@@ -35,6 +35,7 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
   private List<Map<String, Object>> posts;
   private List<Map<String, Object>> paths;
   private List<Map<String, Object>> gets;
+  private List<Map<String, Object>> postsgets;
 
   @Override
   public void setUp() throws Exception {
@@ -48,6 +49,7 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
     posts = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@POST"));
     gets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@GET"));
     paths = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@Path"));
+    postsgets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@POST", "@GET"));
 
   }
 
@@ -63,7 +65,7 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
   }
 
-  public void testElementName() throws Exception {
+  public void testOneTypeElementName() throws Exception {
 
     assertEquals("m", posts.get(0).get("elementName"));
     assertEquals("m3", posts.get(1).get("elementName"));
@@ -76,7 +78,7 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
   }
 
-  public void testAnnotationName() throws Exception {
+  public void testOneTypeAnnotationName() throws Exception {
 
     assertEquals("POST", posts.get(0).get("name"));
     assertEquals("POST", posts.get(1).get("name"));
@@ -86,6 +88,22 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
     assertEquals("Path", paths.get(0).get("name"));
     assertEquals("Path", paths.get(1).get("name"));
     assertEquals("Path", paths.get(2).get("name"));
+
+  }
+
+  public void testManyTypeElementName() throws Exception {
+
+    assertEquals("m", postsgets.get(0).get("elementName"));
+    assertEquals("m2", postsgets.get(1).get("elementName"));
+    assertEquals("m3", postsgets.get(2).get("elementName"));
+
+  }
+
+  public void testManyTypeAnnotationName() throws Exception {
+
+    assertEquals("POST", postsgets.get(0).get("name"));
+    assertEquals("GET", postsgets.get(1).get("name"));
+    assertEquals("POST", postsgets.get(2).get("name"));
 
   }
   
