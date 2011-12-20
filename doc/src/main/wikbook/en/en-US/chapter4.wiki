@@ -494,17 +494,8 @@ class A {
 Each annotation allow to get children annotations. You just need to provide what annotation you are looking for and iterate.
 You can also set many param to look for many annotations in the same browsing.
 
-{{example title="Browse"}}
+{{example title="Browse children"}}
 |Code|((({{code language=java}}
-/**
- * This is the documentation.
- *
- * @exemple
- * class A {
- *   // Here there is the code
- * }
- }
- */
 @Annotation
 class A {
 
@@ -516,6 +507,7 @@ class A {
   
   @A
   void m3() {}
+  
 }
 {{/code}})))
 |Template|(((
@@ -544,4 +536,33 @@ Method : m3 (A)
 {{/example}}
 
 == Get sibling ==
+
+Each annotation can reach a sibling annotations.
+
+{{example title="Get sibiling"}}
+|Code|((({{code language=java}}
+// ...
+  @A
+  @B
+  void m() {}
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.name}
+Sibling @B : ${a.sibling("@B").name}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : A
+Sibling @B : B
+// ...
+{{/code}})))
+{{/example}}
+
+After got sibling annotation you can reach the attribute then (see next section)
+
 == Get attributes ==

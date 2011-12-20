@@ -46,6 +46,9 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
   private SiblingCallerMethod postSiblingCaller;
   private SiblingCallerMethod pathSiblingCaller;
 
+  private Map<String, Object> siblingPosts;
+  private Map<String, Object> siblingPaths;
+
   @Override
   public void setUp() throws Exception {
 
@@ -64,6 +67,9 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
     postSiblingCaller = (SiblingCallerMethod) posts.get(0).get("sibling");
     pathSiblingCaller = (SiblingCallerMethod) paths.get(0).get("sibling");
+
+    siblingPaths = (Map<String, Object>) postSiblingCaller.exec(Arrays.asList("@Path"));
+    siblingPosts = (Map<String, Object>) postSiblingCaller.exec(Arrays.asList("@POST"));
 
   }
 
@@ -256,11 +262,88 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
   }
 
-  /*public void testSibling() throws Exception {
+  public void testSiblingName() throws Exception {
 
-    assertEquals(paths.get(0), postSiblingCaller.exec(Arrays.asList("@Path")));
-    assertEquals(posts.get(0), pathSiblingCaller.exec(Arrays.asList("@POST")));
+    assertEquals(paths.get(0).get("name"), siblingPaths.get("name"));
+    assertEquals(posts.get(0).get("name"), siblingPosts.get("name"));
 
-  }*/
+  }
+
+  public void testSiblingElementName() throws Exception {
+
+    assertEquals(paths.get(0).get("elementName"), siblingPaths.get("elementName"));
+    assertEquals(posts.get(0).get("elementName"), siblingPosts.get("elementName"));
+
+  }
+
+  public void testSiblingTypeName() throws Exception {
+
+    assertEquals(paths.get(0).get("typeName"), siblingPaths.get("typeName"));
+    assertEquals(posts.get(0).get("typeName"), siblingPosts.get("typeName"));
+
+  }
+
+  public void testSiblingTypeFullName() throws Exception {
+
+    assertEquals(paths.get(0).get("fullName"), siblingPaths.get("fullName"));
+    assertEquals(posts.get(0).get("fullName"), siblingPosts.get("fullName"));
+
+  }
+
+  public void testSiblingTypeIsArray() throws Exception {
+
+    assertEquals(paths.get(0).get("isArray"), siblingPaths.get("isArray"));
+    assertEquals(posts.get(0).get("isArray"), siblingPosts.get("isArray"));
+
+  }
+
+  public void testSiblingDoc() throws Exception {
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("since")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("since")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("since")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("since")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("author")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("author")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("author")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("author")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("deprecated")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("deprecated")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("deprecated")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("deprecated")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("foo")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("foo")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("foo")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("foo")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("list:since")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("list:since")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("list:since")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("list:since")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("list:author")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("list:author")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("list:author")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("list:author")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("list:deprecated")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("list:deprecated")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("list:deprecated")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("list:deprecated")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("list:foo")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("list:foo")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("list:foo")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("list:foo")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("flat:since")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("flat:since")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("flat:since")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("flat:since")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("flat:author")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("flat:author")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("flat:author")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("flat:author")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("flat:deprecated")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("flat:deprecated")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("flat:deprecated")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("flat:deprecated")).toString());
+
+    assertEquals(pathDocCaller.exec(Arrays.asList("flat:foo")).toString(), ((JavadocCallerMethod) siblingPaths.get("doc")).exec(Arrays.asList("flat:foo")).toString());
+    assertEquals(postDocCaller.exec(Arrays.asList("flat:foo")).toString(), ((JavadocCallerMethod) siblingPosts.get("doc")).exec(Arrays.asList("flat:foo")).toString());
+
+  }
+
+  public void testSiblingAttribute() throws Exception {
+
+    assertEquals(
+        ((AttributeCallerMethod) paths.get(0).get("attribute")).exec(Arrays.asList("value")).toString(),
+        ((AttributeCallerMethod) siblingPaths.get("attribute")).exec(Arrays.asList("value")).toString()
+    );
+
+  }
   
 }
