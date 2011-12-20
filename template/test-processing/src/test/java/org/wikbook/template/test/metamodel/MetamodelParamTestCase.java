@@ -36,8 +36,8 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
   public void testExists() throws Exception {
 
     MetaModel metaModel = buildClass("E");
-    assertEquals("@PathParam", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getName());
-    assertEquals("@QueryParam", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getName());
+    assertEquals("@AnnotationA", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getName());
+    assertEquals("@AnnotationA2", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getName());
 
   }
 
@@ -45,8 +45,8 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("E");
 
-    assertEquals("pathParameter", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getName());
-    assertEquals("queryParameter", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getName());
+    assertEquals("p1", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getName());
+    assertEquals("p2", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getName());
 
   }
 
@@ -54,8 +54,8 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("E");
 
-    assertEquals("[[Path parameter description]]", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getJavadoc(null).toString());
-    assertEquals("[[Query parameter description]]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getJavadoc(null).toString());
+    assertEquals("[[P1 parameter description]]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getJavadoc(null).toString());
+    assertEquals("[[P2 parameter description]]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getJavadoc(null).toString());
 
   }
 
@@ -63,9 +63,9 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("E");
 
-    assertEquals("String", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getType().getName());
-    assertEquals("java.lang.String", metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getType().getFullName());
-    assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getElement().get(0).getElement().get(0).getAnnotation("@PathParam").getElement().getType().isArray());
+    assertEquals("String", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getName());
+    assertEquals("java.lang.String", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getFullName());
+    assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().isArray());
 
   }
 
@@ -73,9 +73,9 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("E");
 
-    assertEquals("String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getType().getName());
-    assertEquals("java.lang.String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getType().getFullName());
-    assertEquals(Boolean.TRUE, metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@QueryParam").getElement().getType().isArray());
+    assertEquals("String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getName());
+    assertEquals("java.lang.String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFullName());
+    assertEquals(Boolean.TRUE, metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().isArray());
 
   }
 

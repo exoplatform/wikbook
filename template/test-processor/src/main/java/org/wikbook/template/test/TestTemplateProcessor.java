@@ -17,6 +17,11 @@
 
 package org.wikbook.template.test;
 
+import org.wikbook.template.api.AnnotationA;
+import org.wikbook.template.api.AnnotationA2;
+import org.wikbook.template.api.AnnotationB;
+import org.wikbook.template.api.AnnotationC;
+import org.wikbook.template.api.AnnotationD;
 import org.wikbook.template.processing.AbstractTemplateProcessor;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
@@ -42,14 +47,11 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
   @Override
   protected Class[] annotations() {
     return new Class[] {
-        Path.class,
-        GET.class,
-        POST.class,
-        PUT.class,
-        DELETE.class,
-        PathParam.class,
-        QueryParam.class,
-        Consumes.class
+        AnnotationA.class,
+        AnnotationA2.class,
+        AnnotationB.class,
+        AnnotationC.class,
+        AnnotationD.class
     };
   }
 

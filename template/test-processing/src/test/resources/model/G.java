@@ -1,16 +1,13 @@
 package model;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import org.wikbook.template.api.AnnotationA;
+import org.wikbook.template.api.AnnotationC;
 
-@Path("g")
+@AnnotationA("g")
 public class G {
 
-  @GET
-  @Path("foo")
-  Response[] m2() { return null; }
+  @AnnotationC
+  @AnnotationA("foo")
+  String[] m2() { return null; }
 
 }

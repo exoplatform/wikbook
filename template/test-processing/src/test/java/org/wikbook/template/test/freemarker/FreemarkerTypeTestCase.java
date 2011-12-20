@@ -45,15 +45,15 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
     Map<String, Object> data = buildModel("B");
     assertEquals(2, data.size());
     Iterator i = data.keySet().iterator();
-    assertEquals("@Path", i.next());
-    assertEquals("@Consumes", i.next());
+    assertEquals("@AnnotationB", i.next());
+    assertEquals("@AnnotationA", i.next());
 
   }
 
   public void testAnnotationSimpleValues() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Path")).get("attribute");
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("attribute");
     assertEquals("b", attributeCaller.exec(Arrays.asList("value")).toString());
 
   }
@@ -61,54 +61,54 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testAnnotationMultipleValues() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Consumes")).get("attribute");
-    assertEquals("[a/b, c/d]", attributeCaller.exec(Arrays.asList("value")).toString());
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@AnnotationB")).get("attribute");
+    assertEquals("[a, b]", attributeCaller.exec(Arrays.asList("value")).toString());
 
   }
 
   public void testAnnotationMultipleListValues() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Consumes")).get("attribute");
-    assertEquals("[a/b, c/d]", attributeCaller.exec(Arrays.asList("list:value")).toString());
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@AnnotationB")).get("attribute");
+    assertEquals("[a, b]", attributeCaller.exec(Arrays.asList("list:value")).toString());
 
   }
 
   public void testAnnotationMultipleFlatValues() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@Consumes")).get("attribute");
-    assertEquals("a/b, c/d", attributeCaller.exec(Arrays.asList("flat:value")).toString());
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@AnnotationB")).get("attribute");
+    assertEquals("a, b", attributeCaller.exec(Arrays.asList("flat:value")).toString());
 
   }
 
   public void testTypeName() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    assertEquals("B", ((Map<String, Map<String, String>>) data.get("@Consumes")).get("type").get("name"));
-    assertEquals("model.B", ((Map<String, Map<String, String>>) data.get("@Consumes")).get("type").get("fullName"));
-    assertEquals("false", ((Map<String, Map<String, String>>) data.get("@Consumes")).get("type").get("isArray"));
+    assertEquals("B", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("name"));
+    assertEquals("model.B", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("fullName"));
+    assertEquals("false", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("isArray"));
 
   }
 
   public void testElementName() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    assertEquals("B", ((Map<String, String>) data.get("@Path")).get("elementName"));
+    assertEquals("B", ((Map<String, String>) data.get("@AnnotationA")).get("elementName"));
 
   }
 
   public void testAnnotationName() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    assertEquals("Path", ((Map<String, String>) data.get("@Path")).get("name"));
+    assertEquals("AnnotationA", ((Map<String, String>) data.get("@AnnotationA")).get("name"));
 
   }
 
   public void testJavadocGeneralComment() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("General comment.", docCaller.exec(new ArrayList()).toString());
 
   }
@@ -116,7 +116,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocSingleValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[1.0]", docCaller.exec(Arrays.asList("since")).toString());
 
   }
@@ -124,7 +124,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocMultipleValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[foo, bar]", docCaller.exec(Arrays.asList("author")).toString());
 
   }
@@ -132,7 +132,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocNoValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[deprecated]", docCaller.exec(Arrays.asList("deprecated")).toString());
 
   }
@@ -140,7 +140,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocDoesntExist() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("", docCaller.exec(Arrays.asList("foo")).toString());
 
   }
@@ -148,7 +148,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocSingleListValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[1.0]", docCaller.exec(Arrays.asList("list:since")).toString());
 
   }
@@ -156,7 +156,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocMultipleListValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[foo, bar]", docCaller.exec(Arrays.asList("list:author")).toString());
 
   }
@@ -164,7 +164,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocListNoValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[deprecated]", docCaller.exec(Arrays.asList("list:deprecated")).toString());
 
   }
@@ -172,7 +172,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocListDoesntExist() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("[]", docCaller.exec(Arrays.asList("list:foo")).toString());
 
   }
@@ -180,7 +180,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocSingleFlatValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("1.0", docCaller.exec(Arrays.asList("flat:since")).toString());
 
   }
@@ -188,7 +188,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocMultipleFlatValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("foo, bar", docCaller.exec(Arrays.asList("flat:author")).toString());
 
   }
@@ -196,7 +196,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocFlatNoValue() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("deprecated", docCaller.exec(Arrays.asList("flat:deprecated")).toString());
 
   }
@@ -204,7 +204,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocFlatDoesntExist() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals("", docCaller.exec(Arrays.asList("flat:foo")).toString());
 
   }
@@ -212,7 +212,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testJavadocBloc() throws Exception {
 
     Map<String, Object> data = buildModel("C");
-    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@Path")).get("doc");
+    JavadocCallerMethod docCaller = (JavadocCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("doc");
     assertEquals(
         " here there is\n" +
         "   a\n" +

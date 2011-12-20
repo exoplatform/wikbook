@@ -1,6 +1,6 @@
 package model;
 
-import javax.ws.rs.Path;
+import org.wikbook.template.api.AnnotationA;
 
 /**
  * General comment.
@@ -13,5 +13,5 @@ import javax.ws.rs.Path;
  * @since 1.0
  * @deprecated
  */
-@Path("b")
+@AnnotationA("b")
 public class C {}

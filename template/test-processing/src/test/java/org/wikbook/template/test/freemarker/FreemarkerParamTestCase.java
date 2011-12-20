@@ -49,12 +49,12 @@ public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
 
     Map<String, Object> data = buildModel("E");
 
-    annotationChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@Path")).get("children");
-    paths = (List<Map<String, Object>>) annotationChildrenCaller.exec(Arrays.asList("@Path"));
+    annotationChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("children");
+    paths = (List<Map<String, Object>>) annotationChildrenCaller.exec(Arrays.asList("@AnnotationA"));
 
     pathChildrenCaller = (ChildrenCallerMethod) paths.get(0).get("children");
-    pathParams = (List<Map<String, Object>>) pathChildrenCaller.exec(Arrays.asList("@PathParam"));
-    queryParams = (List<Map<String, Object>>) pathChildrenCaller.exec(Arrays.asList("@QueryParam"));
+    pathParams = (List<Map<String, Object>>) pathChildrenCaller.exec(Arrays.asList("@AnnotationA"));
+    queryParams = (List<Map<String, Object>>) pathChildrenCaller.exec(Arrays.asList("@AnnotationA2"));
 
     pathParamsDocCaller = (JavadocCallerMethod) pathParams.get(0).get("doc");
     queryParamsDocCaller = (JavadocCallerMethod) queryParams.get(0).get("doc");
@@ -63,15 +63,15 @@ public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
 
   public void testExists() throws Exception {
 
-    assertEquals("PathParam", pathParams.get(0).get("name"));
-    assertEquals("QueryParam", queryParams.get(0).get("name"));
+    assertEquals("AnnotationA", pathParams.get(0).get("name"));
+    assertEquals("AnnotationA2", queryParams.get(0).get("name"));
 
   }
 
   public void testElementName() throws Exception {
 
-    assertEquals("pathParameter", pathParams.get(0).get("elementName"));
-    assertEquals("queryParameter", queryParams.get(0).get("elementName"));
+    assertEquals("p1", pathParams.get(0).get("elementName"));
+    assertEquals("p2", queryParams.get(0).get("elementName"));
 
   }
 
@@ -93,8 +93,8 @@ public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
 
   public void testJavadoc() throws Exception {
 
-    assertEquals("Path parameter description", pathParamsDocCaller.exec(new ArrayList()).toString());
-    assertEquals("Query parameter description", queryParamsDocCaller.exec(new ArrayList()).toString());
+    assertEquals("P1 parameter description", pathParamsDocCaller.exec(new ArrayList()).toString());
+    assertEquals("P2 parameter description", queryParamsDocCaller.exec(new ArrayList()).toString());
 
   }
 

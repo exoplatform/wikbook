@@ -1,8 +1,8 @@
 package model;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.Path;
+import org.wikbook.template.api.AnnotationA;
+import org.wikbook.template.api.AnnotationB;
 
-@Path("b")
-@Consumes({"a/b", "c/d"})
+@AnnotationA("b")
+@AnnotationB({"a", "b"})
 public class B {}

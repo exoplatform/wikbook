@@ -1,10 +1,10 @@
 package model;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
+import org.wikbook.template.api.AnnotationA;
+import org.wikbook.template.api.AnnotationB;
+import org.wikbook.template.api.AnnotationC;
 
-@Path("d")
+@AnnotationA("d")
 public class D {
 
   /**
@@ -17,9 +17,9 @@ public class D {
    * @since 1.0
    * @deprecated
    */
-  @POST
-  @Path("bar")
-  @Consumes({"a/b", "c/d"})
+  @AnnotationC
+  @AnnotationA("bar")
+  @AnnotationB({"a/b", "c/d"})
   void m() {}
 
 }

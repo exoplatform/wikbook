@@ -44,12 +44,12 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
     Map<String, Object> data = buildModel("F");
 
-    childrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@Path")).get("children");
+    childrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("children");
 
-    posts = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@POST"));
-    gets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@GET"));
-    paths = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@Path"));
-    postsgets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@POST", "@GET"));
+    posts = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@AnnotationC"));
+    gets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@AnnotationD"));
+    paths = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@AnnotationA"));
+    postsgets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@AnnotationC", "@AnnotationD"));
 
   }
 
@@ -80,14 +80,14 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
   public void testOneTypeAnnotationName() throws Exception {
 
-    assertEquals("POST", posts.get(0).get("name"));
-    assertEquals("POST", posts.get(1).get("name"));
+    assertEquals("AnnotationC", posts.get(0).get("name"));
+    assertEquals("AnnotationC", posts.get(1).get("name"));
 
-    assertEquals("GET", gets.get(0).get("name"));
+    assertEquals("AnnotationD", gets.get(0).get("name"));
 
-    assertEquals("Path", paths.get(0).get("name"));
-    assertEquals("Path", paths.get(1).get("name"));
-    assertEquals("Path", paths.get(2).get("name"));
+    assertEquals("AnnotationA", paths.get(0).get("name"));
+    assertEquals("AnnotationA", paths.get(1).get("name"));
+    assertEquals("AnnotationA", paths.get(2).get("name"));
 
   }
 
@@ -101,9 +101,9 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
   public void testManyTypeAnnotationName() throws Exception {
 
-    assertEquals("POST", postsgets.get(0).get("name"));
-    assertEquals("GET", postsgets.get(1).get("name"));
-    assertEquals("POST", postsgets.get(2).get("name"));
+    assertEquals("AnnotationC", postsgets.get(0).get("name"));
+    assertEquals("AnnotationD", postsgets.get(1).get("name"));
+    assertEquals("AnnotationC", postsgets.get(2).get("name"));
 
   }
   

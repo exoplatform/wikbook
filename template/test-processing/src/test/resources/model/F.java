@@ -1,24 +1,23 @@
 package model;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.core.Response;
+import org.wikbook.template.api.AnnotationA;
+import org.wikbook.template.api.AnnotationC;
+import org.wikbook.template.api.AnnotationD;
 
-@Path("f")
+
+@AnnotationA("f")
 public class F {
 
-  @POST
-  @Path("bar")
+  @AnnotationC
+  @AnnotationA("bar")
   void m() {}
 
-  @GET
-  @Path("bar2")
-  Response m2() { return null; }
+  @AnnotationD
+  @AnnotationA("bar2")
+  String m2() { return null; }
 
-  @POST
-  @Path("bar3")
-  void m3(@PathParam("pathParameter") String pathParameter) {}
+  @AnnotationC
+  @AnnotationA("bar3")
+  void m3(@AnnotationA("pName") String p) {}
 
 }

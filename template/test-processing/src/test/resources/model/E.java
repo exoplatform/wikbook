@@ -1,26 +1,25 @@
 package model;
 
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
-import javax.ws.rs.core.Context;
+import org.wikbook.template.api.AnnotationA;
+import org.wikbook.template.api.AnnotationA2;
+import org.wikbook.template.api.AnnotationC;
+
 import javax.ws.rs.core.UriInfo;
 
-@Path("d")
+@AnnotationA("d")
 public class E {
 
   /**
    * @param uriInfo A
-   * @param pathParameter Path parameter description
-   * @param queryParameter Query parameter description
+   * @param p1 P1 parameter description
+   * @param p2 P2 parameter description
    */
-  @POST
-  @Path("bar")
+  @AnnotationC
+  @AnnotationA("bar")
   void m(
-      @Context UriInfo uriInfo,
-      @PathParam("pathParameter") String pathParameter,
-      @QueryParam("queryParameter") String[] queryParameter,
+      @AnnotationC UriInfo uriInfo,
+      @AnnotationA("p1Name") String p1,
+      @AnnotationA2("p2Name") String[] p2,
       String nothing) {}
 
 }
