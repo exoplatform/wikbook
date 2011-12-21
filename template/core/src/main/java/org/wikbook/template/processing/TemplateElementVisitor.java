@@ -9,8 +9,11 @@ import org.wikbook.template.processing.metamodel.TemplateType;
 import javax.lang.model.element.*;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
@@ -47,11 +50,11 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     ctx.setTypeElement(classElement);
 
     for (Class clazz : ctx.getAnnotations()) {
-      Object a = typeElement.getAnnotation(clazz);
+      Annotation a = typeElement.getAnnotation(clazz);
 
       if (a != null) {
 
-        TemplateAnnotation annotation = createAnnotation(typeElement, clazz, ctx, classElement);
+        TemplateAnnotation annotation = createAnnotation(a, classElement);
 
         classElement.addAnnotation(annotation);
         if (!elements.contains(classElement)) {
@@ -78,7 +81,8 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     TemplateElement methodElement = ctx.getExecutableElement();
 
     for (Class clazz : ctx.getAnnotations()) {
-      TemplateAnnotation annotation = createAnnotation(variableElement, clazz, ctx, paramElement);
+      Annotation a = variableElement.getAnnotation(clazz);
+      TemplateAnnotation annotation = createAnnotation(a, paramElement);
       if (annotation != null) {
         for (String key : methodElement.getJavadoc().keySet()) {
           if ("param".equals(key)) {
@@ -108,7 +112,8 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
     for (Class clazz : ctx.getAnnotations()) {
 
-      TemplateAnnotation annotation = createAnnotation(executableElement, clazz, ctx, methodElement);
+      Annotation a = executableElement.getAnnotation(clazz);
+      TemplateAnnotation annotation = createAnnotation(a, methodElement);
       if (annotation != null) {
 
         methodElement.addAnnotation(annotation);
@@ -134,25 +139,55 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     return null;
   }
 
-  private TemplateAnnotation createAnnotation(Element el, Class clazz, ModelContext ctx, TemplateElement element) {
+  private TemplateAnnotation createAnnotation(Annotation a, TemplateElement element) {
 
-    Object a = el.getAnnotation(clazz);
+    if (a == null) {
+      return null;
+    }
 
-    if (a != null) {
-      TemplateAnnotation annotation = new TemplateAnnotation(clazz.getSimpleName(), element);
-      for (Method method : clazz.getMethods()) {
-        if (method.getDeclaringClass().equals(clazz)) {
-          try {
-            annotation.addValue(method.getName(), method.invoke(a));
-          } catch (Exception e) {
-            e.printStackTrace();
+    Class clazz = a.annotationType();
+
+    TemplateAnnotation annotation = new TemplateAnnotation(clazz.getSimpleName(), element);
+    for (Method method : clazz.getMethods()) {
+      if (method.getDeclaringClass().equals(clazz)) {
+        try {
+
+          Class type = method.getReturnType();
+
+          // Annotation[]
+          if (type.isArray() && type.getComponentType().isAnnotation()) {
+
+            Annotation[] annotations = (Annotation[]) method.invoke(a);
+            List<TemplateAnnotation> tAs = new ArrayList<TemplateAnnotation>();
+
+            for (Annotation currentAnnotation : annotations) {
+              TemplateAnnotation currentTA = createAnnotation(currentAnnotation, element);
+              tAs.add(currentTA);
+            }
+            
+            annotation.addValue(method.getName(), tAs.toArray(new TemplateAnnotation[]{}));
+
           }
+
+          // Annotation
+          else if (type.isAnnotation()) {
+            TemplateAnnotation sub = createAnnotation((Annotation) method.invoke(a), element);
+            annotation.addValue(method.getName(), sub);
+          }
+
+          // Object and Object[]
+          else {
+            annotation.addValue(method.getName(), method.invoke(a));
+          }
+
+        } catch (Exception e) {
+          e.printStackTrace();
         }
       }
-
-      return annotation;
     }
-    return null;
+
+    return annotation;
+
   }
 
   private void doc(TemplateElement tel, String name, List<String> l) {

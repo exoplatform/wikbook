@@ -566,3 +566,88 @@ Sibling @B : B
 After got sibling annotation you can reach the attribute then (see next section)
 
 == Get attributes ==
+
+The attribute method allow to enter inside the annotation to get any contained value by the annotation.
+To use it you only have to call "attribute" method with member name. Don't forget that the default value name is "value".
+
+{{example title="Get simple value"}}
+|Code|((({{code language=java}}
+@Annotation("foo", name = "bar")
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Value : ${@Annotation.attribute("value")}
+Name : ${@Annotation.attribute("name")}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : foo
+Value : bar
+{{/code}})))
+{{/example}}
+
+Some annotation can have more complex value like array, you can print or iterate on it.
+
+{{example title="Get array value"}}
+|Code|((({{code language=java}}
+@Annotation({"foo", "bar"})
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Values : ${@Annotation.attribute("flat:value")}
+
+or
+
+<#list @Annotation.attribute("list:value") as v>
+Value : ${v}
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Values : foo, bar
+
+or
+
+Value : foo
+Value : bar
+{{/code}})))
+{{/example}}
+
+An annotation can also contains another nested annotation. Let use attribute in the same way to get it.
+
+{{example title="Get annotation value"}}
+|Code|((({{code language=java}}
+@Annotation(@B("foo", name = "bar"))
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Value : ${@Annotation.attribute("value").attribute("value")}
+Name : ${@Annotation.attribute("value").attribute("name")}
+{{/code}})))
+|Output|(((
+{{code}}
+Value : foo
+Name : bar
+{{/code}})))
+{{/example}}
+
+{{example title="Get array annotation value"}}
+|Code|((({{code language=java}}
+@Annotation({@B("foo"), @B("bar")})
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+<#list ${Annotation.attribute("value") as sub}
+Value : ${sub.attribute("value")}
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Value : foo
+Value : bar
+{{/code}})))
+{{/example}}

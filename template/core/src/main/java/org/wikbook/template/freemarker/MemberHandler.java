@@ -51,7 +51,7 @@ public class MemberHandler {
     Map<String, Object> data = new HashMap<String, Object>();
     Map<String, Object> dataType = new HashMap<String, Object>();
 
-    data.put("attribute", new AttributeCallerMethod(annotation.getValues()));
+    data.put("attribute", new AttributeCallerMethod(this, annotation.getValues()));
     data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
     data.put("children", new ChildrenCallerMethod(this, annotation.getChildren()));
     data.put("sibling", new SiblingCallerMethod(this, annotation.getElement()));

@@ -19,11 +19,13 @@ package org.wikbook.template.test.freemarker;
 
 import org.wikbook.template.freemarker.caller.AttributeCallerMethod;
 import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
+import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.test.AbstractFreemarkerTestCase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -43,10 +45,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
   public void testExist() throws Exception {
 
     Map<String, Object> data = buildModel("B");
-    assertEquals(2, data.size());
-    Iterator i = data.keySet().iterator();
-    assertEquals("@AnnotationB", i.next());
-    assertEquals("@AnnotationA", i.next());
+    assertEquals(4, data.size());
 
   }
 
@@ -81,6 +80,61 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
     assertEquals("a, b", attributeCaller.exec(Arrays.asList("flat:value")).toString());
 
   }
+
+  public void testAnnotationAnnotationValues() throws Exception {
+
+    Map<String, Object> data = buildModel("B");
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@AnnotationB2")).get("attribute");
+    Map<String, Object> subAnnotation = (Map<String, Object>) attributeCaller.exec(Arrays.asList("value"));
+
+    assertEquals("AnnotationA", subAnnotation.get("name"));
+    assertEquals("a", ((AttributeCallerMethod) subAnnotation.get("attribute")).exec(Arrays.asList("value")).toString());
+
+  }
+
+  public void testAnnotationManyAnnotationValues() throws Exception {
+
+    Map<String, Object> data = buildModel("B");
+    AttributeCallerMethod attributeCaller = (AttributeCallerMethod) ((Map<String, Object>) data.get("@AnnotationB3")).get("attribute");
+
+    List<Map<String, Object>> subAnnotations = (List<Map<String, Object>>) attributeCaller.exec(Arrays.asList("value"));
+
+     assertEquals(2, subAnnotations.size());
+
+    assertEquals("AnnotationA", subAnnotations.get(0).get("name"));
+    assertEquals("a1", ((AttributeCallerMethod) subAnnotations.get(0).get("attribute")).exec(Arrays.asList("value")).toString());
+
+    assertEquals("AnnotationA", subAnnotations.get(1).get("name"));
+    assertEquals("a2", ((AttributeCallerMethod) subAnnotations.get(1).get("attribute")).exec(Arrays.asList("value")).toString());
+
+  }
+
+  /*
+
+  public void testAnnotationManyAnnotationValues() throws Exception {
+
+    MetaModel metaModel = buildClass("B");
+    Map<String, Object> b3Values = metaModel.getElements().get(0).getAnnotation("@AnnotationB3").getValues();
+
+    assertEquals("value", b3Values.keySet().iterator().next());
+
+    List<TemplateAnnotation> annotations = (List<TemplateAnnotation>) b3Values.values().iterator().next();
+
+    assertEquals(2, annotations.size());
+
+    assertEquals("@AnnotationA", annotations.get(0).getName());
+    assertEquals(1, annotations.get(0).getValues().size());
+    assertEquals("value", annotations.get(0).getValues().keySet().iterator().next());
+    assertEquals("a1", annotations.get(0).getValues().values().iterator().next());
+
+    assertEquals("@AnnotationA", annotations.get(1).getName());
+    assertEquals(1, annotations.get(1).getValues().size());
+    assertEquals("value", annotations.get(1).getValues().keySet().iterator().next());
+    assertEquals("a2", annotations.get(1).getValues().values().iterator().next());
+
+  }
+
+   */
 
   public void testTypeName() throws Exception {
 

@@ -20,6 +20,7 @@ package org.wikbook.template.freemarker;
 import freemarker.ext.beans.CollectionModel;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.SimpleScalar;
+import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 
 import java.util.ArrayList;
 import java.util.Arrays;

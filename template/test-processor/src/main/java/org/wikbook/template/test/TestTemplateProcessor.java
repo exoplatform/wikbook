@@ -20,6 +20,8 @@ package org.wikbook.template.test;
 import org.wikbook.template.api.AnnotationA;
 import org.wikbook.template.api.AnnotationA2;
 import org.wikbook.template.api.AnnotationB;
+import org.wikbook.template.api.AnnotationB2;
+import org.wikbook.template.api.AnnotationB3;
 import org.wikbook.template.api.AnnotationC;
 import org.wikbook.template.api.AnnotationD;
 import org.wikbook.template.processing.AbstractTemplateProcessor;
@@ -50,6 +52,8 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
         AnnotationA.class,
         AnnotationA2.class,
         AnnotationB.class,
+        AnnotationB2.class,
+        AnnotationB3.class,
         AnnotationC.class,
         AnnotationD.class
     };
