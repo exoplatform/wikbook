@@ -1,7 +1,7 @@
 = Setup =
 
 == Create your processing module ==
-The documentation generation use annotation processing. Wikbook module only provide an abstract processig : AbstractTemplateProcessor
+The documentation generation use annotation processing. Wikbook module only provide an abstract processing : AbstractTemplateProcessor
 In this module you will extend the abstract processor and write your templates.
 
 You need to use wikbook/template/core module :
@@ -47,7 +47,7 @@ org.wikbook.doc.ChromatticTemplateProcessor
 Each processor will use a template. A section is dedicated to these templates.
 
 == Package template with classifier ==
-To be able to use the templates during the processing, you have to package yours templates with a classifier (we will use "templates" classifier).
+To be able to use the templates during the processing, you have to package your templates with a classifier (we will use "templates" classifier).
 
 {{example title="Package templates with maven"}}
 {{code language=xml}}
@@ -651,3 +651,322 @@ Value : foo
 Value : bar
 {{/code}})))
 {{/example}}
+
+== Full sample ==
+Now we will see a concrete use case with typical source class and full template.
+Two use cases will be considered : JAX-RS API and Chromattic API. Meanwhile you can create yours.
+
+=== JAX-RS ===
+
+{{example title="Source code"}}
+((({{code language=java}}
+/**
+ * User end point.
+ * @author foobar
+ * @since 1.0
+ */
+@Path("api/project/v1/{portalContainerName}/")
+public class MyRestService {
+
+  /**
+   * This is the way to get an user by its id.
+   *
+   * @param uriInfo The URI Request info.
+   * @param portalContainerName The associated portal container name
+   * @param userId The specified user Id
+   * @param format The expected returned format
+   * @authentication
+   * @request
+   * {code}
+   * GET: http://my.domain.lan/rest/private/api/project/v1/portal/user/1a2b3c4d5e6f7g8h9i.json
+   * {code}
+   * @response
+   * {code:json}
+   * {
+   *   "id": "1a2b3c4d5e6f7g8h9j",
+   *   "firstName": "foo",
+   *   "lastNameName": "bar",
+   *   "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+   * }
+   * {code}
+   * @return The user
+   *
+   */
+  @GET
+  @Path("user/{userId}.{format}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getById(@Context UriInfo uriInfo,
+                                  @PathParam("portalContainerName") String portalContainerName,
+                                  @PathParam("userId") String userId,
+                                  @PathParam("format") String format) {
+
+    return null; // Do implementation
+    
+  }
+
+  /**
+   * This is the way to get all the users a new user. The service return the created user data like id.
+   *
+   * @param uriInfo The URI Request info.
+   * @param portalContainerName The associated portal container name
+   * @param format The expected returned format
+   * @param number The returned number
+   * @authentication
+   * @request
+   * {code}
+   * GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
+   * {code}
+   * @response
+   * {code:json}
+   * [
+   *   {
+   *     "id": "1a2b3c4d5e6f7g8h9i",
+   *     "firstName": "foo1",
+   *     "lastNameName": "bar1",
+   *     "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+   *   },
+   *   {
+   *     "id": "1a2b3c4d5e6f7g8h9k",
+   *     "firstName": "foo2",
+   *     "lastNameName": "bar2",
+   *     "createdAt": "Fri Jun 18 06:42:26 +0000 2011", //The Date follows ISO 8601
+   *   }
+   * ]
+   * {code}
+   * @return The users
+   *
+   */
+  @GET
+  @Path("users.{format}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getById(@Context UriInfo uriInfo,
+                                  @PathParam("portalContainerName") String portalContainerName,
+                                  @PathParam("format") String format) {
+                                  @QueryParam("number") String number) {
+
+    return null; // Do implementation
+
+  }
+{{/code}})))
+{{/example}}
+
+{{example title="Template"}}
+((({{code}}
+<#list @Path.children("@GET", "@POST", "@PUT", "@DELETE") as verb>
+h3. ${verb.name} ${verb.sibling("@Path").attribute("flat:value")?replace("{", "")?replace("}", "")}
+
+*Description*: ${verb.doc()}
+
+*URL*:
+
+{code}
+http://platform35.demo.exoplatform.org/rest/private/${@Path.attribute("value")}${verb.sibling("@Path").attribute("flat:value")}
+{code}
+<#if verb.sibling("@Produces")??>
+
+*Supported Format*: ${verb.sibling("@Produces").attribute("flat:value")}
+</#if>
+<#if verb.doc("authentication") != "">
+
+*Requires Authentication*: true
+</#if>
+
+*Parameters*:
+* *Required (path parameters)*: <#if verb.children("@PathParam")?size = 0>No</#if>
+<#list verb.children("@PathParam") as param>
+** *{noformat}${param.attribute("flat:value")}{noformat}*: ${param.doc()}
+</#list>
+* *Optional (query paramters)*: <#if verb.children("@QueryParam")?size = 0>No</#if>
+<#list verb.children("@QueryParam") as param>
+** *{noformat}${param.attribute("flat:value")}{noformat}*: ${param.doc()}
+</#list>
+
+*Request*:
+
+${verb.doc("bloc:request")}
+
+*Response*:
+
+${verb.doc("bloc:response")}
+
+</#list>
+{{/code}})))
+{{/example}}
+
+{{example title="Output"}}
+((({{code}}
+h3. GET user/userId.format
+
+*Description*: This is the way to get an user by its id.
+
+*URL*:
+
+{code}
+http://my.domain.lan/rest/private/api/project/v1/{portalContainerName}/user/userId.format
+{code}
+
+*Supported Format*: application/json
+
+*Requires Authentication*: true
+
+*Parameters*:
+* *Required (path parameters)*:
+** *{noformat}portalContainerName{noformat}*: The associated portal container name
+** *{noformat}userId{noformat}*: The specified user Id
+** *{noformat}format{noformat}*: The expected returned format
+* *Optional (query paramters)*: No
+
+*Request*:
+
+{code}
+GET: http://my.domain.lan/rest/private/api/project/v1/portal/user/1a2b3c4d5e6f7g8h9i.json
+{code}
+
+*Response*:
+
+{code:json}
+{
+ "id": "1a2b3c4d5e6f7g8h9j",
+ "firstName": "foo",
+ "lastNameName": "bar",
+ "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+}
+{code}
+
+h3. GET users.format
+
+*Description*: This is the way to get all the users a new user. The service return the created user data like id.
+
+*URL*:
+
+{code}
+http://my.domain.lan/rest/private/api/project/v1/{portalContainerName}/users.format
+{code}
+
+*Supported Format*: application/json
+
+*Requires Authentication*: true
+
+*Parameters*:
+* *Required (path parameters)*:
+** *{noformat}portalContainerName{noformat}*: The associated portal container name
+** *{noformat}userId{noformat}*: The specified user Id
+* *Optional (query paramters)*:
+** *{noformat}number{noformat}*: The returned number
+
+*Request*:
+
+{code}
+GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
+{code}
+
+*Response*:
+
+{code:json}
+[
+ {
+   "id": "1a2b3c4d5e6f7g8h9i",
+   "firstName": "foo1",
+   "lastNameName": "bar1",
+   "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+ },
+ {
+   "id": "1a2b3c4d5e6f7g8h9k",
+   "firstName": "foo2",
+   "lastNameName": "bar2",
+   "createdAt": "Fri Jun 18 06:42:26 +0000 2011", //The Date follows ISO 8601
+ }
+]
+{code}
+{{/code}})))
+{{/example}}
+
+[[image:images/jaxrsCapture.png||title="JAX-RS generation result" align="center" fo:width="400px]]
+
+=== Chromattic ===
+
+{{example title="Source code"}}
+((({{code language=java}}
+@PrimaryType(name = "ns:myentity")
+public abstract class MyEntity {
+
+  /**
+   * The property 1. It's a String property.
+   */
+  @Property(name = "ns:property1")
+  public abstract String getProperty1();
+  public abstract void setProperty1(String property1);
+
+  /**
+   * The property 2. It's an Integer property.
+   */
+  @Property(name = "ns:property2")
+  public abstract Integer getProperty2();
+  public abstract void setProperty2(String property2);
+
+  /**
+   * The property 3. It's a Boolean property.
+   */
+  @Property(name = "ns:property3")
+  public abstract Boolean isProperty3();
+  public abstract void setProperty3(Boolean property3);
+
+  /**
+   * The property 4. It's a String array property.
+   */
+  @Property(name = "ns:property4")
+  public abstract String[] getProperty4();
+  public abstract void setProperty4(String[] property4);
+
+  /**
+   * This is a node child.
+   */
+  @MappedBy("child")
+  @OneToOne
+  @Owner
+  public abstract AnotherEntity getChild();
+  public abstract void setChild(AnotherEntity anotherEntity);
+}
+{{/code}})))
+{{/example}}
+
+{{example title="Template"}}
+((({{code}}
+The _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following properties:
+|| Property Name || Required Type ||Mutiple|| Description ||
+<#list @PrimaryType.children("@Property") as property>
+|${property.attribute("name")}|${property.type.name?replace("[]", "")}|${property.type.isArray}|${property.doc()}|
+</#list>
+<#list @PrimaryType.children("@ManyToOne") as ref>
+<#if ref.sibling("@MappedBy")??>
+|${ref.sibling("@MappedBy").attribute("value")}|Reference|${ref.type.isArray}|${ref.doc()}|
+</#if>
+</#list>
+
+And the _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following child nodes:
+|| Child Nodes || Default Primary Type || Description ||
+<#list @PrimaryType.children("@OneToOne", "@OneToMany") as child>
+<#if child.sibling("@MappedBy")??>
+|${child.sibling("@MappedBy").attribute("value")}|<#if child.type.annotation("@PrimaryType")??>${child.type.annotation("@PrimaryType").attribute("name")}</#if>|${child.doc()}|
+</#if>
+</#list>
+{{/code}})))
+{{/example}}
+
+{{example title="Output"}}
+((({{code language=java}}
+The _{noformat}ns:myentity{noformat}_ node type has the following properties:
+|| Property Name || Required Type ||Mutiple|| Description ||
+|ns:property1|String|false|The property 1. It's a String property.|
+|ns:property2|Integer|false|The property 2. It's a Integer property.|
+|ns:property3|Boolean|false|The property 3. It's a Boolean property.|
+|ns:property4|String|true|The property 4. It's a String array property.|
+
+And the _{noformat}ns:myentity{noformat}_ node type has the following child nodes:
+|| Child Nodes || Default Primary Type || Description ||
+|child|ns:anotherentity|This is a node child.|
+
+{{/code}})))
+{{/example}}
+
+[[image:images/chromatticCapture.png||title="Chromattic generation result" align="center" fo:width="400px]]
