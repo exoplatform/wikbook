@@ -17,19 +17,15 @@
 
 package org.wikbook.template.freemarker.caller;
 
-import freemarker.ext.beans.CollectionModel;
-import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.SimpleScalar;
-import freemarker.template.Template;
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
 import org.wikbook.template.freemarker.ExpressionHandler;
-import org.wikbook.template.freemarker.MemberHandler;
+import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -40,11 +36,11 @@ import java.util.Map;
 public class AttributeCallerMethod implements TemplateMethodModel {
 
   private Map<String, Object> attributes;
-  private MemberHandler handler;
+  private FreemarkerDataFactory dataFactory;
 
-  public AttributeCallerMethod(final MemberHandler handler,  final Map<String, Object> attributes) {
+  public AttributeCallerMethod(final FreemarkerDataFactory dataFactory,  final Map<String, Object> attributes) {
     this.attributes = attributes;
-    this.handler = handler;
+    this.dataFactory = dataFactory;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
@@ -64,7 +60,7 @@ public class AttributeCallerMethod implements TemplateMethodModel {
           List<Map<String, Object>> l = new ArrayList<Map<String, Object>>();
 
           for (TemplateAnnotation annotation : (TemplateAnnotation[]) got) {
-            l.add(handler.handle(annotation));
+            l.add(dataFactory.create(annotation));
           }
 
           return l;
@@ -85,7 +81,7 @@ public class AttributeCallerMethod implements TemplateMethodModel {
 
         // Annotation
         if (got instanceof TemplateAnnotation) {
-          return handler.handle((TemplateAnnotation) got);
+          return dataFactory.create((TemplateAnnotation) got);
         }
 
         // Object

@@ -32,11 +32,11 @@ import java.util.Map;
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class MemberHandler {
+public class FreemarkerDataFactory {
 
   private final MetaModel model;
 
-  public MemberHandler(final MetaModel model) {
+  public FreemarkerDataFactory(final MetaModel model) {
 
     if (model == null) {
       throw new NullPointerException();
@@ -45,7 +45,7 @@ public class MemberHandler {
     
   }
 
-  public Map<String, Object> handle(final TemplateAnnotation annotation) {
+  public Map<String, Object> create(final TemplateAnnotation annotation) {
 
     //
     Map<String, Object> data = new HashMap<String, Object>();

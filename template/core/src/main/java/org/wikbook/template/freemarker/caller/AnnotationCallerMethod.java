@@ -19,15 +19,12 @@ package org.wikbook.template.freemarker.caller;
 
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
-import org.wikbook.template.freemarker.MemberHandler;
-import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 import org.wikbook.template.processing.metamodel.TemplateType;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -36,21 +33,21 @@ import java.util.Map;
 public class AnnotationCallerMethod implements TemplateMethodModel {
 
   private TemplateType type;
-  private MemberHandler handler;
+  private FreemarkerDataFactory dataFactory;
 
-  public AnnotationCallerMethod(final MemberHandler handler, final TemplateType type) {
+  public AnnotationCallerMethod(final FreemarkerDataFactory dataFactory, final TemplateType type) {
     this.type = type;
-    this.handler = handler;
+    this.dataFactory = dataFactory;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    for (TemplateElement element : handler.getModel().getElements()) {
+    for (TemplateElement element : dataFactory.getModel().getElements()) {
       if (element.getName().equals(type.getName())) {
 
         TemplateAnnotation annotation = element.getAnnotation((String) arguments.get(0));
         if (annotation != null) {
-          return handler.handle(annotation);
+          return dataFactory.create(annotation);
         }
         
       }

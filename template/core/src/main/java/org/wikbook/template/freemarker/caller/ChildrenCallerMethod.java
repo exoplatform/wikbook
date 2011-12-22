@@ -19,13 +19,11 @@ package org.wikbook.template.freemarker.caller;
 
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
-import org.wikbook.template.freemarker.MemberHandler;
-import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,11 +34,11 @@ import java.util.Map;
 public class ChildrenCallerMethod implements TemplateMethodModel {
 
   private List<TemplateElement> children;
-  private MemberHandler handler;
+  private FreemarkerDataFactory dataFactory;
 
-  public ChildrenCallerMethod(final MemberHandler handler, final List<TemplateElement> children) {
+  public ChildrenCallerMethod(final FreemarkerDataFactory dataFactory, final List<TemplateElement> children) {
     this.children = children;
-    this.handler = handler;
+    this.dataFactory = dataFactory;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
@@ -54,7 +52,7 @@ public class ChildrenCallerMethod implements TemplateMethodModel {
 
         if (childAnnotation != null) {
 
-          Map<String, Object> data = handler.handle(childAnnotation);
+          Map<String, Object> data = dataFactory.create(childAnnotation);
           l.add(data);
 
         }

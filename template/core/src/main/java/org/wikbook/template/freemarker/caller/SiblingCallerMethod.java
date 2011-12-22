@@ -19,15 +19,11 @@ package org.wikbook.template.freemarker.caller;
 
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
-import org.wikbook.template.freemarker.MemberHandler;
-import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 
-import java.lang.reflect.Member;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -36,18 +32,18 @@ import java.util.Map;
 public class SiblingCallerMethod implements TemplateMethodModel {
 
   private TemplateElement element;
-  private MemberHandler handler;
+  private FreemarkerDataFactory dataFactory;
 
-  public SiblingCallerMethod(final MemberHandler handler, final TemplateElement element) {
+  public SiblingCallerMethod(final FreemarkerDataFactory dataFactory, final TemplateElement element) {
     this.element = element;
-    this.handler = handler;
+    this.dataFactory = dataFactory;
   }
 
   public Object exec(final List arguments) throws TemplateModelException {
 
     TemplateAnnotation found = element.getAnnotation((String) arguments.get(0));
     if (found != null) {
-      return handler.handle(found);
+      return dataFactory.create(found);
     }
     else {
       return null;
