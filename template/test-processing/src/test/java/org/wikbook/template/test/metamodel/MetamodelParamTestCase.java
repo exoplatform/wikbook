@@ -64,7 +64,7 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
     MetaModel metaModel = buildClass("E");
 
     assertEquals("String", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getName());
-    assertEquals("java.lang.String", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getFullName());
+    assertEquals("java.lang.String", metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getFqn());
     assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().isArray());
 
   }
@@ -74,7 +74,7 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
     MetaModel metaModel = buildClass("E");
 
     assertEquals("String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getName());
-    assertEquals("java.lang.String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFullName());
+    assertEquals("java.lang.String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFqn());
     assertEquals(Boolean.TRUE, metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().isArray());
 
   }

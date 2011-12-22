@@ -140,7 +140,7 @@ public class FreemarkerTypeTestCase extends AbstractFreemarkerTestCase {
 
     Map<String, Object> data = buildModel("B");
     assertEquals("B", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("name"));
-    assertEquals("model.B", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("fullName"));
+    assertEquals("model.B", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("fqn"));
     assertEquals("false", ((Map<String, Map<String, String>>) data.get("@AnnotationB")).get("type").get("isArray"));
 
   }

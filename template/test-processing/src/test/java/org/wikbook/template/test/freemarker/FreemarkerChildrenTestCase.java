@@ -106,8 +106,8 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
     assertEquals("String", ((Map<String, Object>) dGets.get(0).get("type")).get("name"));
     assertEquals("String", ((Map<String, Object>) dPaths.get(1).get("type")).get("name"));
 
-    assertEquals("java.lang.String", ((Map<String, Object>) dGets.get(0).get("type")).get("fullName"));
-    assertEquals("java.lang.String", ((Map<String, Object>) dPaths.get(1).get("type")).get("fullName"));
+    assertEquals("java.lang.String", ((Map<String, Object>) dGets.get(0).get("type")).get("fqn"));
+    assertEquals("java.lang.String", ((Map<String, Object>) dPaths.get(1).get("type")).get("fqn"));
 
     assertEquals("false", ((Map<String, Object>) dGets.get(0).get("type")).get("isArray"));
     assertEquals("false", ((Map<String, Object>) dPaths.get(1).get("type")).get("isArray"));
@@ -122,8 +122,8 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
     assertEquals("String[]", ((Map<String, Object>) gGets.get(0).get("type")).get("name"));
     assertEquals("String[]", ((Map<String, Object>) gPaths.get(0).get("type")).get("name"));
 
-    assertEquals("java.lang.String[]", ((Map<String, Object>) gGets.get(0).get("type")).get("fullName"));
-    assertEquals("java.lang.String[]", ((Map<String, Object>) gPaths.get(0).get("type")).get("fullName"));
+    assertEquals("java.lang.String[]", ((Map<String, Object>) gGets.get(0).get("type")).get("fqn"));
+    assertEquals("java.lang.String[]", ((Map<String, Object>) gPaths.get(0).get("type")).get("fqn"));
 
     assertEquals("true", ((Map<String, Object>) gGets.get(0).get("type")).get("isArray"));
     assertEquals("true", ((Map<String, Object>) gPaths.get(0).get("type")).get("isArray"));
@@ -163,8 +163,8 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
     assertEquals("", ((Map<String, Object>) posts.get(0).get("type")).get("name"));
     assertEquals("", ((Map<String, Object>) paths.get(0).get("type")).get("name"));
 
-    assertEquals("", ((Map<String, Object>) posts.get(0).get("type")).get("fullName"));
-    assertEquals("", ((Map<String, Object>) paths.get(0).get("type")).get("fullName"));
+    assertEquals("", ((Map<String, Object>) posts.get(0).get("type")).get("fqn"));
+    assertEquals("", ((Map<String, Object>) paths.get(0).get("type")).get("fqn"));
 
     assertEquals("false", ((Map<String, Object>) posts.get(0).get("type")).get("isArray"));
     assertEquals("false", ((Map<String, Object>) paths.get(0).get("type")).get("isArray"));
@@ -285,8 +285,8 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
   public void testSiblingTypeFullName() throws Exception {
 
-    assertEquals(paths.get(0).get("fullName"), siblingPaths.get("fullName"));
-    assertEquals(posts.get(0).get("fullName"), siblingPosts.get("fullName"));
+    assertEquals(paths.get(0).get("fqn"), siblingPaths.get("fqn"));
+    assertEquals(posts.get(0).get("fqn"), siblingPosts.get("fqn"));
 
   }
 

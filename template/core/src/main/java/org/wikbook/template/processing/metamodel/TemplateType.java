@@ -26,18 +26,18 @@ import java.io.Serializable;
 public class TemplateType implements Serializable {
 
   private String name;
-  private String fullName;
+  private String fqn;
   private Boolean isArray;
 
   public TemplateType(final String name, final String fullname, final Boolean isArray) {
     this.name = name;
-    this.fullName = fullname;
+    this.fqn = fullname;
     this.isArray = isArray;
   }
 
   public TemplateType(final String name, final Boolean isArray) {
     this.name = name;
-    this.fullName = name;
+    this.fqn = name;
     this.isArray = isArray;
   }
 
@@ -45,8 +45,8 @@ public class TemplateType implements Serializable {
     return name;
   }
 
-  public String getFullName() {
-    return fullName;
+  public String getFqn() {
+    return fqn;
   }
 
   public Boolean isArray() {

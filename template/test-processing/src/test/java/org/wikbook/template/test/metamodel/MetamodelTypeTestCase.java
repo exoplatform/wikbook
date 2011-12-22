@@ -17,13 +17,10 @@
 
 package org.wikbook.template.test.metamodel;
 
-import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.test.AbstractProcessorTestCase;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -98,7 +95,7 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("B");
     assertEquals("B", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getName());
-    assertEquals("model.B", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getFullName());
+    assertEquals("model.B", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getFqn());
     assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().isArray());
 
   }

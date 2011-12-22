@@ -78,7 +78,7 @@ public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
   public void testTypeName() throws Exception {
 
     assertEquals("String", ((Map<String, String>) pathParams.get(0).get("type")).get("name"));
-    assertEquals("java.lang.String", ((Map<String, String>) pathParams.get(0).get("type")).get("fullName"));
+    assertEquals("java.lang.String", ((Map<String, String>) pathParams.get(0).get("type")).get("fqn"));
     assertEquals("false", ((Map<String, String>) pathParams.get(0).get("type")).get("isArray"));
 
   }
@@ -86,7 +86,7 @@ public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
   public void testArrayTypeName() throws Exception {
 
     assertEquals("String[]", ((Map<String, String>) queryParams.get(0).get("type")).get("name"));
-    assertEquals("java.lang.String[]", ((Map<String, String>) queryParams.get(0).get("type")).get("fullName"));
+    assertEquals("java.lang.String[]", ((Map<String, String>) queryParams.get(0).get("type")).get("fqn"));
     assertEquals("true", ((Map<String, String>) queryParams.get(0).get("type")).get("isArray"));
 
   }

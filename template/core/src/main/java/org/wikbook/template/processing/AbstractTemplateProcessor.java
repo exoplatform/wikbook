@@ -104,7 +104,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
       for (TemplateElement el : metaModel.getElements()) {
 
         try {
-          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + el.getType().getFullName() + ext, null);
+          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + el.getType().getFqn() + ext, null);
           OutputStream os = file.openOutputStream();
 
           new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);

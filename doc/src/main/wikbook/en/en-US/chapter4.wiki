@@ -269,7 +269,7 @@ class A {}
 |Template|(((
 {{code}}
 Name : ${@Annotation.type.name}
-Full name : ${@Annotation.type.fullName}
+Full name : ${@Annotation.type.fqn}
 Is array : ${@Annotation.type.isArray}
 {{/code}})))
 |Output|(((
@@ -291,7 +291,7 @@ Is array : false
 {{code}}
 // ...
 Name : ${a.type.name}
-Full name : ${a.type.fullName}
+Full name : ${a.type.fqn}
 Is array : ${a.type.isArray}
 // ...
 {{/code}})))
@@ -315,7 +315,7 @@ Is array : true
 {{code}}
 // ...
 Name : ${a.type.name}
-Full name : ${a.type.fullName}
+Full name : ${a.type.fqn}
 Is array : ${a.type.isArray}
 // ...
 {{/code}})))

@@ -60,7 +60,7 @@ public class MemberHandler {
     data.put("type", dataType);
 
     dataType.put("name", annotation.getElement().getType().getName());
-    dataType.put("fullName", annotation.getElement().getType().getFullName());
+    dataType.put("fqn", annotation.getElement().getType().getFqn());
     dataType.put("isArray", annotation.getElement().getType().isArray().toString());
     dataType.put("annotation", new AnnotationCallerMethod(this, annotation.getElement().getType()));
 

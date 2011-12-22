@@ -93,11 +93,11 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("F");
     assertEquals("String", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getName());
-    assertEquals("java.lang.String", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getFullName());
+    assertEquals("java.lang.String", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getFqn());
 
     MetaModel g = buildClass("G");
     assertEquals("String[]", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getName());
-    assertEquals("java.lang.String[]", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getFullName());
+    assertEquals("java.lang.String[]", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getFqn());
 
   }
 
@@ -105,7 +105,7 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("F");
     assertEquals("", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getName());
-    assertEquals("", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getFullName());
+    assertEquals("", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getFqn());
     assertEquals(false, metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().isArray().booleanValue());
 
   }
