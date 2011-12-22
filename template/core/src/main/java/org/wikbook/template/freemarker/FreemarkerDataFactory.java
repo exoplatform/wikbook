@@ -34,6 +34,19 @@ import java.util.Map;
  */
 public class FreemarkerDataFactory {
 
+  public static final String ATTRIBUTE = "attribute";
+  public static final String JAVADOC = "doc";
+  public static final String CHILDREN = "children";
+  public static final String SIBLING = "sibling";
+  public static final String ELEMENT_NAME = "elementName";
+  public static final String ANNOTATION_NAME = "name";
+  public static final String TYPE = "type";
+
+  public static final String NAME = "name";
+  public static final String FQN = "fqn";
+  public static final String IS_ARRAY = "isArray";
+  public static final String ANNOTATION = "annotation";
+
   private final MetaModel model;
 
   public FreemarkerDataFactory(final MetaModel model) {
@@ -51,18 +64,18 @@ public class FreemarkerDataFactory {
     Map<String, Object> data = new HashMap<String, Object>();
     Map<String, Object> dataType = new HashMap<String, Object>();
 
-    data.put("attribute", new AttributeCallerMethod(this, annotation.getValues()));
-    data.put("doc", new JavadocCallerMethod(annotation.getJavadoc()));
-    data.put("children", new ChildrenCallerMethod(this, annotation.getChildren()));
-    data.put("sibling", new SiblingCallerMethod(this, annotation.getElement()));
-    data.put("elementName", annotation.getElement().getName());
-    data.put("name", annotation.getName().substring(1));
-    data.put("type", dataType);
+    data.put(ATTRIBUTE, new AttributeCallerMethod(this, annotation.getValues()));
+    data.put(JAVADOC, new JavadocCallerMethod(annotation.getJavadoc()));
+    data.put(CHILDREN, new ChildrenCallerMethod(this, annotation.getChildren()));
+    data.put(SIBLING, new SiblingCallerMethod(this, annotation.getElement()));
+    data.put(ELEMENT_NAME, annotation.getElement().getName());
+    data.put(ANNOTATION_NAME, annotation.getName().substring(1));
+    data.put(TYPE, dataType);
 
-    dataType.put("name", annotation.getElement().getType().getName());
-    dataType.put("fqn", annotation.getElement().getType().getFqn());
-    dataType.put("isArray", annotation.getElement().getType().isArray().toString());
-    dataType.put("annotation", new AnnotationCallerMethod(this, annotation.getElement().getType()));
+    dataType.put(NAME, annotation.getElement().getType().getName());
+    dataType.put(FQN, annotation.getElement().getType().getFqn());
+    dataType.put(IS_ARRAY, annotation.getElement().getType().isArray().toString());
+    dataType.put(ANNOTATION, new AnnotationCallerMethod(this, annotation.getElement().getType()));
 
     return data;
     

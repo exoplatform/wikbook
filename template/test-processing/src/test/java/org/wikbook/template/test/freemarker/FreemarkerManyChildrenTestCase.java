@@ -17,6 +17,7 @@
 
 package org.wikbook.template.test.freemarker;
 
+import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
 import org.wikbook.template.test.AbstractFreemarkerTestCase;
 
@@ -44,7 +45,7 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
     Map<String, Object> data = buildModel("F");
 
-    childrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get("children");
+    childrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get(FreemarkerDataFactory.CHILDREN);
 
     posts = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@AnnotationC"));
     gets = (List<Map<String, Object>>) childrenCaller.exec(Arrays.asList("@AnnotationD"));
@@ -67,43 +68,43 @@ public class FreemarkerManyChildrenTestCase extends AbstractFreemarkerTestCase {
 
   public void testOneTypeElementName() throws Exception {
 
-    assertEquals("m", posts.get(0).get("elementName"));
-    assertEquals("m3", posts.get(1).get("elementName"));
+    assertEquals("m", posts.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("m3", posts.get(1).get(FreemarkerDataFactory.ELEMENT_NAME));
 
-    assertEquals("m2", gets.get(0).get("elementName"));
+    assertEquals("m2", gets.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
 
-    assertEquals("m", paths.get(0).get("elementName"));
-    assertEquals("m2", paths.get(1).get("elementName"));
-    assertEquals("m3", paths.get(2).get("elementName"));
+    assertEquals("m", paths.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("m2", paths.get(1).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("m3", paths.get(2).get(FreemarkerDataFactory.ELEMENT_NAME));
 
   }
 
   public void testOneTypeAnnotationName() throws Exception {
 
-    assertEquals("AnnotationC", posts.get(0).get("name"));
-    assertEquals("AnnotationC", posts.get(1).get("name"));
+    assertEquals("AnnotationC", posts.get(0).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationC", posts.get(1).get(FreemarkerDataFactory.NAME));
 
-    assertEquals("AnnotationD", gets.get(0).get("name"));
+    assertEquals("AnnotationD", gets.get(0).get(FreemarkerDataFactory.NAME));
 
-    assertEquals("AnnotationA", paths.get(0).get("name"));
-    assertEquals("AnnotationA", paths.get(1).get("name"));
-    assertEquals("AnnotationA", paths.get(2).get("name"));
+    assertEquals("AnnotationA", paths.get(0).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationA", paths.get(1).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationA", paths.get(2).get(FreemarkerDataFactory.NAME));
 
   }
 
   public void testManyTypeElementName() throws Exception {
 
-    assertEquals("m", postsgets.get(0).get("elementName"));
-    assertEquals("m2", postsgets.get(1).get("elementName"));
-    assertEquals("m3", postsgets.get(2).get("elementName"));
+    assertEquals("m", postsgets.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("m2", postsgets.get(1).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("m3", postsgets.get(2).get(FreemarkerDataFactory.ELEMENT_NAME));
 
   }
 
   public void testManyTypeAnnotationName() throws Exception {
 
-    assertEquals("AnnotationC", postsgets.get(0).get("name"));
-    assertEquals("AnnotationD", postsgets.get(1).get("name"));
-    assertEquals("AnnotationC", postsgets.get(2).get("name"));
+    assertEquals("AnnotationC", postsgets.get(0).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationD", postsgets.get(1).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationC", postsgets.get(2).get(FreemarkerDataFactory.NAME));
 
   }
   
