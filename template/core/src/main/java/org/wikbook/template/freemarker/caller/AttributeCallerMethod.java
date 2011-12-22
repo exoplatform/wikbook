@@ -20,12 +20,13 @@ package org.wikbook.template.freemarker.caller;
 import freemarker.template.SimpleScalar;
 import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
-import org.wikbook.template.freemarker.ExpressionHandler;
+import org.wikbook.template.freemarker.TemplateExpression;
 import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -45,8 +46,8 @@ public class AttributeCallerMethod implements TemplateMethodModel {
 
   public Object exec(final List arguments) throws TemplateModelException {
 
-    ExpressionHandler eh = new ExpressionHandler((String) arguments.get(0));
-    Object got = attributes.get(eh.getValue());
+    TemplateExpression e = new TemplateExpression((String) arguments.get(0));
+    Object got = attributes.get(e.getValue());
     if (got != null) {
 
       Class valuesClass = got.getClass();
@@ -64,14 +65,14 @@ public class AttributeCallerMethod implements TemplateMethodModel {
           }
 
           return l;
-
-          //return new CollectionModel(l, new DefaultObjectWrapper());
           
         }
 
         // Object[]
         else {
-          return eh.getAttribute(Arrays.asList((String[])got));
+
+          return performArray(Arrays.asList((String[]) got), e);
+          
         }
 
       }
@@ -94,6 +95,32 @@ public class AttributeCallerMethod implements TemplateMethodModel {
     else {
       return null;
     }
+
+  }
+
+  private Object performArray(List<String> data, TemplateExpression e) {
+
+    //
+    switch (e.getOutput()) {
+
+        case LIST:
+        case NONE:
+          return data;
+
+        case FLAT:
+        case BLOC:
+        case NOEXPR:
+          return e.flatStringList(data);
+
+      }
+
+    //
+    if (e.getOutput().equals(TemplateExpression.Output.LIST)) {
+      return Collections.emptyList();
+    }
+
+    //
+    return "";
 
   }
 

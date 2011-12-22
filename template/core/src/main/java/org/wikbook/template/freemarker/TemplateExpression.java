@@ -17,20 +17,13 @@
 
 package org.wikbook.template.freemarker;
 
-import freemarker.ext.beans.CollectionModel;
-import freemarker.template.DefaultObjectWrapper;
-import freemarker.template.SimpleScalar;
-import org.wikbook.template.processing.metamodel.TemplateAnnotation;
-
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
-public class ExpressionHandler {
+public class TemplateExpression {
 
   public static enum Output {
 
@@ -72,11 +65,11 @@ public class ExpressionHandler {
   private String value;
   private Output output;
 
-  public ExpressionHandler() {
+  private TemplateExpression() {
     output = Output.NOEXPR;
   }
 
-  public ExpressionHandler(final String expression) {
+  public TemplateExpression(final String expression) {
     this.expression = expression;
 
     if (expression.startsWith(Output.FLAT.prefix())) {
@@ -97,100 +90,23 @@ public class ExpressionHandler {
     }
   }
 
+  public static TemplateExpression noExpression() {
+    return new TemplateExpression();
+  }
+
   public String getValue() {
     return value;
   }
 
-  public Object getJavadoc(List<List<String>> values) {
-
-    if (values != null) {
-
-      List<String> c = new ArrayList<String>();
-      for (List<String> lv : values) {
-        StringBuffer sb = new StringBuffer();
-        for (String v : lv) {
-          if (output.equals(Output.BLOC)) {
-            if (sb.length() > 0) {
-              sb.append("\n");
-            }
-            sb.append(v);
-          }
-          else {
-            sb.append(v);
-          }
-        }
-        c.add(sb.toString());
-      }
-
-      //
-      switch (output) {
-
-        case FLAT:
-          return new SimpleScalar(asString(c));
-
-        case BLOC:
-          return new SimpleScalar(asString(c));
-
-        case LIST:
-          return new CollectionModel(c, new DefaultObjectWrapper());
-
-        case NONE:
-          return new CollectionModel(c, new DefaultObjectWrapper());
-
-        case NOEXPR:
-          return new SimpleScalar(asString(c).trim());
-
-      }
-
-    }
-
-    //
-    if (output.equals(Output.LIST)) {
-      return new CollectionModel(Arrays.asList(), new DefaultObjectWrapper());
-    }
-
-    //
-    return "";
-
+  public String toString() {
+    return expression;
   }
 
-  public Object getAttribute(List<String> values) {
-
-    if (values != null) {
-
-      //
-      switch (output) {
-
-        case FLAT:
-          return new SimpleScalar(asString(values));
-
-        case BLOC:
-          return new SimpleScalar(asString(values));
-
-        case LIST:
-          return new CollectionModel(values, new DefaultObjectWrapper());
-
-        case NONE:
-          return new CollectionModel(values, new DefaultObjectWrapper());
-
-        case NOEXPR:
-          return new SimpleScalar(asString(values));
-
-      }
-
-    }
-
-    //
-    if (output.equals(Output.LIST)) {
-      return new CollectionModel(Arrays.asList(), new DefaultObjectWrapper());
-    }
-
-    //
-    return "";
-
+  public Output getOutput() {
+    return output;
   }
 
-  private String asString(List<? extends Object> l) {
+  public String flatStringList(List<? extends Object> l) {
 
     StringBuilder sb = new StringBuilder();
     for (Object v : l) {
