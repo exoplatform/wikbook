@@ -24,8 +24,11 @@ import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.freemarker.caller.SiblingCallerMethod;
 import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
+import org.wikbook.template.processing.metamodel.TemplateType;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,6 +49,7 @@ public class FreemarkerDataFactory {
   public static final String FQN = "fqn";
   public static final String IS_ARRAY = "isArray";
   public static final String ANNOTATION = "annotation";
+  public static final String PARAMETER = "parameter";
 
   private final MetaModel model;
 
@@ -62,23 +66,42 @@ public class FreemarkerDataFactory {
 
     //
     Map<String, Object> data = new HashMap<String, Object>();
-    Map<String, Object> dataType = new HashMap<String, Object>();
 
+    //
     data.put(ATTRIBUTE, new AttributeCallerMethod(this, annotation.getValues()));
     data.put(JAVADOC, new JavadocCallerMethod(annotation.getJavadoc()));
     data.put(CHILDREN, new ChildrenCallerMethod(this, annotation.getChildren()));
     data.put(SIBLING, new SiblingCallerMethod(this, annotation.getElement()));
     data.put(ELEMENT_NAME, annotation.getElement().getName());
     data.put(ANNOTATION_NAME, annotation.getName().substring(1));
-    data.put(TYPE, dataType);
+    data.put(TYPE, createTypeData(annotation.getElement().getType()));
 
-    dataType.put(NAME, annotation.getElement().getType().getName());
-    dataType.put(FQN, annotation.getElement().getType().getFqn());
-    dataType.put(IS_ARRAY, annotation.getElement().getType().isArray().toString());
-    dataType.put(ANNOTATION, new AnnotationCallerMethod(this, annotation.getElement().getType()));
-
+    //
     return data;
     
+  }
+
+  private Map<String, Object> createTypeData(final TemplateType type) {
+
+    //
+    Map<String, Object> dataType = new HashMap<String, Object>();
+    List<Map<String, Object>> dataTypeParameters = new ArrayList<Map<String, Object>>();
+
+    //
+    dataType.put(NAME, type.getName());
+    dataType.put(FQN, type.getFqn());
+    dataType.put(IS_ARRAY, type.isArray().toString());
+    dataType.put(ANNOTATION, new AnnotationCallerMethod(this, type));
+    dataType.put(PARAMETER, dataTypeParameters);
+
+    //
+    for (TemplateType typeParameter : type.getParameters()) {
+      dataTypeParameters.add(createTypeData(typeParameter));
+    }
+
+    //
+    return dataType;
+
   }
 
   public MetaModel getModel() {

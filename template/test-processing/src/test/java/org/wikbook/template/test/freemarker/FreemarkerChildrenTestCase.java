@@ -115,19 +115,28 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
     Map<String, Object> gData = buildModel("G");
 
-    ChildrenCallerMethod gChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) gData.get("@AnnotationA")).get("children");
+    ChildrenCallerMethod gChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) gData.get("@AnnotationA")).get(FreemarkerDataFactory.CHILDREN);
 
     List<Map<String, Object>> gGets = (List<Map<String, Object>>) gChildrenCaller.exec(Arrays.asList("@AnnotationC"));
     List<Map<String, Object>> gPaths = (List<Map<String, Object>>) gChildrenCaller.exec(Arrays.asList("@AnnotationA"));
 
-    assertEquals("String[]", ((Map<String, Object>) gGets.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
-    assertEquals("String[]", ((Map<String, Object>) gPaths.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("String", ((Map<String, Object>) gGets.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("String", ((Map<String, Object>) gPaths.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
 
-    assertEquals("java.lang.String[]", ((Map<String, Object>) gGets.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
-    assertEquals("java.lang.String[]", ((Map<String, Object>) gPaths.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("java.lang.String", ((Map<String, Object>) gGets.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("java.lang.String", ((Map<String, Object>) gPaths.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
 
     assertEquals("true", ((Map<String, Object>) gGets.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
     assertEquals("true", ((Map<String, Object>) gPaths.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
+
+    assertEquals(0, ((List) ((Map<String, Object>) gGets.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
+    assertEquals(0, ((List) ((Map<String, Object>) gPaths.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
+
+    assertEquals(1, ((List) ((Map<String, Object>) gGets.get(1).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
+    assertEquals(1, ((List) ((Map<String, Object>) gPaths.get(1).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
+
+    assertEquals(2, ((List) ((Map<String, Object>) gGets.get(2).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
+    assertEquals(2, ((List) ((Map<String, Object>) gPaths.get(2).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
 
   }
 

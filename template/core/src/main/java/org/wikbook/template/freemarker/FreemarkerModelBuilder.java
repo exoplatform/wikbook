@@ -15,12 +15,12 @@ public class FreemarkerModelBuilder {
 
   public Map<String, Object> build(MetaModel model, TemplateElement element) {
 
-    FreemarkerDataFactory handler = new FreemarkerDataFactory(model);
+    FreemarkerDataFactory builder = new FreemarkerDataFactory(model);
     Map<String, Object> root = new HashMap<String, Object>();
 
     for (TemplateAnnotation annotation : element.getAnnotations().values()) {
 
-      Map<String, Object> data = handler.create(annotation);
+      Map<String, Object> data = builder.create(annotation);
       root.put(annotation.getName(), data);
 
     }

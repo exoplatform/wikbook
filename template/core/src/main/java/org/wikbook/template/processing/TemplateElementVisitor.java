@@ -7,14 +7,20 @@ import org.wikbook.template.processing.metamodel.TemplateElement;
 import org.wikbook.template.processing.metamodel.TemplateType;
 
 import javax.lang.model.element.*;
+import javax.lang.model.type.ArrayType;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Types;
 import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -37,7 +43,9 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
   public List<TemplateElement> visitType(TypeElement typeElement, ModelContext ctx) {
 
-    TemplateType type = new TemplateType(typeElement.getSimpleName().toString(), typeElement.getQualifiedName().toString(), false);
+
+    TypeMirror paramType = typeElement.asType();
+    TemplateType type = buildTemplateType(paramType, ctx);
     TemplateElement classElement = new TemplateElement(typeElement.getSimpleName().toString(), type);
 
     applyDoc(typeElement, classElement, ctx);
@@ -258,18 +266,36 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
   private TemplateType buildTemplateType(TypeMirror typeMirror, ModelContext ctx) {
 
-    TypeElement returnTypeElement = (TypeElement) ctx.getTypesUtils().asElement(typeMirror);
-    String returnName = returnTypeElement == null ? "" : returnTypeElement.getSimpleName().toString();
-    String returnFullName = returnTypeElement == null ? "" : returnTypeElement.getQualifiedName().toString();
-    
-    Boolean isArray = TypeKind.ARRAY.equals(typeMirror.getKind());
-    if (isArray) {
-      returnFullName = typeMirror.toString();
-      int lastDot = typeMirror.toString().lastIndexOf(".");
-      returnName = typeMirror.toString().substring(lastDot + 1);
-    }
+    switch (typeMirror.getKind()) {
 
-    return new TemplateType(returnName, returnFullName, isArray);
+      case ARRAY:
+        ArrayType arrayType = (ArrayType) typeMirror;
+        DeclaredType componentDeclaredType = (DeclaredType) arrayType.getComponentType();
+        TemplateType templateType = buildTemplateType(componentDeclaredType, ctx);
+
+        return new TemplateType(
+            templateType.getName(),
+            templateType.getFqn(),
+            true,
+            templateType.getParameters());
+
+      case DECLARED:
+        DeclaredType declaredType = (DeclaredType) typeMirror;
+        TypeElement declaredTypeElement = (TypeElement) declaredType.asElement();
+        List<TemplateType> typeParameters = new ArrayList<TemplateType>();
+        for (TypeMirror mirror : declaredType.getTypeArguments()) {
+          typeParameters.add(buildTemplateType(mirror, ctx));
+        }
+
+        return new TemplateType(
+            declaredTypeElement.getSimpleName().toString(),
+            declaredTypeElement.getQualifiedName().toString(),
+            false,
+            typeParameters.toArray(new TemplateType[]{}));
+
+      default:
+        return new TemplateType("", "", false, new TemplateType[]{});
+    }
 
   }
 
@@ -291,6 +317,15 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     }
 
     return "";
+
+  }
+
+  private TypeMirror getErasedMirror(Class c, ModelContext ctx) {
+
+    TypeElement el = ctx.getElementsUtils().getTypeElement(c.getName());
+    TypeMirror m = el.asType();
+
+    return ctx.getTypesUtils().erasure(m);
 
   }
 

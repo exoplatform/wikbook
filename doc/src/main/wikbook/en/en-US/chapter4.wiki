@@ -257,6 +257,9 @@ Name : p
 {{/example}}
 
 == Type ==
+
+=== Data ===
+
 The type property have many values and provide a way to get more things about the type. It returns type, parameter type.
 
 {{example title="Class type values"}}
@@ -328,6 +331,79 @@ Is array : false
 // ...
 {{/code}})))
 {{/example}}
+
+=== Type parameter ===
+
+Generics type parameter are also supported. You can reach the parameters with "parameter" value.
+
+{{example title="Reach type parameter"}}
+|Code|((({{code language=java}}
+// ...
+  @Annotation
+  Map<String, Integer[]> m(String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Parameter 1 (key) :
+Name : ${a.type.parameter[0].name}
+Full name : ${a.type.parameter[0].fqn}
+Is Array : ${a.type.parameter[0].isArray}
+
+Parameter 2 (value) :
+Name : ${a.type.parameter[1].name}
+Full name : ${a.type.parameter[1].fqn}
+Is Array : ${a.type.parameter[1].isArray}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Parameter 1 (key) :
+Name : String
+Full name : java.lang.String
+Is Array : false
+
+Parameter 2 (value) :
+Name : Integer
+Full name : java.lang.Integer
+Is Array : true
+// ...
+{{/code}})))
+{{/example}}
+
+=== Get annotation ===
+
+Type data have special member "annotation" which allow to get annotations data of return type.
+
+{{example title="Reach annotation of type"}}
+|Code|((({{code language=java}}
+@Annotation("foo")
+class A {
+}
+// ...
+  @AnotherAnnotation
+  A m() { return null; }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+<#assign type = anotherAnnotation.type>
+<#assign a = type.annotation("@Annotation")>
+<#assign v = a.attribute("value")>
+Value : ${v}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Value : foo
+// ...
+{{/code}})))
+{{/example}}
+
 
 == Javadoc ==
 The javadoc is accessible with the "doc" property.

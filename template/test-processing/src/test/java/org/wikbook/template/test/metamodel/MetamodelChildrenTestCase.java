@@ -92,12 +92,31 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
   public void testTypeName() throws Exception {
 
     MetaModel metaModel = buildClass("F");
+    MetaModel g = buildClass("G");
+    
     assertEquals("String", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getName());
     assertEquals("java.lang.String", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getFqn());
 
-    MetaModel g = buildClass("G");
-    assertEquals("String[]", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getName());
-    assertEquals("java.lang.String[]", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getFqn());
+
+    assertEquals("String", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getName());
+    assertEquals("java.lang.String", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(0).getType().getFqn());
+
+    assertEquals("Collection", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getName());
+    assertEquals("java.util.Collection", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getFqn());
+    assertEquals(1, g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getParameters().length);
+    assertEquals("String", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getParameters()[0].getName());
+    assertEquals("java.lang.String", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getParameters()[0].getFqn());
+    assertEquals(Boolean.FALSE, g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(1).getType().getParameters()[0].isArray());
+
+    assertEquals("Map", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getName());
+    assertEquals("java.util.Map", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getFqn());
+    assertEquals(2, g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters().length);
+    assertEquals("Float", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters()[0].getName());
+    assertEquals("java.lang.Float", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters()[0].getFqn());
+    assertEquals(Boolean.FALSE, g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters()[0].isArray());
+    assertEquals("Integer", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters()[1].getName());
+    assertEquals("java.lang.Integer", g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters()[1].getFqn());
+    assertEquals(Boolean.TRUE, g.getElements().get(0).getAnnotation("@AnnotationA").getChildren().get(2).getType().getParameters()[1].isArray());
 
   }
 

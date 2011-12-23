@@ -73,8 +73,8 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
     MetaModel metaModel = buildClass("E");
 
-    assertEquals("String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getName());
-    assertEquals("java.lang.String[]", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFqn());
+    assertEquals("String", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getName());
+    assertEquals("java.lang.String", metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFqn());
     assertEquals(Boolean.TRUE, metaModel.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().isArray());
 
   }

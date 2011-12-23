@@ -18,6 +18,7 @@
 package org.wikbook.template.processing.metamodel;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -28,17 +29,17 @@ public class TemplateType implements Serializable {
   private String name;
   private String fqn;
   private Boolean isArray;
+  private TemplateType[] parameters;
 
-  public TemplateType(final String name, final String fullname, final Boolean isArray) {
+  public TemplateType(final String name, final String fullname, final Boolean isArray, final TemplateType[] parameters) {
     this.name = name;
     this.fqn = fullname;
     this.isArray = isArray;
+    this.parameters = parameters;
   }
 
-  public TemplateType(final String name, final Boolean isArray) {
-    this.name = name;
-    this.fqn = name;
-    this.isArray = isArray;
+  public TemplateType(final String name, final Boolean isArray, final TemplateType[] parameters) {
+    this(name, name, isArray, parameters);
   }
 
   public String getName() {
@@ -51,6 +52,10 @@ public class TemplateType implements Serializable {
 
   public Boolean isArray() {
     return isArray;
+  }
+
+  public TemplateType[] getParameters() {
+    return parameters;
   }
   
 }

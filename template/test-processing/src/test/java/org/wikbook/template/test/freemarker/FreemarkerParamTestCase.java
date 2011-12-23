@@ -86,8 +86,8 @@ public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
 
   public void testArrayTypeName() throws Exception {
 
-    assertEquals("String[]", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
-    assertEquals("java.lang.String[]", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("String", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("java.lang.String", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
     assertEquals("true", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
 
   }
