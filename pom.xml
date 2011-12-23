@@ -40,6 +40,14 @@
         <role>Committer</role>
       </roles>
     </developer>
+    <developer>
+      <id>alain.defrance</id>
+      <name>Alain Defrance</name>
+      <email>alain.defrance@exoplatform.com</email>
+      <roles>
+        <role>Committer</role>
+      </roles>
+    </developer>
   </developers>
   
   <scm>
