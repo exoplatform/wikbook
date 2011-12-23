@@ -62,7 +62,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
       if (a != null) {
 
-        TemplateAnnotation annotation = createAnnotation(a, classElement);
+        TemplateAnnotation annotation = ProcessingUtils.createAnnotation(a, classElement);
 
         classElement.addAnnotation(annotation);
         if (!elements.contains(classElement)) {
@@ -90,7 +90,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
     for (Class clazz : ctx.getAnnotations()) {
       Annotation a = variableElement.getAnnotation(clazz);
-      TemplateAnnotation annotation = createAnnotation(a, paramElement);
+      TemplateAnnotation annotation = ProcessingUtils.createAnnotation(a, paramElement);
       if (annotation != null) {
         for (String key : methodElement.getJavadoc().keySet()) {
           if ("param".equals(key)) {
@@ -121,7 +121,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     for (Class clazz : ctx.getAnnotations()) {
 
       Annotation a = executableElement.getAnnotation(clazz);
-      TemplateAnnotation annotation = createAnnotation(a, methodElement);
+      TemplateAnnotation annotation = ProcessingUtils.createAnnotation(a, methodElement);
       if (annotation != null) {
 
         methodElement.addAnnotation(annotation);
@@ -145,57 +145,6 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
 
   public List<TemplateElement> visitUnknown(Element element, ModelContext ctx) {
     return null;
-  }
-
-  private TemplateAnnotation createAnnotation(Annotation a, TemplateElement element) {
-
-    if (a == null) {
-      return null;
-    }
-
-    Class clazz = a.annotationType();
-
-    TemplateAnnotation annotation = new TemplateAnnotation(clazz.getSimpleName(), element);
-    for (Method method : clazz.getMethods()) {
-      if (method.getDeclaringClass().equals(clazz)) {
-        try {
-
-          Class type = method.getReturnType();
-
-          // Annotation[]
-          if (type.isArray() && type.getComponentType().isAnnotation()) {
-
-            Annotation[] annotations = (Annotation[]) method.invoke(a);
-            List<TemplateAnnotation> tAs = new ArrayList<TemplateAnnotation>();
-
-            for (Annotation currentAnnotation : annotations) {
-              TemplateAnnotation currentTA = createAnnotation(currentAnnotation, element);
-              tAs.add(currentTA);
-            }
-            
-            annotation.addValue(method.getName(), tAs.toArray(new TemplateAnnotation[]{}));
-
-          }
-
-          // Annotation
-          else if (type.isAnnotation()) {
-            TemplateAnnotation sub = createAnnotation((Annotation) method.invoke(a), element);
-            annotation.addValue(method.getName(), sub);
-          }
-
-          // Object and Object[]
-          else {
-            annotation.addValue(method.getName(), method.invoke(a));
-          }
-
-        } catch (Exception e) {
-          e.printStackTrace();
-        }
-      }
-    }
-
-    return annotation;
-
   }
 
   private void doc(TemplateElement tel, String name, List<String> l) {
@@ -317,15 +266,6 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     }
 
     return "";
-
-  }
-
-  private TypeMirror getErasedMirror(Class c, ModelContext ctx) {
-
-    TypeElement el = ctx.getElementsUtils().getTypeElement(c.getName());
-    TypeMirror m = el.asType();
-
-    return ctx.getTypesUtils().erasure(m);
 
   }
 

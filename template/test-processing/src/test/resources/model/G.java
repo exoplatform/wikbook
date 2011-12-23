@@ -1,5 +1,6 @@
 package model;
 
+import org.chromattic.ext.ntdef.NTFile;
 import org.wikbook.template.api.AnnotationA;
 import org.wikbook.template.api.AnnotationC;
 
@@ -20,5 +21,9 @@ public class G {
   @AnnotationC
   @AnnotationA("foo3")
   Map<Float, Integer[]> m4() { return null; }
+
+  @AnnotationC
+  @AnnotationA("foo4")
+  NTFile m5() { return null; }
 
 }

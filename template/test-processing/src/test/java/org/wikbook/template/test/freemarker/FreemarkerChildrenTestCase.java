@@ -18,6 +18,7 @@
 package org.wikbook.template.test.freemarker;
 
 import org.wikbook.template.freemarker.FreemarkerDataFactory;
+import org.wikbook.template.freemarker.caller.AnnotationCallerMethod;
 import org.wikbook.template.freemarker.caller.AttributeCallerMethod;
 import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
 import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
@@ -137,6 +138,13 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
 
     assertEquals(2, ((List) ((Map<String, Object>) gGets.get(2).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
     assertEquals(2, ((List) ((Map<String, Object>) gPaths.get(2).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
+
+    AnnotationCallerMethod annotationCallerMethod = (AnnotationCallerMethod) ((Map<String, Object>) gPaths.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.ANNOTATION);
+    AttributeCallerMethod attributeCallerMethod = (AttributeCallerMethod) ((Map<String, Object>) annotationCallerMethod.exec(Arrays.asList("@PrimaryType"))).get("attribute");
+
+    assertEquals("NTFile", ((Map<String, Object>) gGets.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("org.chromattic.ext.ntdef.NTFile", ((Map<String, Object>) gGets.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("nt:file", attributeCallerMethod.exec(Arrays.asList("name")).toString());
 
   }
 

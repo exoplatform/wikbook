@@ -2,6 +2,7 @@ package org.wikbook.template.processing.metamodel;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,11 @@ public class TemplateAnnotation implements Serializable {
   }
 
   public List<TemplateElement> getChildren() {
+
+    if (element == null) {
+      return Collections.emptyList();
+    }
+
     return element.getElement();
   }
 
@@ -43,15 +49,33 @@ public class TemplateAnnotation implements Serializable {
   }
 
   public void addJavadoc(String name, List<List<String>> value) {
+
+    if (element == null) {
+      return;
+    }
+    
     element.addJavadoc(name, value);
+
   }
 
   public Map<String, List<List<String>>> getJavadoc() {
+
+    if (element == null) {
+      return Collections.emptyMap();
+    }
+
     return element.getJavadoc();
+
   }
 
   public List<List<String>> getJavadoc(String name) {
+
+    if (element == null) {
+      return Collections.emptyList();
+    }
+
     return element.getJavadoc(name);
+
   }
   
 }

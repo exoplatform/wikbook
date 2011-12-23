@@ -72,9 +72,12 @@ public class FreemarkerDataFactory {
     data.put(JAVADOC, new JavadocCallerMethod(annotation.getJavadoc()));
     data.put(CHILDREN, new ChildrenCallerMethod(this, annotation.getChildren()));
     data.put(SIBLING, new SiblingCallerMethod(this, annotation.getElement()));
-    data.put(ELEMENT_NAME, annotation.getElement().getName());
     data.put(ANNOTATION_NAME, annotation.getName().substring(1));
-    data.put(TYPE, createTypeData(annotation.getElement().getType()));
+
+    if (annotation.getElement() != null) {
+      data.put(ELEMENT_NAME, annotation.getElement().getName());
+      data.put(TYPE, createTypeData(annotation.getElement().getType()));
+    }
 
     //
     return data;
