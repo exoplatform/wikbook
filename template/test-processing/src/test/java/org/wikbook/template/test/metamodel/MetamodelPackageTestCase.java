@@ -32,7 +32,7 @@ public class MetamodelPackageTestCase extends AbstractProcessorTestCase {
 
   public MetamodelPackageTestCase() throws ClassNotFoundException, IOException {
 
-    buildClass("package-info", "B", "C");
+    buildClass("package-info");
 
     m = readMetaModel("model.pkg");
 
@@ -40,7 +40,7 @@ public class MetamodelPackageTestCase extends AbstractProcessorTestCase {
 
   public void testPackage() throws Exception {
 
-    assertEquals(3, m.getElements().size());
+    assertEquals(1, m.getElements().size());
     assertEquals("model", m.getElements().get(0).getName());
     assertEquals(null, m.getElements().get(0).getType());
 
@@ -55,7 +55,7 @@ public class MetamodelPackageTestCase extends AbstractProcessorTestCase {
 
   public void testChildren() throws Exception {
 
-    assertEquals(2, m.getElements().get(0).getElement().size());
+    assertEquals(6, m.getElements().get(0).getElement().size());
     assertEquals("B", m.getElements().get(0).getElement().get(0).getName());
     assertEquals("B", m.getElements().get(0).getElement().get(0).getType().getName());
     assertEquals("model.B", m.getElements().get(0).getElement().get(0).getType().getFqn());

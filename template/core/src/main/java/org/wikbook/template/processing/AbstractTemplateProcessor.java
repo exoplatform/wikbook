@@ -150,11 +150,13 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   private void writeState(MetaModel metaModel, String name) {
 
     try {
+
       FileObject servicesfile = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, name + ".model", null);
       ObjectOutputStream oos = new ObjectOutputStream(servicesfile.openOutputStream());
       oos.writeObject(metaModel);
       oos.flush();
       oos.close();
+
     }
     catch (IOException e) {
       e.printStackTrace();

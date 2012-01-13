@@ -38,10 +38,6 @@ public class TemplateType implements Serializable {
     this.parameters = parameters;
   }
 
-  public TemplateType(final String name, final Boolean isArray, final TemplateType[] parameters) {
-    this(name, name, isArray, parameters);
-  }
-
   public String getName() {
     return name;
   }

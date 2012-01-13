@@ -21,11 +21,6 @@
       <artifactId>wikbook.template.core</artifactId>
     </dependency>
 
-    <dependency>
-      <groupId>javax.ws.rs</groupId>
-      <artifactId>jsr311-api</artifactId>
-    </dependency>
-
   </dependencies>
   
   <build>

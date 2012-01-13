@@ -7,3 +7,7 @@ foo, bar
 foo
 AnnotationA(value="b") model.B @author = ""
 AnnotationA(value="c") model.C @author = "foo, bar"
+AnnotationA(value="d") model.D @author = ""
+AnnotationA(value="d") model.E @author = ""
+AnnotationA(value="f") model.F @author = ""
+AnnotationA(value="g") model.G @author = ""

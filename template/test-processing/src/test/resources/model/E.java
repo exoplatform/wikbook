@@ -4,8 +4,6 @@ import org.wikbook.template.api.AnnotationA;
 import org.wikbook.template.api.AnnotationA2;
 import org.wikbook.template.api.AnnotationC;
 
-import javax.ws.rs.core.UriInfo;
-
 @AnnotationA("d")
 public class E {
 
@@ -17,7 +15,7 @@ public class E {
   @AnnotationC
   @AnnotationA("bar")
   void m(
-      @AnnotationC UriInfo uriInfo,
+      @AnnotationC Float uriInfo,
       @AnnotationA("p1Name") String p1,
       @AnnotationA2("p2Name") String[] p2,
       String nothing) {}

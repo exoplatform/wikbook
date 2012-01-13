@@ -1,8 +1,8 @@
 package model;
 
-import org.chromattic.ext.ntdef.NTFile;
 import org.wikbook.template.api.AnnotationA;
 import org.wikbook.template.api.AnnotationC;
+import org.wikbook.template.existing.Existing;
 
 import java.util.Collection;
 import java.util.Map;
@@ -24,6 +24,6 @@ public class G {
 
   @AnnotationC
   @AnnotationA("foo4")
-  NTFile m5() { return null; }
+  Existing m5() { return null; }
 
 }

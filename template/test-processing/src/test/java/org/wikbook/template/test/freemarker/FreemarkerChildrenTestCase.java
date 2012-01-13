@@ -141,11 +141,11 @@ public class FreemarkerChildrenTestCase extends AbstractFreemarkerTestCase {
     assertEquals(2, ((List) ((Map<String, Object>) gPaths.get(2).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.PARAMETER)).size());
 
     AnnotationCallerMethod annotationCallerMethod = (AnnotationCallerMethod) ((Map<String, Object>) gPaths.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.ANNOTATION);
-    AttributeCallerMethod attributeCallerMethod = (AttributeCallerMethod) ((Map<String, Object>) annotationCallerMethod.exec(Arrays.asList("@PrimaryType"))).get("attribute");
+    AttributeCallerMethod attributeCallerMethod = (AttributeCallerMethod) ((Map<String, Object>) annotationCallerMethod.exec(Arrays.asList("@AnnotationA"))).get("attribute");
 
-    assertEquals("NTFile", ((Map<String, Object>) gGets.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
-    assertEquals("org.chromattic.ext.ntdef.NTFile", ((Map<String, Object>) gGets.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
-    assertEquals("nt:file", attributeCallerMethod.exec(Arrays.asList("name")).toString());
+    assertEquals("Existing", ((Map<String, Object>) gGets.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("org.wikbook.template.existing.Existing", ((Map<String, Object>) gGets.get(3).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("foo", attributeCallerMethod.exec(Arrays.asList("value")).toString());
 
   }
 
