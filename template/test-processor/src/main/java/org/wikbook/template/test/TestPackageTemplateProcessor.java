@@ -62,4 +62,9 @@ public class TestPackageTemplateProcessor extends AbstractTemplateProcessor {
     return "pkg";
   }
 
+  @Override
+  protected boolean writeModel() {
+    return true;
+  }
+
 }

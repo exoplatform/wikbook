@@ -123,7 +123,9 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
           new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);
 
-          writeState(metaModel, fileName + ext);
+          if (writeModel()) {
+            writeState(metaModel, fileName + ext);
+          }
 
         } catch (IOException e) {
           e.printStackTrace();
@@ -158,6 +160,10 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
       e.printStackTrace();
     }
 
+  }
+
+  protected boolean writeModel() {
+    return false;
   }
 
   protected abstract Class[] annotations();

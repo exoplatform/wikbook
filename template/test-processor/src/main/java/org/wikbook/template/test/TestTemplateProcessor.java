@@ -74,4 +74,9 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
     return "src";
   }
 
+  @Override
+  protected boolean writeModel() {
+    return true;
+  }
+
 }
