@@ -728,6 +728,49 @@ Value : bar
 {{/code}})))
 {{/example}}
 
+== Browse package ==
+
+Some framework use package annotation and wikbook templating allow to use these annotations.
+The only one difference is that package annotation doesn't have type member. You can use attribute, doc, name and children member to browse package content.
+
+{{example title="Browse package annotation"}}
+|Code|((({{code language=java}}
+// p/package-info.java
+
+@P("foo")
+package p;
+{{/code}})))
+((({{code language=java}}
+// p/A.java
+
+package p;
+
+@Annotation("a")
+class A {}
+{{/code}})))
+((({{code language=java}}
+// p/B.java
+
+package p;
+
+@Annotation("b")
+class B {}
+{{/code}})))
+|Template|(((
+{{code}}
+@P value : ${@P.attribute("value")}
+<#list ${@P.children("@Annotation") as c}
+Found : ${c.type.fqn} (${c.attribute("value")})
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+@P value : foo
+Found : p.A (a)
+Found : p.B (b)
+{{/code}})))
+{{/example}}
+
 == Full sample ==
 Now we will see a concrete use case with typical source class and full template.
 Two use cases will be considered : JAX-RS API and Chromattic API. Meanwhile you can create yours.
