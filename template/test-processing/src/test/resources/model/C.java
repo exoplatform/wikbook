@@ -13,5 +13,5 @@ import org.wikbook.template.api.AnnotationA;
  * @since 1.0
  * @deprecated
  */
-@AnnotationA("b")
+@AnnotationA("c")
 public class C {}

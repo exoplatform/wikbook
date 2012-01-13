@@ -8,6 +8,7 @@ import org.wikbook.template.processing.metamodel.TemplateElement;
 import javax.annotation.processing.*;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -84,30 +85,45 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
     for (Class clazz : annotations) {
       Set<? extends Element> elements = roundEnvironment.getElementsAnnotatedWith(clazz);
       for (Element element : elements) {
-
-        if (done.contains(element))
+        
+        if (done.contains(element)) {
           continue;
-
-        if (element.getKind() == ElementKind.CLASS) {
-          List<TemplateElement> modelElements = buildElements((TypeElement) element, ctx);
-          metaModel.addAll(modelElements);
-
         }
+
+        switch (element.getKind()) {
+
+          case CLASS:
+          case PACKAGE:
+            List<TemplateElement> built = buildElements(element, ctx);
+            metaModel.addAll(built);
+            break;
+        }
+        
         done.add(element);
       }
     }
 
     if (roundEnvironment.processingOver()) {
 
-      writeState(metaModel);
+      String fileName = null;
 
       for (TemplateElement el : metaModel.getElements()) {
 
         try {
-          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + el.getType().getFqn() + ext, null);
+
+          if (el.getType() != null) {
+            fileName = el.getType().getFqn();
+          }
+          else {
+            fileName = el.getName();
+          }
+
+          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + fileName + ext, null);
           OutputStream os = file.openOutputStream();
 
           new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);
+
+          writeState(metaModel, fileName + ext);
 
         } catch (IOException e) {
           e.printStackTrace();
@@ -115,14 +131,13 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
         
       }
 
-
     }
 
     return false;
     
   }
 
-  private List<TemplateElement> buildElements(TypeElement el, ModelContext ctx) {
+  private List<TemplateElement> buildElements(Element el, ModelContext ctx) {
 
     TemplateElementVisitor visitor = new TemplateElementVisitor();
     List<TemplateElement> elements = el.accept(visitor, ctx);
@@ -130,10 +145,10 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
     
   }
 
-  private void writeState(MetaModel metaModel) {
+  private void writeState(MetaModel metaModel, String name) {
 
     try {
-      FileObject servicesfile = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "metaModel", null);
+      FileObject servicesfile = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, name + ".model", null);
       ObjectOutputStream oos = new ObjectOutputStream(servicesfile.openOutputStream());
       oos.writeObject(metaModel);
       oos.flush();

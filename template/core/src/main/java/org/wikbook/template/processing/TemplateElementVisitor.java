@@ -1,7 +1,6 @@
 package org.wikbook.template.processing;
 
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
-import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.ModelContext;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 import org.wikbook.template.processing.metamodel.TemplateType;
@@ -9,19 +8,13 @@ import org.wikbook.template.processing.metamodel.TemplateType;
 import javax.lang.model.element.*;
 import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
-import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Types;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.StringReader;
 import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.reflect.Array;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -38,7 +31,35 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
   }
 
   public List<TemplateElement> visitPackage(PackageElement packageElement, ModelContext ctx) {
-    return null;
+
+    List<TemplateElement> elements = new ArrayList<TemplateElement>();
+    TemplateElement pkgTmplElement = new TemplateElement(packageElement.getQualifiedName().toString());
+
+    applyDoc(packageElement, pkgTmplElement, ctx);
+
+    for (Class clazz : ctx.getAnnotations()) {
+      Annotation a = packageElement.getAnnotation(clazz);
+
+      if (a != null) {
+
+        TemplateAnnotation annotation = ProcessingUtils.createAnnotation(a, pkgTmplElement);
+        
+        pkgTmplElement.addAnnotation(annotation);
+        if (!elements.contains(pkgTmplElement)) {
+          elements.add(pkgTmplElement);
+        }
+        
+        for (Element el : packageElement.getEnclosedElements()) {
+          for (TemplateElement te : el.accept(this, ctx)) {
+            pkgTmplElement.addElement(te);
+          }
+        }
+
+      }
+    }
+
+    return elements;
+
   }
 
   public List<TemplateElement> visitType(TypeElement typeElement, ModelContext ctx) {
@@ -170,25 +191,31 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
     if (documentation == null) return;
 
     //
-    Scanner sc = new Scanner(documentation);
+    BufferedReader br = new BufferedReader(new StringReader(documentation));
     String currentName = null;
     List<String> l = new ArrayList<String>();
-    while (sc.hasNextLine()) {
-      String line = cleanLeft(sc.nextLine());
-      if (line.startsWith("@")) {
-        doc(tel, currentName, l);
-        int delimiterPos = line.indexOf(" ");
-        if (delimiterPos != -1) {
-          currentName = line.substring(0, delimiterPos);
-          l.add(line.substring(delimiterPos + 1));
+    try {
+      String line;
+      while ((line = br.readLine()) != null) {
+        line = cleanLeft(line);
+        if (line.startsWith("@")) {
+          doc(tel, currentName, l);
+          int delimiterPos = line.indexOf(" ");
+          if (delimiterPos != -1) {
+            currentName = line.substring(0, delimiterPos);
+            l.add(line.substring(delimiterPos + 1));
+          }
+          else {
+            currentName = line;
+          }
         }
         else {
-          currentName = line;
+          l.add(line);
         }
       }
-      else {
-        l.add(line);
-      }
+    }
+    catch (IOException e) {
+      e.printStackTrace();
     }
     doc(tel, currentName, l);
   }

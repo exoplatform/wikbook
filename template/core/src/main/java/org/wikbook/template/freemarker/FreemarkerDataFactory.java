@@ -76,7 +76,11 @@ public class FreemarkerDataFactory {
 
     if (annotation.getElement() != null) {
       data.put(ELEMENT_NAME, annotation.getElement().getName());
-      data.put(TYPE, createTypeData(annotation.getElement().getType()));
+
+      if (annotation.getElement().getType() != null) {
+        data.put(TYPE, createTypeData(annotation.getElement().getType()));
+      }
+      
     }
 
     //

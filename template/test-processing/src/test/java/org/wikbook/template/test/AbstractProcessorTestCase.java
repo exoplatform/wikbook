@@ -33,28 +33,48 @@ import java.io.ObjectInputStream;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
  * @version $Revision$
  */
 public abstract class AbstractProcessorTestCase extends TestCase {
-  
-  protected MetaModel buildClass(String name) throws IOException, ClassNotFoundException {
 
-    //
-    new File("target/test-classes/generated/metaModel").delete();
+  public static Map<String, MetaModel> read = new HashMap<String, MetaModel>();
+  public static Set<String> built = new HashSet<String>();
 
+  protected void buildClass(String... names) throws IOException, ClassNotFoundException {
 
     List<File> files = new ArrayList<File>();
-    URL url = Thread.currentThread().getContextClassLoader().getResource("model/" + name + ".java");
-    try {
-      files.add(new File(url.toURI()));
+
+
+    for (String name : names) {
+
+      /*if (built.contains(name)) {
+        continue;
+      }*/
+
+
+      URL url = Thread.currentThread().getContextClassLoader().getResource("model/" + name + ".java");
+      try {
+        files.add(new File(url.toURI()));
+      }
+      catch (URISyntaxException e) {
+        e.printStackTrace();
+      }
+
     }
-    catch (URISyntaxException e) {
-      e.printStackTrace();
+
+    if (files.size() == 0) {
+      return;
     }
 
     //
@@ -83,15 +103,21 @@ public abstract class AbstractProcessorTestCase extends TestCase {
       System.out.println(diagnostic.getMessage(Locale.ENGLISH));
     }
 
-    return readMetaModel();
+    built.addAll(Arrays.asList(names));
 
   }
 
-  private MetaModel readMetaModel() throws ClassNotFoundException, IOException {
+  public MetaModel readMetaModel(String name) throws ClassNotFoundException, IOException {
 
-    ObjectInputStream ois = new ObjectInputStream(new FileInputStream("target/test-classes/generated/metaModel"));
-    return (MetaModel) ois.readObject();
+    if (!read.containsKey(name)) {
+
+      ObjectInputStream ois = new ObjectInputStream(new FileInputStream("target/test-classes/generated/" + name + ".model"));
+      read.put(name, (MetaModel) ois.readObject());
+
+    }
+    
+    return read.get(name);
 
   }
-
+  
 }

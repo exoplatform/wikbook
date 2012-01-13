@@ -24,19 +24,12 @@ import org.wikbook.template.api.AnnotationB2;
 import org.wikbook.template.api.AnnotationB3;
 import org.wikbook.template.api.AnnotationC;
 import org.wikbook.template.api.AnnotationD;
+import org.wikbook.template.api.AnnotationPackage;
 import org.wikbook.template.processing.AbstractTemplateProcessor;
 
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
 import javax.lang.model.SourceVersion;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.PUT;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.QueryParam;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>
@@ -44,24 +37,19 @@ import javax.ws.rs.QueryParam;
  */
 @SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
-public class TestTemplateProcessor extends AbstractTemplateProcessor {
+public class TestPackageTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected Class[] annotations() {
     return new Class[] {
-        AnnotationA.class,
-        AnnotationA2.class,
-        AnnotationB.class,
-        AnnotationB2.class,
-        AnnotationB3.class,
-        AnnotationC.class,
-        AnnotationD.class
+        AnnotationPackage.class,
+        AnnotationA.class
     };
   }
 
   @Override
   protected String templateName() {
-    return "src.tmpl";
+    return "pkg.tmpl";
   }
 
   @Override
@@ -71,7 +59,7 @@ public class TestTemplateProcessor extends AbstractTemplateProcessor {
 
   @Override
   protected String ext() {
-    return "src";
+    return "pkg";
   }
 
 }

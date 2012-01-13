@@ -21,6 +21,7 @@ import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 import org.wikbook.template.test.AbstractProcessorTestCase;
 
+import java.io.IOException;
 import java.util.List;
 
 /**
@@ -29,24 +30,25 @@ import java.util.List;
  */
 public class MetamodelManyChildrenTestCase extends AbstractProcessorTestCase {
 
-  @Override
-  public void setUp() throws Exception {
+  private MetaModel f;
 
-    super.setUp();
+  public MetamodelManyChildrenTestCase() throws ClassNotFoundException, IOException {
+
+    buildClass("F");
+
+    f = readMetaModel("model.F.src");
 
   }
 
   public void testExists() throws Exception {
 
-    MetaModel metaModel = buildClass("F");
-    assertEquals(3, metaModel.getElements().get(0).getAnnotations().values().iterator().next().getChildren().size());
+    assertEquals(3, f.getElements().get(0).getAnnotations().values().iterator().next().getChildren().size());
 
   }
 
   public void testChildrenName() throws Exception {
 
-    MetaModel metaModel = buildClass("F");
-    List<TemplateElement> elements = metaModel.getElements().get(0).getAnnotations().values().iterator().next().getChildren();
+    List<TemplateElement> elements = f.getElements().get(0).getAnnotations().values().iterator().next().getChildren();
     assertEquals("m", elements.get(0).getName());
     assertEquals("m2", elements.get(1).getName());
     assertEquals("m3", elements.get(2).getName());
@@ -55,8 +57,7 @@ public class MetamodelManyChildrenTestCase extends AbstractProcessorTestCase {
 
   public void testChildrenAnnotations() throws Exception {
 
-    MetaModel metaModel = buildClass("F");
-    List<TemplateElement> elements = metaModel.getElements().get(0).getAnnotations().values().iterator().next().getChildren();
+    List<TemplateElement> elements = f.getElements().get(0).getAnnotations().values().iterator().next().getChildren();
     assertEquals(2, elements.get(0).getAnnotations().size());
     assertEquals(2, elements.get(1).getAnnotations().size());
     assertEquals(2, elements.get(2).getAnnotations().size());

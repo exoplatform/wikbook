@@ -10,12 +10,6 @@ import java.io.FileNotFoundException;
  */
 public class NothingTestCase extends AbstractProcessorTestCase {
 
-  @Override
-  public void setUp() throws Exception {
-
-    super.setUp();
-  }
-
   /*public void testA() throws Exception {
 
     try {
@@ -30,7 +24,8 @@ public class NothingTestCase extends AbstractProcessorTestCase {
 
   public void testB() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
+    buildClass("B");
+    MetaModel metaModel = readMetaModel("model.B.src");
     assertNotNull(metaModel);
 
   }

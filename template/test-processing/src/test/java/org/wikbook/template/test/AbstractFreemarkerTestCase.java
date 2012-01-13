@@ -21,6 +21,7 @@ import org.wikbook.template.freemarker.FreemarkerModelBuilder;
 import org.wikbook.template.processing.metamodel.MetaModel;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -29,11 +30,20 @@ import java.util.Map;
  */
 public abstract class AbstractFreemarkerTestCase extends AbstractProcessorTestCase {
 
-  public Map<String, Object> buildModel(String className) throws ClassNotFoundException, IOException {
+  public static Map<String, Map<String, Object>> builtData = new HashMap<String, Map<String, Object>>();
 
-    FreemarkerModelBuilder builder = new FreemarkerModelBuilder();
-    MetaModel model = buildClass(className);
-    return builder.build(model, model.getElements().get(0));
+  public Map<String, Object> buildModel(String className, String ext) throws ClassNotFoundException, IOException {
+
+    if (!builtData.containsKey(className)) {
+
+      FreemarkerModelBuilder builder = new FreemarkerModelBuilder();
+      buildClass(className);
+      MetaModel model = readMetaModel("model." + className + "." + ext);
+      builtData.put(className, builder.build(model, model.getElements().get(0)));
+
+    }
+
+    return builtData.get(className);
 
   }
 }

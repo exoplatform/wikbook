@@ -17,11 +17,13 @@
 
 package org.wikbook.template.test.freemarker;
 
+import freemarker.template.TemplateModelException;
 import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.freemarker.caller.ChildrenCallerMethod;
 import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
 import org.wikbook.template.test.AbstractFreemarkerTestCase;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,69 +35,68 @@ import java.util.Map;
  */
 public class FreemarkerParamTestCase extends AbstractFreemarkerTestCase {
 
-  private ChildrenCallerMethod annotationChildrenCaller;
-  private ChildrenCallerMethod pathChildrenCaller;
+  private ChildrenCallerMethod childrenCaller1;
+  private ChildrenCallerMethod childrenCaller2;
 
-  private List<Map<String, Object>> paths;
-  private List<Map<String, Object>> pathParams;
-  private List<Map<String, Object>> queryParams;
+  private List<Map<String, Object>> data1;
+  private List<Map<String, Object>> data2;
+  private List<Map<String, Object>> data3;
 
-  private JavadocCallerMethod pathParamsDocCaller;
-  private JavadocCallerMethod queryParamsDocCaller;
+  private JavadocCallerMethod docCaller1;
+  private JavadocCallerMethod docCaller2;
 
-  @Override
-  public void setUp() throws Exception {
+  private Map<String, Object> e;
 
-    super.setUp();
+  public FreemarkerParamTestCase() throws IOException, ClassNotFoundException, TemplateModelException {
 
-    Map<String, Object> data = buildModel("E");
+    e = buildModel("E", "src");
 
-    annotationChildrenCaller = (ChildrenCallerMethod) ((Map<String, Object>) data.get("@AnnotationA")).get(FreemarkerDataFactory.CHILDREN);
-    paths = (List<Map<String, Object>>) annotationChildrenCaller.exec(Arrays.asList("@AnnotationA"));
+    childrenCaller1 = (ChildrenCallerMethod) ((Map<String, Object>) e.get("@AnnotationA")).get(FreemarkerDataFactory.CHILDREN);
+    data1 = (List<Map<String, Object>>) childrenCaller1.exec(Arrays.asList("@AnnotationA"));
 
-    pathChildrenCaller = (ChildrenCallerMethod) paths.get(0).get(FreemarkerDataFactory.CHILDREN);
-    pathParams = (List<Map<String, Object>>) pathChildrenCaller.exec(Arrays.asList("@AnnotationA"));
-    queryParams = (List<Map<String, Object>>) pathChildrenCaller.exec(Arrays.asList("@AnnotationA2"));
+    childrenCaller2 = (ChildrenCallerMethod) data1.get(0).get(FreemarkerDataFactory.CHILDREN);
+    data2 = (List<Map<String, Object>>) childrenCaller2.exec(Arrays.asList("@AnnotationA"));
+    data3 = (List<Map<String, Object>>) childrenCaller2.exec(Arrays.asList("@AnnotationA2"));
 
-    pathParamsDocCaller = (JavadocCallerMethod) pathParams.get(0).get(FreemarkerDataFactory.JAVADOC);
-    queryParamsDocCaller = (JavadocCallerMethod) queryParams.get(0).get(FreemarkerDataFactory.JAVADOC);
+    docCaller1 = (JavadocCallerMethod) data2.get(0).get(FreemarkerDataFactory.JAVADOC);
+    docCaller2 = (JavadocCallerMethod) data3.get(0).get(FreemarkerDataFactory.JAVADOC);
 
   }
 
   public void testExists() throws Exception {
 
-    assertEquals("AnnotationA", pathParams.get(0).get(FreemarkerDataFactory.NAME));
-    assertEquals("AnnotationA2", queryParams.get(0).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationA", data2.get(0).get(FreemarkerDataFactory.NAME));
+    assertEquals("AnnotationA2", data3.get(0).get(FreemarkerDataFactory.NAME));
 
   }
 
   public void testElementName() throws Exception {
 
-    assertEquals("p1", pathParams.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
-    assertEquals("p2", queryParams.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("p1", data2.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
+    assertEquals("p2", data3.get(0).get(FreemarkerDataFactory.ELEMENT_NAME));
 
   }
 
   public void testTypeName() throws Exception {
 
-    assertEquals("String", ((Map<String, String>) pathParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
-    assertEquals("java.lang.String", ((Map<String, String>) pathParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
-    assertEquals("false", ((Map<String, String>) pathParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
+    assertEquals("String", ((Map<String, String>) data2.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("java.lang.String", ((Map<String, String>) data2.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("false", ((Map<String, String>) data2.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
 
   }
 
   public void testArrayTypeName() throws Exception {
 
-    assertEquals("String", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
-    assertEquals("java.lang.String", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
-    assertEquals("true", ((Map<String, String>) queryParams.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
+    assertEquals("String", ((Map<String, String>) data3.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.NAME));
+    assertEquals("java.lang.String", ((Map<String, String>) data3.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.FQN));
+    assertEquals("true", ((Map<String, String>) data3.get(0).get(FreemarkerDataFactory.TYPE)).get(FreemarkerDataFactory.IS_ARRAY));
 
   }
 
   public void testJavadoc() throws Exception {
 
-    assertEquals("P1 parameter description", pathParamsDocCaller.exec(new ArrayList()).toString());
-    assertEquals("P2 parameter description", queryParamsDocCaller.exec(new ArrayList()).toString());
+    assertEquals("P1 parameter description", docCaller1.exec(new ArrayList()).toString());
+    assertEquals("P2 parameter description", docCaller2.exec(new ArrayList()).toString());
 
   }
 

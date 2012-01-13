@@ -35,12 +35,16 @@ public class TemplateElement implements Serializable {
   private List<TemplateElement> children;
   private Map<String, List<List<String>>> javadoc;
 
-  public TemplateElement(final String name, final TemplateType type) {
+  public TemplateElement(final String name) {
     this.name = name;
-    this.type = type;
     this.annotations = new HashMap<String, TemplateAnnotation>();
     this.children = new ArrayList<TemplateElement>();
     this.javadoc = new HashMap<String, List<List<String>>>();
+  }
+
+  public TemplateElement(final String name, final TemplateType type) {
+    this(name);
+    this.type = type;
   }
 
   public String getName() {

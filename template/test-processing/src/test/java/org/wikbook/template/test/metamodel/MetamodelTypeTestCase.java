@@ -21,6 +21,7 @@ import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.test.AbstractProcessorTestCase;
 
+import java.io.IOException;
 import java.util.Map;
 
 /**
@@ -29,33 +30,36 @@ import java.util.Map;
  */
 public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
 
-  @Override
-  public void setUp() throws Exception {
+  private MetaModel b;
+  private MetaModel c;
 
-    super.setUp();
+  public MetamodelTypeTestCase() throws ClassNotFoundException, IOException {
+
+    buildClass("B");
+    buildClass("C");
+
+    b = readMetaModel("model.B.src");
+    c = readMetaModel("model.C.src");
 
   }
 
   public void testExist() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    assertEquals(4, metaModel.getElements().get(0).getAnnotations().size());
-    assertNotNull(metaModel.getElements().get(0).getAnnotation("@AnnotationA"));
+    assertEquals(4, b.getElements().get(0).getAnnotations().size());
+    assertNotNull(b.getElements().get(0).getAnnotation("@AnnotationA"));
 
   }
 
   public void testAnnotationSimpleValues() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    assertEquals("value", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getValues().keySet().iterator().next());
-    assertEquals("b", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getValues().values().iterator().next());
+    assertEquals("value", b.getElements().get(0).getAnnotation("@AnnotationA").getValues().keySet().iterator().next());
+    assertEquals("b", b.getElements().get(0).getAnnotation("@AnnotationA").getValues().values().iterator().next());
 
   }
 
   public void testAnnotationAnnotationValues() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    Map<String, Object> b2Values = metaModel.getElements().get(0).getAnnotation("@AnnotationB2").getValues();
+    Map<String, Object> b2Values = b.getElements().get(0).getAnnotation("@AnnotationB2").getValues();
 
     assertEquals("value", b2Values.keySet().iterator().next());
 
@@ -70,8 +74,7 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
 
   public void testAnnotationManyAnnotationValues() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    Map<String, Object> b3Values = metaModel.getElements().get(0).getAnnotation("@AnnotationB3").getValues();
+    Map<String, Object> b3Values = b.getElements().get(0).getAnnotation("@AnnotationB3").getValues();
 
     assertEquals("value", b3Values.keySet().iterator().next());
 
@@ -93,61 +96,54 @@ public class MetamodelTypeTestCase extends AbstractProcessorTestCase {
 
   public void testTypeName() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    assertEquals("B", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getName());
-    assertEquals("model.B", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getFqn());
-    assertEquals(Boolean.FALSE, metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().isArray());
+    assertEquals("B", b.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getName());
+    assertEquals("model.B", b.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().getFqn());
+    assertEquals(Boolean.FALSE, b.getElements().get(0).getAnnotation("@AnnotationA").getElement().getType().isArray());
 
   }
 
   public void testElementName() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    assertEquals("B", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getElement().getName());
+    assertEquals("B", b.getElements().get(0).getAnnotation("@AnnotationA").getElement().getName());
 
   }
 
   public void testAnnotationName() throws Exception {
 
-    MetaModel metaModel = buildClass("B");
-    assertEquals("@AnnotationA", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getName());
+    assertEquals("@AnnotationA", b.getElements().get(0).getAnnotation("@AnnotationA").getName());
 
   }
 
   public void testJavadocGeneralComment() throws Exception {
 
-    MetaModel metaModel = buildClass("C");
-    assertEquals("[[ General comment.]]", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get(null).toString());
+    assertEquals("[[ General comment.]]", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get(null).toString());
 
   }
 
   public void testJavadocSingleValue() throws Exception {
 
-    MetaModel metaModel = buildClass("C");
-    assertEquals("[[1.0]]", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("since").toString());
+    assertEquals("[[1.0]]", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("since").toString());
 
   }
 
   public void testJavadocMultipleValue() throws Exception {
 
-    MetaModel metaModel = buildClass("C");
-    assertEquals("[[foo], [bar]]", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("author").toString());
+    assertEquals("[[foo], [bar]]", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("author").toString());
 
   }
 
   public void testJavadocNoValue() throws Exception {
 
-    MetaModel metaModel = buildClass("C");
-    assertEquals("[[deprecated]]", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("deprecated").toString());
+    assertEquals("[[deprecated]]", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("deprecated").toString());
 
   }
+
   public void testJavadocBloc() throws Exception {
 
-    MetaModel metaModel = buildClass("C");
-    assertEquals(" here there is", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("data").get(0).get(0));
-    assertEquals("   a", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("data").get(0).get(1));
-    assertEquals(" bloc", metaModel.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("data").get(0).get(2));
+    assertEquals(" here there is", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("data").get(0).get(0));
+    assertEquals("   a", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("data").get(0).get(1));
+    assertEquals(" bloc", c.getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("data").get(0).get(2));
 
   }
-  
+
 }
