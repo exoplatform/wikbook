@@ -53,43 +53,43 @@ public class MetamodelChildrenTestCase extends AbstractProcessorTestCase {
 
   public void testElementName() throws Exception {
 
-    assertEquals("m", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationC").getElement().getName());
-    assertEquals("m", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationA").getElement().getName());
+    assertEquals("m", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationC").getElement().getName());
+    assertEquals("m", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationA").getElement().getName());
 
   }
 
   public void testAnnotationName() throws Exception {
 
-    assertEquals("@AnnotationC", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationC").getName());
-    assertEquals("@AnnotationA", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationA").getName());
+    assertEquals("@AnnotationC", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationC").getName());
+    assertEquals("@AnnotationA", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationA").getName());
 
   }
 
   public void testJavadocGeneralComment() throws Exception {
 
-    assertEquals("[[ General comment.]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationC").getJavadoc().get(null).toString());
-    assertEquals("[[ General comment.]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationA").getJavadoc().get(null).toString());
+    assertEquals("[[ General comment.]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationC").getJavadoc().get(null).toString());
+    assertEquals("[[ General comment.]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get(null).toString());
 
   }
 
   public void testJavadocSingleValue() throws Exception {
 
-    assertEquals("[[1.0]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationC").getJavadoc().get("since").toString());
-    assertEquals("[[1.0]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationA").getJavadoc().get("since").toString());
+    assertEquals("[[1.0]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationC").getJavadoc().get("since").toString());
+    assertEquals("[[1.0]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("since").toString());
 
   }
 
   public void testJavadocMultipleValue() throws Exception {
 
-    assertEquals("[[foo], [bar]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationC").getJavadoc().get("author").toString());
-    assertEquals("[[foo], [bar]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationA").getJavadoc().get("author").toString());
+    assertEquals("[[foo], [bar]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationC").getJavadoc().get("author").toString());
+    assertEquals("[[foo], [bar]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("author").toString());
 
   }
 
   public void testJavadocNoValue() throws Exception {
 
-    assertEquals("[[deprecated]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationC").getJavadoc().get("deprecated").toString());
-    assertEquals("[[deprecated]]", d.getElements().get(0).getElement().get(0).getAnnotation("@AnnotationA").getJavadoc().get("deprecated").toString());
+    assertEquals("[[deprecated]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationC").getJavadoc().get("deprecated").toString());
+    assertEquals("[[deprecated]]", d.getElements().get(0).getElements().get(0).getAnnotation("@AnnotationA").getJavadoc().get("deprecated").toString());
 
   }
 

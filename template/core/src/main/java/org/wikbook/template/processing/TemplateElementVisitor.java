@@ -120,7 +120,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
           }
         }
         paramElement.addAnnotation(annotation);
-        if (!methodElement.getElement().contains(paramElement)) {
+        if (!methodElement.getElements().contains(paramElement)) {
           methodElement.addElement(paramElement);
         }
       }
@@ -146,7 +146,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
       if (annotation != null) {
 
         methodElement.addAnnotation(annotation);
-        if (!typeElement.getElement().contains(methodElement)) {
+        if (!typeElement.getElements().contains(methodElement)) {
           typeElement.addElement(methodElement);
           ctx.setExecutableElement(methodElement);
           for (VariableElement e : executableElement.getParameters()) {

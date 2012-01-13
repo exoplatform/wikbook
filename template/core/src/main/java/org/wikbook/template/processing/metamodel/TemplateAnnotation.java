@@ -1,7 +1,6 @@
 package org.wikbook.template.processing.metamodel;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -41,7 +40,7 @@ public class TemplateAnnotation implements Serializable {
       return Collections.emptyList();
     }
 
-    return element.getElement();
+    return element.getElements();
   }
 
   public TemplateElement getElement() {

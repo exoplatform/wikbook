@@ -40,38 +40,38 @@ public class MetamodelParamTestCase extends AbstractProcessorTestCase {
 
   public void testExists() throws Exception {
 
-    assertEquals("@AnnotationA", e.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getName());
-    assertEquals("@AnnotationA2", e.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getName());
+    assertEquals("@AnnotationA", e.getElements().get(0).getElements().get(0).getElements().get(1).getAnnotation("@AnnotationA").getName());
+    assertEquals("@AnnotationA2", e.getElements().get(0).getElements().get(0).getElements().get(2).getAnnotation("@AnnotationA2").getName());
 
   }
 
   public void testElementName() throws Exception {
 
-    assertEquals("p1", e.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getName());
-    assertEquals("p2", e.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getName());
+    assertEquals("p1", e.getElements().get(0).getElements().get(0).getElements().get(1).getAnnotation("@AnnotationA").getElement().getName());
+    assertEquals("p2", e.getElements().get(0).getElements().get(0).getElements().get(2).getAnnotation("@AnnotationA2").getElement().getName());
 
   }
 
   public void testJavadoc() throws Exception {
 
-    assertEquals("[[P1 parameter description]]", e.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getJavadoc(null).toString());
-    assertEquals("[[P2 parameter description]]", e.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getJavadoc(null).toString());
+    assertEquals("[[P1 parameter description]]", e.getElements().get(0).getElements().get(0).getElements().get(1).getAnnotation("@AnnotationA").getJavadoc(null).toString());
+    assertEquals("[[P2 parameter description]]", e.getElements().get(0).getElements().get(0).getElements().get(2).getAnnotation("@AnnotationA2").getJavadoc(null).toString());
 
   }
 
   public void testTypeName() throws Exception {
 
-    assertEquals("String", e.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getName());
-    assertEquals("java.lang.String", e.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().getFqn());
-    assertEquals(Boolean.FALSE, e.getElements().get(0).getElement().get(0).getElement().get(1).getAnnotation("@AnnotationA").getElement().getType().isArray());
+    assertEquals("String", e.getElements().get(0).getElements().get(0).getElements().get(1).getAnnotation("@AnnotationA").getElement().getType().getName());
+    assertEquals("java.lang.String", e.getElements().get(0).getElements().get(0).getElements().get(1).getAnnotation("@AnnotationA").getElement().getType().getFqn());
+    assertEquals(Boolean.FALSE, e.getElements().get(0).getElements().get(0).getElements().get(1).getAnnotation("@AnnotationA").getElement().getType().isArray());
 
   }
 
   public void testArrayTypeName() throws Exception {
 
-    assertEquals("String", e.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getName());
-    assertEquals("java.lang.String", e.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFqn());
-    assertEquals(Boolean.TRUE, e.getElements().get(0).getElement().get(0).getElement().get(2).getAnnotation("@AnnotationA2").getElement().getType().isArray());
+    assertEquals("String", e.getElements().get(0).getElements().get(0).getElements().get(2).getAnnotation("@AnnotationA2").getElement().getType().getName());
+    assertEquals("java.lang.String", e.getElements().get(0).getElements().get(0).getElements().get(2).getAnnotation("@AnnotationA2").getElement().getType().getFqn());
+    assertEquals(Boolean.TRUE, e.getElements().get(0).getElements().get(0).getElements().get(2).getAnnotation("@AnnotationA2").getElement().getType().isArray());
 
   }
 

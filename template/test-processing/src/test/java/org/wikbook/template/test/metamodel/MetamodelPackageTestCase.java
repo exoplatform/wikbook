@@ -55,10 +55,10 @@ public class MetamodelPackageTestCase extends AbstractProcessorTestCase {
 
   public void testChildren() throws Exception {
 
-    assertEquals(6, m.getElements().get(0).getElement().size());
-    assertEquals("B", m.getElements().get(0).getElement().get(0).getName());
-    assertEquals("B", m.getElements().get(0).getElement().get(0).getType().getName());
-    assertEquals("model.B", m.getElements().get(0).getElement().get(0).getType().getFqn());
+    assertEquals(6, m.getElements().get(0).getElements().size());
+    assertEquals("B", m.getElements().get(0).getElements().get(0).getName());
+    assertEquals("B", m.getElements().get(0).getElements().get(0).getType().getName());
+    assertEquals("model.B", m.getElements().get(0).getElements().get(0).getType().getFqn());
 
   }
 
