@@ -21,16 +21,12 @@ import freemarker.template.TemplateMethodModel;
 import freemarker.template.TemplateModelException;
 import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.processing.ProcessingUtils;
-import org.wikbook.template.processing.TemplateElementVisitor;
 import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 import org.wikbook.template.processing.metamodel.TemplateType;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author <a href="mailto:alain.defrance@exoplatform.com">Alain Defrance</a>

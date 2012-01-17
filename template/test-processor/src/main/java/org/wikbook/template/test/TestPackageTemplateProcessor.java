@@ -18,12 +18,6 @@
 package org.wikbook.template.test;
 
 import org.wikbook.template.api.AnnotationA;
-import org.wikbook.template.api.AnnotationA2;
-import org.wikbook.template.api.AnnotationB;
-import org.wikbook.template.api.AnnotationB2;
-import org.wikbook.template.api.AnnotationB3;
-import org.wikbook.template.api.AnnotationC;
-import org.wikbook.template.api.AnnotationD;
 import org.wikbook.template.api.AnnotationPackage;
 import org.wikbook.template.processing.AbstractTemplateProcessor;
 

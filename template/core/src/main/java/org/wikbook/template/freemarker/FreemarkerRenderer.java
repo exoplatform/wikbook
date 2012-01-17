@@ -1,6 +1,5 @@
 package org.wikbook.template.freemarker;
 
-import freemarker.cache.TemplateLoader;
 import freemarker.template.Configuration;
 import freemarker.template.DefaultObjectWrapper;
 import freemarker.template.Template;
@@ -9,16 +8,9 @@ import org.wikbook.template.processing.metamodel.MetaModel;
 import org.wikbook.template.processing.metamodel.TemplateElement;
 
 import javax.annotation.processing.Filer;
-import javax.tools.FileObject;
-import javax.tools.StandardLocation;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
-import java.io.Reader;
 import java.util.Map;
 
 /**

@@ -20,13 +20,11 @@ package org.wikbook.template.test.freemarker;
 import org.wikbook.template.freemarker.FreemarkerDataFactory;
 import org.wikbook.template.freemarker.caller.AttributeCallerMethod;
 import org.wikbook.template.freemarker.caller.JavadocCallerMethod;
-import org.wikbook.template.processing.metamodel.TemplateAnnotation;
 import org.wikbook.template.test.AbstractFreemarkerTestCase;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
