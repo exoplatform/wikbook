@@ -52,7 +52,7 @@ public class FreemarkerRenderer {
       osw.close();
 
     } catch (TemplateException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
   }

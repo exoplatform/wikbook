@@ -215,7 +215,7 @@ public class TemplateElementVisitor implements ElementVisitor<List<TemplateEleme
       }
     }
     catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
     doc(tel, currentName, l);
   }

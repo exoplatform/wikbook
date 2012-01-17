@@ -128,7 +128,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
           }
 
         } catch (IOException e) {
-          e.printStackTrace();
+          throw new RuntimeException(e);
         }
         
       }
@@ -159,7 +159,7 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
 
     }
     catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException(e);
     }
 
   }
