@@ -73,6 +73,10 @@
 
     <docbkx.version>2.0.13</docbkx.version>
     <dependency.version>2.1</dependency.version>
+
+    <!-- site-maven-plugin -->
+    <wikbook.github.owner>vietj</wikbook.github.owner>
+    <wikbook.github.repository>wikbook</wikbook.github.repository>
   </properties>
 
   <dependencyManagement>
@@ -106,6 +110,13 @@
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.doc</artifactId>
+        <version>0.9.36-SNAPSHOT</version>
+      </dependency>
+      <dependency>
+        <groupId>org.wikbook</groupId>
+        <artifactId>wikbook.doc</artifactId>
+        <classifier>html</classifier>
+        <type>zip</type>
         <version>0.9.36-SNAPSHOT</version>
       </dependency>
       
@@ -174,6 +185,7 @@
     <module>docbkxstyle</module>
     <module>archetype</module>
     <module>doc</module>
+    <module>site</module>
   </modules>
 
   <build>
@@ -209,6 +221,11 @@
           <groupId>org.wikbook</groupId>
           <artifactId>wikbook.maven</artifactId>
           <version>0.9.36-SNAPSHOT</version>
+        </plugin>
+        <plugin>
+          <groupId>com.github.github</groupId>
+          <artifactId>site-maven-plugin</artifactId>
+          <version>0.3</version>
         </plugin>
       </plugins>
     </pluginManagement>
