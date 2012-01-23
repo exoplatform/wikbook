@@ -6,13 +6,20 @@
   <productname>Wikbook</productname>
   <productnumber>1.0</productnumber>
   <copyright>
-    <year>2010</year>
+    <year>2011</year>
     <holder>eXo Platform SAS</holder>
   </copyright>
   <authorgroup>
     <author>
       <firstname>Julien</firstname>
       <surname>Viet</surname>
+      <affiliation>
+        <shortaffil>eXo Platform</shortaffil>
+      </affiliation>
+    </author>
+    <author>
+      <firstname>Alain</firstname>
+      <surname>Defrance</surname>
       <affiliation>
         <shortaffil>eXo Platform</shortaffil>
       </affiliation>

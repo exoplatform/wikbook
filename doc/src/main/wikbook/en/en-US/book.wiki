@@ -27,3 +27,7 @@ open Docbook format.
 = Project integration =
 
 {{include document="chapter3.wiki" /}}
+
+= Generation =
+
+{{include document="chapter4.wiki" /}}

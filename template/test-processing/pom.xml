@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <parent>
+    <artifactId>wikbook.template</artifactId>
+    <groupId>org.wikbook</groupId>
+    <version>0.9.36-SNAPSHOT</version>
+  </parent>
+
+  <modelVersion>4.0.0</modelVersion>
+  <artifactId>wikbook.template.test-processing</artifactId>
+  <packaging>jar</packaging>
+
+  <name>Wikbook templating test processing</name>
+
+  <dependencies>
+
+    <dependency>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.template.core</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.template.test-processor</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+  </dependencies>
+  
+</project>

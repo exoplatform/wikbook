@@ -1,0 +1,13 @@
+<#if @AnnotationPackage??>
+${@AnnotationPackage.name}
+${@AnnotationPackage.doc()}
+${@AnnotationPackage.doc("flat:author")}
+<#list @AnnotationPackage.doc("list:author") as author>
+#${author_index} : ${author}
+</#list>
+${@AnnotationPackage.doc("flat:since")}
+${@AnnotationPackage.attribute("value")}
+<#list @AnnotationPackage.children("@AnnotationA") as child>
+${child.name}(value="${child.attribute("value")}") ${child.type.fqn} @author = "${child.doc("flat:author")}"
+</#list>
+</#if>

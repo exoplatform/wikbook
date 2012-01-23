@@ -1,6 +1,6 @@
 = Document syntax =
 
-Wiki syntaxes are not unique, Wikbook relies on an external framework used at the hear of XWiki that is able to make
+Wiki syntaxes are not unique, Wikbook relies on an external framework used at the heart of XWiki that is able to make
 wiki syntaxes coexist. Any wiki syntax recognized by this framework can be used for documentation writing. The following
 syntaxes are recognized:
 

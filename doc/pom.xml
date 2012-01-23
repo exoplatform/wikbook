@@ -21,6 +21,18 @@
       <groupId>org.wikbook</groupId>
       <artifactId>wikbook.docbkxstyle</artifactId>
     </dependency>
+    <dependency>
+      <groupId>org.wikbook</groupId>
+      <artifactId>wikbook.template.core</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>javax.ws.rs</groupId>
+      <artifactId>jsr311-api</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.chromattic</groupId>
+      <artifactId>chromattic.api</artifactId>
+    </dependency>
   </dependencies>
 
   <build>

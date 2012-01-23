@@ -1,0 +1,9 @@
+<#if @AnnotationA??>
+${@AnnotationA.name}(value=${@AnnotationA.attribute("value")})
+${@AnnotationA.doc()}
+${@AnnotationA.doc("flat:author")}
+<#list @AnnotationA.doc("list:author") as author>
+#${author_index} : ${author}
+</#list>
+${@AnnotationA.doc("flat:since")}
+</#if>
