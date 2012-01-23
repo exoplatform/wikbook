@@ -1,0 +1,2125 @@
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+   <title>Wikbook</title><link xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" href="css/base.css" rel="stylesheet" type="text/css"><link xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" href="css/style.css" rel="stylesheet" type="text/css"><link xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" href="css/guide.css" rel="stylesheet" type="text/css"><meta name="generator" content="DocBook XSL-NS Stylesheets V1.76.1"></head><body><div class="book" title="Wikbook"><div xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="titlepage"><div class="title"><div><h1 class="title"><a name="d5e1"></a>Wikbook</h1></div><div><h2 class="subtitle">Wikbook Reference Guide</h2></div></div><div><div class="author"><h3 class="author"><span class="firstname">Julien</span> <span class="surname">Viet</span></h3><div class="affiliation">
+        <span class="shortaffil">eXo Platform<br></span>
+      </div></div></div><div><div class="author"><h3 class="author"><span class="firstname">Alain</span> <span class="surname">Defrance</span></h3><div class="affiliation">
+        <span class="shortaffil">eXo Platform<br></span>
+      </div></div></div><div><p class="copyright">Copyright &copy; 2011 eXo Platform SAS</p></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#d5e28">Preface</a></span></dt><dt><span class="chapter"><a href="#d5e42">1. Introduction</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e44">1.1. Document syntax</a></span></dt><dt><span class="section"><a href="#d5e68">1.2. Wiki macros</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d5e72">2. How-to</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e75">2.1. Document structure</a></span></dt><dt><span class="section"><a href="#d5e99">2.2. Document content</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d5e979">3. Project integration</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e982">3.1. Java<sup>tm</sup> code embedding</a></span></dt><dt><span class="section"><a href="#d5e988">3.2. Maven integration</a></span></dt></dl></dd><dt><span class="chapter"><a href="#d5e1043">4. Generation</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1045">4.1. Setup</a></span></dt><dt><span class="section"><a href="#d5e1121">4.2. Templates</a></span></dt></dl></dd></dl></div><div class="list-of-examples"><p><b>List of Examples</b></p><dl><dt>2.1. <a href="#d5e669">A code block</a></dt><dt>2.2. <a href="#d5e943">increment x</a></dt><dt>2.3. <a href="#d5e972">Document embedding</a></dt><dt>3.1. <a href="#d5e995">Example of Wikbook Maven plugin</a></dt><dt>3.2. <a href="#d5e1015">Wikbook archetype usage</a></dt><dt>3.3. <a href="#d5e1029">Configuration of the maven-source-plugin</a></dt><dt>3.4. <a href="#d5e1038">Declaring the right dependency</a></dt><dt>4.1. <a href="#d5e1051">Maven wikbook dependency</a></dt><dt>4.2. <a href="#d5e1070">Typical jaxrs processor</a></dt><dt>4.3. <a href="#d5e1075">Typical chromattic processor</a></dt><dt>4.4. <a href="#d5e1083">META-INF/services/javax.annotation.processing.Processor</a></dt><dt>4.5. <a href="#d5e1097">Package templates with maven</a></dt><dt>4.6. <a href="#d5e1106">Add your processors to the classpath</a></dt><dt>4.7. <a href="#d5e1111">Unpack your templates and use it</a></dt><dt>4.8. <a href="#d5e1116">Package generated files</a></dt><dt>4.9. <a href="#d5e1132">Simple annotation name</a></dt><dt>4.10. <a href="#d5e1160">Class element name</a></dt><dt>4.11. <a href="#d5e1183">Method element name</a></dt><dt>4.12. <a href="#d5e1206">Parameter element name</a></dt><dt>4.13. <a href="#d5e1235">Class type values</a></dt><dt>4.14. <a href="#d5e1258">Method type values</a></dt><dt>4.15. <a href="#d5e1281">Parameter type values</a></dt><dt>4.16. <a href="#d5e1308">Reach type parameter</a></dt><dt>4.17. <a href="#d5e1335">Reach annotation of type</a></dt><dt>4.18. <a href="#d5e1364">Class or method general documentation</a></dt><dt>4.19. <a href="#d5e1389">Parameter documentation</a></dt><dt>4.20. <a href="#d5e1416">Get the author</a></dt><dt>4.21. <a href="#d5e1443">Use 'flat' prefix to display all values separated by coma</a></dt><dt>4.22. <a href="#d5e1466">Use 'list' prefix to make iteration possible</a></dt><dt>4.23. <a href="#d5e1493">Use 'block' prefix to keep formatting</a></dt><dt>4.24. <a href="#d5e1520">Browse children</a></dt><dt>4.25. <a href="#d5e1547">Get sibiling</a></dt><dt>4.26. <a href="#d5e1575">Get simple value</a></dt><dt>4.27. <a href="#d5e1600">Get array value</a></dt><dt>4.28. <a href="#d5e1625">Get annotation value</a></dt><dt>4.29. <a href="#d5e1648">Get array annotation value</a></dt><dt>4.30. <a href="#d5e1675">Browse package annotation</a></dt><dt>4.31. <a href="#d5e1710">Source code</a></dt><dt>4.32. <a href="#d5e1715">Template</a></dt><dt>4.33. <a href="#d5e1720">Output</a></dt><dt>4.34. <a href="#d5e1736">Source code</a></dt><dt>4.35. <a href="#d5e1741">Template</a></dt><dt>4.36. <a href="#d5e1746">Output</a></dt></dl></div>
+  
+  <div class="preface" title="Preface"><div class="titlepage"><div><div><h1 xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook"><a name="d5e28"></a>Preface</h1></div></div></div>
+    
+    <p>Wikbook is a set of tools for efficiently writing docbook documentation. For this purpose several choices have been made that are explained below</p>
+    <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+        <p>The Docbook system can produce high quality documents with different outputs.</p>
+      </li><li class="listitem">
+        <p>Documentation written in wiki language is a good trade off between document richness and simplicity</p>
+      </li></ul></div>
+    <p>Wikbook aims also to provide exclusive features that makes documentation easier to write. The perfect example we like  to give is the inclusion of Java<sup>tm</sup> source code at the heart of the documentation as it allows to have always up to  date example that stay in sync with the documentation. The goal is to make the documentation easier to write and maintain.</p>
+    <p>Wikbook is also a lab to experiment new things and we are sure that it will get richer over time. We hope that people will find Wikbook interesting to write their documentation, experiment new ideas and contribute them.</p>
+    <p>Wikbook aims to be open and does not want to lock users into a proprietary system. The proof is that Wikbook is based on the open Docbook format.</p>
+    <div class="important" title="Important">
+      <p>This document is a work in progress and will get richer over time.</p>
+    </div>
+  </div>
+  <div class="chapter" title="Chapter&nbsp;1.&nbsp;Introduction"><div class="titlepage"><div><div><h1 xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook"><a name="d5e42"></a>Chapter&nbsp;1.&nbsp;Introduction</h1></div></div></div>
+    
+    <div class="section" title="1.1.&nbsp;Document syntax"><div class="titlepage"><div><div><h2 class="title"><a name="d5e44"></a>1.1.&nbsp;Document syntax</h2></div></div></div>
+      
+      <p>Wiki syntaxes are not unique, Wikbook relies on an external framework used at the heart of XWiki that is able to make wiki syntaxes coexist. Any wiki syntax recognized by this framework can be used for documentation writing. The following syntaxes are recognized:</p>
+      <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+          <p>
+            <a class="ulink" href="http://platform.xwiki.org/xwiki/bin/view/Main/XWikiSyntax" target="_top">XWiki 1.0 and 2.0</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a class="ulink" href="http://www.wikicreole.org/wiki/Creole1.0" target="_top">Creole</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a class="ulink" href="http://www.jspwiki.org/wiki/TextFormattingRules" target="_top">JSP Wiki</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a class="ulink" href="http://ang.wikipedia.org/wiki/Wikipedia:How_to_edit_a_page#The_wiki_markup" target="_top">Media Wiki</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a class="ulink" href="http://www.atlassian.com/software/confluence/" target="_top">Confluence</a>
+          </p>
+        </li><li class="listitem">
+          <p>
+            <a class="ulink" href="http://twiki.org/cgi-bin/view/TWiki/TextFormattingFAQ" target="_top">TWiki</a>
+          </p>
+        </li></ul></div>
+      <p>For the purpose of simplicity, the Wikbook documentation uses the XWiki 2.0 syntax.</p>
+      <p>Wikbook attempts to fully leverage the wiki syntax, however the horizontal rule wiki syntax is not supported. Indeed there is no such concept in the docbook system and horizontal rule are simply ignored.</p>
+    </div>
+    <div class="section" title="1.2.&nbsp;Wiki macros"><div class="titlepage"><div><div><h2 class="title"><a name="d5e68"></a>1.2.&nbsp;Wiki macros</h2></div></div></div>
+      
+      <p>A wiki macro is way to complete the wiki syntax. Wiki syntax is usually not enough to express some ideas and a wiki macro provides a way to plug new behavior into a wiki syntax.</p>
+      <p>Wikbook makes use of wiki macro to integrate specific docbook features.</p>
+    </div>
+  </div>
+  <div class="chapter" title="Chapter&nbsp;2.&nbsp;How-to"><div class="titlepage"><div><div><h1 xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook"><a name="d5e72"></a>Chapter&nbsp;2.&nbsp;How-to</h1></div></div></div>
+    
+    <p>Wiki concepts are naturally mapped onto docbook concepts.</p>
+    <div class="section" title="2.1.&nbsp;Document structure"><div class="titlepage"><div><div><h2 class="title"><a name="d5e75"></a>2.1.&nbsp;Document structure</h2></div></div></div>
+      
+      <p>A book is structured into chapters and each chapter is structured into sections. A wiki document provides a syntax for creating nested sections with different levels. The book structure can naturally leverage the wiki document structure with the following rules:</p>
+      <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+          <p>Top level section correspond to book chapters</p>
+        </li><li class="listitem">
+          <p>Other wiki sections correspond to book sections</p>
+        </li></ul></div>
+      <div class="informaltable">
+        <table border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                <div class="programlistingco"><pre class="programlisting">= Section 1 =
+== Section 2 ==</pre></div>
+              </td></tr><tr><td>
+                <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;chapter&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>Section 1<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;section&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>Section 2<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/section&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/chapter&gt;</span>
+</pre></div>
+              </td></tr></tbody></table>
+      </div>
+      <div class="note" title="Note">
+        <p>All wiki sections don't have to be explicitely declared, it is possible to <span class="italic">omit</span> the declaration of a section. When it occurs, implicit docbook section will be created with no title.</p>
+      </div>
+    </div>
+    <div class="section" title="2.2.&nbsp;Document content"><div class="titlepage"><div><div><h2 class="title"><a name="d5e99"></a>2.2.&nbsp;Document content</h2></div></div></div>
+      
+      <p>The content of a book can be seen as a collection of content, each content can be categorized into blocks or rich text. Rich text can either be simple text or it can be made richer, like a word in bold. A block contains usually rich text and gives a meaning to the text, the most natural block is the paragraph.</p>
+      <div class="section" title="2.2.1.&nbsp;Rich text"><div class="titlepage"><div><div><h3 class="title"><a name="d5e102"></a>2.2.1.&nbsp;Rich text</h3></div></div></div>
+        
+        <div class="section" title="2.2.1.1.&nbsp;Emphasis"><div class="titlepage"><div><div><h4 class="title"><a name="d5e104"></a>2.2.1.1.&nbsp;Emphasis</h4></div></div></div>
+          
+          <p>The following syntax can be used to put the emphasis for creating richtext</p>
+          <div class="table"><a name="d5e107"></a><p class="title"><b>Table&nbsp;2.1.&nbsp;Text emphasis</b></p><div class="table-contents">
+            
+            <table summary="Text emphasis" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>**bold**</td><td>
+                    <span class="bold"><strong>bold</strong></span>
+                  </td></tr><tr><td>//italic//</td><td>
+                    <span class="italic">italic</span>
+                  </td></tr><tr><td>__underline__</td><td>
+                    <span class="underline">underline</span>
+                  </td></tr><tr><td>,,subscript,,</td><td>
+                    <sub>subscript</sub>
+                  </td></tr><tr><td>^^upperscript^^</td><td>
+                    <sup>upperscript</sup>
+                  </td></tr><tr><td>--strikethrough--</td><td>
+                    <span class="strikethrough">strikethrough</span>
+                  </td></tr><tr><td>##monospaced##</td><td>
+                    <code class="code">monospaced</code>
+                  </td></tr><tr><td>{{code}}inlineCode(){{/code}}</td><td>
+                    <div class="programlistingco"><pre class="programlisting">inlineCode()</pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+        </div>
+        <div class="section" title="2.2.1.2.&nbsp;Links"><div class="titlepage"><div><div><h4 class="title"><a name="d5e145"></a>2.2.1.2.&nbsp;Links</h4></div></div></div>
+          
+          <p>We can distinguish two kinds of links. A link can reference a target inside the document such as an anchor or a section or it can reference an URL.</p>
+          <p>The anchor macro plays an important role in internal links as it specifies the potential target of a link. Any internal link should reference a valid anchor inside the document. An anchor can be placed anywhere in text but it can also be present in a section title.</p>
+          <div class="table"><a name="d5e149"></a><p class="title"><b>Table&nbsp;2.2.&nbsp;Document links</b></p><div class="table-contents">
+            
+            <table summary="Document links" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">= Chapter 1 {{anchor id=chapter_1 /}} =
+A [[link&gt;&gt;#chapter_1]] to the chapter 1
+The [[#chapter_1]] can be linked
+A [[link&gt;&gt;#foo]] to an anchor {{anchor id=foo /}}</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;chapter&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>Chapter 1<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>A<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;link</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-attribute">linkend</span>=<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-value">"chapter_1"</span><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&gt;</span>link<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/link&gt;</span>to the chapter 1<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>The<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;xref</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-attribute">linkend</span>=<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-value">"chapter_1"</span><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">/&gt;</span>can be linked<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>A<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;link</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-attribute">linkend</span>=<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-value">"foo"</span><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&gt;</span>link<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/link&gt;</span>to an anchor<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/chapter&gt;</span>
+</pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <div class="table"><a name="d5e163"></a><p class="title"><b>Table&nbsp;2.3.&nbsp;External links</b></p><div class="table-contents">
+            
+            <table summary="External links" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>The <a class="ulink" href="http://www.foobar.com" target="_top">http://www.foobar.com</a> site</td></tr><tr><td>The <a class="ulink" href="http://www.foobar.com" target="_top">FooBar</a> site</td></tr><tr><td>Send a mail to <code class="email">&lt;<a class="email" href="mailto:foo@bar.com">foo@bar.com</a>&gt;</code>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+        </div>
+      </div>
+      <div class="section" title="2.2.2.&nbsp;Verbatim text"><div class="titlepage"><div><div><h3 class="title"><a name="d5e176"></a>2.2.2.&nbsp;Verbatim text</h3></div></div></div>
+        
+        <p>Verbatim escapes the wiki syntax and is useful for citing wiki in a wiki document. It is useful for creating document such as this documentation.</p>
+        <div class="table"><a name="d5e179"></a><p class="title"><b>Table&nbsp;2.4.&nbsp;Verbatim text</b></p><div class="table-contents">
+          
+          <table summary="Verbatim text" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">{{{[#bar]}}}</pre></div>
+                </td></tr><tr><td>
+                  <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>[#bar]<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+</pre></div>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <p>It is also possible to escape a single character with a backslash. A backslash will generate a vertatim block around the escaped char. A double back slash will produce a single backslash.</p>
+        <div class="table"><a name="d5e194"></a><p class="title"><b>Table&nbsp;2.5.&nbsp;Char escape</b></p><div class="table-contents">
+          
+          <table summary="Char escape" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">\[#bar\]</pre></div>
+                </td></tr><tr><td>
+                  <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>[#bar]<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+</pre></div>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="table"><a name="d5e208"></a><p class="title"><b>Table&nbsp;2.6.&nbsp;Backslash escape</b></p><div class="table-contents">
+          
+          <table summary="Backslash escape" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">\\</pre></div>
+                </td></tr><tr><td>
+                  <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>\<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+</pre></div>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+      </div>
+      <div class="section" title="2.2.3.&nbsp;Blocks"><div class="titlepage"><div><div><h3 class="title"><a name="d5e222"></a>2.2.3.&nbsp;Blocks</h3></div></div></div>
+        
+        <div class="section" title="2.2.3.1.&nbsp;Paragraphs"><div class="titlepage"><div><div><h4 class="title"><a name="d5e224"></a>2.2.3.1.&nbsp;Paragraphs</h4></div></div></div>
+          
+          <p>Unlike docbook, wiki paragraphs are implicitely defined, the general rule is that any text content that does not contain wiki instruction is one paragraph. The wikbook system creates docbook paragraphs when it is required. The simplest example is that any content in a section is a paragraph.</p>
+          <div class="table"><a name="d5e227"></a><p class="title"><b>Table&nbsp;2.7.&nbsp;Paragraph generation</b></p><div class="table-contents">
+            
+            <table summary="Paragraph generation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">= Chapter 1 =
+The paragraph of the chapter 1.
+== Section 1 ==
+The paragraph of the section 1.
+== Section 2 ==
+The first paragraph of the section 2.
+
+The second paragraph of the section 2.</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;chapter&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>Chapter 1<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>The paragraph of the chapter 1.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;section&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>Section 1<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>The paragraph of the section 1.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/section&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;section&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>Section 2<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>The first paragraph of the section 2.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>The second paragraph of the section 2.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/section&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/chapter&gt;</span>
+</pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+        </div>
+        <div class="section" title="2.2.3.2.&nbsp;Lists"><div class="titlepage"><div><div><h4 class="title"><a name="d5e241"></a>2.2.3.2.&nbsp;Lists</h4></div></div></div>
+          
+          <p>It is easy to create lists in wiki syntax, whereas the docbook XML is very tedious. Several types of lists are possible such as bullet or ordered list.</p>
+          <div class="table"><a name="d5e244"></a><p class="title"><b>Table&nbsp;2.8.&nbsp;List examples</b></p><div class="table-contents">
+            
+            <table summary="List examples" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">* item 1
+** item 1.1
+** item 1.2
+* item 2</pre></div>
+                  </td><td>
+                    <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                        <p>item 1</p>
+                        <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                            <p>item 1.1</p>
+                          </li><li class="listitem">
+                            <p>item 1.2</p>
+                          </li></ul></div>
+                      </li><li class="listitem">
+                        <p>item 2</p>
+                      </li></ul></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">1. item 1
+11. item 1.1
+11. item 1.2
+1. item 2</pre></div>
+                  </td><td>
+                    <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                        <p>item 1</p>
+                        <div class="orderedlist"><ol class="orderedlist" type="a"><li class="listitem">
+                            <p>item 1.1</p>
+                          </li><li class="listitem">
+                            <p>item 1.2</p>
+                          </li></ol></div>
+                      </li><li class="listitem">
+                        <p>item 2</p>
+                      </li></ol></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">(% style="upperroman" %)
+1. item 1
+11. item 1.1
+11. item 1.2
+1. item 2</pre></div>
+                  </td><td>
+                    <div class="orderedlist"><ol class="orderedlist" type="I"><li class="listitem">
+                        <p>item 1</p>
+                        <div class="orderedlist"><ol class="orderedlist" type="1"><li class="listitem">
+                            <p>item 1.1</p>
+                          </li><li class="listitem">
+                            <p>item 1.2</p>
+                          </li></ol></div>
+                      </li><li class="listitem">
+                        <p>item 2</p>
+                      </li></ol></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <p>It is possible to configure also the list style according to the docbook capabilities.</p>
+          <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+              <p>Bullet style</p>
+              <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                  <p>disc</p>
+                </li><li class="listitem">
+                  <p>circle</p>
+                </li><li class="listitem">
+                  <p>square</p>
+                </li></ul></div>
+            </li><li class="listitem">
+              <p>Numbering style</p>
+              <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                  <p>arabic</p>
+                </li><li class="listitem">
+                  <p>loweralpha</p>
+                </li><li class="listitem">
+                  <p>loweroman</p>
+                </li><li class="listitem">
+                  <p>upperalpha</p>
+                </li><li class="listitem">
+                  <p>uperroman</p>
+                </li><li class="listitem">
+                  <p>arabicindic</p>
+                </li></ul></div>
+            </li></ul></div>
+        </div>
+        <div class="section" title="2.2.3.3.&nbsp;Tables"><div class="titlepage"><div><div><h4 class="title"><a name="d5e322"></a>2.2.3.3.&nbsp;Tables</h4></div></div></div>
+          
+          <p>Tables are mapped to the docbook tables, here are a few examples</p>
+          <div class="table"><a name="d5e325"></a><p class="title"><b>Table&nbsp;2.9.&nbsp;Table examples</b></p><div class="table-contents">
+            
+            <table summary="Table examples" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">|1|2|3
+|4|5|6</pre></div>
+                  </td><td>
+                    <div class="table"><a name="d5e335"></a><p class="title"><b>Table&nbsp;2.10.&nbsp;A simple table</b></p><div class="table-contents">
+                      
+                      <table summary="A simple table" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tbody><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">|=1|=2|=3
+|4|5|6</pre></div>
+                  </td><td>
+                    <div class="table"><a name="d5e353"></a><p class="title"><b>Table&nbsp;2.11.&nbsp;A table with a row header</b></p><div class="table-contents">
+                      
+                      <table summary="A table with a row header" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td>4</td><td>5</td><td>6</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">|1|2|3
+|=4|=5|=6</pre></div>
+                  </td><td>
+                    <div class="table"><a name="d5e372"></a><p class="title"><b>Table&nbsp;2.12.&nbsp;A table with a row footer</b></p><div class="table-contents">
+                      
+                      <table summary="A table with a row footer" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tfoot><tr><th>4</th><th>5</th><th>6</th></tr></tfoot><tbody><tr><td>1</td><td>2</td><td>3</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">(% title="The table" %)
+|1|2|3
+|4|5|6</pre></div>
+                  </td><td>
+                    <div class="table"><a name="d5e391"></a><p class="title"><b>Table&nbsp;2.13.&nbsp;The table</b></p><div class="table-contents">
+                      
+                      <table summary="The table" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tbody><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr></tbody></table>
+                    </div></div><br class="table-break">
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <p>By default a table expects inline content, that means that any content inside the table will not be interpreted as wiki text but as normal text. That behavior can be changed by using the group syntax block explained in the <a class="xref" href="#group_section" title="2.2.3.4.&nbsp;Groups">Section&nbsp;2.2.3.4, &#8220;Groups &#8221;</a>.</p>
+          <p>
+            </p><div class="note" title="Note">
+              <p>This document makes an extensive usage of this feature.</p>
+            </div><p> </p><div class="warning" title="Warning">
+              <p>Inside a complex content block, the usage of structural elements such as section is not allowed.</p>
+            </div><p>
+          </p>
+        </div>
+        <div class="section" title="2.2.3.4.&nbsp;Groups"><div class="titlepage"><div><div><h4 class="title"><a name="group_section"></a>2.2.3.4.&nbsp;Groups </h4></div></div></div>
+          
+          <p>Groups are mostly useful for embedding complex structure inside a table. A grou is declared inside a block like (((...))).</p>
+          <div class="table"><a name="d5e413"></a><p class="title"><b>Table&nbsp;2.14.&nbsp;A list inside a table with a group block</b></p><div class="table-contents">
+            
+            <table summary="A list inside a table with a group block" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">|(((
+* item 1
+* item 2
+)))</pre></div>
+                  </td><td>
+                    <div class="informaltable">
+                      <table border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                              <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+                                  <p>item 1</p>
+                                </li><li class="listitem">
+                                  <p>item 2</p>
+                                </li></ul></div>
+                            </td></tr></tbody></table>
+                    </div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+        </div>
+        <div class="section" title="2.2.3.5.&nbsp;Images"><div class="titlepage"><div><div><h4 class="title"><a name="d5e433"></a>2.2.3.5.&nbsp;Images</h4></div></div></div>
+          
+          <p>Simple images can be displayed by using the image syntax.</p>
+          <div class="table"><a name="d5e436"></a><p class="title"><b>Table&nbsp;2.15.&nbsp;Image example</b></p><div class="table-contents">
+            
+            <table summary="Image example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">[[image:images/controller.png]]</pre></div>
+                  </td></tr><tr><td>
+                    <p>
+                      </p><div class="mediaobject"><img src="images/controller.png"></div><p>
+                    </p>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <p>Images can naturally be inlined when some text is around the image.</p>
+          <div class="table"><a name="d5e454"></a><p class="title"><b>Table&nbsp;2.16.&nbsp;Image example</b></p><div class="table-contents">
+            
+            <table summary="Image example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">An inline [[image:images/smallcontroller.png]] image</pre></div>
+                  </td></tr><tr><td>
+                    <p>An inline <span class="inlinemediaobject"><img src="images/smallcontroller.png"></span> image</p>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <p>Image display can be parameterized for all output but it is possible to target a specific output with a prefix. The <span class="italic">fo</span> prefix affects the PDF output and the <span class="italic">html</span> targets the HTML content. More details about docbook images parameterization can be found in the docbook <a class="ulink" href="http://www.docbook.org/tdg/en/html/imagedata.html" target="_top">imagedata</a> reference.</p>
+          <div class="table"><a name="d5e475"></a><p class="title"><b>Table&nbsp;2.17.&nbsp;Image example</b></p><div class="table-contents">
+            
+            <table summary="Image example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">[[image:images/controller.png||title="The controller" align="center" html:scale="50" fo:width="50mm]]</pre></div>
+                  </td></tr><tr><td>
+                    <p>
+                      </p><div class="figure"><a name="d5e487"></a><p class="title"><b>Figure&nbsp;2.1.&nbsp;The controller</b></p><div class="figure-contents">
+                        
+                        <div class="mediaobject" align="center"><img src="images/controller.png" align="middle" width="270" alt="The controller"></div>
+                      </div></div><p><br class="figure-break">
+                    </p>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+        </div>
+        <div class="section" title="2.2.3.6.&nbsp;Admonitions"><div class="titlepage"><div><div><h4 class="title"><a name="d5e494"></a>2.2.3.6.&nbsp;Admonitions</h4></div></div></div>
+          
+          <div class="table"><a name="d5e496"></a><p class="title"><b>Table&nbsp;2.18.&nbsp;Admonitions</b></p><div class="table-contents">
+            
+            <table summary="Admonitions" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tbody><tr><td>Note</td><td>{{note}}Some noticeable text{{/note}}</td><td>
+                    <div class="note" title="Note">
+                      <p>some noticeable text</p>
+                    </div>
+                  </td></tr><tr><td>Warning</td><td>{{warning}}you should not do that{{/warning}}</td><td>
+                    <div class="warning" title="Warning">
+                      <p>you should not do that</p>
+                    </div>
+                  </td></tr><tr><td>Tip</td><td>{{tip}}a usefull tip{{/tip}}</td><td>
+                    <div class="tip" title="Tip">
+                      <p>a usefull tip</p>
+                    </div>
+                  </td></tr><tr><td>Caution</td><td>{{caution}}beware!!!{{/caution}}</td><td>
+                    <div class="caution" title="Caution">
+                      <p>beware!!!</p>
+                    </div>
+                  </td></tr><tr><td>Important</td><td>{{important}}something important{{/important}}</td><td>
+                    <div class="important" title="Important">
+                      <p>something important</p>
+                    </div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+        </div>
+        <div class="section" title="2.2.3.7.&nbsp;Special blocks"><div class="titlepage"><div><div><h4 class="title"><a name="d5e530"></a>2.2.3.7.&nbsp;Special blocks</h4></div></div></div>
+          
+          <p>A set of special blocks are available, they allow to give a special representation to the emboddied text.</p>
+          <p>The <span class="italic">code</span> macro creates a docbook programlisting XML element to display anything related to code. Special features are available that makes it very powerful</p>
+          <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+              <p>XML code can be validated and pretty printed with a configuration indentation</p>
+            </li><li class="listitem">
+              <p>External Java code can be embedded inside the document</p>
+            </li></ul></div>
+          <div class="table"><a name="d5e540"></a><p class="title"><b>Table&nbsp;2.19.&nbsp;A sample generic code</b></p><div class="table-contents">
+            
+            <table summary="A sample generic code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">{{code}}x = x + 1;{{/code}}</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">x = x + 1;</pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <div class="table"><a name="d5e554"></a><p class="title"><b>Table&nbsp;2.20.&nbsp;A sample Java code</b></p><div class="table-contents">
+            
+            <table summary="A sample Java code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">{{code language=java}}x = x + 1;{{/code}}</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">x = x + <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">1</span>;</pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <div class="table"><a name="d5e568"></a><p class="title"><b>Table&nbsp;2.21.&nbsp;A sample Groovy code</b></p><div class="table-contents">
+            
+            <table summary="A sample Groovy code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">{{code language=groovy}}x = x + 2;{{/code}}</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">x = x + <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">2</span>;</pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <div class="table"><a name="d5e582"></a><p class="title"><b>Table&nbsp;2.22.&nbsp;A sample XML code</b></p><div class="table-contents">
+            
+            <table summary="A sample XML code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">{{code language=xml}}&lt;valid/&gt;{{/code}}</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;valid/&gt;</span></pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <div class="table"><a name="d5e596"></a><p class="title"><b>Table&nbsp;2.23.&nbsp;A sample code from a file</b></p><div class="table-contents">
+            
+            <table summary="A sample code from a file" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                    <div class="programlistingco"><pre class="programlisting">{{code language=java href="org/wikbook/A.java"/}}{{/code}}</pre></div>
+                  </td></tr><tr><td>
+                    <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// Content of the A.java file</span></pre></div>
+                  </td></tr></tbody></table>
+          </div></div><br class="table-break">
+          <div class="section" title="2.2.3.7.1.&nbsp;Java code"><div class="titlepage"><div><div><h5 class="title"><a name="d5e610"></a>2.2.3.7.1.&nbsp;Java code</h5></div></div></div>
+            
+            <div class="section" title="2.2.3.7.1.1.&nbsp;Declaring a code section"><div class="titlepage"><div><div><h6 class="title"><a name="d5e612"></a>2.2.3.7.1.1.&nbsp;Declaring a code section</h6></div></div></div>
+              
+              <p>Code section can be declared with the generic <code class="code">code</code> macro with the language attribute set to <span class="italic">java</span>. To make it shorter, the <code class="code">java</code> macro can be used directly.</p>
+              <div class="table"><a name="d5e618"></a><p class="title"><b>Table&nbsp;2.24.&nbsp;Java code</b></p><div class="table-contents">
+                
+                <table summary="Java code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{java}}x = x + 1;{{/java}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">x = x + <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">1</span>;</pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+            </div>
+            <div class="section" title="2.2.3.7.1.2.&nbsp;Java code citation"><div class="titlepage"><div><div><h6 class="title"><a name="java_code_citation_section"></a>2.2.3.7.1.2.&nbsp;Java code citation </h6></div></div></div>
+              
+              <p>Wikbook has a special integration with Java project allowing to cite Java code inside the documentation from the existing source code. This feature requires the code source and binary to be available when Wikbook compiles the wikbook sources, the integration inside a Maven build is trivial and is covered in the <a class="xref" href="#maven_code_citation_section" title="3.2.4.&nbsp;Integration of code block citation">Section&nbsp;3.2.4, &#8220;Integration of code block citation &#8221;</a>.</p>
+              <p>The syntax is taken from the Javadoc syntax that allows to create reference to code elements via the {@link ref} where ref is a reference to a code element such as a class, a method or a field.</p>
+              <div class="table"><a name="d5e637"></a><p class="title"><b>Table&nbsp;2.25.&nbsp;A class citation</b></p><div class="table-contents">
+                
+                <table summary="A class citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{code language=java}}{@include org.wikbook.doc.AnObject}{{/code}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> AnObject
+{
+   <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> foo()
+   {
+      String a1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the first"</span>;
+      String b1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+
+      String a2 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the second"</span>;
+      String b2 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c2 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+
+      String a3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the third"</span>;
+      String b3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+   }
+
+   <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> foo(String s)
+   {
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// An empty method</span>
+   }
+}</pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <p>Citing an whole class is often cumbersome and Wikbook gives the capability to cite class members, i.e methods or fields.</p>
+              <div class="table"><a name="d5e652"></a><p class="title"><b>Table&nbsp;2.26.&nbsp;A method citation</b></p><div class="table-contents">
+                
+                <table summary="A method citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{code language=java}}{@include org.wikbook.doc.AnObject#foo(java.lang.String)}{{/code}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">   <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> foo(String s)
+   {
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// An empty method</span>
+   }</pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <p>Going farther is even possible thanks to the code block citation feature. First let's define the notion of code block. A code block is a block of code inside a method that begins with a special comment like <code class="code">// -1-</code> and terminates with a blank line or the end of the method, the number indicating a reference that can be used within an include instruction:</p>
+              <p>
+                </p><div class="example"><a name="d5e669"></a><p class="title"><b>Example&nbsp;2.1.&nbsp;A code block</b></p><div class="example-contents">
+                  
+                  <div class="programlistingco"><pre class="programlisting">// -1-
+int a = 0;</pre></div>
+                </div></div><p><br class="example-break">
+              </p>
+              <p>Code blocks can be cited by adding a curly brace list of the blocks to cite inside an include instruction.</p>
+              <div class="table"><a name="d5e675"></a><p class="title"><b>Table&nbsp;2.27.&nbsp;A block code citation</b></p><div class="table-contents">
+                
+                <table summary="A block code citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{code language=java}}{@include org.wikbook.doc.AnObject#foo() {1}}{{/code}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">      String a1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the first"</span>;
+      String b1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+      String a3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the third"</span>;
+      String b3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+</pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <p>Code block citations can be combined</p>
+              <div class="table"><a name="d5e690"></a><p class="title"><b>Table&nbsp;2.28.&nbsp;A block code citation</b></p><div class="table-contents">
+                
+                <table summary="A block code citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{code language=java}}{@include org.wikbook.doc.AnObject#foo() {1,2}}{{/code}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">      String a1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the first"</span>;
+      String b1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c1 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+      String a2 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the second"</span>;
+      String b2 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c2 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+      String a3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"the third"</span>;
+      String b3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"block"</span>;
+      String c3 = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"of code"</span>;
+</pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <p>Code block citation never cites the method declaration itself.</p>
+            </div>
+          </div>
+          <div class="section" title="2.2.3.7.2.&nbsp;XML code"><div class="titlepage"><div><div><h5 class="title"><a name="d5e705"></a>2.2.3.7.2.&nbsp;XML code</h5></div></div></div>
+            
+            <p>Code section can be declared with the generic <code class="code">code</code> macro with the language attribute set to <span class="italic">xml</span>. To make it shorter the <code class="code">xml</code> macro can be used directly.</p>
+            <div class="section" title="2.2.3.7.2.1.&nbsp;XML code reformat"><div class="titlepage"><div><div><h6 class="title"><a name="d5e711"></a>2.2.3.7.2.1.&nbsp;XML code reformat</h6></div></div></div>
+              
+              <p>XML code is formatted when the <span class="italic">indent</span> macro attribute with a valid value.</p>
+              <div class="table"><a name="d5e715"></a><p class="title"><b>Table&nbsp;2.29.&nbsp;XML pretty printed</b></p><div class="table-contents">
+                
+                <table summary="XML pretty printed" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{code language=xml indent=2}}
+&lt;bar&gt;&lt;bar&gt;bar&lt;/bar&gt;&lt;/bar&gt;&lt;bar&gt;&lt;bar&gt;bar&lt;/bar&gt;&lt;/bar&gt;
+{{/code}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;bar&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;bar&gt;</span>bar<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/bar&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/bar&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;bar&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;bar&gt;</span>bar<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/bar&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/bar&gt;</span>
+</pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <div class="note" title="Note">
+                <p>The XML can have any number of sibling elements and does not require to wrap the content with a root element.</p>
+              </div>
+            </div>
+            <div class="section" title="2.2.3.7.2.2.&nbsp;XML inclusion"><div class="titlepage"><div><div><h6 class="title"><a name="xml_code_inclusion_section"></a>2.2.3.7.2.2.&nbsp;XML inclusion </h6></div></div></div>
+              
+              <p>Like Java code citation, Wikbook can also include XML documents. The same kind of integration is available with Maven explained in the <a class="xref" href="#maven_code_citation_section" title="3.2.4.&nbsp;Integration of code block citation">Section&nbsp;3.2.4, &#8220;Integration of code block citation &#8221;</a>. The syntax uses a special implicitely declared namespace, mapped to the <code class="code">wikbook</code> prefix.</p>
+              <div class="table"><a name="d5e736"></a><p class="title"><b>Table&nbsp;2.30.&nbsp;XML inclusion</b></p><div class="table-contents">
+                
+                <table summary="XML inclusion" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{xml}}&lt;wikbook:include href="document.xml"/&gt;{{/xml}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;foo&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;bar/&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/foo&gt;</span></pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <p>The inclusion can be combined with an xpath attribute to select a fragment of the included document.</p>
+              <div class="table"><a name="d5e751"></a><p class="title"><b>Table&nbsp;2.31.&nbsp;XML inclusion</b></p><div class="table-contents">
+                
+                <table summary="XML inclusion" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                        <div class="programlistingco"><pre class="programlisting">{{xml}}&lt;wikbook:include href="document.xml" xpath="//bar"/&gt;{{/xml}}</pre></div>
+                      </td></tr><tr><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;bar/&gt;</span></pre></div>
+                      </td></tr></tbody></table>
+              </div></div><br class="table-break">
+              <div class="note" title="Note">
+                <p>Originally the xinclude mechanism was chosen but the weak support of xpointer precluded its usage and instead we decided to introduce a custom wikbook inclusion mechanism</p>
+              </div>
+            </div>
+          </div>
+          <div class="section" title="2.2.3.7.3.&nbsp;Screen output"><div class="titlepage"><div><div><h5 class="title"><a name="d5e767"></a>2.2.3.7.3.&nbsp;Screen output</h5></div></div></div>
+            
+            <p>The <span class="italic">screen</span> macro creates a docbook screen XML element to display anything related to the computer screen:</p>
+            <div class="table"><a name="d5e771"></a><p class="title"><b>Table&nbsp;2.32.&nbsp;A screen example</b></p><div class="table-contents">
+              
+              <table summary="A screen example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                      <div class="programlistingco"><pre class="programlisting">{{screen}}
+julien:core julien$ ls -l
+total 24
+-rw-r--r--  1 julien  staff  1878 Apr 26 15:08 pom.xml
+drwxr-xr-x  5 julien  staff   170 Apr 26 15:08 src
+drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
+-rw-r--r--  1 julien  staff  4090 Apr 26 15:09 wikbook.core.iml
+{{/screen}}</pre></div>
+                    </td></tr><tr><td>
+                      <pre class="screen">julien:core julien$ ls -l
+total 24
+-rw-r--r--  1 julien  staff  1878 Apr 26 15:08 pom.xml
+drwxr-xr-x  5 julien  staff   170 Apr 26 15:08 src
+drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
+-rw-r--r--  1 julien  staff  4090 Apr 26 15:09 wikbook.core.iml</pre>
+                    </td></tr></tbody></table>
+            </div></div><br class="table-break">
+          </div>
+          <div class="section" title="2.2.3.7.4.&nbsp;Callouts"><div class="titlepage"><div><div><h5 class="title"><a name="d5e783"></a>2.2.3.7.4.&nbsp;Callouts</h5></div></div></div>
+            
+            <p>Callouts are useful for creating a set of references that refers to the code source. At the moment they are only available for Java<sup>tm</sup> language. A callout is declared inside a code block using comments in special format.</p>
+            <div class="table"><a name="d5e787"></a><p class="title"><b>Table&nbsp;2.33.&nbsp;A simple callout</b></p><div class="table-contents">
+              
+              <table summary="A simple callout" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                      <div class="programlistingco"><pre class="programlisting">{{code language=java}}public void foo()
+{
+   System.out.println("This is going to the output"); // &lt;1&gt; A callout
+}
+{{/code}}</pre></div>
+                    </td></tr><tr><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> foo()
+{
+   System.out.println(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"This is going to the output"</span>); <span class="co" id="155724984777270943-co"><img src="images/callouts/1.png" alt="(1)"></span> 
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/1.png" alt="1" border="0"></p></td><td valign="top" align="left">
+                            <p>A callout</p>
+                          </td></tr></table></div></div>
+                    </td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <p>The syntax use angle brackets like <span class="bold"><strong> &lt;1&gt; </strong></span> to define a callout because visually it is very similar to a callout bug. The value inside the brackets must be a number or it can be empty. The callout list will use this numbering to sort the callouts.</p>
+            <p>Most of the time it is not necessary to declare a number and the callout index can be empty. In that case, it uses a number that is greater than the previous index and lower than the next one. Eventually it is possible to use only empty callout, it is displayed in the definition order.</p>
+            <div class="table"><a name="d5e808"></a><p class="title"><b>Table&nbsp;2.34.&nbsp;Anonymous callouts</b></p><div class="table-contents">
+              
+              <table summary="Anonymous callouts" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                      <div class="programlistingco"><pre class="programlisting">{{code language=java}}public void foo()
+{
+   System.out.println("This is going to the output"); // &lt;&gt; Callout 2
+   System.out.println("This is going to the output"); // &lt;&gt; Callout 3
+   System.out.println("This is going to the output"); // &lt;2&gt; Callout 4
+   System.out.println("This is going to the output"); // &lt;1&gt; Callout 1
+}
+{{/code}}</pre></div>
+                    </td></tr><tr><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> foo()
+{
+   System.out.println(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"This is going to the output"</span>); <span class="co" id="2493619915984288699-co"><img src="images/callouts/1.png" alt="(1)"></span> 
+   System.out.println(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"This is going to the output"</span>); <span class="co" id="2877181068437972532-co"><img src="images/callouts/2.png" alt="(2)"></span> 
+   System.out.println(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"This is going to the output"</span>); <span class="co" id="513135378429764323-co"><img src="images/callouts/4.png" alt="(4)"></span> 
+   System.out.println(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"This is going to the output"</span>); <span class="co" id="2491485664417430234-co"><img src="images/callouts/3.png" alt="(3)"></span> 
+}</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/1.png" alt="1" border="0"></p></td><td valign="top" align="left">
+                            <p>Callout 1</p>
+                          </td></tr><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/2.png" alt="2" border="0"></p></td><td valign="top" align="left">
+                            <p>Callout 2</p>
+                          </td></tr><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/3.png" alt="3" border="0"></p></td><td valign="top" align="left">
+                            <p>Callout 3</p>
+                          </td></tr><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/4.png" alt="4" border="0"></p></td><td valign="top" align="left">
+                            <p>Callout 4</p>
+                          </td></tr></table></div></div>
+                    </td></tr></tbody></table>
+            </div></div><br class="table-break">
+            <p>Callout anchor don't have to be mixed inside the text, a simple declaration without any text will just create an anchor. Somewhere else in the code block, the callout text can be declared by adding an equal sign between the right angle bracket and the text. As a consequence, several lines can be referenced with the same callout.</p>
+            <div class="table"><a name="d5e836"></a><p class="title"><b>Table&nbsp;2.35.&nbsp;A callout anchor and its text</b></p><div class="table-contents">
+              
+              <table summary="A callout anchor and its text" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                      <div class="programlistingco"><pre class="programlisting">{{code language=java}}public void foo()
+{
+   int a = 0; // &lt;1&gt;
+   int b = 0; // &lt;1&gt;
+}
+// =1= An assignment
+{{/code}}</pre></div>
+                    </td></tr><tr><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> foo()
+{
+   <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">int</span> a = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">0</span>; <span class="co" id="6126716764384409630-co"><img src="images/callouts/1.png" alt="(1)"></span> 
+   <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">int</span> b = <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">0</span>; <span class="co" id="986802859908497233-co"><img src="images/callouts/2.png" alt="(2)"></span> 
+}
+</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/1.png" alt="1" border="0"><img src="images/callouts/2.png" alt="2" border="0"></p></td><td valign="top" align="left">
+                            <p>An assignment</p>
+                          </td></tr></table></div></div>
+                    </td></tr></tbody></table>
+            </div></div><br class="table-break">
+          </div>
+        </div>
+      </div>
+      <div class="section" title="2.2.4.&nbsp;Definition list"><div class="titlepage"><div><div><h3 class="title"><a name="d5e855"></a>2.2.4.&nbsp;Definition list</h3></div></div></div>
+        
+        <p>Wiki definition lists are managed as docbook variable lists.</p>
+        <div class="table"><a name="d5e858"></a><p class="title"><b>Table&nbsp;2.36.&nbsp;Definition lists</b></p><div class="table-contents">
+          
+          <table summary="Definition lists" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">; term
+: definition</pre></div>
+                </td></tr><tr><td>
+                  <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;variablelist&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;varlistentry&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;term&gt;</span>term<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/term&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;listitem&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>definition<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/listitem&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/varlistentry&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/variablelist&gt;</span>
+</pre></div>
+                </td></tr><tr><td>
+                  <div class="variablelist"><dl><dt><span class="term">term</span></dt><dd>
+                        <p>definition</p>
+                      </dd></dl></div>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">(% title="the title" %)
+; term
+: definition</pre></div>
+                </td></tr><tr><td>
+                  <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;variablelist&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;title&gt;</span>the title<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/title&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;varlistentry&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;term&gt;</span>term<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/term&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;listitem&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;para&gt;</span>definition<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/para&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/listitem&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/varlistentry&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/variablelist&gt;</span>
+</pre></div>
+                </td></tr><tr><td>
+                  <div class="variablelist" title="the title"><p class="title"><b>the title</b></p><dl><dt><span class="term">term</span></dt><dd>
+                        <p>definition</p>
+                      </dd></dl></div>
+                </td></tr></tbody></table>
+        </div>
+      </div>
+      <div class="section" title="2.2.5.&nbsp;Example"><div class="titlepage"><div><div><h3 class="title"><a name="d5e900"></a>2.2.5.&nbsp;Example</h3></div></div></div>
+        
+        <p>Docbook defines a tag for creating examples. It gives the capability to give the example a title. Most importantly it generates a list of all examples in the book.</p>
+        <div class="table"><a name="d5e903"></a><p class="title"><b>Table&nbsp;2.37.&nbsp;An example</b></p><div class="table-contents">
+          
+          <table summary="An example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">{{example}}an example{{/example}}</pre></div>
+                </td></tr><tr><td>
+                  <p>
+                    </p><div class="informalexample">
+                      <p>an example</p>
+                    </div><p>
+                  </p>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+        <div class="informaltable">
+          <table border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">{{example title="my example"}}an example with a title{{/example}}</pre></div>
+                </td></tr><tr><td>
+                  <p>
+                    </p><div class="informalexample">
+                      <p>an example with a title</p>
+                    </div><p>
+                  </p>
+                </td></tr></tbody></table>
+        </div>
+        <p>The example macro can easily be combined, for instance a code example can be created by combining the example and code macros.</p>
+        <div class="table"><a name="d5e931"></a><p class="title"><b>Table&nbsp;2.38.&nbsp;A code example combining the example and code macros</b></p><div class="table-contents">
+          
+          <table summary="A code example combining the example and code macros" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">{{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}}</pre></div>
+                </td></tr><tr><td>
+                  <p>
+                    </p><div class="example"><a name="d5e943"></a><p class="title"><b>Example&nbsp;2.2.&nbsp;increment x</b></p><div class="example-contents">
+                      
+                      <div class="programlistingco"><pre class="programlisting">x = x + 1;</pre></div>
+                    </div></div><p><br class="example-break">
+                  </p>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+      </div>
+      <div class="section" title="2.2.6.&nbsp;Quotation"><div class="titlepage"><div><div><h3 class="title"><a name="d5e948"></a>2.2.6.&nbsp;Quotation</h3></div></div></div>
+        
+        <p>Quotation generates a set of DocBook blockquote structure. </p>
+        <div class="table"><a name="d5e951"></a><p class="title"><b>Table&nbsp;2.39.&nbsp;Quotation</b></p><div class="table-contents">
+          
+          <table summary="Quotation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
+                  <div class="programlistingco"><pre class="programlisting">&gt;John said this
+&gt;&gt;Marie answered that
+I said ok</pre></div>
+                </td></tr><tr><td>
+                  <div class="blockquote"><blockquote class="blockquote">
+                    <p>John said this</p>
+                    <div class="blockquote"><blockquote class="blockquote">
+                      <p>Marie said that</p>
+                    </blockquote></div>
+                  </blockquote></div>
+                  <p>I said ok</p>
+                </td></tr></tbody></table>
+        </div></div><br class="table-break">
+      </div>
+      <div class="section" title="2.2.7.&nbsp;Modularization"><div class="titlepage"><div><div><h3 class="title"><a name="d5e967"></a>2.2.7.&nbsp;Modularization</h3></div></div></div>
+        
+        <p>The <span class="italic">include</span> macro is a good way to provide modularization of a complex document.</p>
+        <p>
+          </p><div class="example"><a name="d5e972"></a><p class="title"><b>Example&nbsp;2.3.&nbsp;Document embedding</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting">{{include document="embedded.wiki" /}}</pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+        <div class="important" title="Important">
+          <p>Embedding does a special treatment to sections: when a document is embedded, its section are reconsidered with respect to the most inner section embedding the document.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chapter" title="Chapter&nbsp;3.&nbsp;Project integration"><div class="titlepage"><div><div><h1 xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook"><a name="d5e979"></a>Chapter&nbsp;3.&nbsp;Project integration</h1></div></div></div>
+    
+    <p>This chapter focuses on the integration of the documentation with the project it documents.</p>
+    <div class="section" title="3.1.&nbsp;Javatm code embedding"><div class="titlepage"><div><div><h2 class="title"><a name="d5e982"></a>3.1.&nbsp;Java<sup>tm</sup> code embedding</h2></div></div></div>
+      
+      <p>Wikbook allows to embbed Java<sup>tm</sup> source code inside the documentation. It is very powerful when it comes to explain a tutorial or to explain an API.</p>
+      <p>todo</p>
+    </div>
+    <div class="section" title="3.2.&nbsp;Maven integration"><div class="titlepage"><div><div><h2 class="title"><a name="d5e988"></a>3.2.&nbsp;Maven integration</h2></div></div></div>
+      
+      <p>The Maven Wikbook plugin converts wiki document to a Docbook document. In order to produce final consumable documents (PDF, HTML), the Docbook document must be converted to new documents, this process is usually done via an XSL stylesheet that takes the Docbook document and transforms it.</p>
+      <div class="section" title="3.2.1.&nbsp;The Maven Wikbook plugin"><div class="titlepage"><div><div><h3 class="title"><a name="d5e991"></a>3.2.1.&nbsp;The Maven Wikbook plugin</h3></div></div></div>
+        
+        <p>The Maven Wikbook plugin focus on transforming the Wiki content into a compliant DocBook XML document.</p>
+        <p>
+          </p><div class="example"><a name="d5e995"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Example of Wikbook Maven plugin</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugin&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.wikbook<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>wikbook.maven<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;executions&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;execution&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;phase&gt;</span>prepare-package<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/phase&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goals&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goal&gt;</span>transform<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goal&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goals&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/execution&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/executions&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;configuration&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;sourceDirectory&gt;</span>${pom.basedir}/src/main/wikbook/en/en-US<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/sourceDirectory&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;sourceFileName&gt;</span>book.wiki<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/sourceFileName&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;destinationDirectory&gt;</span>${project.build.directory}/wikbook/src<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/destinationDirectory&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;destinationFileName&gt;</span>index.xml<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/destinationFileName&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;emitDoctype&gt;</span>false<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/emitDoctype&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/configuration&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugin&gt;</span>
+</pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="3.2.2.&nbsp;The Maven transformation plugins"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1000"></a>3.2.2.&nbsp;The Maven transformation plugins</h3></div></div></div>
+        
+        <p>A transformation plugin plays an important role in the documentation generation because it takes the docbook generated  by wikbook and transforms it into the real documentation. There are at least two plugins that provides this functionnality:</p>
+        <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            <p>The <a class="ulink" href="http://code.google.com/p/docbkx-tools/" target="_top">Docbkx Tools</a> project: it contains a plugin that is actually used by the Wikbook archetype.</p>
+          </li><li class="listitem">
+            <p>The <a class="ulink" href="http://www.jboss.org/maven-jdocbook-plugin/" target="_top">Maven jDocBook Plugin</a> project.</p>
+          </li></ul></div>
+        <p>Configuration of these plugins is not covered in this guide, however each of them contain a fairly good documentation, both are comparable in term of feature and can generate the main formats like HTML or PDF.</p>
+      </div>
+      <div class="section" title="3.2.3.&nbsp;The Maven Wikbook archetype"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1011"></a>3.2.3.&nbsp;The Maven Wikbook archetype</h3></div></div></div>
+        
+        <p>The Wikbook archetype creates a Wikbook module that contains a basic documentation and its POM contains the plugin configuration to generate HTML and PDF formats. Its usage is very simple:</p>
+        <p>
+          </p><div class="example"><a name="d5e1015"></a><p class="title"><b>Example&nbsp;3.2.&nbsp;Wikbook archetype usage</b></p><div class="example-contents">
+            
+            <pre class="screen">&gt;mvn archetype:generate \
+  -DarchetypeGroupId=org.wikbook \
+  -DarchetypeArtifactId=wikbook.archetype \
+  -DarchetypeVersion=0.9.36-SNAPSHOT \
+  -DgroupId=&lt;my.groupid&gt; \
+  -DartifactId=&lt;my-artifactId&gt;</pre>
+          </div></div><p><br class="example-break">
+        </p>
+        <p>After that, it is ready to be used and tweaked.</p>
+      </div>
+      <div class="section" title="3.2.4.&nbsp;Integration of code block citation"><div class="titlepage"><div><div><h3 class="title"><a name="maven_code_citation_section"></a>3.2.4.&nbsp;Integration of code block citation </h3></div></div></div>
+        
+        <p>We have covered how code can be cited in the <a class="xref" href="#java_code_citation_section" title="2.2.3.7.1.2.&nbsp;Java code citation">Section&nbsp;2.2.3.7.1.2, &#8220;Java code citation &#8221;</a> and the <a class="xref" href="#xml_code_inclusion_section" title="2.2.3.7.2.2.&nbsp;XML inclusion">Section&nbsp;2.2.3.7.2.2, &#8220;XML inclusion &#8221;</a>. Inside a Maven project, the Wikbook plugin requires access to the dependencies containing the code, source and binaries.</p>
+        <div class="section" title="3.2.4.1.&nbsp;Producing the source dependencies"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1024"></a>3.2.4.1.&nbsp;Producing the source dependencies</h4></div></div></div>
+          
+          <p>By default Maven does not create source code artifacts, however the <span class="italic">maven-source-plugin</span> does. Here is an example of the plugin configuration that can be added to a project to activate the generation of the source code artifact along with the compiled code artifact:</p>
+          <p>
+            </p><div class="example"><a name="d5e1029"></a><p class="title"><b>Example&nbsp;3.3.&nbsp;Configuration of the maven-source-plugin</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugin&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>maven-source-plugin<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;executions&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;execution&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;id&gt;</span>attach-sources<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/id&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goals&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goal&gt;</span>jar-no-fork<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goal&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goals&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/execution&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/executions&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugin&gt;</span>
+</pre></div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+        <div class="section" title="3.2.4.2.&nbsp;Declaring the right dependency"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1034"></a>3.2.4.2.&nbsp;Declaring the right dependency</h4></div></div></div>
+          
+          <p>The source code artifact needs to be declared as a dependency of the Maven module processing the Wikbook document:</p>
+          <p>
+            </p><div class="example"><a name="d5e1038"></a><p class="title"><b>Example&nbsp;3.4.&nbsp;Declaring the right dependency</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">&lt;!-- Declares a dependency on the code --&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;dependency&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>groupId<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>artifactId<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;version&gt;</span>1.0-SNAPSHOT<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/version&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/dependency&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">&lt;!-- Declares a dependency on the source code --&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;dependency&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>groupId<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>artifactId<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;version&gt;</span>1.0-SNAPSHOT<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/version&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;classifier&gt;</span>sources<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/classifier&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/dependency&gt;</span>
+</pre></div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chapter" title="Chapter&nbsp;4.&nbsp;Generation"><div class="titlepage"><div><div><h1 xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook"><a name="d5e1043"></a>Chapter&nbsp;4.&nbsp;Generation</h1></div></div></div>
+    
+    <div class="section" title="4.1.&nbsp;Setup"><div class="titlepage"><div><div><h2 class="title"><a name="d5e1045"></a>4.1.&nbsp;Setup</h2></div></div></div>
+      
+      <div class="section" title="4.1.1.&nbsp;Create your processing module"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1047"></a>4.1.1.&nbsp;Create your processing module</h3></div></div></div>
+        
+        <p>The documentation generation use annotation processing. Wikbook module only provide an abstract processing : AbstractTemplateProcessor In this module you will extend the abstract processor and write your templates.</p>
+        <p>You need to use wikbook/template/core module : </p><div class="example"><a name="d5e1051"></a><p class="title"><b>Example&nbsp;4.1.&nbsp;Maven wikbook dependency</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;dependency&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.wikbook<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>wikbook.template.core<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;version&gt;</span>0.9.33<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/version&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/dependency&gt;</span></pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.1.2.&nbsp;Create your processor"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1056"></a>4.1.2.&nbsp;Create your processor</h3></div></div></div>
+        
+        <p>Don't freak out, your processor will not be a full processor. All the processing will be done by AbstractTemplateProcessor, you only have to configure it.</p>
+        <p>The requited values data are :</p>
+        <div class="itemizedlist"><ul class="itemizedlist"><li class="listitem">
+            <p>Processed annotations as Class[]</p>
+          </li><li class="listitem">
+            <p>Template name as String</p>
+          </li><li class="listitem">
+            <p>Output directory as String</p>
+          </li><li class="listitem">
+            <p>Generated extension as String (only used for file name)</p>
+          </li></ul></div>
+        <p>
+          </p><div class="example"><a name="d5e1070"></a><p class="title"><b>Example&nbsp;4.2.&nbsp;Typical jaxrs processor</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@SupportedSourceVersion(SourceVersion.RELEASE_5)</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@SupportedAnnotationTypes({"*"})</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> JaxrsTemplateProcessor <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">extends</span> AbstractTemplateProcessor {
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> Class[] annotations() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">new</span> Class[] {
+        Path.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        GET.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        POST.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        PUT.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        DELETE.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        PathParam.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        QueryParam.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        Consumes.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>
+    };
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> String templateName() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"jaxrs.tmpl"</span>;
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> String generatedDirectory() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"generated"</span>;
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> String ext() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"wiki"</span>;
+  }
+
+}</pre></div>
+          </div></div><p><br class="example-break">
+          </p><div class="example"><a name="d5e1075"></a><p class="title"><b>Example&nbsp;4.3.&nbsp;Typical chromattic processor</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@SupportedSourceVersion(SourceVersion.RELEASE_5)</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@SupportedAnnotationTypes({"*"})</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> ChromatticTemplateProcessor <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">extends</span> AbstractTemplateProcessor {
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> Class[] annotations() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">new</span> Class[] {
+        PrimaryType.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        MixinType.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        Property.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        Properties.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        MappedBy.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        OneToOne.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        OneToMany.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        ManyToOne.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>,
+        Owner.<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span>
+    };
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> String templateName() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"chromattic.tmpl"</span>;
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> String generatedDirectory() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"generated"</span>;
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Override</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">protected</span> String ext() {
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">"wiki"</span>;
+  }
+
+}</pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.1.3.&nbsp;Enable processing with service"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1080"></a>4.1.3.&nbsp;Enable processing with service</h3></div></div></div>
+        
+        <p>To enable your processors as service just create the following file : </p><div class="example"><a name="d5e1083"></a><p class="title"><b>Example&nbsp;4.4.&nbsp;META-INF/services/javax.annotation.processing.Processor</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting">org.wikbook.doc.JaxrsTemplateProcessor
+org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+        <div class="important" title="Important">
+          <p>You can have only one processor.</p>
+        </div>
+      </div>
+      <div class="section" title="4.1.4.&nbsp;Create your template"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1090"></a>4.1.4.&nbsp;Create your template</h3></div></div></div>
+        
+        <p>Each processor will use a template. A section is dedicated to these templates.</p>
+      </div>
+      <div class="section" title="4.1.5.&nbsp;Package template with classifier"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1093"></a>4.1.5.&nbsp;Package template with classifier</h3></div></div></div>
+        
+        <p>To be able to use the templates during the processing, you have to package your templates with a classifier (we will use "templates" classifier).</p>
+        <p>
+          </p><div class="example"><a name="d5e1097"></a><p class="title"><b>Example&nbsp;4.5.&nbsp;Package templates with maven</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;build&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugins&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugin&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>maven-jar-plugin<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;executions&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;execution&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;phase&gt;</span>package<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/phase&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goals&gt;</span>
+            <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goal&gt;</span>jar<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goal&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goals&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;configuration&gt;</span>
+            <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;classifier&gt;</span>templates<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/classifier&gt;</span>
+            <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;includes&gt;</span>
+              <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;include&gt;</span>**/templates/*<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/include&gt;</span>
+            <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/includes&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/configuration&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/execution&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/executions&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugin&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugins&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/build&gt;</span></pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.1.6.&nbsp;Generate !"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1102"></a>4.1.6.&nbsp;Generate !</h3></div></div></div>
+        
+        <p>Now you are ready to generate the documentation of existing module. Since you have declared your processors as service, just add it to classpath. You need to add some maven configuration to perform some stuff like unpack templates, use it, and package the generated files.</p>
+        <p>
+          </p><div class="example"><a name="d5e1106"></a><p class="title"><b>Example&nbsp;4.6.&nbsp;Add your processors to the classpath</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;dependency&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>my.group.id<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>my.artifact.id<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;scope&gt;</span>compile<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/scope&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;optional&gt;</span>true<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/optional&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/dependency&gt;</span>
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;dependency&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>my.group.id<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>my.artifact.id<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;classifier&gt;</span>templates<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/classifier&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/dependency&gt;</span></pre></div>
+          </div></div><p><br class="example-break">
+          </p><div class="example"><a name="d5e1111"></a><p class="title"><b>Example&nbsp;4.7.&nbsp;Unpack your templates and use it</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugin&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>maven-dependency-plugin<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;version&gt;</span>2.1<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/version&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;executions&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;execution&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;id&gt;</span>unpack-templates<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/id&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;phase&gt;</span>generate-sources<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/phase&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goals&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goal&gt;</span>unpack-dependencies<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goal&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goals&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;configuration&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;includeGroupIds&gt;</span>org.exoplatform.social<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/includeGroupIds&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;includeArtifactIds&gt;</span>exo.social.docs.gen<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/includeArtifactIds&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;includeClassifiers&gt;</span>templates<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/includeClassifiers&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;excludes&gt;</span>META-INF/**<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/excludes&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;outputDirectory&gt;</span>${project.build.directory}/templates<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/outputDirectory&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/configuration&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/execution&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/executions&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugin&gt;</span>
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugin&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>maven-compiler-plugin<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;version&gt;</span>2.3.2<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/version&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;executions&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;execution&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;id&gt;</span>default-compile<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/id&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goals&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goal&gt;</span>compile<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goal&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goals&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;phase&gt;</span>compile<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/phase&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;configuration&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;compilerArguments&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;sourcepath&gt;</span>${project.build.directory}/templates<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/sourcepath&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/compilerArguments&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/configuration&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/execution&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/executions&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugin&gt;</span></pre></div>
+          </div></div><p><br class="example-break">
+          </p><div class="example"><a name="d5e1116"></a><p class="title"><b>Example&nbsp;4.8.&nbsp;Package generated files</b></p><div class="example-contents">
+            
+            <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;plugin&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;groupId&gt;</span>org.apache.maven.plugins<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/groupId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;artifactId&gt;</span>maven-jar-plugin<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/artifactId&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;executions&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;execution&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;phase&gt;</span>package<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/phase&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goals&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;goal&gt;</span>jar<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goal&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/goals&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;configuration&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;classifier&gt;</span>doc-generated<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/classifier&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;includes&gt;</span>
+          <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;include&gt;</span>**/generated/*<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/include&gt;</span>
+        <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/includes&gt;</span>
+      <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/configuration&gt;</span>
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/execution&gt;</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/executions&gt;</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-tag">&lt;/plugin&gt;</span></pre></div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+    </div>
+    <div class="section" title="4.2.&nbsp;Templates"><div class="titlepage"><div><div><h2 class="title"><a name="d5e1121"></a>4.2.&nbsp;Templates</h2></div></div></div>
+      
+      <p>Each type which are annoted by one processed annotation will generate a file. When a file is generated the template is applied. In the template you can print and browse the annotation. Freemarker is used as template engine, that means you can use all freemarker feature like loop or conditional structure. Please have a look to the freemarker documentaton : <a class="ulink" href="http://freemarker.sourceforge.net/docs" target="_top">http://freemarker.sourceforge.net/docs</a>
+      </p>
+      <p>In the template you can do simple actions like print type name, element name, but you can also do more complex operations like get children, get sibling, get the javadoc and more things.</p>
+      <div class="section" title="4.2.1.&nbsp;Root elements"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1126"></a>4.2.1.&nbsp;Root elements</h3></div></div></div>
+        
+        <p>The root data are the annotation name like "@Path" for jaxrs using. Only the type annotations are considered as root data.</p>
+      </div>
+      <div class="section" title="4.2.2.&nbsp;Annotation name"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1129"></a>4.2.2.&nbsp;Annotation name</h3></div></div></div>
+        
+        <p>To print the annotation name you can use "name" property. </p><div class="example"><a name="d5e1132"></a><p class="title"><b>Example&nbsp;4.9.&nbsp;Simple annotation name</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Name : ${@Annotation.name}</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Name : Annotation</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+        <p>Actually this time we already know the name, but sometimes it can be useful (when you don't know which annotation you are working on).</p>
+      </div>
+      <div class="section" title="4.2.3.&nbsp;Element name"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1156"></a>4.2.3.&nbsp;Element name</h3></div></div></div>
+        
+        <p>It's the element's name. It can be the class name, method name, or parameter name which are annoted by the current annotation.</p>
+        <p>
+          </p><div class="example"><a name="d5e1160"></a><p class="title"><b>Example&nbsp;4.10.&nbsp;Class element name</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Name : ${@Annotation.elementName}</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Name : A</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+          </p><div class="example"><a name="d5e1183"></a><p class="title"><b>Example&nbsp;4.11.&nbsp;Method element name</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+  String m() { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">/* ... */</span> }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">// ...
+Name : ${a.elementName}
+// ...</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">// ...
+Name : m
+// ...</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+          </p><div class="example"><a name="d5e1206"></a><p class="title"><b>Example&nbsp;4.12.&nbsp;Parameter element name</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  String m(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span> String p) { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">/* ... */</span> }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">// ...
+Name : ${a.elementName}
+// ...</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">// ...
+Name : p
+// ...</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.2.4.&nbsp;Type"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1229"></a>4.2.4.&nbsp;Type</h3></div></div></div>
+        
+        <div class="section" title="4.2.4.1.&nbsp;Data"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1231"></a>4.2.4.1.&nbsp;Data</h4></div></div></div>
+          
+          <p>The type property have many values and provide a way to get more things about the type. It returns type, parameter type.</p>
+          <p>
+            </p><div class="example"><a name="d5e1235"></a><p class="title"><b>Example&nbsp;4.13.&nbsp;Class type values</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">package</span> p;
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Name : ${@Annotation.type.name}
+Full name : ${@Annotation.type.fqn}
+Is array : ${@Annotation.type.isArray}</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Name : A
+Full name : p.A
+Is array : false</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1258"></a><p class="title"><b>Example&nbsp;4.14.&nbsp;Method type values</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+  String[] m() { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">/* ... */</span> }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Name : ${a.type.name}
+Full name : ${a.type.fqn}
+Is array : ${a.type.isArray}
+// ...</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Name : String[]
+Full name : java.lang.String[]
+Is array : true
+// ...</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1281"></a><p class="title"><b>Example&nbsp;4.15.&nbsp;Parameter type values</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  Integer[] m(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span> String p) { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">/* ... */</span> }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Name : ${a.type.name}
+Full name : ${a.type.fqn}
+Is array : ${a.type.isArray}
+// ...</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Name : String
+Full name : java.lang.String
+Is array : false
+// ...</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+        <div class="section" title="4.2.4.2.&nbsp;Type parameter"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1304"></a>4.2.4.2.&nbsp;Type parameter</h4></div></div></div>
+          
+          <p>Generics type parameter are also supported. You can reach the parameters with "parameter" value.</p>
+          <p>
+            </p><div class="example"><a name="d5e1308"></a><p class="title"><b>Example&nbsp;4.16.&nbsp;Reach type parameter</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+  Map&lt;String, Integer[]&gt; m(String p) { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">/* ... */</span> }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Parameter 1 (key) :
+Name : ${a.type.parameter[0].name}
+Full name : ${a.type.parameter[0].fqn}
+Is Array : ${a.type.parameter[0].isArray}
+
+Parameter 2 (value) :
+Name : ${a.type.parameter[1].name}
+Full name : ${a.type.parameter[1].fqn}
+Is Array : ${a.type.parameter[1].isArray}
+// ...</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Parameter 1 (key) :
+Name : String
+Full name : java.lang.String
+Is Array : false
+
+Parameter 2 (value) :
+Name : Integer
+Full name : java.lang.Integer
+Is Array : true
+// ...</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+        <div class="section" title="4.2.4.3.&nbsp;Get annotation"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1331"></a>4.2.4.3.&nbsp;Get annotation</h4></div></div></div>
+          
+          <p>Type data have special member "annotation" which allow to get annotations data of return type.</p>
+          <p>
+            </p><div class="example"><a name="d5e1335"></a><p class="title"><b>Example&nbsp;4.17.&nbsp;Reach annotation of type</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation("foo")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {
+}
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@AnotherAnnotation</span>
+  A m() { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> null; }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+&lt;#assign type = anotherAnnotation.type&gt;
+&lt;#assign a = type.annotation("@Annotation")&gt;
+&lt;#assign v = a.attribute("value")&gt;
+Value : ${v}
+// ...</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Value : foo
+// ...</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+      </div>
+      <div class="section" title="4.2.5.&nbsp;Javadoc"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1358"></a>4.2.5.&nbsp;Javadoc</h3></div></div></div>
+        
+        <p>The javadoc is accessible with the "doc" property.</p>
+        <div class="section" title="4.2.5.1.&nbsp;General Javadoc"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1361"></a>4.2.5.1.&nbsp;General Javadoc</h4></div></div></div>
+          
+          <p>
+            </p><div class="example"><a name="d5e1364"></a><p class="title"><b>Example&nbsp;4.18.&nbsp;Class or method general documentation</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+ * This is
+ * the documentation.
+ */</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Documentation : ${@Annotation.doc()}</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Documentation : This is the documentation.</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+          <p>You can use doc() for class or method documentation. You can also get the javadoc from a parameter. In this case you have only default javadoc which are corresponding do the parameter's javadoc</p>
+          <p>
+            </p><div class="example"><a name="d5e1389"></a><p class="title"><b>Example&nbsp;4.19.&nbsp;Parameter documentation</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * General method documentation.
+   * 
+   * @param p The parameter documentation
+   */</span>
+  Integer m(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span> String p) { <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">/* ... */</span> }
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Documentation : ${a.doc()}
+// ...</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">// ...
+Documentation : The parameter documentation
+// ...</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+        <div class="section" title="4.2.5.2.&nbsp;Javadoc with one key"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1412"></a>4.2.5.2.&nbsp;Javadoc with one key</h4></div></div></div>
+          
+          <p>You can get a specific documentation part like "author" in this way :</p>
+          <p>
+            </p><div class="example"><a name="d5e1416"></a><p class="title"><b>Example&nbsp;4.20.&nbsp;Get the author</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+ * This is the documentation.
+ *
+ * @author foo
+ */</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Documentation : ${@Annotation.doc()}
+Author : ${@Annotation.doc("author")}</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Documentation : This is the documentation.
+Author : foo</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+        <div class="section" title="4.2.5.3.&nbsp;Javadoc with many keys"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1439"></a>4.2.5.3.&nbsp;Javadoc with many keys</h4></div></div></div>
+          
+          <p>Sometimes the documentation can have many times the same key. You can either iterate on each key, or ask wikbook to display all items.</p>
+          <p>
+            </p><div class="example"><a name="d5e1443"></a><p class="title"><b>Example&nbsp;4.21.&nbsp;Use 'flat' prefix to display all values separated by coma</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+ * This is the documentation.
+ *
+ * @author foo
+ * @author bar
+ */</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Documentation : ${@Annotation.doc()}
+Authors : ${@Annotation.doc("flat:author")}</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Documentation : This is the documentation.
+Authors : foo, bar</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1466"></a><p class="title"><b>Example&nbsp;4.22.&nbsp;Use 'list' prefix to make iteration possible</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+ * This is the documentation.
+ *
+ * @author foo
+ * @author bar
+ */</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">&lt;#list @Annotation.doc("list:author") as author&gt;
+Author : ${author}
+&lt;/#list&gt;</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Author : foo
+Author : bar</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+        <div class="section" title="4.2.5.4.&nbsp;Get documentation as block"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1489"></a>4.2.5.4.&nbsp;Get documentation as block</h4></div></div></div>
+          
+          <p>You could need to keep the documentation as it. For exemple you could wish to store some exemple without remove formatting.</p>
+          <p>
+            </p><div class="example"><a name="d5e1493"></a><p class="title"><b>Example&nbsp;4.23.&nbsp;Use 'block' prefix to keep formatting</b></p><div class="example-contents">
+              
+              <div class="informaltable">
+                <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                        <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+ * This is the documentation.
+ *
+ * @exemple
+ * class A {
+ *   // Here there is the code
+ * }
+ }
+ */</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      </td></tr><tr><td>Template</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Code :
+${@Annotation.doc("bloc:exemple")}</pre></div>
+                      </td></tr><tr><td>Output</td><td>
+                        <div class="programlistingco"><pre class="programlisting">Code :
+class A {
+  // Here there is the code
+}</pre></div>
+                      </td></tr></tbody></table>
+              </div>
+            </div></div><p><br class="example-break">
+          </p>
+        </div>
+      </div>
+      <div class="section" title="4.2.6.&nbsp;Browse children"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1516"></a>4.2.6.&nbsp;Browse children</h3></div></div></div>
+        
+        <p>Each annotation allow to get children annotations. You just need to provide what annotation you are looking for and iterate. You can also set many param to look for many annotations in the same browsing.</p>
+        <p>
+          </p><div class="example"><a name="d5e1520"></a><p class="title"><b>Example&nbsp;4.24.&nbsp;Browse children</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@A</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> m() {}
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@B</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> m2() {}
+  
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@A</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> m3() {}
+  
+}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Annoted by @A :
+&lt;#list @Annotation.children("@A") as a&gt;
+Method : ${a.elementName}
+&lt;/#list&gt;
+
+Annoted by @A or @B :
+&lt;#list @Annotation.children("@A", "@B") as ab&gt;
+Method : ${ab.elementName} (${ab.name})
+&lt;/#list&gt;</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Annoted by @A:
+Method : m
+Method : m3
+
+Annoted by @A or @B :
+Method : m (A)
+Method : m2 (B)
+Method : m3 (A)</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.2.7.&nbsp;Get sibling"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1543"></a>4.2.7.&nbsp;Get sibling</h3></div></div></div>
+        
+        <p>Each annotation can reach a sibling annotations.</p>
+        <p>
+          </p><div class="example"><a name="d5e1547"></a><p class="title"><b>Example&nbsp;4.25.&nbsp;Get sibiling</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@A</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@B</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> m() {}
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// ...</span></pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">// ...
+Name : ${a.name}
+Sibling @B : ${a.sibling("@B").name}
+// ...</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">// ...
+Name : A
+Sibling @B : B
+// ...</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+        <p>After got sibling annotation you can reach the attribute then (see next section)</p>
+      </div>
+      <div class="section" title="4.2.8.&nbsp;Get attributes"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1571"></a>4.2.8.&nbsp;Get attributes</h3></div></div></div>
+        
+        <p>The attribute method allow to enter inside the annotation to get any contained value by the annotation. To use it you only have to call "attribute" method with member name. Don't forget that the default value name is "value".</p>
+        <p>
+          </p><div class="example"><a name="d5e1575"></a><p class="title"><b>Example&nbsp;4.26.&nbsp;Get simple value</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation("foo", name = "bar")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Value : ${@Annotation.attribute("value")}
+Name : ${@Annotation.attribute("name")}</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Name : foo
+Value : bar</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+        <p>Some annotation can have more complex value like array, you can print or iterate on it.</p>
+        <p>
+          </p><div class="example"><a name="d5e1600"></a><p class="title"><b>Example&nbsp;4.27.&nbsp;Get array value</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation({"foo", "bar"})</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Values : ${@Annotation.attribute("flat:value")}
+
+or
+
+&lt;#list @Annotation.attribute("list:value") as v&gt;
+Value : ${v}
+&lt;/#list&gt;</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Values : foo, bar
+
+or
+
+Value : foo
+Value : bar</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+        <p>An annotation can also contains another nested annotation. Let use attribute in the same way to get it.</p>
+        <p>
+          </p><div class="example"><a name="d5e1625"></a><p class="title"><b>Example&nbsp;4.28.&nbsp;Get annotation value</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation(@B("foo", name = "bar"))</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Value : ${@Annotation.attribute("value").attribute("value")}
+Name : ${@Annotation.attribute("value").attribute("name")}</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Value : foo
+Name : bar</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+          </p><div class="example"><a name="d5e1648"></a><p class="title"><b>Example&nbsp;4.29.&nbsp;Get array annotation value</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation({@B("foo"), @B("bar")})</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">&lt;#list ${Annotation.attribute("value") as sub}
+Value : ${sub.attribute("value")}
+&lt;/#list&gt;</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">Value : foo
+Value : bar</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.2.9.&nbsp;Browse package"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1671"></a>4.2.9.&nbsp;Browse package</h3></div></div></div>
+        
+        <p>Some framework use package annotation and wikbook templating allow to use these annotations. The only one difference is that package annotation doesn't have type member. You can use attribute, doc, name and children member to browse package content.</p>
+        <p>
+          </p><div class="example"><a name="d5e1675"></a><p class="title"><b>Example&nbsp;4.30.&nbsp;Browse package annotation</b></p><div class="example-contents">
+            
+            <div class="informaltable">
+              <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// p/package-info.java</span>
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@P("foo")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">package</span> p;</pre></div>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// p/A.java</span>
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">package</span> p;
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation("a")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> A {}</pre></div>
+                      <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// p/B.java</span>
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">package</span> p;
+
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Annotation("b")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> B {}</pre></div>
+                    </td></tr><tr><td>Template</td><td>
+                      <div class="programlistingco"><pre class="programlisting">@P value : ${@P.attribute("value")}
+&lt;#list ${@P.children("@Annotation") as c}
+Found : ${c.type.fqn} (${c.attribute("value")})
+&lt;/#list&gt;</pre></div>
+                    </td></tr><tr><td>Output</td><td>
+                      <div class="programlistingco"><pre class="programlisting">@P value : foo
+Found : p.A (a)
+Found : p.B (b)</pre></div>
+                    </td></tr></tbody></table>
+            </div>
+          </div></div><p><br class="example-break">
+        </p>
+      </div>
+      <div class="section" title="4.2.10.&nbsp;Full sample"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1704"></a>4.2.10.&nbsp;Full sample</h3></div></div></div>
+        
+        <p>Now we will see a concrete use case with typical source class and full template. Two use cases will be considered : JAX-RS API and Chromattic API. Meanwhile you can create yours.</p>
+        <div class="section" title="4.2.10.1.&nbsp;JAX-RS"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1707"></a>4.2.10.1.&nbsp;JAX-RS</h4></div></div></div>
+          
+          <p>
+            </p><div class="example"><a name="d5e1710"></a><p class="title"><b>Example&nbsp;4.31.&nbsp;Source code</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+ * User end point.
+ * @author foobar
+ * @since 1.0
+ */</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Path("api/project/v1/{portalContainerName}/")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> MyRestService {
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * This is the way to get an user by its id.
+   *
+   * @param uriInfo The URI Request info.
+   * @param portalContainerName The associated portal container name
+   * @param userId The specified user Id
+   * @param format The expected returned format
+   * @authentication
+   * @request
+   * {code}
+   * GET: http://my.domain.lan/rest/private/api/project/v1/portal/user/1a2b3c4d5e6f7g8h9i.json
+   * {code}
+   * @response
+   * {code:json}
+   * {
+   *   "id": "1a2b3c4d5e6f7g8h9j",
+   *   "firstName": "foo",
+   *   "lastNameName": "bar",
+   *   "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+   * }
+   * {code}
+   * @return The user
+   *
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@GET</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Path("user/{userId}.{format}")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Produces(MediaType.APPLICATION_JSON)</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> Response getById(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Context</span> UriInfo uriInfo,
+                                  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@PathParam("portalContainerName")</span> String portalContainerName,
+                                  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@PathParam("userId")</span> String userId,
+                                  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@PathParam("format")</span> String format) {
+
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> null; <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// Do implementation</span>
+    
+  }
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * This is the way to get all the users a new user. The service return the created user data like id.
+   *
+   * @param uriInfo The URI Request info.
+   * @param portalContainerName The associated portal container name
+   * @param format The expected returned format
+   * @param number The returned number
+   * @authentication
+   * @request
+   * {code}
+   * GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
+   * {code}
+   * @response
+   * {code:json}
+   * [
+   *   {
+   *     "id": "1a2b3c4d5e6f7g8h9i",
+   *     "firstName": "foo1",
+   *     "lastNameName": "bar1",
+   *     "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+   *   },
+   *   {
+   *     "id": "1a2b3c4d5e6f7g8h9k",
+   *     "firstName": "foo2",
+   *     "lastNameName": "bar2",
+   *     "createdAt": "Fri Jun 18 06:42:26 +0000 2011", //The Date follows ISO 8601
+   *   }
+   * ]
+   * {code}
+   * @return The users
+   *
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@GET</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Path("users.{format}")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Produces(MediaType.APPLICATION_JSON)</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> Response getById(<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Context</span> UriInfo uriInfo,
+                                  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@PathParam("portalContainerName")</span> String portalContainerName,
+                                  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@PathParam("format")</span> String format) {
+                                  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@QueryParam("number")</span> String number) {
+
+    <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">return</span> null; <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-comment">// Do implementation</span>
+
+  }</pre></div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1715"></a><p class="title"><b>Example&nbsp;4.32.&nbsp;Template</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting">&lt;#list @Path.children("@GET", "@POST", "@PUT", "@DELETE") as verb&gt;
+h3. ${verb.name} ${verb.sibling("@Path").attribute("flat:value")?replace("{", "")?replace("}", "")}
+
+*Description*: ${verb.doc()}
+
+*URL*:
+
+{code}
+http://platform35.demo.exoplatform.org/rest/private/${@Path.attribute("value")}${verb.sibling("@Path").attribute("flat:value")}
+{code}
+&lt;#if verb.sibling("@Produces")??&gt;
+
+*Supported Format*: ${verb.sibling("@Produces").attribute("flat:value")}
+&lt;/#if&gt;
+&lt;#if verb.doc("authentication") != ""&gt;
+
+*Requires Authentication*: true
+&lt;/#if&gt;
+
+*Parameters*:
+* *Required (path parameters)*: &lt;#if verb.children("@PathParam")?size = 0&gt;No&lt;/#if&gt;
+&lt;#list verb.children("@PathParam") as param&gt;
+** *{noformat}${param.attribute("flat:value")}{noformat}*: ${param.doc()}
+&lt;/#list&gt;
+* *Optional (query paramters)*: &lt;#if verb.children("@QueryParam")?size = 0&gt;No&lt;/#if&gt;
+&lt;#list verb.children("@QueryParam") as param&gt;
+** *{noformat}${param.attribute("flat:value")}{noformat}*: ${param.doc()}
+&lt;/#list&gt;
+
+*Request*:
+
+${verb.doc("bloc:request")}
+
+*Response*:
+
+${verb.doc("bloc:response")}
+
+&lt;/#list&gt;</pre></div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1720"></a><p class="title"><b>Example&nbsp;4.33.&nbsp;Output</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting">h3. GET user/userId.format
+
+*Description*: This is the way to get an user by its id.
+
+*URL*:
+
+{code}
+http://my.domain.lan/rest/private/api/project/v1/{portalContainerName}/user/userId.format
+{code}
+
+*Supported Format*: application/json
+
+*Requires Authentication*: true
+
+*Parameters*:
+* *Required (path parameters)*:
+** *{noformat}portalContainerName{noformat}*: The associated portal container name
+** *{noformat}userId{noformat}*: The specified user Id
+** *{noformat}format{noformat}*: The expected returned format
+* *Optional (query paramters)*: No
+
+*Request*:
+
+{code}
+GET: http://my.domain.lan/rest/private/api/project/v1/portal/user/1a2b3c4d5e6f7g8h9i.json
+{code}
+
+*Response*:
+
+{code:json}
+{
+ "id": "1a2b3c4d5e6f7g8h9j",
+ "firstName": "foo",
+ "lastNameName": "bar",
+ "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+}
+{code}
+
+h3. GET users.format
+
+*Description*: This is the way to get all the users a new user. The service return the created user data like id.
+
+*URL*:
+
+{code}
+http://my.domain.lan/rest/private/api/project/v1/{portalContainerName}/users.format
+{code}
+
+*Supported Format*: application/json
+
+*Requires Authentication*: true
+
+*Parameters*:
+* *Required (path parameters)*:
+** *{noformat}portalContainerName{noformat}*: The associated portal container name
+** *{noformat}userId{noformat}*: The specified user Id
+* *Optional (query paramters)*:
+** *{noformat}number{noformat}*: The returned number
+
+*Request*:
+
+{code}
+GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
+{code}
+
+*Response*:
+
+{code:json}
+[
+ {
+   "id": "1a2b3c4d5e6f7g8h9i",
+   "firstName": "foo1",
+   "lastNameName": "bar1",
+   "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+ },
+ {
+   "id": "1a2b3c4d5e6f7g8h9k",
+   "firstName": "foo2",
+   "lastNameName": "bar2",
+   "createdAt": "Fri Jun 18 06:42:26 +0000 2011", //The Date follows ISO 8601
+ }
+]
+{code}</pre></div>
+            </div></div><p><br class="example-break">
+          </p>
+          <p>
+            </p><div class="figure"><a name="d5e1726"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;JAX-RS generation result</b></p><div class="figure-contents">
+              
+              <div class="mediaobject" align="center"><img src="images/jaxrsCapture.png" align="middle" alt="JAX-RS generation result"></div>
+            </div></div><p><br class="figure-break">
+          </p>
+        </div>
+        <div class="section" title="4.2.10.2.&nbsp;Chromattic"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1733"></a>4.2.10.2.&nbsp;Chromattic</h4></div></div></div>
+          
+          <p>
+            </p><div class="example"><a name="d5e1736"></a><p class="title"><b>Example&nbsp;4.34.&nbsp;Source code</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting"><span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@PrimaryType(name = "ns:myentity")</span>
+<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">class</span> MyEntity {
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * The property 1. It's a String property.
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Property(name = "ns:property1")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> String getProperty1();
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> setProperty1(String property1);
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * The property 2. It's an Integer property.
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Property(name = "ns:property2")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> Integer getProperty2();
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> setProperty2(String property2);
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * The property 3. It's a Boolean property.
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Property(name = "ns:property3")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> Boolean isProperty3();
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> setProperty3(Boolean property3);
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * The property 4. It's a String array property.
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Property(name = "ns:property4")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> String[] getProperty4();
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> setProperty4(String[] property4);
+
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-doccomment">/**
+   * This is a node child.
+   */</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@MappedBy("child")</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@OneToOne</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-annotation">@Owner</span>
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> AnotherEntity getChild();
+  <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">public</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">abstract</span> <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-keyword">void</span> setChild(AnotherEntity anotherEntity);
+}</pre></div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1741"></a><p class="title"><b>Example&nbsp;4.35.&nbsp;Template</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting">The _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following properties:
+|| Property Name || Required Type ||Mutiple|| Description ||
+&lt;#list @PrimaryType.children("@Property") as property&gt;
+|${property.attribute("name")}|${property.type.name?replace("[]", "")}|${property.type.isArray}|${property.doc()}|
+&lt;/#list&gt;
+&lt;#list @PrimaryType.children("@ManyToOne") as ref&gt;
+&lt;#if ref.sibling("@MappedBy")??&gt;
+|${ref.sibling("@MappedBy").attribute("value")}|Reference|${ref.type.isArray}|${ref.doc()}|
+&lt;/#if&gt;
+&lt;/#list&gt;
+
+And the _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following child nodes:
+|| Child Nodes || Default Primary Type || Description ||
+&lt;#list @PrimaryType.children("@OneToOne", "@OneToMany") as child&gt;
+&lt;#if child.sibling("@MappedBy")??&gt;
+|${child.sibling("@MappedBy").attribute("value")}|&lt;#if child.type.annotation("@PrimaryType")??&gt;${child.type.annotation("@PrimaryType").attribute("name")}&lt;/#if&gt;|${child.doc()}|
+&lt;/#if&gt;
+&lt;/#list&gt;</pre></div>
+            </div></div><p><br class="example-break">
+            </p><div class="example"><a name="d5e1746"></a><p class="title"><b>Example&nbsp;4.36.&nbsp;Output</b></p><div class="example-contents">
+              
+              <div class="programlistingco"><pre class="programlisting">The _{noformat}ns:myentity{noformat}_ node type has the following properties:
+|| Property Name || Required Type ||Mutiple|| Description ||
+|ns:property1|String|false|The property <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">1.</span> It<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">'s a String property.|
+</span>|ns:property2|Integer|false|The property <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">2.</span> It<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">'s a Integer property.|
+</span>|ns:property3|Boolean|false|The property <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">3.</span> It<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">'s a Boolean property.|
+</span>|ns:property4|String|true|The property <span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-number">4.</span> It<span xmlns:xslthl="http://xslthl.sf.net" xmlns:d="http://docbook.org/ns/docbook" class="hl-string">'s a String array property.|
+</span>
+And the _{noformat}ns:myentity{noformat}_ node type has the following child nodes:
+|| Child Nodes || Default Primary Type || Description ||
+|child|ns:anotherentity|This is a node child.|
+</pre></div>
+            </div></div><p><br class="example-break">
+          </p>
+          <p>
+            </p><div class="figure"><a name="d5e1752"></a><p class="title"><b>Figure&nbsp;4.2.&nbsp;Chromattic generation result</b></p><div class="figure-contents">
+              
+              <div class="mediaobject" align="center"><img src="images/chromatticCapture.png" align="middle" alt="Chromattic generation result"></div>
+            </div></div><p><br class="figure-break">
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div></body></html>
