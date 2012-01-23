@@ -1,0 +1,1091 @@
+= Setup =
+
+== Create your processing module ==
+The documentation generation use annotation processing. Wikbook module only provide an abstract processing : AbstractTemplateProcessor
+In this module you will extend the abstract processor and write your templates.
+
+You need to use wikbook/template/core module :
+{{example title="Maven wikbook dependency"}}
+{{code language=xml}}
+<dependency>
+  <groupId>org.wikbook</groupId>
+  <artifactId>wikbook.template.core</artifactId>
+  <version>0.9.33</version>
+</dependency>
+{{/code}}
+{{/example}}
+
+== Create your processor ==
+Don't freak out, your processor will not be a full processor. All the processing will be done by AbstractTemplateProcessor, you only have to configure it.
+
+The requited values data are :
+* Processed annotations as Class[]
+* Template name as String
+* Output directory as String
+* Generated extension as String (only used for file name)
+
+{{example title="Typical jaxrs processor"}}
+{{code language=java}}{@include org.wikbook.doc.JaxrsTemplateProcessor}{{/code}}
+{{/example}}
+
+{{example title="Typical chromattic processor"}}
+{{code language=java}}{@include org.wikbook.doc.ChromatticTemplateProcessor}{{/code}}
+{{/example}}
+
+== Enable processing with service ==
+To enable your processors as service just create the following file :
+{{example title="META-INF/services/javax.annotation.processing.Processor"}}
+{{code}}
+org.wikbook.doc.JaxrsTemplateProcessor
+org.wikbook.doc.ChromatticTemplateProcessor
+{{/code}}
+{{/example}}
+
+{{important}}You can have only one processor.{{/important}}
+
+== Create your template ==
+Each processor will use a template. A section is dedicated to these templates.
+
+== Package template with classifier ==
+To be able to use the templates during the processing, you have to package your templates with a classifier (we will use "templates" classifier).
+
+{{example title="Package templates with maven"}}
+{{code language=xml}}
+<build>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <executions>
+        <execution>
+          <phase>package</phase>
+          <goals>
+            <goal>jar</goal>
+          </goals>
+          <configuration>
+            <classifier>templates</classifier>
+            <includes>
+              <include>**/templates/*</include>
+            </includes>
+          </configuration>
+        </execution>
+      </executions>
+    </plugin>
+  </plugins>
+</build>
+{{/code}}
+{{/example}}
+
+== Generate ! ==
+
+Now you are ready to generate the documentation of existing module. Since you have declared your processors as service, just add it to classpath.
+You need to add some maven configuration to perform some stuff like unpack templates, use it, and package the generated files.
+
+{{example title="Add your processors to the classpath"}}
+{{code language=xml}}
+<dependency>
+  <groupId>my.group.id</groupId>
+  <artifactId>my.artifact.id</artifactId>
+  <scope>compile</scope>
+  <optional>true</optional>
+</dependency>
+
+<dependency>
+  <groupId>my.group.id</groupId>
+  <artifactId>my.artifact.id</artifactId>
+  <classifier>templates</classifier>
+</dependency>
+{{/code}}
+{{/example}}
+
+{{example title="Unpack your templates and use it"}}
+{{code language=xml}}
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <version>2.1</version>
+  <executions>
+    <execution>
+      <id>unpack-templates</id>
+      <phase>generate-sources</phase>
+      <goals>
+        <goal>unpack-dependencies</goal>
+      </goals>
+      <configuration>
+        <includeGroupIds>org.exoplatform.social</includeGroupIds>
+        <includeArtifactIds>exo.social.docs.gen</includeArtifactIds>
+        <includeClassifiers>templates</includeClassifiers>
+        <excludes>META-INF/**</excludes>
+        <outputDirectory>${project.build.directory}/templates</outputDirectory>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-compiler-plugin</artifactId>
+  <version>2.3.2</version>
+  <executions>
+    <execution>
+      <id>default-compile</id>
+      <goals>
+        <goal>compile</goal>
+      </goals>
+      <phase>compile</phase>
+      <configuration>
+        <compilerArguments>
+          <sourcepath>${project.build.directory}/templates</sourcepath>
+        </compilerArguments>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+{{/code}}
+{{/example}}
+
+{{example title="Package generated files"}}
+{{code language=xml}}
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-jar-plugin</artifactId>
+  <executions>
+    <execution>
+      <phase>package</phase>
+      <goals>
+        <goal>jar</goal>
+      </goals>
+      <configuration>
+        <classifier>doc-generated</classifier>
+        <includes>
+          <include>**/generated/*</include>
+        </includes>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
+{{/code}}
+{{/example}}
+
+= Templates =
+Each type which are annoted by one processed annotation will generate a file.
+When a file is generated the template is applied. In the template you can print and browse the annotation.
+Freemarker is used as template engine, that means you can use all freemarker feature like loop or conditional structure.
+Please have a look to the freemarker documentaton : http://freemarker.sourceforge.net/docs
+
+In the template you can do simple actions like print type name, element name, but you can also do more complex operations like get children, get sibling, get the javadoc and more things.
+
+== Root elements ==
+The root data are the annotation name like "@Path" for jaxrs using. Only the type annotations are considered as root data.
+
+== Annotation name ==
+To print the annotation name you can use "name" property.
+{{example title="Simple annotation name"}}
+|Code|((({{code language=java}}
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Name : ${@Annotation.name}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : Annotation
+{{/code}})))
+{{/example}}
+
+Actually this time we already know the name, but sometimes it can be useful (when you don't know which annotation you are working on).
+
+== Element name ==
+It's the element's name. It can be the class name, method name, or parameter name which are annoted by the current annotation.
+
+{{example title="Class element name"}}
+|Code|((({{code language=java}}
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Name : ${@Annotation.elementName}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : A
+{{/code}})))
+{{/example}}
+
+{{example title="Method element name"}}
+|Code|((({{code language=java}}
+// ...
+  @Annotation
+  String m() { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.elementName}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : m
+// ...
+{{/code}})))
+{{/example}}
+
+{{example title="Parameter element name"}}
+|Code|((({{code language=java}}
+// ...
+  String m(@Annotation String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.elementName}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : p
+// ...
+{{/code}})))
+{{/example}}
+
+== Type ==
+
+=== Data ===
+
+The type property have many values and provide a way to get more things about the type. It returns type, parameter type.
+
+{{example title="Class type values"}}
+|Code|((({{code language=java}}
+package p;
+
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Name : ${@Annotation.type.name}
+Full name : ${@Annotation.type.fqn}
+Is array : ${@Annotation.type.isArray}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : A
+Full name : p.A
+Is array : false
+{{/code}})))
+{{/example}}
+
+{{example title="Method type values"}}
+|Code|((({{code language=java}}
+// ...
+  @Annotation
+  String[] m() { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.type.name}
+Full name : ${a.type.fqn}
+Is array : ${a.type.isArray}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : String[]
+Full name : java.lang.String[]
+Is array : true
+// ...
+{{/code}})))
+{{/example}}
+
+{{example title="Parameter type values"}}
+|Code|((({{code language=java}}
+// ...
+  Integer[] m(@Annotation String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.type.name}
+Full name : ${a.type.fqn}
+Is array : ${a.type.isArray}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : String
+Full name : java.lang.String
+Is array : false
+// ...
+{{/code}})))
+{{/example}}
+
+=== Type parameter ===
+
+Generics type parameter are also supported. You can reach the parameters with "parameter" value.
+
+{{example title="Reach type parameter"}}
+|Code|((({{code language=java}}
+// ...
+  @Annotation
+  Map<String, Integer[]> m(String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Parameter 1 (key) :
+Name : ${a.type.parameter[0].name}
+Full name : ${a.type.parameter[0].fqn}
+Is Array : ${a.type.parameter[0].isArray}
+
+Parameter 2 (value) :
+Name : ${a.type.parameter[1].name}
+Full name : ${a.type.parameter[1].fqn}
+Is Array : ${a.type.parameter[1].isArray}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Parameter 1 (key) :
+Name : String
+Full name : java.lang.String
+Is Array : false
+
+Parameter 2 (value) :
+Name : Integer
+Full name : java.lang.Integer
+Is Array : true
+// ...
+{{/code}})))
+{{/example}}
+
+=== Get annotation ===
+
+Type data have special member "annotation" which allow to get annotations data of return type.
+
+{{example title="Reach annotation of type"}}
+|Code|((({{code language=java}}
+@Annotation("foo")
+class A {
+}
+// ...
+  @AnotherAnnotation
+  A m() { return null; }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+<#assign type = anotherAnnotation.type>
+<#assign a = type.annotation("@Annotation")>
+<#assign v = a.attribute("value")>
+Value : ${v}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Value : foo
+// ...
+{{/code}})))
+{{/example}}
+
+
+== Javadoc ==
+The javadoc is accessible with the "doc" property.
+
+=== General Javadoc ===
+
+{{example title="Class or method general documentation"}}
+|Code|((({{code language=java}}
+/**
+ * This is
+ * the documentation.
+ */
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Documentation : ${@Annotation.doc()}
+{{/code}})))
+|Output|(((
+{{code}}
+Documentation : This is the documentation.
+{{/code}})))
+{{/example}}
+
+You can use doc() for class or method documentation.
+You can also get the javadoc from a parameter. In this case you have only default javadoc which are corresponding do the parameter's javadoc
+
+{{example title="Parameter documentation"}}
+|Code|((({{code language=java}}
+// ...
+  /**
+   * General method documentation.
+   * 
+   * @param p The parameter documentation
+   */
+  Integer m(@Annotation String p) { /* ... */ }
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Documentation : ${a.doc()}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Documentation : The parameter documentation
+// ...
+{{/code}})))
+{{/example}}
+
+=== Javadoc with one key ===
+You can get a specific documentation part like "author" in this way :
+
+{{example title="Get the author"}}
+|Code|((({{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @author foo
+ */
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Documentation : ${@Annotation.doc()}
+Author : ${@Annotation.doc("author")}
+{{/code}})))
+|Output|(((
+{{code}}
+Documentation : This is the documentation.
+Author : foo
+{{/code}})))
+{{/example}}
+
+=== Javadoc with many keys ===
+
+Sometimes the documentation can have many times the same key. You can either iterate on each key, or ask wikbook to display all items.
+
+{{example title="Use 'flat' prefix to display all values separated by coma"}}
+|Code|((({{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @author foo
+ * @author bar
+ */
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Documentation : ${@Annotation.doc()}
+Authors : ${@Annotation.doc("flat:author")}
+{{/code}})))
+|Output|(((
+{{code}}
+Documentation : This is the documentation.
+Authors : foo, bar
+{{/code}})))
+{{/example}}
+
+{{example title="Use 'list' prefix to make iteration possible"}}
+|Code|((({{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @author foo
+ * @author bar
+ */
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+<#list @Annotation.doc("list:author") as author>
+Author : ${author}
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Author : foo
+Author : bar
+{{/code}})))
+{{/example}}
+
+=== Get documentation as block ===
+
+You could need to keep the documentation as it. For exemple you could wish to store some exemple without remove formatting.
+
+{{example title="Use 'block' prefix to keep formatting"}}
+|Code|((({{code language=java}}
+/**
+ * This is the documentation.
+ *
+ * @exemple
+ * class A {
+ *   // Here there is the code
+ * }
+ }
+ */
+@Annotation
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Code :
+${@Annotation.doc("bloc:exemple")}
+{{/code}})))
+|Output|(((
+{{code}}
+Code :
+class A {
+  // Here there is the code
+}
+{{/code}})))
+{{/example}}
+
+== Browse children ==
+
+Each annotation allow to get children annotations. You just need to provide what annotation you are looking for and iterate.
+You can also set many param to look for many annotations in the same browsing.
+
+{{example title="Browse children"}}
+|Code|((({{code language=java}}
+@Annotation
+class A {
+
+  @A
+  void m() {}
+
+  @B
+  void m2() {}
+  
+  @A
+  void m3() {}
+  
+}
+{{/code}})))
+|Template|(((
+{{code}}
+Annoted by @A :
+<#list @Annotation.children("@A") as a>
+Method : ${a.elementName}
+</#list>
+
+Annoted by @A or @B :
+<#list @Annotation.children("@A", "@B") as ab>
+Method : ${ab.elementName} (${ab.name})
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Annoted by @A:
+Method : m
+Method : m3
+
+Annoted by @A or @B :
+Method : m (A)
+Method : m2 (B)
+Method : m3 (A)
+{{/code}})))
+{{/example}}
+
+== Get sibling ==
+
+Each annotation can reach a sibling annotations.
+
+{{example title="Get sibiling"}}
+|Code|((({{code language=java}}
+// ...
+  @A
+  @B
+  void m() {}
+// ...
+{{/code}})))
+|Template|(((
+{{code}}
+// ...
+Name : ${a.name}
+Sibling @B : ${a.sibling("@B").name}
+// ...
+{{/code}})))
+|Output|(((
+{{code}}
+// ...
+Name : A
+Sibling @B : B
+// ...
+{{/code}})))
+{{/example}}
+
+After got sibling annotation you can reach the attribute then (see next section)
+
+== Get attributes ==
+
+The attribute method allow to enter inside the annotation to get any contained value by the annotation.
+To use it you only have to call "attribute" method with member name. Don't forget that the default value name is "value".
+
+{{example title="Get simple value"}}
+|Code|((({{code language=java}}
+@Annotation("foo", name = "bar")
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Value : ${@Annotation.attribute("value")}
+Name : ${@Annotation.attribute("name")}
+{{/code}})))
+|Output|(((
+{{code}}
+Name : foo
+Value : bar
+{{/code}})))
+{{/example}}
+
+Some annotation can have more complex value like array, you can print or iterate on it.
+
+{{example title="Get array value"}}
+|Code|((({{code language=java}}
+@Annotation({"foo", "bar"})
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Values : ${@Annotation.attribute("flat:value")}
+
+or
+
+<#list @Annotation.attribute("list:value") as v>
+Value : ${v}
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Values : foo, bar
+
+or
+
+Value : foo
+Value : bar
+{{/code}})))
+{{/example}}
+
+An annotation can also contains another nested annotation. Let use attribute in the same way to get it.
+
+{{example title="Get annotation value"}}
+|Code|((({{code language=java}}
+@Annotation(@B("foo", name = "bar"))
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+Value : ${@Annotation.attribute("value").attribute("value")}
+Name : ${@Annotation.attribute("value").attribute("name")}
+{{/code}})))
+|Output|(((
+{{code}}
+Value : foo
+Name : bar
+{{/code}})))
+{{/example}}
+
+{{example title="Get array annotation value"}}
+|Code|((({{code language=java}}
+@Annotation({@B("foo"), @B("bar")})
+class A {}
+{{/code}})))
+|Template|(((
+{{code}}
+<#list ${Annotation.attribute("value") as sub}
+Value : ${sub.attribute("value")}
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+Value : foo
+Value : bar
+{{/code}})))
+{{/example}}
+
+== Browse package ==
+
+Some framework use package annotation and wikbook templating allow to use these annotations.
+The only one difference is that package annotation doesn't have type member. You can use attribute, doc, name and children member to browse package content.
+
+{{example title="Browse package annotation"}}
+|Code|((({{code language=java}}
+// p/package-info.java
+
+@P("foo")
+package p;
+{{/code}})))
+((({{code language=java}}
+// p/A.java
+
+package p;
+
+@Annotation("a")
+class A {}
+{{/code}})))
+((({{code language=java}}
+// p/B.java
+
+package p;
+
+@Annotation("b")
+class B {}
+{{/code}})))
+|Template|(((
+{{code}}
+@P value : ${@P.attribute("value")}
+<#list ${@P.children("@Annotation") as c}
+Found : ${c.type.fqn} (${c.attribute("value")})
+</#list>
+{{/code}})))
+|Output|(((
+{{code}}
+@P value : foo
+Found : p.A (a)
+Found : p.B (b)
+{{/code}})))
+{{/example}}
+
+== Full sample ==
+Now we will see a concrete use case with typical source class and full template.
+Two use cases will be considered : JAX-RS API and Chromattic API. Meanwhile you can create yours.
+
+=== JAX-RS ===
+
+{{example title="Source code"}}
+((({{code language=java}}
+/**
+ * User end point.
+ * @author foobar
+ * @since 1.0
+ */
+@Path("api/project/v1/{portalContainerName}/")
+public class MyRestService {
+
+  /**
+   * This is the way to get an user by its id.
+   *
+   * @param uriInfo The URI Request info.
+   * @param portalContainerName The associated portal container name
+   * @param userId The specified user Id
+   * @param format The expected returned format
+   * @authentication
+   * @request
+   * {code}
+   * GET: http://my.domain.lan/rest/private/api/project/v1/portal/user/1a2b3c4d5e6f7g8h9i.json
+   * {code}
+   * @response
+   * {code:json}
+   * {
+   *   "id": "1a2b3c4d5e6f7g8h9j",
+   *   "firstName": "foo",
+   *   "lastNameName": "bar",
+   *   "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+   * }
+   * {code}
+   * @return The user
+   *
+   */
+  @GET
+  @Path("user/{userId}.{format}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getById(@Context UriInfo uriInfo,
+                                  @PathParam("portalContainerName") String portalContainerName,
+                                  @PathParam("userId") String userId,
+                                  @PathParam("format") String format) {
+
+    return null; // Do implementation
+    
+  }
+
+  /**
+   * This is the way to get all the users a new user. The service return the created user data like id.
+   *
+   * @param uriInfo The URI Request info.
+   * @param portalContainerName The associated portal container name
+   * @param format The expected returned format
+   * @param number The returned number
+   * @authentication
+   * @request
+   * {code}
+   * GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
+   * {code}
+   * @response
+   * {code:json}
+   * [
+   *   {
+   *     "id": "1a2b3c4d5e6f7g8h9i",
+   *     "firstName": "foo1",
+   *     "lastNameName": "bar1",
+   *     "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+   *   },
+   *   {
+   *     "id": "1a2b3c4d5e6f7g8h9k",
+   *     "firstName": "foo2",
+   *     "lastNameName": "bar2",
+   *     "createdAt": "Fri Jun 18 06:42:26 +0000 2011", //The Date follows ISO 8601
+   *   }
+   * ]
+   * {code}
+   * @return The users
+   *
+   */
+  @GET
+  @Path("users.{format}")
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response getById(@Context UriInfo uriInfo,
+                                  @PathParam("portalContainerName") String portalContainerName,
+                                  @PathParam("format") String format) {
+                                  @QueryParam("number") String number) {
+
+    return null; // Do implementation
+
+  }
+{{/code}})))
+{{/example}}
+
+{{example title="Template"}}
+((({{code}}
+<#list @Path.children("@GET", "@POST", "@PUT", "@DELETE") as verb>
+h3. ${verb.name} ${verb.sibling("@Path").attribute("flat:value")?replace("{", "")?replace("}", "")}
+
+*Description*: ${verb.doc()}
+
+*URL*:
+
+{code}
+http://platform35.demo.exoplatform.org/rest/private/${@Path.attribute("value")}${verb.sibling("@Path").attribute("flat:value")}
+{code}
+<#if verb.sibling("@Produces")??>
+
+*Supported Format*: ${verb.sibling("@Produces").attribute("flat:value")}
+</#if>
+<#if verb.doc("authentication") != "">
+
+*Requires Authentication*: true
+</#if>
+
+*Parameters*:
+* *Required (path parameters)*: <#if verb.children("@PathParam")?size = 0>No</#if>
+<#list verb.children("@PathParam") as param>
+** *{noformat}${param.attribute("flat:value")}{noformat}*: ${param.doc()}
+</#list>
+* *Optional (query paramters)*: <#if verb.children("@QueryParam")?size = 0>No</#if>
+<#list verb.children("@QueryParam") as param>
+** *{noformat}${param.attribute("flat:value")}{noformat}*: ${param.doc()}
+</#list>
+
+*Request*:
+
+${verb.doc("bloc:request")}
+
+*Response*:
+
+${verb.doc("bloc:response")}
+
+</#list>
+{{/code}})))
+{{/example}}
+
+{{example title="Output"}}
+((({{code}}
+h3. GET user/userId.format
+
+*Description*: This is the way to get an user by its id.
+
+*URL*:
+
+{code}
+http://my.domain.lan/rest/private/api/project/v1/{portalContainerName}/user/userId.format
+{code}
+
+*Supported Format*: application/json
+
+*Requires Authentication*: true
+
+*Parameters*:
+* *Required (path parameters)*:
+** *{noformat}portalContainerName{noformat}*: The associated portal container name
+** *{noformat}userId{noformat}*: The specified user Id
+** *{noformat}format{noformat}*: The expected returned format
+* *Optional (query paramters)*: No
+
+*Request*:
+
+{code}
+GET: http://my.domain.lan/rest/private/api/project/v1/portal/user/1a2b3c4d5e6f7g8h9i.json
+{code}
+
+*Response*:
+
+{code:json}
+{
+ "id": "1a2b3c4d5e6f7g8h9j",
+ "firstName": "foo",
+ "lastNameName": "bar",
+ "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+}
+{code}
+
+h3. GET users.format
+
+*Description*: This is the way to get all the users a new user. The service return the created user data like id.
+
+*URL*:
+
+{code}
+http://my.domain.lan/rest/private/api/project/v1/{portalContainerName}/users.format
+{code}
+
+*Supported Format*: application/json
+
+*Requires Authentication*: true
+
+*Parameters*:
+* *Required (path parameters)*:
+** *{noformat}portalContainerName{noformat}*: The associated portal container name
+** *{noformat}userId{noformat}*: The specified user Id
+* *Optional (query paramters)*:
+** *{noformat}number{noformat}*: The returned number
+
+*Request*:
+
+{code}
+GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
+{code}
+
+*Response*:
+
+{code:json}
+[
+ {
+   "id": "1a2b3c4d5e6f7g8h9i",
+   "firstName": "foo1",
+   "lastNameName": "bar1",
+   "createdAt": "Fri Jun 17 06:42:26 +0000 2011", //The Date follows ISO 8601
+ },
+ {
+   "id": "1a2b3c4d5e6f7g8h9k",
+   "firstName": "foo2",
+   "lastNameName": "bar2",
+   "createdAt": "Fri Jun 18 06:42:26 +0000 2011", //The Date follows ISO 8601
+ }
+]
+{code}
+{{/code}})))
+{{/example}}
+
+[[image:images/jaxrsCapture.png||title="JAX-RS generation result" align="center" fo:width="400px]]
+
+=== Chromattic ===
+
+{{example title="Source code"}}
+((({{code language=java}}
+@PrimaryType(name = "ns:myentity")
+public abstract class MyEntity {
+
+  /**
+   * The property 1. It's a String property.
+   */
+  @Property(name = "ns:property1")
+  public abstract String getProperty1();
+  public abstract void setProperty1(String property1);
+
+  /**
+   * The property 2. It's an Integer property.
+   */
+  @Property(name = "ns:property2")
+  public abstract Integer getProperty2();
+  public abstract void setProperty2(String property2);
+
+  /**
+   * The property 3. It's a Boolean property.
+   */
+  @Property(name = "ns:property3")
+  public abstract Boolean isProperty3();
+  public abstract void setProperty3(Boolean property3);
+
+  /**
+   * The property 4. It's a String array property.
+   */
+  @Property(name = "ns:property4")
+  public abstract String[] getProperty4();
+  public abstract void setProperty4(String[] property4);
+
+  /**
+   * This is a node child.
+   */
+  @MappedBy("child")
+  @OneToOne
+  @Owner
+  public abstract AnotherEntity getChild();
+  public abstract void setChild(AnotherEntity anotherEntity);
+}
+{{/code}})))
+{{/example}}
+
+{{example title="Template"}}
+((({{code}}
+The _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following properties:
+|| Property Name || Required Type ||Mutiple|| Description ||
+<#list @PrimaryType.children("@Property") as property>
+|${property.attribute("name")}|${property.type.name?replace("[]", "")}|${property.type.isArray}|${property.doc()}|
+</#list>
+<#list @PrimaryType.children("@ManyToOne") as ref>
+<#if ref.sibling("@MappedBy")??>
+|${ref.sibling("@MappedBy").attribute("value")}|Reference|${ref.type.isArray}|${ref.doc()}|
+</#if>
+</#list>
+
+And the _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following child nodes:
+|| Child Nodes || Default Primary Type || Description ||
+<#list @PrimaryType.children("@OneToOne", "@OneToMany") as child>
+<#if child.sibling("@MappedBy")??>
+|${child.sibling("@MappedBy").attribute("value")}|<#if child.type.annotation("@PrimaryType")??>${child.type.annotation("@PrimaryType").attribute("name")}</#if>|${child.doc()}|
+</#if>
+</#list>
+{{/code}})))
+{{/example}}
+
+{{example title="Output"}}
+((({{code language=java}}
+The _{noformat}ns:myentity{noformat}_ node type has the following properties:
+|| Property Name || Required Type ||Mutiple|| Description ||
+|ns:property1|String|false|The property 1. It's a String property.|
+|ns:property2|Integer|false|The property 2. It's a Integer property.|
+|ns:property3|Boolean|false|The property 3. It's a Boolean property.|
+|ns:property4|String|true|The property 4. It's a String array property.|
+
+And the _{noformat}ns:myentity{noformat}_ node type has the following child nodes:
+|| Child Nodes || Default Primary Type || Description ||
+|child|ns:anotherentity|This is a node child.|
+
+{{/code}})))
+{{/example}}
+
+[[image:images/chromatticCapture.png||title="Chromattic generation result" align="center" fo:width="400px]]
