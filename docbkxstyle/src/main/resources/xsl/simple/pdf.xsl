@@ -20,10 +20,10 @@
     <!-- Use custom <head> content, to include stylesheets and bookmarks -->
 
     <xsl:template name="output.html.stylesheets">
-        <link href="css/base.css" rel="stylesheet" type="text/css"/>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/guide.css" rel="stylesheet" type="text/css"/>
-        <link href="css/print.css" rel="stylesheet" type="text/css" media="print"/>
+        <link href="css/simple/base.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple/guide.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple/print.css" rel="stylesheet" type="text/css" media="print"/>
     </xsl:template>
 
     <xsl:template name="user.head.content">

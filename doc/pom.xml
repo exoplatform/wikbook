@@ -127,7 +127,7 @@
               <targetDirectory>${project.build.directory}/wikbook/output/html</targetDirectory>
 
               <!-- Stylesheets -->
-              <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/html.xsl</htmlCustomization>
+              <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/bootstrap/html.xsl</htmlCustomization>
 
               <!-- Copy the image -->
               <postProcess>
@@ -139,6 +139,7 @@
                 <copy todir="${project.build.directory}/wikbook/output/html">
                   <fileset dir="${project.build.directory}/wikbook/src/resources">
                     <include name="**/*.css" />
+                    <include name="**/*.js" />
                     <include name="**/*.png" />
                     <include name="**/*.gif" />
                     <include name="**/*.jpg" />
@@ -160,7 +161,7 @@
               <targetFileExtension>html</targetFileExtension>
 
               <!-- Stylesheets -->
-              <xhtmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/pdf.xsl</xhtmlCustomization>
+              <xhtmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
 
               <!-- Copy the image -->
               <postProcess>
@@ -250,7 +251,6 @@
           </execution>
         </executions>
       </plugin>
-
     </plugins>
   </build>
 

@@ -31,9 +31,9 @@
 
     <xsl:template name="user.head.content">
         <style type="text/css">
-            <xi:include href="css/base.css" parse="text"/>
-            <xi:include href="css/style.css" parse="text"/>
-            <xi:include href="css/guide.css" parse="text"/>
+            <xi:include href="css/simple/base.css" parse="text"/>
+            <xi:include href="css/simple/style.css" parse="text"/>
+            <xi:include href="css/simple/guide.css" parse="text"/>
         </style>
     </xsl:template>
 </xsl:stylesheet>

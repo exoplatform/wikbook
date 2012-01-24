@@ -30,9 +30,9 @@
     <!-- Use custom style sheet content -->
     <xsl:param name="html.stylesheet">DUMMY</xsl:param>
     <xsl:template name="output.html.stylesheets">
-        <link href="css/base.css" rel="stylesheet" type="text/css"/>
-        <link href="css/style.css" rel="stylesheet" type="text/css"/>
-        <link href="css/guide.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple/base.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple/style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/simple/guide.css" rel="stylesheet" type="text/css"/>
     </xsl:template>
 
     <xsl:param name="generate.toc">
