@@ -121,7 +121,7 @@
                  <targetDirectory>\${wikbook.target}/output/html</targetDirectory>
 
                  <!-- Stylesheet -->
-                 <htmlCustomization>\${wikbook.target}/src/resources/xsl/html.xsl</htmlCustomization>
+                 <htmlCustomization>\${wikbook.target}/src/resources/xsl/bootstrap/html.xsl</htmlCustomization>
 
                  <!-- Copy the image -->
                  <postProcess>
@@ -133,6 +133,7 @@
                    <copy todir="\${wikbook.target}/output/html">
                      <fileset dir="\${wikbook.target}/src/resources">
                        <include name="**/*.css"/>
+                       <include name="**/*.js"/>
                        <include name="**/*.png"/>
                        <include name="**/*.gif"/>
                        <include name="**/*.jpg"/>
@@ -155,7 +156,7 @@
                  <targetFileExtension>html</targetFileExtension>
 
                  <!-- Stylesheet -->
-                 <xhtmlCustomization>\${wikbook.target}/src/resources/xsl/pdf.xsl</xhtmlCustomization>
+                 <xhtmlCustomization>\${wikbook.target}/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
 
                  <!-- Copy the image -->
                  <postProcess>
@@ -167,6 +168,7 @@
                    <copy todir="\${wikbook.target}/output/xhtml">
                      <fileset dir="\${wikbook.target}/src/resources">
                        <include name="**/*.css"/>
+                       <include name="**/*.js"/>
                        <include name="**/*.png"/>
                        <include name="**/*.gif"/>
                        <include name="**/*.jpg"/>
