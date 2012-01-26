@@ -121,7 +121,7 @@
                  <targetDirectory>\${wikbook.target}/output/html</targetDirectory>
 
                  <!-- Stylesheet -->
-                 <htmlCustomization>\${wikbook.target}/src/resources/xsl/html.xsl</htmlCustomization>
+                 <htmlCustomization>\${wikbook.target}/src/resources/xsl/bootstrap/html.xsl</htmlCustomization>
 
                  <!-- Copy the image -->
                  <postProcess>
@@ -131,9 +131,10 @@
                      </fileset>
                    </copy>
                    <copy todir="\${wikbook.target}/output/html">
-                     <fileset dir="\${wikbook.target}/src/resources">
+                     <fileset dir="\${wikbook.target}/src/resources/">
                        <include name="**/*.css"/>
                        <include name="**/*.png"/>
+                       <include name="**/*.js"/>
                        <include name="**/*.gif"/>
                        <include name="**/*.jpg"/>
                      </fileset>
@@ -143,19 +144,19 @@
                </configuration>
              </execution>
              <execution>
-               <id>generate-xhtml</id>
+               <id>generate-pdf</id>
                <goals>
-                 <goal>generate-xhtml</goal>
+                 <goal>generate-pdf</goal>
                </goals>
                <phase>package</phase>
                <configuration>
 
                  <!-- Output -->
                  <targetDirectory>\${wikbook.target}/output/xhtml</targetDirectory>
-                 <targetFileExtension>html</targetFileExtension>
+                 <targetFileExtension>pdf</targetFileExtension>
 
                  <!-- Stylesheet -->
-                 <xhtmlCustomization>\${wikbook.target}/src/resources/xsl/pdf.xsl</xhtmlCustomization>
+                 <xhtmlCustomization>\${wikbook.target}/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
 
                  <!-- Copy the image -->
                  <postProcess>
@@ -165,7 +166,7 @@
                      </fileset>
                    </copy>
                    <copy todir="\${wikbook.target}/output/xhtml">
-                     <fileset dir="\${wikbook.target}/src/resources">
+                     <fileset dir="\${wikbook.target}/src/resources/">
                        <include name="**/*.css"/>
                        <include name="**/*.png"/>
                        <include name="**/*.gif"/>
@@ -185,26 +186,6 @@
                <scope>runtime</scope>
              </dependency>
            </dependencies>
-         </plugin>
-
-         <plugin>
-           <groupId>org.wikbook</groupId>
-           <artifactId>wikbook.html2pdf</artifactId>
-           <version>${pom.version}</version>
-           <executions>
-           <execution>
-             <phase>package</phase>
-             <goals>
-               <goal>transform</goal>
-             </goals>
-           </execution>
-           </executions>
-           <configuration>
-             <sourceDirectory>\${wikbook.target}/output/xhtml</sourceDirectory>
-             <sourceFileName>index.html</sourceFileName>
-             <destinationDirectory>\${wikbook.target}/output/pdf</destinationDirectory>
-             <destinationFileName>index.pdf</destinationFileName>
-           </configuration>
          </plugin>
 
          <!-- Attach the HTML zip -->
