@@ -80,4 +80,14 @@ $(document).ready(function() {
     // Pretty print
     $(".programlisting").addClass("prettyprint");
     prettyPrint();
+
+    // Callout
+    $(".calloutlist").each(function() {
+        var ol = $("<ol></ol>").appendTo($(this));
+        $(this).find("tr").each(function() {
+            var o = $(this).find("td:eq(1)").html();
+            $("<li></li>").appendTo(ol).html(o);
+        });
+        $(this).find("> table").remove();
+    });
 });
