@@ -30,6 +30,28 @@
         <xref linkend="foo"/>
       </para>
     </note>
+    <note>
+      <itemizedlist>
+        <listitem>
+          <para>one</para>
+        </listitem>
+        <listitem>
+          <para>two</para>
+        </listitem>
+      </itemizedlist>
+    </note>
+    <note>
+      <informaltable>
+        <tgroup cols="2">
+          <tbody>
+            <row>
+              <entry>one</entry>
+              <entry>two</entry>
+            </row>
+          </tbody>
+        </tgroup>
+      </informaltable>
+    </note>
   </preface>
   <chapter>
     <title>Chapter</title>

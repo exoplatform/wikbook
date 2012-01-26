@@ -14,5 +14,12 @@
 
 {{note}}[[#foo]]{{/note}}
 
+{{note}}
+* one
+* two
+{{/note}}
+
+{{note}}|one|two{{/note}}
+
 = Chapter =
 {{note}}note value{{/note}}

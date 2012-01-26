@@ -14,5 +14,12 @@
 
 {note}[#foo]{note}
 
+{note}
+* one
+* two
+{note}
+
+{note}|one|two|{note}
+
 h1. Chapter
 {note}note value{note}
