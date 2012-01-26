@@ -149,6 +149,14 @@ public class WikBookMojo extends AbstractMojo
    private String charset;
 
    /**
+    * The book id, when specified it modifies the XML element <code>book</code> produced to add an <code<id</code> attribute
+    * with the specified value.
+    *
+    * @parameter default-value="UTF-8"
+    */
+   private String bookId;
+
+   /**
     * INTERNAL : The representation of the maven execution.
     *
     * @parameter expression="${session}"
@@ -272,6 +280,7 @@ public class WikBookMojo extends AbstractMojo
       //
       converter.setEmitDoctype(emitDoctype);
       converter.setSyntaxId(syntaxId);
+      converter.setBookId(bookId);
 
       //
       File destination = new File(destinationDirectory, destinationFileName);

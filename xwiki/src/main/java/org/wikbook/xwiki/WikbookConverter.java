@@ -64,12 +64,16 @@ public class WikbookConverter
    /** . */
    private String charsetName;
 
+   /** . */
+   private String bookId;
+
    public WikbookConverter(AbstractXDOMDocbookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
       this.emitDoctype = true;
       this.syntaxId = null;
       this.charsetName = "UTF-8";
+      this.bookId = null;
    }
 
    public boolean getEmitDoctype()
@@ -132,6 +136,16 @@ public class WikbookConverter
       this.charsetName = charsetName;
    }
 
+   public String getBookId()
+   {
+      return bookId;
+   }
+
+   public void setBookId(String bookId)
+   {
+      this.bookId = bookId;
+   }
+
    public void convert(String id, Result result) throws WikbookException
    {
       try
@@ -174,7 +188,8 @@ public class WikbookConverter
       //
       builder.build(reader, syntaxId);
 
-      // Configure before and after body
+      // Configure the book element
+      elt.setId(bookId);
       elt.setBeforeBodyXML(beforeBookBodyXML);
       elt.setAfterBodyXML(afterBookBodyXML);
 

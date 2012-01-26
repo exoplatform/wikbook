@@ -21,6 +21,7 @@ package org.wikbook.core.render.docbook.structural;
 
 import org.wikbook.core.model.structural.BookElement;
 import org.wikbook.core.render.docbook.ElementTransformer;
+import org.wikbook.core.xml.ElementEmitter;
 import org.wikbook.core.xml.XMLEmitter;
 
 /**
@@ -35,7 +36,13 @@ public class BookTransformer extends ElementTransformer<BookElement>
    {
       if (!element.getOmitRootNode())
       {
-         emitter = emitter.element("book");
+         ElementEmitter bookEmitter = emitter.element("book");
+         String id = element.getId();
+         if (id != null)
+         {
+            bookEmitter.withAttribute("id", id);
+         }
+         emitter = bookEmitter;
       }
 
       //

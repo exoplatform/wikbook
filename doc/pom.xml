@@ -57,6 +57,7 @@
           <destinationFileName>index.xml</destinationFileName>
           <emitDoctype>true</emitDoctype>
           <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
+          <bookId>index</bookId>
         </configuration>
       </plugin>
 
