@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <book>
-  <preface>
-    <title>Preface</title>
+  <chapter>
+    <title>a</title>
     <para>**_bilto_**</para>
-  </preface>
+  </chapter>
+  <chapter>
+    <title>b</title>
+    <para>\n</para>
+  </chapter>
 </book>
