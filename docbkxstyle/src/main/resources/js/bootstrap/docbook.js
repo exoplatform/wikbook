@@ -7,6 +7,17 @@ $(document).ready(function() {
                     "<div class='container'>" +
                     "<ul id='topbar'>" +
                     "</ul>" +
+                    "<ul class='nav secondary-nav' class='dropdown' data-dropdown='dropdown'>" +
+                    "<li class='menu'>" +
+                    "<a href='#' class='dropdown-toggle'>Powered by Wikbook</a>" +
+                    "<ul class='menu-dropdown'>" +
+                    "<li><a href='http://www.github.org/vietj/wikbook'>Project</a></li>" +
+                    "<li><a href='http://vietj.github.com/wikbook/'>Documentation</a></li>" +
+                    "<li><a href='http://jira.exoplatform.org/browse/WKBK'>Issue tracker</a></li>" +
+                    "</ul>" +
+                    "</li>" +
+                    "</ul>" +
+                    "</li>" +
                     "</div>" +
                     "</div>" +
                     "</div>";
@@ -36,8 +47,8 @@ $(document).ready(function() {
     //
     var addModalToBar = function(id, heading) {
         $("<li>" +
-            "<a href='#' data-controls-modal='" + id + "' data-backdrop='true' data-keyboard='true'>" + heading + "</a>" +
-          "</li>").appendTo("#topbar");
+                "<a href='#' data-controls-modal='" + id + "' data-backdrop='true' data-keyboard='true'>" + heading + "</a>" +
+                "</li>").appendTo("#topbar");
     };
 
     //
