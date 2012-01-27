@@ -135,7 +135,6 @@
                        <include name="**/*.css"/>
                        <include name="**/*.js"/>
                        <include name="**/*.png"/>
-                       <include name="**/*.js"/>
                        <include name="**/*.gif"/>
                        <include name="**/*.jpg"/>
                      </fileset>
