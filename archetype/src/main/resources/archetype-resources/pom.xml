@@ -131,7 +131,7 @@
                      </fileset>
                    </copy>
                    <copy todir="\${wikbook.target}/output/html">
-                     <fileset dir="\${wikbook.target}/src/resources">
+                     <fileset dir="\${wikbook.target}/src/resources/">
                        <include name="**/*.css"/>
                        <include name="**/*.js"/>
                        <include name="**/*.png"/>
@@ -144,16 +144,16 @@
                </configuration>
              </execution>
              <execution>
-               <id>generate-xhtml</id>
+               <id>generate-pdf</id>
                <goals>
-                 <goal>generate-xhtml</goal>
+                 <goal>generate-pdf</goal>
                </goals>
                <phase>package</phase>
                <configuration>
 
                  <!-- Output -->
                  <targetDirectory>\${wikbook.target}/output/xhtml</targetDirectory>
-                 <targetFileExtension>html</targetFileExtension>
+                 <targetFileExtension>pdf</targetFileExtension>
 
                  <!-- Stylesheet -->
                  <xhtmlCustomization>\${wikbook.target}/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
@@ -166,7 +166,7 @@
                      </fileset>
                    </copy>
                    <copy todir="\${wikbook.target}/output/xhtml">
-                     <fileset dir="\${wikbook.target}/src/resources">
+                     <fileset dir="\${wikbook.target}/src/resources/">
                        <include name="**/*.css"/>
                        <include name="**/*.js"/>
                        <include name="**/*.png"/>
@@ -187,26 +187,6 @@
                <scope>runtime</scope>
              </dependency>
            </dependencies>
-         </plugin>
-
-         <plugin>
-           <groupId>org.wikbook</groupId>
-           <artifactId>wikbook.html2pdf</artifactId>
-           <version>${pom.version}</version>
-           <executions>
-           <execution>
-             <phase>package</phase>
-             <goals>
-               <goal>transform</goal>
-             </goals>
-           </execution>
-           </executions>
-           <configuration>
-             <sourceDirectory>\${wikbook.target}/output/xhtml</sourceDirectory>
-             <sourceFileName>index.html</sourceFileName>
-             <destinationDirectory>\${wikbook.target}/output/pdf</destinationDirectory>
-             <destinationFileName>index.pdf</destinationFileName>
-           </configuration>
          </plugin>
 
          <!-- Attach the HTML zip -->
