@@ -197,7 +197,7 @@ public class ProgramListingElement extends BlockElement
          }
          catch (Exception e)
          {
-            e.printStackTrace();
+            context.onValidationError(e);
             Element errorElt = elt.getOwnerDocument().createElement("wikbook:error");
             Text text = elt.getOwnerDocument().createTextNode(e.getMessage());
             errorElt.appendChild(text);
@@ -274,7 +274,7 @@ public class ProgramListingElement extends BlockElement
             }
             catch (Exception e)
             {
-               e.printStackTrace();
+               context.onValidationError(e);
                bilto = "Exception occured, see logs";
             }
             break;

@@ -43,9 +43,29 @@ public abstract class DocbookBuilderContext
     */
    public final void onValidationError(String msg)
    {
+      onValidationError(msg, null);
+   }
+
+   /**
+    * The behavior of this method depends on the context validation mode.
+    * @param t the throwable
+    */
+   public final void onValidationError(Throwable t)
+   {
+      onValidationError(t.getMessage(), t);
+   }
+
+   /**
+    * The behavior of this method depends on the context validation mode.
+    * 
+    * @param msg the message
+    * @param t the throwable
+    */
+   public final void onValidationError(String msg, Throwable t)
+   {
       if (getValidationMode() == ValidationMode.STRICT)
       {
-         throw new WikbookValidationException(msg);
+         throw new WikbookValidationException(msg, t);
       }
       else
       {

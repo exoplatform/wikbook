@@ -25,6 +25,7 @@ import org.custommonkey.xmlunit.DetailedDiff;
 import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
+import org.wikbook.core.Utils;
 import org.wikbook.xwiki.SimpleXDOMDocbookBuilderContext;
 import org.wikbook.core.xml.XML;
 import org.wikbook.xwiki.WikbookConverter;
@@ -33,6 +34,7 @@ import org.xwiki.rendering.syntax.Syntax;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.dom.DOMResult;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 /**
@@ -60,6 +62,46 @@ public abstract class AbstractSyntaxTestCase extends TestCase
 
    /** . */
    private static final Test CONFLUENCE_1_0 = new Test("confluence", Syntax.CONFLUENCE_1_0.toIdString());
+
+   /** . */
+   private File resultsDir;
+
+   @Override
+   protected void setUp() throws Exception
+   {
+      String targetDirProperty = System.getProperty("targetDir");
+      if (targetDirProperty != null)
+      {
+         File targetDir = new File(targetDirProperty);
+         if (targetDir.exists() && targetDir.isDirectory())
+         {
+            File resultsDir = new File(targetDir, "results");
+            if (resultsDir.exists())
+            {
+               if (resultsDir.isFile())
+               {
+                  throw new AssertionFailedError("Dir " + resultsDir.getAbsolutePath() + " exists and is a file");
+               }
+            }
+            else
+            {
+               if (!resultsDir.mkdir())
+               {
+                  throw new AssertionFailedError("Dir " + resultsDir.getAbsolutePath() + " could not be created");
+               }
+            }
+            this.resultsDir = resultsDir;
+         }
+         else
+         {
+            throw new AssertionFailedError("No valid target dir at " + targetDirProperty);
+         }
+      }
+      else
+      {
+         throw new AssertionFailedError("No valid target dir specified");
+      }
+   }
 
    public void testSyntax()
    {
@@ -94,6 +136,21 @@ public abstract class AbstractSyntaxTestCase extends TestCase
             converter.setSyntaxId(test.syntaxId);
             converter.convert(test.fileName + ".wiki", dom);
             Document document = (Document)dom.getNode();
+            
+            //
+            File f = new File(resultsDir, "test" + testPath.replace('/', '-') + "-" + test.fileName + ".xml");
+            String result = XML.serialize(document);
+            FileOutputStream out = new FileOutputStream(f);
+            try
+            {
+               out.write(result.getBytes("UTF-8"));
+            }
+            finally
+            {
+               Utils.safeClose(out);
+            }
+
+            //
             File expected = new File(path, test.fileName + ".xml");
             if (!expected.exists() || !expected.isFile())
             {

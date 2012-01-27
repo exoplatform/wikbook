@@ -3,7 +3,7 @@
   <parent>
     <artifactId>wikbook.parent</artifactId>
     <groupId>org.wikbook</groupId>
-    <version>0.9.37-SNAPSHOT</version>
+    <version>0.9.38-SNAPSHOT</version>
   </parent>
   
   <modelVersion>4.0.0</modelVersion>
@@ -58,6 +58,7 @@
           <emitDoctype>true</emitDoctype>
           <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
           <bookId>index</bookId>
+          <validationMode>strict</validationMode>
         </configuration>
       </plugin>
 

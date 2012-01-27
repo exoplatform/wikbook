@@ -3,7 +3,7 @@
   <parent>
     <artifactId>wikbook.parent</artifactId>
     <groupId>org.wikbook</groupId>
-    <version>0.9.37-SNAPSHOT</version>
+    <version>0.9.38-SNAPSHOT</version>
   </parent>
 
   <modelVersion>4.0.0</modelVersion>
@@ -63,6 +63,17 @@
         <directory>src/test/resources</directory>
       </testResource>
     </testResources>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <systemPropertyVariables>
+            <targetDir>${project.build.directory}</targetDir>
+          </systemPropertyVariables>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 
 </project>

@@ -133,6 +133,7 @@
                    <copy todir="\${wikbook.target}/output/html">
                      <fileset dir="\${wikbook.target}/src/resources/">
                        <include name="**/*.css"/>
+                       <include name="**/*.js"/>
                        <include name="**/*.png"/>
                        <include name="**/*.js"/>
                        <include name="**/*.gif"/>
@@ -168,6 +169,7 @@
                    <copy todir="\${wikbook.target}/output/xhtml">
                      <fileset dir="\${wikbook.target}/src/resources/">
                        <include name="**/*.css"/>
+                       <include name="**/*.js"/>
                        <include name="**/*.png"/>
                        <include name="**/*.gif"/>
                        <include name="**/*.jpg"/>
