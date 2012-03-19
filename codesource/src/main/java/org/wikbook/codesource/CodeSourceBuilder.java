@@ -52,14 +52,62 @@ public class CodeSourceBuilder
       });
    }
 
-   public TypeSource buildClass(String fqn) throws CodeSourceException
+   public TypeSource buildClass(Class<?> clazz) throws CodeSourceException
    {
-      Collection<TypeSource> types = buildCompilationUnit(fqn.replace(".", "/") + ".java");
+      Class<?> top = clazz;
+      while (true)
+      {
+         Class<?> enclosing = top.getEnclosingClass();
+         if (enclosing != null)
+         {
+            top = enclosing;
+         }
+         else
+         {
+            break;
+         }
+      }
+      Collection<TypeSource> types = buildCompilationUnit(top.getName().replace(".", "/") + ".java");
       for (TypeSource type : types)
       {
-         if (type.getName().equals(fqn))
+         if (type.getName().equals(type.getName()))
          {
             return type;
+         }
+      }
+      return null;
+   }
+
+   public TypeSource buildClass(final String fqn) throws CodeSourceException
+   {
+      String current = fqn;
+      while (true)
+      {
+         try
+         {
+            String path = current.replace('.', '/') + ".java";
+            Collection<TypeSource> types = buildCompilationUnit(path);
+            for (TypeSource type : types)
+            {
+               if (type.getName().equals(fqn))
+               {
+                  return type;
+               }
+            }
+         }
+         catch (NoSuchSourceException e)
+         {
+            // Not found try prefixes
+            // in order to address inner classes resolution
+            int index = current.lastIndexOf('.');
+            if (index == -1)
+            {
+               break;
+            }
+            else
+            {
+               current = current.substring(0, index);
+            }
          }
       }
       return null;
@@ -74,12 +122,19 @@ public class CodeSourceBuilder
       try
       {
          CompilationUnitVisitor visitor = new CompilationUnitVisitor(this);
-         CompilationUnitVisitor.Visit visit = visitor.visit(compilationUnitPath);
+         Visit.CU visit = visitor.visit(compilationUnitPath);
          return visit.types;
       }
       catch (Exception e)
       {
-         throw new CodeSourceException(e);
+         if (e instanceof CodeSourceException)
+         {
+            throw (CodeSourceException)e;
+         }
+         else
+         {
+            throw new CodeSourceException(e);
+         }
       }
    }
 }

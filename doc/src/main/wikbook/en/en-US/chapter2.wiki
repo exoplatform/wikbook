@@ -363,6 +363,10 @@ via the {@link ref} where ref is a reference to a code element such as a class, 
 |((({{code}}{{code language=java}}{@include org.wikbook.doc.AnObject}{{/code}}{{/code}})))
 |((({{code language=java}}{@include org.wikbook.doc.AnObject}{{/code}})))
 
+(% title="A inner class citation" %)
+|((({{code}}{{code language=java}}{@include org.wikbook.doc.AnObject.Inner}{{/code}}{{/code}})))
+|((({{code language=java}}{@include org.wikbook.doc.AnObject.Inner}{{/code}})))
+
 Citing an whole class is often cumbersome and Wikbook gives the capability to cite class members, i.e methods or fields.
 
 (% title="A method citation" %)

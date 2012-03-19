@@ -19,10 +19,7 @@
 
 package org.wikbook.codesource;
 
-import japa.parser.JavaParser;
 import japa.parser.ParseException;
-import japa.parser.ast.CompilationUnit;
-import japa.parser.ast.Node;
 import japa.parser.ast.PackageDeclaration;
 import japa.parser.ast.body.AnnotationDeclaration;
 import japa.parser.ast.body.AnnotationMemberDeclaration;
@@ -31,7 +28,6 @@ import japa.parser.ast.body.ClassOrInterfaceDeclaration;
 import japa.parser.ast.body.ConstructorDeclaration;
 import japa.parser.ast.body.EnumDeclaration;
 import japa.parser.ast.body.FieldDeclaration;
-import japa.parser.ast.body.JavadocComment;
 import japa.parser.ast.body.MethodDeclaration;
 import japa.parser.ast.body.TypeDeclaration;
 import japa.parser.ast.body.VariableDeclarator;
@@ -44,15 +40,12 @@ import org.cojen.classfile.MethodDesc;
 import org.cojen.classfile.MethodInfo;
 import org.cojen.classfile.TypeDesc;
 import org.wikbook.text.Clip;
-import org.wikbook.text.Position;
 import org.wikbook.text.TextArea;
 
-import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -60,64 +53,8 @@ import java.util.List;
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnitVisitor.Visit>
+class CompilationUnitVisitor extends GenericVisitorAdapter<Void, Visit>
 {
-
-   static class Visit
-   {
-
-      /** The current compilation unit. */
-      private final CompilationUnit compilationUnit;
-
-      /** . */
-      final LinkedList<LinkedList<CodeSource>> stack = new LinkedList<LinkedList<CodeSource>>();
-
-      /** . */
-      String pkg;
-
-      /** . */
-      Iterator<Signature> constructorSignatures;
-
-      /** . */
-      Iterator<Signature> methodSignatures;
-
-      /** . */
-      final List<TypeSource> types = new ArrayList<TypeSource>();
-
-      /** . */
-      private String source;
-
-      /** . */
-      private final TextArea sb;
-
-      private Visit(String source) throws ParseException
-      {
-         this.compilationUnit = JavaParser.parse(new ByteArrayInputStream(source.getBytes()));
-         this.source = source;
-         this.sb = new TextArea(source);
-      }
-
-      private String clip(Node node)
-      {
-         // Get offset of the fragment
-         int from = sb.offset(Position.get(node.getBeginLine() - 1, 0));
-         int to = sb.offset(Position.get(node.getEndLine() - 1, node.getEndColumn()));
-
-         // Get relevant chars
-         return source.substring(from, to);
-      }
-
-      private String javaDoc(BodyDeclaration node)
-      {
-         JavadocComment doc = node.getJavaDoc();
-         return doc != null ? clip(doc) : null;
-      }
-
-      private void accept(CompilationUnitVisitor visitor)
-      {
-         compilationUnit.accept(visitor, this);
-      }
-   }
 
 
    /** . */
@@ -128,14 +65,14 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       this.builder = builder;
    }
 
-   Visit visit(String compilationUnitPath) throws IOException, ParseException, CodeSourceException
+   Visit.CU visit(String compilationUnitPath) throws IOException, ParseException, CodeSourceException
    {
       InputStream cuis = builder.context.getResource(compilationUnitPath);
 
       //
       if (cuis == null)
       {
-         throw new CodeSourceException("Compilation path cannot be located " + compilationUnitPath);
+         throw new NoSuchSourceException("Compilation path cannot be located " + compilationUnitPath);
       }
 
       //
@@ -148,7 +85,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       String s = baos.toString();
 
       //
-      Visit visit = new Visit(s);
+      Visit.CU visit = new Visit.CU(s);
 
       //
       visit.accept(this);
@@ -173,7 +110,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(PackageDeclaration n, Visit arg)
    {
-      arg.pkg = toString(n.getName());
+      ((Visit.CU)arg).pkg = toString(n.getName());
       return super.visit(n, arg);
    }
 
@@ -182,15 +119,26 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       Void visit(T td, Visit v);
    }
 
-   private <T extends TypeDeclaration> Void visit(T n, Visit v, SuperVisit<T> superVisit)
+   /**
+    * @param declaration the declaration
+    * @param visit the current visit
+    * @param superVisit the callback for continuing the visit
+    * @param <D> the declaration generic type
+    * @return the void
+    */
+   private <D extends TypeDeclaration> Void visit(D declaration, Visit.TD visit, SuperVisit<D> superVisit)
    {
-      String fqn = ((v.pkg == null || v.pkg.length() == 0) ? "" : (v.pkg + ".")) + n.getName();
+      String pkg = visit.getPkg();
+      String fqn = visit.getFQN();
+
+      // Get path of the class
+      String path = visit.getPath();
 
       //
-      InputStream in = builder.context.getResource(fqn.replace(".", "/") + ".class");
+      InputStream in = builder.context.getResource(path);
       if (in == null)
       {
-         throw new CodeSourceException("Cannot locate class file for fqn " + fqn);
+         throw new CodeSourceException("Cannot locate class file for fqn " + fqn + " with path " + path);
       }
 
       //
@@ -226,8 +174,8 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          }
 
          //
-         v.constructorSignatures = constructorSignatures.iterator();
-         v.methodSignatures = methodSignatures.iterator();
+         visit.constructorSignatures = constructorSignatures.iterator();
+         visit.methodSignatures = methodSignatures.iterator();
       }
       catch (IOException e)
       {
@@ -235,23 +183,23 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
 
       //
-      v.stack.addLast(new LinkedList<CodeSource>());
+      visit.stack.addLast(new LinkedList<CodeSource>());
 
       //
-      Void ret = superVisit.visit(n, v);
+      Void ret = superVisit.visit(declaration, visit);
 
       //
-      List<CodeSource> blah = v.stack.removeLast();
+      List<CodeSource> blah = visit.stack.removeLast();
 
       //
-      Clip typeClip = Clip.get(n.getBeginLine() - 1, 0, n.getEndLine() - 1, n.getEndColumn());
+      Clip typeClip = Clip.get(declaration.getBeginLine() - 1, 0, declaration.getEndLine() - 1, declaration.getEndColumn());
 
       //
       TypeSource typeSource = new TypeSource(
-         new TextArea(v.source),
+         new TextArea(visit.getCU().source),
          fqn,
          typeClip,
-         v.javaDoc(n));
+         visit.javaDoc(declaration));
 
       //
       for (CodeSource source : blah)
@@ -261,7 +209,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
       }
 
       //
-      v.types.add(typeSource);
+      visit.getCU().types.add(typeSource);
 
       //
       return ret;
@@ -270,7 +218,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(ClassOrInterfaceDeclaration n, Visit v)
    {
-      return visit(n, v, new SuperVisit<ClassOrInterfaceDeclaration>()
+      return visit(n, new Visit.TD(v, n), new SuperVisit<ClassOrInterfaceDeclaration>()
       {
          public Void visit(ClassOrInterfaceDeclaration td, Visit v)
          {
@@ -282,7 +230,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(EnumDeclaration n, Visit v)
    {
-      return visit(n, v, new SuperVisit<EnumDeclaration>()
+      return visit(n, new Visit.TD(v, n), new SuperVisit<EnumDeclaration>()
       {
          public Void visit(EnumDeclaration td, Visit v)
          {
@@ -294,7 +242,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
    @Override
    public Void visit(AnnotationDeclaration n, Visit v)
    {
-      return visit(n, v, new SuperVisit<AnnotationDeclaration>()
+      return visit(n, new Visit.TD(v, n), new SuperVisit<AnnotationDeclaration>()
       {
          public Void visit(AnnotationDeclaration td, Visit v)
          {
@@ -319,7 +267,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
             id.getName(),
             clip(n),
             v.javaDoc(n));
-         v.stack.getLast().addLast(fieldSource);
+         ((Visit.TD)v).stack.getLast().addLast(fieldSource);
       }
       else
       {
@@ -337,14 +285,14 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          v.javaDoc(n));
 
       //
-      v.stack.getLast().addLast(memberSource);
+      ((Visit.TD)v).stack.getLast().addLast(memberSource);
       return super.visit(n, v);
    }
 
    @Override
    public Void visit(MethodDeclaration n, Visit v)
    {
-      Signature signature = v.methodSignatures.next();
+      Signature signature = ((Visit.TD)v).methodSignatures.next();
 
       //
       SignedMemberSource methodSource = new SignedMemberSource(
@@ -353,14 +301,14 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          v.javaDoc(n));
 
       //
-      v.stack.getLast().addLast(methodSource);
+      ((Visit.TD)v).stack.getLast().addLast(methodSource);
       return super.visit(n, v);
    }
 
    @Override
    public Void visit(ConstructorDeclaration n, Visit v)
    {
-      Signature signature = v.constructorSignatures.next();
+      Signature signature = ((Visit.TD)v).constructorSignatures.next();
 
       //
       SignedMemberSource methodSource = new SignedMemberSource(
@@ -369,7 +317,7 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, CompilationUnit
          v.javaDoc(n));
 
       //
-      v.stack.getLast().addLast(methodSource);
+      ((Visit.TD)v).stack.getLast().addLast(methodSource);
       return super.visit(n, v);
    }
 }

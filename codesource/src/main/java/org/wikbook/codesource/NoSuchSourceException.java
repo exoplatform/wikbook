@@ -17,41 +17,30 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.doc;
+package org.wikbook.codesource;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class AnObject
+public class NoSuchSourceException extends CodeSourceException
 {
-   public void foo()
-   {
-      // -1-
-      String a1 = "the first";
-      String b1 = "block";
-      String c1 = "of code";
-
-      // -2-
-      String a2 = "the second";
-      String b2 = "block";
-      String c2 = "of code";
-
-      // -1-
-      String a3 = "the third";
-      String b3 = "block";
-      String c3 = "of code";
-   }
-
-   /**
-    * An inner class.
-    */
-   static class Inner
+   public NoSuchSourceException()
    {
    }
 
-   public void foo(String s)
+   public NoSuchSourceException(String s)
    {
-      // An empty method
+      super(s);
+   }
+
+   public NoSuchSourceException(String s, Throwable throwable)
+   {
+      super(s, throwable);
+   }
+
+   public NoSuchSourceException(Throwable throwable)
+   {
+      super(throwable);
    }
 }

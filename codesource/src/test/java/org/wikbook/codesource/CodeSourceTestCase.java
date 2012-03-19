@@ -37,13 +37,17 @@ public class CodeSourceTestCase extends TestCase
    /** . */
    private TypeSource juuSource;
 
+  /** . */
+  private TypeSource innerSource;
+
    @Override
    protected void setUp() throws Exception
    {
       CodeSourceBuilder builder = new CodeSourceBuilder();
-      fooSource = builder.buildClass(Foo.class.getName());
-      barSource = builder.buildClass(Bar.class.getName());
-      juuSource = builder.buildClass(Juu.class.getName());
+      fooSource = builder.buildClass(Foo.class);
+      barSource = builder.buildClass(Bar.class);
+      juuSource = builder.buildClass(Juu.class);
+      innerSource = builder.buildClass(Outter.Inner.class);
    }
 
    public void testEnumClip()
@@ -189,14 +193,8 @@ public class CodeSourceTestCase extends TestCase
    public void testNoSource()
    {
       CodeSourceBuilder builder = new CodeSourceBuilder();
-      try
-      {
-         builder.buildClass("DoesNotExists");
-         fail();
-      }
-      catch (CodeSourceException expected)
-      {
-      }
+      TypeSource source = builder.buildClass("DoesNotExists");
+      assertNull(source);
    }
 
    public void testNoClass()
@@ -210,5 +208,18 @@ public class CodeSourceTestCase extends TestCase
       catch (CodeSourceException expected)
       {
       }
+   }
+
+   public void testInnerClass()
+   {
+      assertEquals("org.wikbook.codesource.Outter.Inner", innerSource.getName());
+   }
+   
+   public void testResolveFQN()
+   {
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      TypeSource source = builder.buildClass(Outter.class.getName() + ".Inner");
+      assertNotNull(source);
+      assertEquals(Outter.class.getName() + ".Inner", source.getName());
    }
 }
