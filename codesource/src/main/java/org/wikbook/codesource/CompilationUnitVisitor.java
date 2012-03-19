@@ -33,6 +33,7 @@ import japa.parser.ast.body.TypeDeclaration;
 import japa.parser.ast.body.VariableDeclarator;
 import japa.parser.ast.body.VariableDeclaratorId;
 import japa.parser.ast.expr.NameExpr;
+import japa.parser.ast.expr.ObjectCreationExpr;
 import japa.parser.ast.expr.QualifiedNameExpr;
 import japa.parser.ast.visitor.GenericVisitorAdapter;
 import org.cojen.classfile.ClassFile;
@@ -46,6 +47,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -290,9 +292,25 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, Visit>
    }
 
    @Override
+   public Void visit(ObjectCreationExpr n, Visit arg)
+   {
+      // We don't do anything here because we will not find any class
+      // except anonymous inner classes but we want to avoid them
+      // since their member will confuse the .java / .class matching
+      return null;
+   }
+
+   @Override
    public Void visit(MethodDeclaration n, Visit v)
    {
-      Signature signature = ((Visit.TD)v).methodSignatures.next();
+      Iterator<Signature> signatures = ((Visit.TD)v).methodSignatures;
+      if (!signatures.hasNext())
+      {
+         throw new CodeSourceException("Did not find a method signature for declaration " + n.getName());
+      }
+
+      //
+      Signature signature = signatures.next();
 
       //
       SignedMemberSource methodSource = new SignedMemberSource(
@@ -308,7 +326,14 @@ class CompilationUnitVisitor extends GenericVisitorAdapter<Void, Visit>
    @Override
    public Void visit(ConstructorDeclaration n, Visit v)
    {
-      Signature signature = ((Visit.TD)v).constructorSignatures.next();
+      Iterator<Signature> signatures = ((Visit.TD)v).constructorSignatures;
+      if (!signatures.hasNext())
+      {
+         throw new CodeSourceException("Did not find a constructor signature for declaration " + n.getName());
+      }
+
+      //
+      Signature signature = signatures.next();
 
       //
       SignedMemberSource methodSource = new SignedMemberSource(

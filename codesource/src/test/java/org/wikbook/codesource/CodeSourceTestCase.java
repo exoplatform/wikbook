@@ -222,4 +222,11 @@ public class CodeSourceTestCase extends TestCase
       assertNotNull(source);
       assertEquals(Outter.class.getName() + ".Inner", source.getName());
    }
+
+   public void testResolveBug()
+   {
+      CodeSourceBuilder builder = new CodeSourceBuilder();
+      TypeSource source = builder.buildClass(Response.class.getName());
+      assertNotNull(source);
+   }
 }
