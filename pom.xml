@@ -194,27 +194,27 @@
       <dependency>
         <groupId>org.xwiki.commons</groupId>
         <artifactId>xwiki-commons-component-api</artifactId>
-        <version>3.2</version>
+        <version>4.0-milestone-1</version>
       </dependency>
       <dependency>
         <groupId>org.xwiki.commons</groupId>
         <artifactId>xwiki-commons-component-default</artifactId>
-        <version>3.2</version>
+        <version>4.0-milestone-1</version>
       </dependency>
       <dependency>
         <groupId>org.xwiki.commons</groupId>
         <artifactId>xwiki-commons-component-observation</artifactId>
-        <version>3.2</version>
+        <version>4.0-milestone-1</version>
       </dependency>
       <dependency>
         <groupId>org.xwiki.rendering</groupId>
         <artifactId>xwiki-rendering-api</artifactId>
-        <version>3.2</version>
+        <version>4.0-milestone-1</version>
       </dependency>
       <dependency>
         <groupId>org.xwiki.rendering</groupId>
         <artifactId>xwiki-rendering-syntax-xwiki2</artifactId>
-        <version>3.2</version>
+        <version>4.0-milestone-1</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
