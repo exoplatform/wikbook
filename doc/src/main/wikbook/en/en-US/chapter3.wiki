@@ -41,6 +41,193 @@ The Maven Wikbook plugin focus on transforming the Wiki content into a compliant
 {{/xml}}
 {{/example}}
 
+=== Source directory ===
+
+Specify the source directory where to find the wiki files:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <sourceDirectory>${pom.basedir}/src/main/wikbook/en/en-US</sourceDirectory>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Extra source directory ===
+
+Like source directory but an extra one:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <extraSourceDirectory>${pom.basedir}/src/main/extra/en/en-US</extraSourceDirectory>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Source file name ===
+
+Specify the file name of the root wiki file of the source to transform:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <sourceFileName>book.wiki</sourceFileName>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Destination directory ===
+
+Specify the destination directory where Wikbook will create the corresponding Docbook XML:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Destination file name ===
+
+Specify the file name of the produced Docbook XML document:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <destinationFileName>book.wiki</destinationFileName>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Emit doctype ===
+
+Emit or not the doctype of the Docbook XML document, the default value is ##true##:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <emitDocType>false</emitDocType>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Validation mode ===
+
+Controls how Wikbook reacts when a parse error is found, the possible values are
+
+* ##lax## : The Maven plugin does not fail
+* ##strict## : The maven plugin makes the build fail
+
+The default value is ##lax##.
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <validationMode>strict</validationMode>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Before book body  XML ===
+
+A literal declaration of XML prepended to the book body, useful to include a cover page for instance:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <beforeBookBodyXML><![CDATA[<xi:include href="bookinfo.xml" xmlns:xi="http://www.w3.org/2001/XInclude" />]]></beforeBookBodyXML>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+{{note}}The XML should be escape with CDATA to avoid confusion with the Maven pom XML file.{{/note}}
+
+=== After book body  XML ===
+
+A literal declaration of XML appended to the book body:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <afterBookBodyXML>...></afterBookBodyXML>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Syntax identifier ===
+
+Specify the syntax of the root file as Wikbook cannot guess it. When it is not specified, the //xwiki// syntax
+is used.
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <syntaxId>confluence</syntaxId>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Charset configuration ===
+
+The charset configuration is used when loading the wiki files, the charset must be a charset recognized by the Java
+Virtual Machine executing the plugin.
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <charset>UTF-8</charset>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+==== Book identifier ====
+
+The book identifier configuration is used to define the identifier of a book and produce docbook XML. For instance
+the plugin configuration:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <bookId>foo</bookId>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+Will produce the following Docbook for the book:
+
+{{xml}}
+<book id="foo">...</book>
+{{/xml}}
+
+Such identifier is used by Docbook to name the files produced by the transformation, in that case the file corresponding
+to the book itself.
+
 == The Maven transformation plugins ==
 
 A transformation plugin plays an important role in the documentation generation because it takes the docbook generated
