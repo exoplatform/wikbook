@@ -146,7 +146,7 @@ public class WikBookMojo extends AbstractMojo
    private String charset;
 
    /**
-    * The book id, when specified it modifies the XML element <code>book</code> produced to add an <code<id</code> attribute
+    * The book id, when specified it modifies the XML element <code>book</code> produced to add an <code>id</code> attribute
     * with the specified value.
     *
     * @parameter default-value="UTF-8"
