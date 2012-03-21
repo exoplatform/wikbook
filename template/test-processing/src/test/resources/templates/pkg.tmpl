@@ -8,6 +8,18 @@ ${@AnnotationPackage.doc("flat:author")}
 ${@AnnotationPackage.doc("flat:since")}
 ${@AnnotationPackage.attribute("value")}
 <#list @AnnotationPackage.children("@AnnotationA") as child>
+<#if child.type.name == "B">
 ${child.name}(value="${child.attribute("value")}") ${child.type.fqn} @author = "${child.doc("flat:author")}"
+</#if>
+</#list>
+<#list @AnnotationPackage.children("@AnnotationA") as child>
+<#if child.type.name == "C">
+${child.name}(value="${child.attribute("value")}") ${child.type.fqn} @author = "${child.doc("flat:author")}"
+</#if>
+</#list>
+<#list @AnnotationPackage.children("@AnnotationA") as child>
+<#if child.type.name == "D">
+${child.name}(value="${child.attribute("value")}") ${child.type.fqn} @author = "${child.doc("flat:author")}"
+</#if>
 </#list>
 </#if>
