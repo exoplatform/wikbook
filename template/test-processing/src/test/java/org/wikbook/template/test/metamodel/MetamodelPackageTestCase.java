@@ -17,7 +17,9 @@
 
 package org.wikbook.template.test.metamodel;
 
+import junit.framework.AssertionFailedError;
 import org.wikbook.template.processing.metamodel.MetaModel;
+import org.wikbook.template.processing.metamodel.TemplateElement;
 import org.wikbook.template.test.AbstractProcessorTestCase;
 
 import java.io.IOException;
@@ -56,9 +58,18 @@ public class MetamodelPackageTestCase extends AbstractProcessorTestCase {
   public void testChildren() throws Exception {
 
     assertEquals(6, m.getElements().get(0).getElements().size());
-    assertEquals("B", m.getElements().get(0).getElements().get(0).getName());
-    assertEquals("B", m.getElements().get(0).getElements().get(0).getType().getName());
-    assertEquals("model.B", m.getElements().get(0).getElements().get(0).getType().getFqn());
+    try {
+      assertPresent("A", m);
+    }
+    catch(AssertionFailedError e){
+      // ok
+    }
+    assertPresent("B", m);
+    assertPresent("C", m);
+    assertPresent("D", m);
+    assertPresent("E", m);
+    assertPresent("F", m);
+    assertPresent("G", m);
 
   }
 
@@ -66,6 +77,19 @@ public class MetamodelPackageTestCase extends AbstractProcessorTestCase {
 
     assertEquals(3, m.getElements().get(0).getJavadoc().size());
 
+  }
+
+  private void assertPresent(String name, MetaModel m) {
+    for (TemplateElement te : m.getElements().get(0).getElements()) {
+      if (
+          te.getName().equals(name) &&
+          te.getType().getName().equals(name) &&
+          te.getType().getFqn().equals("model." + name)) {
+        return;
+      }
+    }
+
+    throw new AssertionFailedError(name + " is not present in meta model");
   }
 
 }
