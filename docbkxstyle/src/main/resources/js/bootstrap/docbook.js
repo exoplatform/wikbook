@@ -56,6 +56,7 @@ $(document).ready(function() {
     if (title.length == 1) {
         var titleLink = $("<a class='brand' href='#'></a>").appendTo("#topbar");
         titleLink.text(title.text());
+        title.remove();
     }
 
     // Table of Content
