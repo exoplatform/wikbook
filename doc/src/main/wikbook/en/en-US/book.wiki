@@ -14,8 +14,6 @@ will find Wikbook interesting to write their documentation, experiment new ideas
 Wikbook aims to be open and does not want to lock users into a proprietary system. The proof is that Wikbook is based on the
 open Docbook format.
 
-{{important}}This document is a work in progress and will get richer over time.{{/important}}
-
 = Introduction {{anchor id=introduction /}} =
 
 {{include document="chapter1.wiki" /}}
