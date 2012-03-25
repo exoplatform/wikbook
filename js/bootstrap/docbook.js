@@ -11,7 +11,7 @@ $(document).ready(function() {
                     "<li class='menu'>" +
                     "<a href='#' class='dropdown-toggle'>Powered by Wikbook</a>" +
                     "<ul class='menu-dropdown'>" +
-                    "<li><a href='http://www.github.org/vietj/wikbook'>Project</a></li>" +
+                    "<li><a href='http://www.github.com/vietj/wikbook'>Project</a></li>" +
                     "<li><a href='http://vietj.github.com/wikbook/'>Documentation</a></li>" +
                     "<li><a href='http://jira.exoplatform.org/browse/WKBK'>Issue tracker</a></li>" +
                     "</ul>" +
