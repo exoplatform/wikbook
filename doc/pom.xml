@@ -116,107 +116,6 @@
           </preProcess>
           
         </configuration>
-        <executions>
-          <execution>
-            <id>generate-html</id>
-            <goals>
-              <goal>generate-html</goal>
-            </goals>
-            <phase>package</phase>
-            <configuration>
-
-              <!-- Output -->
-              <targetDirectory>${project.build.directory}/wikbook/output/html</targetDirectory>
-
-              <!-- Stylesheets -->
-              <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/bootstrap/html.xsl</htmlCustomization>
-
-              <!-- Copy the image -->
-              <postProcess>
-                <copy todir="${project.build.directory}/wikbook/output/html/images">
-                  <fileset dir="${pom.basedir}/src/main/wikbook/images">
-                    <include name="**" />
-                  </fileset>
-                </copy>
-                <copy todir="${project.build.directory}/wikbook/output/html">
-                  <fileset dir="${project.build.directory}/wikbook/src/resources">
-                    <include name="**/*.css" />
-                    <include name="**/*.js" />
-                    <include name="**/*.png" />
-                    <include name="**/*.gif" />
-                    <include name="**/*.jpg" />
-                  </fileset>
-                </copy>
-              </postProcess>
-            </configuration>
-          </execution>
-          <execution>
-            <id>generate-chunked</id>
-            <goals>
-              <goal>generate-html</goal>
-            </goals>
-            <phase>package</phase>
-            <configuration>
-
-              <!-- Output -->
-              <targetDirectory>${project.build.directory}/wikbook/output/chunked</targetDirectory>
-
-              <!-- Stylesheets -->
-              <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/bootstrap/chunked.xsl</htmlCustomization>
-
-              <!-- Copy the image -->
-              <postProcess>
-                <copy todir="${project.build.directory}/wikbook/output/chunked/images">
-                  <fileset dir="${pom.basedir}/src/main/wikbook/images">
-                    <include name="**" />
-                  </fileset>
-                </copy>
-                <copy todir="${project.build.directory}/wikbook/output/chunked">
-                  <fileset dir="${project.build.directory}/wikbook/src/resources">
-                    <include name="**/*.css" />
-                    <include name="**/*.js" />
-                    <include name="**/*.png" />
-                    <include name="**/*.gif" />
-                    <include name="**/*.jpg" />
-                  </fileset>
-                </copy>
-              </postProcess>
-            </configuration>
-          </execution>
-          <execution>
-            <id>generate-xhtml</id>
-            <goals>
-              <goal>generate-xhtml</goal>
-            </goals>
-            <phase>package</phase>
-            <configuration>
-
-              <!-- Output -->
-              <targetDirectory>${project.build.directory}/wikbook/output/xhtml</targetDirectory>
-              <targetFileExtension>html</targetFileExtension>
-
-              <!-- Stylesheets -->
-              <xhtmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
-
-              <!-- Copy the image -->
-              <postProcess>
-                <copy todir="${project.build.directory}/wikbook/output/xhtml/images">
-                  <fileset dir="${pom.basedir}/src/main/wikbook/images">
-                    <include name="**" />
-                  </fileset>
-                </copy>
-                <copy todir="${project.build.directory}/wikbook/output/xhtml">
-                  <fileset dir="${project.build.directory}/wikbook/src/resources">
-                    <include name="**/*.css" />
-                    <include name="**/*.png" />
-                    <include name="**/*.gif" />
-                    <include name="**/*.jpg" />
-                  </fileset>
-                </copy>
-              </postProcess>
-            </configuration>
-          </execution>
-        </executions>
         <dependencies>
           <dependency>
             <groupId>org.docbook</groupId>
@@ -226,88 +125,235 @@
           </dependency>
         </dependencies>
       </plugin>
-
-      <plugin>
-        <groupId>org.wikbook</groupId>
-        <artifactId>wikbook.html2pdf</artifactId>
-        <executions>
-          <execution>
-            <phase>package</phase>
-            <goals>
-              <goal>transform</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <sourceDirectory>${project.build.directory}/wikbook/output/xhtml</sourceDirectory>
-          <sourceFileName>index.html</sourceFileName>
-          <destinationDirectory>${project.build.directory}/wikbook/output/pdf</destinationDirectory>
-          <destinationFileName>index.pdf</destinationFileName>
-        </configuration>
-      </plugin>
-
-      <!-- Attach the HTML zip -->
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>zip-html</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>src/main/assembly/html.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Attach the chunkedchunked zip -->
-      <plugin>
-        <artifactId>maven-assembly-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>zip-chunked</id>
-            <phase>package</phase>
-            <goals>
-              <goal>single</goal>
-            </goals>
-            <configuration>
-              <descriptors>
-                <descriptor>src/main/assembly/chunked.xml</descriptor>
-              </descriptors>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
-
-      <!-- Attach the PDF -->
-      <plugin>
-        <groupId>org.codehaus.mojo</groupId>
-        <artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-artifacts</id>
-            <phase>package</phase>
-            <goals>
-              <goal>attach-artifact</goal>
-            </goals>
-            <configuration>
-              <artifacts>
-                <artifact>
-                  <file>target/wikbook/output/pdf/index.pdf</file>
-                  <type>pdf</type>
-                </artifact>
-              </artifacts>
-            </configuration>
-          </execution>
-        </executions>
-      </plugin>
     </plugins>
   </build>
+
+  <profiles>
+
+    <profile>
+      <id>html</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.agilejava.docbkx</groupId>
+            <artifactId>docbkx-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-html</id>
+                <goals>
+                  <goal>generate-html</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+
+                  <!-- Output -->
+                  <targetDirectory>${project.build.directory}/wikbook/output/html</targetDirectory>
+
+                  <!-- Stylesheets -->
+                  <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/bootstrap/html.xsl</htmlCustomization>
+
+                  <!-- Copy the image -->
+                  <postProcess>
+                    <copy todir="${project.build.directory}/wikbook/output/html/images">
+                      <fileset dir="${pom.basedir}/src/main/wikbook/images">
+                        <include name="**" />
+                      </fileset>
+                    </copy>
+                    <copy todir="${project.build.directory}/wikbook/output/html">
+                      <fileset dir="${project.build.directory}/wikbook/src/resources">
+                        <include name="**/*.css" />
+                        <include name="**/*.js" />
+                        <include name="**/*.png" />
+                        <include name="**/*.gif" />
+                        <include name="**/*.jpg" />
+                      </fileset>
+                    </copy>
+                  </postProcess>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>zip-html</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>src/main/assembly/html.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>chunked</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.agilejava.docbkx</groupId>
+            <artifactId>docbkx-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-chunked</id>
+                <goals>
+                  <goal>generate-html</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+
+                  <!-- Output -->
+                  <targetDirectory>${project.build.directory}/wikbook/output/chunked</targetDirectory>
+
+                  <!-- Stylesheets -->
+                  <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/bootstrap/chunked.xsl</htmlCustomization>
+
+                  <!-- Copy the image -->
+                  <postProcess>
+                    <copy todir="${project.build.directory}/wikbook/output/chunked/images">
+                      <fileset dir="${pom.basedir}/src/main/wikbook/images">
+                        <include name="**" />
+                      </fileset>
+                    </copy>
+                    <copy todir="${project.build.directory}/wikbook/output/chunked">
+                      <fileset dir="${project.build.directory}/wikbook/src/resources">
+                        <include name="**/*.css" />
+                        <include name="**/*.js" />
+                        <include name="**/*.png" />
+                        <include name="**/*.gif" />
+                        <include name="**/*.jpg" />
+                      </fileset>
+                    </copy>
+                  </postProcess>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <artifactId>maven-assembly-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>zip-chunked</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>single</goal>
+                </goals>
+                <configuration>
+                  <descriptors>
+                    <descriptor>src/main/assembly/chunked.xml</descriptor>
+                  </descriptors>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+    <profile>
+      <id>pdf</id>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>com.agilejava.docbkx</groupId>
+            <artifactId>docbkx-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>generate-xhtml</id>
+                <goals>
+                  <goal>generate-xhtml</goal>
+                </goals>
+                <phase>package</phase>
+                <configuration>
+
+                  <!-- Output -->
+                  <targetDirectory>${project.build.directory}/wikbook/output/xhtml</targetDirectory>
+                  <targetFileExtension>html</targetFileExtension>
+
+                  <!-- Stylesheets -->
+                  <xhtmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
+
+                  <!-- Copy the image -->
+                  <postProcess>
+                    <copy todir="${project.build.directory}/wikbook/output/xhtml/images">
+                      <fileset dir="${pom.basedir}/src/main/wikbook/images">
+                        <include name="**" />
+                      </fileset>
+                    </copy>
+                    <copy todir="${project.build.directory}/wikbook/output/xhtml">
+                      <fileset dir="${project.build.directory}/wikbook/src/resources">
+                        <include name="**/*.css" />
+                        <include name="**/*.png" />
+                        <include name="**/*.gif" />
+                        <include name="**/*.jpg" />
+                      </fileset>
+                    </copy>
+                  </postProcess>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+          <plugin>
+            <groupId>org.wikbook</groupId>
+            <artifactId>wikbook.html2pdf</artifactId>
+            <executions>
+              <execution>
+                <phase>package</phase>
+                <goals>
+                  <goal>transform</goal>
+                </goals>
+              </execution>
+            </executions>
+            <configuration>
+              <sourceDirectory>${project.build.directory}/wikbook/output/xhtml</sourceDirectory>
+              <sourceFileName>index.html</sourceFileName>
+              <destinationDirectory>${project.build.directory}/wikbook/output/pdf</destinationDirectory>
+              <destinationFileName>index.pdf</destinationFileName>
+            </configuration>
+          </plugin>
+          <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>build-helper-maven-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>attach-artifacts</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>attach-artifact</goal>
+                </goals>
+                <configuration>
+                  <artifacts>
+                    <artifact>
+                      <file>target/wikbook/output/pdf/index.pdf</file>
+                      <type>pdf</type>
+                    </artifact>
+                  </artifacts>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+
+  </profiles>
 
 </project>
     
