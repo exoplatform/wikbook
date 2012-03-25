@@ -62,15 +62,17 @@
     <xsl:apply-templates/>
   </xsl:template>
 
-  <!-- Use an <h1> instead of <h2> for chapter titles -->
+  <!-- Use an <h1> instead of <h2> for chapter titles and wrap with page-header to give more spacing -->
   <xsl:template name="component.title">
-    <h1>
-      <xsl:call-template name="anchor">
-        <xsl:with-param name="node" select=".."/>
-        <xsl:with-param name="conditional" select="0"/>
-      </xsl:call-template>
-      <xsl:apply-templates select=".." mode="object.title.markup"/>
-    </h1>
+    <div class="page-header">
+      <h1>
+        <xsl:call-template name="anchor">
+          <xsl:with-param name="node" select=".."/>
+          <xsl:with-param name="conditional" select="0"/>
+        </xsl:call-template>
+        <xsl:apply-templates select=".." mode="object.title.markup"/>
+      </h1>
+    </div>
   </xsl:template>
 
 </xsl:stylesheet>

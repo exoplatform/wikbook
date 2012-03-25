@@ -3,5 +3,10 @@
 @import "../wikbook.css";
 
 .modal-overflow {
-    height:512px;overflow:auto
+    height:512px;
+    overflow:auto
+}
+
+div.chapter {
+    padding-top: 60px;
 }
