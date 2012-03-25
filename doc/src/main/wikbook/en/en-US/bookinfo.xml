@@ -1,5 +1,5 @@
 <bookinfo>
-  <title>Wikbook</title>
+  <title>Wikbook <?eval ${project.version}?></title>
   <subtitle>Wikbook Reference Guide</subtitle>
   <edition>1.0</edition>
   <pubsnumber>1</pubsnumber>
