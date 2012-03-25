@@ -7,7 +7,7 @@
     <div class="author"><h3 class="author"><span class="firstname">Alain</span> <span class="surname">Defrance</span></h3><div class="affiliation">
         <span class="shortaffil">eXo Platform<br></span>
       </div></div>
-  </div></div><div><p class="copyright">Copyright &copy; 2011 eXo Platform SAS</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#d5e28">Preface</a></span></dt><dt><span class="chapter"><a href="#introduction">1. Introduction </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e44">Document syntax</a></span></dt><dt><span class="section"><a href="#d5e68">Wiki macros</a></span></dt></dl></dd><dt><span class="chapter"><a href="#how-to">2. How-to </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e75">Document structure</a></span></dt><dt><span class="section"><a href="#d5e99">Document content</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e102">Rich text</a></span></dt><dt><span class="section"><a href="#d5e176">Verbatim text</a></span></dt><dt><span class="section"><a href="#d5e222">Blocks</a></span></dt><dt><span class="section"><a href="#d5e869">Definition list</a></span></dt><dt><span class="section"><a href="#d5e914">Example</a></span></dt><dt><span class="section"><a href="#d5e962">Quotation</a></span></dt><dt><span class="section"><a href="#d5e981">Modularization</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#integration">3. Project integration </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e996">Java<sup>tm</sup> code embedding</a></span></dt><dt><span class="section"><a href="#d5e1002">Maven integration</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1005">The Maven Wikbook plugin</a></span></dt><dt><span class="section"><a href="#d5e1128">The Maven transformation plugins</a></span></dt><dt><span class="section"><a href="#d5e1139">The Maven Wikbook archetype</a></span></dt><dt><span class="section"><a href="#maven_code_citation_section">Integration of code block citation </a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#generation">4. Generation </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1173">Setup</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1175">Create your processing module</a></span></dt><dt><span class="section"><a href="#d5e1184">Create your processor</a></span></dt><dt><span class="section"><a href="#d5e1208">Enable processing with service</a></span></dt><dt><span class="section"><a href="#d5e1218">Create your template</a></span></dt><dt><span class="section"><a href="#d5e1221">Package template with classifier</a></span></dt><dt><span class="section"><a href="#d5e1230">Generate !</a></span></dt></dl></dd><dt><span class="section"><a href="#d5e1249">Templates</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1254">Root elements</a></span></dt><dt><span class="section"><a href="#d5e1257">Annotation name</a></span></dt><dt><span class="section"><a href="#d5e1284">Element name</a></span></dt><dt><span class="section"><a href="#d5e1357">Type</a></span></dt><dt><span class="section"><a href="#d5e1486">Javadoc</a></span></dt><dt><span class="section"><a href="#d5e1644">Browse children</a></span></dt><dt><span class="section"><a href="#d5e1671">Get sibling</a></span></dt><dt><span class="section"><a href="#d5e1699">Get attributes</a></span></dt><dt><span class="section"><a href="#d5e1799">Browse package</a></span></dt><dt><span class="section"><a href="#d5e1832">Full sample</a></span></dt></dl></dd></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>2.1. <a href="#d5e487">The controller</a></dt><dt>4.1. <a href="#d5e1854">JAX-RS generation result</a></dt><dt>4.2. <a href="#d5e1880">Chromattic generation result</a></dt></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>2.1. <a href="#d5e107">Text emphasis</a></dt><dt>2.2. <a href="#d5e149">Document links</a></dt><dt>2.3. <a href="#d5e163">External links</a></dt><dt>2.4. <a href="#d5e179">Verbatim text</a></dt><dt>2.5. <a href="#d5e194">Char escape</a></dt><dt>2.6. <a href="#d5e208">Backslash escape</a></dt><dt>2.7. <a href="#d5e227">Paragraph generation</a></dt><dt>2.8. <a href="#d5e244">List examples</a></dt><dt>2.9. <a href="#d5e325">Table examples</a></dt><dt>2.10. <a href="#d5e335">A simple table</a></dt><dt>2.11. <a href="#d5e353">A table with a row header</a></dt><dt>2.12. <a href="#d5e372">A table with a row footer</a></dt><dt>2.13. <a href="#d5e391">The table</a></dt><dt>2.14. <a href="#d5e413">A list inside a table with a group block</a></dt><dt>2.15. <a href="#d5e436">Image example</a></dt><dt>2.16. <a href="#d5e454">Image example</a></dt><dt>2.17. <a href="#d5e475">Image example</a></dt><dt>2.18. <a href="#d5e496">Admonitions</a></dt><dt>2.19. <a href="#d5e540">A sample generic code</a></dt><dt>2.20. <a href="#d5e554">A sample Java code</a></dt><dt>2.21. <a href="#d5e568">A sample Groovy code</a></dt><dt>2.22. <a href="#d5e582">A sample XML code</a></dt><dt>2.23. <a href="#d5e596">A sample code from a file</a></dt><dt>2.24. <a href="#d5e618">Java code</a></dt><dt>2.25. <a href="#d5e637">A class citation</a></dt><dt>2.26. <a href="#d5e651">A inner class citation</a></dt><dt>2.27. <a href="#d5e666">A method citation</a></dt><dt>2.28. <a href="#d5e689">A block code citation</a></dt><dt>2.29. <a href="#d5e704">A block code citation</a></dt><dt>2.30. <a href="#d5e729">XML pretty printed</a></dt><dt>2.31. <a href="#d5e750">XML inclusion</a></dt><dt>2.32. <a href="#d5e765">XML inclusion</a></dt><dt>2.33. <a href="#d5e785">A screen example</a></dt><dt>2.34. <a href="#d5e801">A simple callout</a></dt><dt>2.35. <a href="#d5e822">Anonymous callouts</a></dt><dt>2.36. <a href="#d5e850">A callout anchor and its text</a></dt><dt>2.37. <a href="#d5e872">Definition lists</a></dt><dt>2.38. <a href="#d5e917">An example</a></dt><dt>2.39. <a href="#d5e945">A code example combining the example and code macros</a></dt><dt>2.40. <a href="#d5e965">Quotation</a></dt></dl></div><div class="list-of-examples"><p><b>List of Examples</b></p><dl><dt>2.1. <a href="#d5e683">A code block</a></dt><dt>2.2. <a href="#d5e957">increment x</a></dt><dt>2.3. <a href="#d5e986">Document embedding</a></dt><dt>3.1. <a href="#d5e1009">Example of Wikbook Maven plugin</a></dt><dt>3.2. <a href="#d5e1143">Wikbook archetype usage</a></dt><dt>3.3. <a href="#d5e1157">Configuration of the maven-source-plugin</a></dt><dt>3.4. <a href="#d5e1166">Declaring the right dependency</a></dt><dt>4.1. <a href="#d5e1179">Maven wikbook dependency</a></dt><dt>4.2. <a href="#d5e1198">Typical jaxrs processor</a></dt><dt>4.3. <a href="#d5e1203">Typical chromattic processor</a></dt><dt>4.4. <a href="#d5e1211">META-INF/services/javax.annotation.processing.Processor</a></dt><dt>4.5. <a href="#d5e1225">Package templates with maven</a></dt><dt>4.6. <a href="#d5e1234">Add your processors to the classpath</a></dt><dt>4.7. <a href="#d5e1239">Unpack your templates and use it</a></dt><dt>4.8. <a href="#d5e1244">Package generated files</a></dt><dt>4.9. <a href="#d5e1260">Simple annotation name</a></dt><dt>4.10. <a href="#d5e1288">Class element name</a></dt><dt>4.11. <a href="#d5e1311">Method element name</a></dt><dt>4.12. <a href="#d5e1334">Parameter element name</a></dt><dt>4.13. <a href="#d5e1363">Class type values</a></dt><dt>4.14. <a href="#d5e1386">Method type values</a></dt><dt>4.15. <a href="#d5e1409">Parameter type values</a></dt><dt>4.16. <a href="#d5e1436">Reach type parameter</a></dt><dt>4.17. <a href="#d5e1463">Reach annotation of type</a></dt><dt>4.18. <a href="#d5e1492">Class or method general documentation</a></dt><dt>4.19. <a href="#d5e1517">Parameter documentation</a></dt><dt>4.20. <a href="#d5e1544">Get the author</a></dt><dt>4.21. <a href="#d5e1571">Use 'flat' prefix to display all values separated by coma</a></dt><dt>4.22. <a href="#d5e1594">Use 'list' prefix to make iteration possible</a></dt><dt>4.23. <a href="#d5e1621">Use 'block' prefix to keep formatting</a></dt><dt>4.24. <a href="#d5e1648">Browse children</a></dt><dt>4.25. <a href="#d5e1675">Get sibiling</a></dt><dt>4.26. <a href="#d5e1703">Get simple value</a></dt><dt>4.27. <a href="#d5e1728">Get array value</a></dt><dt>4.28. <a href="#d5e1753">Get annotation value</a></dt><dt>4.29. <a href="#d5e1776">Get array annotation value</a></dt><dt>4.30. <a href="#d5e1803">Browse package annotation</a></dt><dt>4.31. <a href="#d5e1838">Source code</a></dt><dt>4.32. <a href="#d5e1843">Template</a></dt><dt>4.33. <a href="#d5e1848">Output</a></dt><dt>4.34. <a href="#d5e1864">Source code</a></dt><dt>4.35. <a href="#d5e1869">Template</a></dt><dt>4.36. <a href="#d5e1874">Output</a></dt></dl></div>
+  </div></div><div><p class="copyright">Copyright &copy; 2011 eXo Platform SAS</p></div></div><hr></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="preface"><a href="#d5e28">Preface</a></span></dt><dt><span class="chapter"><a href="#introduction">1. Introduction </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e42">Document syntax</a></span></dt><dt><span class="section"><a href="#d5e66">Wiki macros</a></span></dt></dl></dd><dt><span class="chapter"><a href="#how-to">2. How-to </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e73">Document structure</a></span></dt><dt><span class="section"><a href="#d5e97">Document content</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e100">Rich text</a></span></dt><dt><span class="section"><a href="#d5e174">Verbatim text</a></span></dt><dt><span class="section"><a href="#d5e220">Blocks</a></span></dt><dt><span class="section"><a href="#d5e867">Definition list</a></span></dt><dt><span class="section"><a href="#d5e912">Example</a></span></dt><dt><span class="section"><a href="#d5e960">Quotation</a></span></dt><dt><span class="section"><a href="#d5e979">Modularization</a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#integration">3. Project integration </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e994">Java<sup>tm</sup> code embedding</a></span></dt><dt><span class="section"><a href="#d5e1000">Maven integration</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1003">The Maven Wikbook plugin</a></span></dt><dt><span class="section"><a href="#d5e1126">The Maven transformation plugins</a></span></dt><dt><span class="section"><a href="#d5e1137">The Maven Wikbook archetype</a></span></dt><dt><span class="section"><a href="#maven_code_citation_section">Integration of code block citation </a></span></dt></dl></dd></dl></dd><dt><span class="chapter"><a href="#generation">4. Generation </a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1171">Setup</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1173">Create your processing module</a></span></dt><dt><span class="section"><a href="#d5e1182">Create your processor</a></span></dt><dt><span class="section"><a href="#d5e1206">Enable processing with service</a></span></dt><dt><span class="section"><a href="#d5e1216">Create your template</a></span></dt><dt><span class="section"><a href="#d5e1219">Package template with classifier</a></span></dt><dt><span class="section"><a href="#d5e1228">Generate !</a></span></dt></dl></dd><dt><span class="section"><a href="#d5e1247">Templates</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1252">Root elements</a></span></dt><dt><span class="section"><a href="#d5e1255">Annotation name</a></span></dt><dt><span class="section"><a href="#d5e1282">Element name</a></span></dt><dt><span class="section"><a href="#d5e1355">Type</a></span></dt><dt><span class="section"><a href="#d5e1484">Javadoc</a></span></dt><dt><span class="section"><a href="#d5e1642">Browse children</a></span></dt><dt><span class="section"><a href="#d5e1669">Get sibling</a></span></dt><dt><span class="section"><a href="#d5e1697">Get attributes</a></span></dt><dt><span class="section"><a href="#d5e1797">Browse package</a></span></dt><dt><span class="section"><a href="#d5e1830">Full sample</a></span></dt></dl></dd></dl></dd></dl></div><div class="list-of-figures"><p><b>List of Figures</b></p><dl><dt>2.1. <a href="#d5e485">The controller</a></dt><dt>4.1. <a href="#d5e1852">JAX-RS generation result</a></dt><dt>4.2. <a href="#d5e1878">Chromattic generation result</a></dt></dl></div><div class="list-of-tables"><p><b>List of Tables</b></p><dl><dt>2.1. <a href="#d5e105">Text emphasis</a></dt><dt>2.2. <a href="#d5e147">Document links</a></dt><dt>2.3. <a href="#d5e161">External links</a></dt><dt>2.4. <a href="#d5e177">Verbatim text</a></dt><dt>2.5. <a href="#d5e192">Char escape</a></dt><dt>2.6. <a href="#d5e206">Backslash escape</a></dt><dt>2.7. <a href="#d5e225">Paragraph generation</a></dt><dt>2.8. <a href="#d5e242">List examples</a></dt><dt>2.9. <a href="#d5e323">Table examples</a></dt><dt>2.10. <a href="#d5e333">A simple table</a></dt><dt>2.11. <a href="#d5e351">A table with a row header</a></dt><dt>2.12. <a href="#d5e370">A table with a row footer</a></dt><dt>2.13. <a href="#d5e389">The table</a></dt><dt>2.14. <a href="#d5e411">A list inside a table with a group block</a></dt><dt>2.15. <a href="#d5e434">Image example</a></dt><dt>2.16. <a href="#d5e452">Image example</a></dt><dt>2.17. <a href="#d5e473">Image example</a></dt><dt>2.18. <a href="#d5e494">Admonitions</a></dt><dt>2.19. <a href="#d5e538">A sample generic code</a></dt><dt>2.20. <a href="#d5e552">A sample Java code</a></dt><dt>2.21. <a href="#d5e566">A sample Groovy code</a></dt><dt>2.22. <a href="#d5e580">A sample XML code</a></dt><dt>2.23. <a href="#d5e594">A sample code from a file</a></dt><dt>2.24. <a href="#d5e616">Java code</a></dt><dt>2.25. <a href="#d5e635">A class citation</a></dt><dt>2.26. <a href="#d5e649">A inner class citation</a></dt><dt>2.27. <a href="#d5e664">A method citation</a></dt><dt>2.28. <a href="#d5e687">A block code citation</a></dt><dt>2.29. <a href="#d5e702">A block code citation</a></dt><dt>2.30. <a href="#d5e727">XML pretty printed</a></dt><dt>2.31. <a href="#d5e748">XML inclusion</a></dt><dt>2.32. <a href="#d5e763">XML inclusion</a></dt><dt>2.33. <a href="#d5e783">A screen example</a></dt><dt>2.34. <a href="#d5e799">A simple callout</a></dt><dt>2.35. <a href="#d5e820">Anonymous callouts</a></dt><dt>2.36. <a href="#d5e848">A callout anchor and its text</a></dt><dt>2.37. <a href="#d5e870">Definition lists</a></dt><dt>2.38. <a href="#d5e915">An example</a></dt><dt>2.39. <a href="#d5e943">A code example combining the example and code macros</a></dt><dt>2.40. <a href="#d5e963">Quotation</a></dt></dl></div><div class="list-of-examples"><p><b>List of Examples</b></p><dl><dt>2.1. <a href="#d5e681">A code block</a></dt><dt>2.2. <a href="#d5e955">increment x</a></dt><dt>2.3. <a href="#d5e984">Document embedding</a></dt><dt>3.1. <a href="#d5e1007">Example of Wikbook Maven plugin</a></dt><dt>3.2. <a href="#d5e1141">Wikbook archetype usage</a></dt><dt>3.3. <a href="#d5e1155">Configuration of the maven-source-plugin</a></dt><dt>3.4. <a href="#d5e1164">Declaring the right dependency</a></dt><dt>4.1. <a href="#d5e1177">Maven wikbook dependency</a></dt><dt>4.2. <a href="#d5e1196">Typical jaxrs processor</a></dt><dt>4.3. <a href="#d5e1201">Typical chromattic processor</a></dt><dt>4.4. <a href="#d5e1209">META-INF/services/javax.annotation.processing.Processor</a></dt><dt>4.5. <a href="#d5e1223">Package templates with maven</a></dt><dt>4.6. <a href="#d5e1232">Add your processors to the classpath</a></dt><dt>4.7. <a href="#d5e1237">Unpack your templates and use it</a></dt><dt>4.8. <a href="#d5e1242">Package generated files</a></dt><dt>4.9. <a href="#d5e1258">Simple annotation name</a></dt><dt>4.10. <a href="#d5e1286">Class element name</a></dt><dt>4.11. <a href="#d5e1309">Method element name</a></dt><dt>4.12. <a href="#d5e1332">Parameter element name</a></dt><dt>4.13. <a href="#d5e1361">Class type values</a></dt><dt>4.14. <a href="#d5e1384">Method type values</a></dt><dt>4.15. <a href="#d5e1407">Parameter type values</a></dt><dt>4.16. <a href="#d5e1434">Reach type parameter</a></dt><dt>4.17. <a href="#d5e1461">Reach annotation of type</a></dt><dt>4.18. <a href="#d5e1490">Class or method general documentation</a></dt><dt>4.19. <a href="#d5e1515">Parameter documentation</a></dt><dt>4.20. <a href="#d5e1542">Get the author</a></dt><dt>4.21. <a href="#d5e1569">Use 'flat' prefix to display all values separated by coma</a></dt><dt>4.22. <a href="#d5e1592">Use 'list' prefix to make iteration possible</a></dt><dt>4.23. <a href="#d5e1619">Use 'block' prefix to keep formatting</a></dt><dt>4.24. <a href="#d5e1646">Browse children</a></dt><dt>4.25. <a href="#d5e1673">Get sibiling</a></dt><dt>4.26. <a href="#d5e1701">Get simple value</a></dt><dt>4.27. <a href="#d5e1726">Get array value</a></dt><dt>4.28. <a href="#d5e1751">Get annotation value</a></dt><dt>4.29. <a href="#d5e1774">Get array annotation value</a></dt><dt>4.30. <a href="#d5e1801">Browse package annotation</a></dt><dt>4.31. <a href="#d5e1836">Source code</a></dt><dt>4.32. <a href="#d5e1841">Template</a></dt><dt>4.33. <a href="#d5e1846">Output</a></dt><dt>4.34. <a href="#d5e1862">Source code</a></dt><dt>4.35. <a href="#d5e1867">Template</a></dt><dt>4.36. <a href="#d5e1872">Output</a></dt></dl></div>
   
   <div class="preface" title="Preface"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="d5e28"></a>Preface</h1></div></div></div></div>
     
@@ -20,13 +20,10 @@
     <p>Wikbook aims also to provide exclusive features that makes documentation easier to write. The perfect example we like  to give is the inclusion of Java<sup>tm</sup> source code at the heart of the documentation as it allows to have always up to  date example that stay in sync with the documentation. The goal is to make the documentation easier to write and maintain.</p>
     <p>Wikbook is also a lab to experiment new things and we are sure that it will get richer over time. We hope that people will find Wikbook interesting to write their documentation, experiment new ideas and contribute them.</p>
     <p>Wikbook aims to be open and does not want to lock users into a proprietary system. The proof is that Wikbook is based on the open Docbook format.</p>
-    <div class="error alert-message block-message" title="Important" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Important</h3>
-      <p>This document is a work in progress and will get richer over time.</p>
-    </div>
   </div>
-  <div class="chapter" title="Chapter&nbsp;1.&nbsp;Introduction"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="introduction"></a>Chapter&nbsp;1.&nbsp;Introduction </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e44">Document syntax</a></span></dt><dt><span class="section"><a href="#d5e68">Wiki macros</a></span></dt></dl></div>
+  <div class="chapter" title="Chapter&nbsp;1.&nbsp;Introduction"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="introduction"></a>Chapter&nbsp;1.&nbsp;Introduction </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e42">Document syntax</a></span></dt><dt><span class="section"><a href="#d5e66">Wiki macros</a></span></dt></dl></div>
     
-    <div class="section" title="Document syntax"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e44"></a>Document syntax</h2></div></div></div>
+    <div class="section" title="Document syntax"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e42"></a>Document syntax</h2></div></div></div>
       
       <p>Wiki syntaxes are not unique, Wikbook relies on an external framework used at the heart of XWiki that is able to make wiki syntaxes coexist. Any wiki syntax recognized by this framework can be used for documentation writing. The following syntaxes are recognized:</p>
       <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
@@ -57,16 +54,16 @@
       <p>For the purpose of simplicity, the Wikbook documentation uses the XWiki 2.0 syntax.</p>
       <p>Wikbook attempts to fully leverage the wiki syntax, however the horizontal rule wiki syntax is not supported. Indeed there is no such concept in the docbook system and horizontal rule are simply ignored.</p>
     </div>
-    <div class="section" title="Wiki macros"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e68"></a>Wiki macros</h2></div></div></div>
+    <div class="section" title="Wiki macros"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e66"></a>Wiki macros</h2></div></div></div>
       
       <p>A wiki macro is way to complete the wiki syntax. Wiki syntax is usually not enough to express some ideas and a wiki macro provides a way to plug new behavior into a wiki syntax.</p>
       <p>Wikbook makes use of wiki macro to integrate specific docbook features.</p>
     </div>
   </div>
-  <div class="chapter" title="Chapter&nbsp;2.&nbsp;How-to"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="how-to"></a>Chapter&nbsp;2.&nbsp;How-to </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e75">Document structure</a></span></dt><dt><span class="section"><a href="#d5e99">Document content</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e102">Rich text</a></span></dt><dt><span class="section"><a href="#d5e176">Verbatim text</a></span></dt><dt><span class="section"><a href="#d5e222">Blocks</a></span></dt><dt><span class="section"><a href="#d5e869">Definition list</a></span></dt><dt><span class="section"><a href="#d5e914">Example</a></span></dt><dt><span class="section"><a href="#d5e962">Quotation</a></span></dt><dt><span class="section"><a href="#d5e981">Modularization</a></span></dt></dl></dd></dl></div>
+  <div class="chapter" title="Chapter&nbsp;2.&nbsp;How-to"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="how-to"></a>Chapter&nbsp;2.&nbsp;How-to </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e73">Document structure</a></span></dt><dt><span class="section"><a href="#d5e97">Document content</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e100">Rich text</a></span></dt><dt><span class="section"><a href="#d5e174">Verbatim text</a></span></dt><dt><span class="section"><a href="#d5e220">Blocks</a></span></dt><dt><span class="section"><a href="#d5e867">Definition list</a></span></dt><dt><span class="section"><a href="#d5e912">Example</a></span></dt><dt><span class="section"><a href="#d5e960">Quotation</a></span></dt><dt><span class="section"><a href="#d5e979">Modularization</a></span></dt></dl></dd></dl></div>
     
     <p>Wiki concepts are naturally mapped onto docbook concepts.</p>
-    <div class="section" title="Document structure"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e75"></a>Document structure</h2></div></div></div>
+    <div class="section" title="Document structure"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e73"></a>Document structure</h2></div></div></div>
       
       <p>A book is structured into chapters and each chapter is structured into sections. A wiki document provides a syntax for creating nested sections with different levels. The book structure can naturally leverage the wiki document structure with the following rules:</p>
       <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
@@ -92,15 +89,15 @@
         <p>All wiki sections don't have to be explicitely declared, it is possible to <span class="italic">omit</span> the declaration of a section. When it occurs, implicit docbook section will be created with no title.</p>
       </div>
     </div>
-    <div class="section" title="Document content"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e99"></a>Document content</h2></div></div></div>
+    <div class="section" title="Document content"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e97"></a>Document content</h2></div></div></div>
       
       <p>The content of a book can be seen as a collection of content, each content can be categorized into blocks or rich text. Rich text can either be simple text or it can be made richer, like a word in bold. A block contains usually rich text and gives a meaning to the text, the most natural block is the paragraph.</p>
-      <div class="section" title="Rich text"><div class="titlepage"><div><div><h3 class="title"><a name="d5e102"></a>Rich text</h3></div></div></div>
+      <div class="section" title="Rich text"><div class="titlepage"><div><div><h3 class="title"><a name="d5e100"></a>Rich text</h3></div></div></div>
         
-        <div class="section" title="Emphasis"><div class="titlepage"><div><div><h4 class="title"><a name="d5e104"></a>Emphasis</h4></div></div></div>
+        <div class="section" title="Emphasis"><div class="titlepage"><div><div><h4 class="title"><a name="d5e102"></a>Emphasis</h4></div></div></div>
           
           <p>The following syntax can be used to put the emphasis for creating richtext</p>
-          <div class="table"><a name="d5e107"></a><p class="title"><b>Table&nbsp;2.1.&nbsp;Text emphasis</b></p><div class="table-contents">
+          <div class="table"><a name="d5e105"></a><p class="title"><b>Table&nbsp;2.1.&nbsp;Text emphasis</b></p><div class="table-contents">
             
             <table summary="Text emphasis" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>**bold**</td><td>
                     <span class="bold"><strong>bold</strong></span>
@@ -121,11 +118,11 @@
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
         </div>
-        <div class="section" title="Links"><div class="titlepage"><div><div><h4 class="title"><a name="d5e145"></a>Links</h4></div></div></div>
+        <div class="section" title="Links"><div class="titlepage"><div><div><h4 class="title"><a name="d5e143"></a>Links</h4></div></div></div>
           
           <p>We can distinguish two kinds of links. A link can reference a target inside the document such as an anchor or a section or it can reference an URL.</p>
           <p>The anchor macro plays an important role in internal links as it specifies the potential target of a link. Any internal link should reference a valid anchor inside the document. An anchor can be placed anywhere in text but it can also be present in a section title.</p>
-          <div class="table"><a name="d5e149"></a><p class="title"><b>Table&nbsp;2.2.&nbsp;Document links</b></p><div class="table-contents">
+          <div class="table"><a name="d5e147"></a><p class="title"><b>Table&nbsp;2.2.&nbsp;Document links</b></p><div class="table-contents">
             
             <table summary="Document links" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">= Chapter 1 {{anchor id=chapter_1 /}} =
@@ -142,17 +139,17 @@ A [[link&gt;&gt;#foo]] to an anchor {{anchor id=foo /}}</pre></div>
 </pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
-          <div class="table"><a name="d5e163"></a><p class="title"><b>Table&nbsp;2.3.&nbsp;External links</b></p><div class="table-contents">
+          <div class="table"><a name="d5e161"></a><p class="title"><b>Table&nbsp;2.3.&nbsp;External links</b></p><div class="table-contents">
             
             <table summary="External links" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>The <a class="ulink" href="http://www.foobar.com" target="_top">http://www.foobar.com</a> site</td></tr><tr><td>The <a class="ulink" href="http://www.foobar.com" target="_top">FooBar</a> site</td></tr><tr><td>Send a mail to <code class="email">&lt;<a class="email" href="mailto:foo@bar.com">foo@bar.com</a>&gt;</code>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
         </div>
       </div>
-      <div class="section" title="Verbatim text"><div class="titlepage"><div><div><h3 class="title"><a name="d5e176"></a>Verbatim text</h3></div></div></div>
+      <div class="section" title="Verbatim text"><div class="titlepage"><div><div><h3 class="title"><a name="d5e174"></a>Verbatim text</h3></div></div></div>
         
         <p>Verbatim escapes the wiki syntax and is useful for citing wiki in a wiki document. It is useful for creating document such as this documentation.</p>
-        <div class="table"><a name="d5e179"></a><p class="title"><b>Table&nbsp;2.4.&nbsp;Verbatim text</b></p><div class="table-contents">
+        <div class="table"><a name="d5e177"></a><p class="title"><b>Table&nbsp;2.4.&nbsp;Verbatim text</b></p><div class="table-contents">
           
           <table summary="Verbatim text" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">{{{[#bar]}}}</pre></div>
@@ -162,7 +159,7 @@ A [[link&gt;&gt;#foo]] to an anchor {{anchor id=foo /}}</pre></div>
                 </td></tr></tbody></table>
         </div></div><br class="table-break">
         <p>It is also possible to escape a single character with a backslash. A backslash will generate a vertatim block around the escaped char. A double back slash will produce a single backslash.</p>
-        <div class="table"><a name="d5e194"></a><p class="title"><b>Table&nbsp;2.5.&nbsp;Char escape</b></p><div class="table-contents">
+        <div class="table"><a name="d5e192"></a><p class="title"><b>Table&nbsp;2.5.&nbsp;Char escape</b></p><div class="table-contents">
           
           <table summary="Char escape" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">\[#bar\]</pre></div>
@@ -171,7 +168,7 @@ A [[link&gt;&gt;#foo]] to an anchor {{anchor id=foo /}}</pre></div>
 </pre></div>
                 </td></tr></tbody></table>
         </div></div><br class="table-break">
-        <div class="table"><a name="d5e208"></a><p class="title"><b>Table&nbsp;2.6.&nbsp;Backslash escape</b></p><div class="table-contents">
+        <div class="table"><a name="d5e206"></a><p class="title"><b>Table&nbsp;2.6.&nbsp;Backslash escape</b></p><div class="table-contents">
           
           <table summary="Backslash escape" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">\\</pre></div>
@@ -181,12 +178,12 @@ A [[link&gt;&gt;#foo]] to an anchor {{anchor id=foo /}}</pre></div>
                 </td></tr></tbody></table>
         </div></div><br class="table-break">
       </div>
-      <div class="section" title="Blocks"><div class="titlepage"><div><div><h3 class="title"><a name="d5e222"></a>Blocks</h3></div></div></div>
+      <div class="section" title="Blocks"><div class="titlepage"><div><div><h3 class="title"><a name="d5e220"></a>Blocks</h3></div></div></div>
         
-        <div class="section" title="Paragraphs"><div class="titlepage"><div><div><h4 class="title"><a name="d5e224"></a>Paragraphs</h4></div></div></div>
+        <div class="section" title="Paragraphs"><div class="titlepage"><div><div><h4 class="title"><a name="d5e222"></a>Paragraphs</h4></div></div></div>
           
           <p>Unlike docbook, wiki paragraphs are implicitely defined, the general rule is that any text content that does not contain wiki instruction is one paragraph. The wikbook system creates docbook paragraphs when it is required. The simplest example is that any content in a section is a paragraph.</p>
-          <div class="table"><a name="d5e227"></a><p class="title"><b>Table&nbsp;2.7.&nbsp;Paragraph generation</b></p><div class="table-contents">
+          <div class="table"><a name="d5e225"></a><p class="title"><b>Table&nbsp;2.7.&nbsp;Paragraph generation</b></p><div class="table-contents">
             
             <table summary="Paragraph generation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">= Chapter 1 =
@@ -215,10 +212,10 @@ The second paragraph of the section 2.</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
         </div>
-        <div class="section" title="Lists"><div class="titlepage"><div><div><h4 class="title"><a name="d5e241"></a>Lists</h4></div></div></div>
+        <div class="section" title="Lists"><div class="titlepage"><div><div><h4 class="title"><a name="d5e239"></a>Lists</h4></div></div></div>
           
           <p>It is easy to create lists in wiki syntax, whereas the docbook XML is very tedious. Several types of lists are possible such as bullet or ordered list.</p>
-          <div class="table"><a name="d5e244"></a><p class="title"><b>Table&nbsp;2.8.&nbsp;List examples</b></p><div class="table-contents">
+          <div class="table"><a name="d5e242"></a><p class="title"><b>Table&nbsp;2.8.&nbsp;List examples</b></p><div class="table-contents">
             
             <table summary="List examples" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">* item 1
@@ -298,16 +295,16 @@ The second paragraph of the section 2.</pre></div>
                 </li></ul></div>
             </li></ul></div>
         </div>
-        <div class="section" title="Tables"><div class="titlepage"><div><div><h4 class="title"><a name="d5e322"></a>Tables</h4></div></div></div>
+        <div class="section" title="Tables"><div class="titlepage"><div><div><h4 class="title"><a name="d5e320"></a>Tables</h4></div></div></div>
           
           <p>Tables are mapped to the docbook tables, here are a few examples</p>
-          <div class="table"><a name="d5e325"></a><p class="title"><b>Table&nbsp;2.9.&nbsp;Table examples</b></p><div class="table-contents">
+          <div class="table"><a name="d5e323"></a><p class="title"><b>Table&nbsp;2.9.&nbsp;Table examples</b></p><div class="table-contents">
             
             <table summary="Table examples" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">|1|2|3
 |4|5|6</pre></div>
                   </td><td>
-                    <div class="table"><a name="d5e335"></a><p class="title"><b>Table&nbsp;2.10.&nbsp;A simple table</b></p><div class="table-contents">
+                    <div class="table"><a name="d5e333"></a><p class="title"><b>Table&nbsp;2.10.&nbsp;A simple table</b></p><div class="table-contents">
                       
                       <table summary="A simple table" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tbody><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -315,7 +312,7 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint">|=1|=2|=3
 |4|5|6</pre></div>
                   </td><td>
-                    <div class="table"><a name="d5e353"></a><p class="title"><b>Table&nbsp;2.11.&nbsp;A table with a row header</b></p><div class="table-contents">
+                    <div class="table"><a name="d5e351"></a><p class="title"><b>Table&nbsp;2.11.&nbsp;A table with a row header</b></p><div class="table-contents">
                       
                       <table summary="A table with a row header" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><thead><tr><th>1</th><th>2</th><th>3</th></tr></thead><tbody><tr><td>4</td><td>5</td><td>6</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -323,7 +320,7 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint">|1|2|3
 |=4|=5|=6</pre></div>
                   </td><td>
-                    <div class="table"><a name="d5e372"></a><p class="title"><b>Table&nbsp;2.12.&nbsp;A table with a row footer</b></p><div class="table-contents">
+                    <div class="table"><a name="d5e370"></a><p class="title"><b>Table&nbsp;2.12.&nbsp;A table with a row footer</b></p><div class="table-contents">
                       
                       <table summary="A table with a row footer" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tfoot><tr><th>4</th><th>5</th><th>6</th></tr></tfoot><tbody><tr><td>1</td><td>2</td><td>3</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -332,7 +329,7 @@ The second paragraph of the section 2.</pre></div>
 |1|2|3
 |4|5|6</pre></div>
                   </td><td>
-                    <div class="table"><a name="d5e391"></a><p class="title"><b>Table&nbsp;2.13.&nbsp;The table</b></p><div class="table-contents">
+                    <div class="table"><a name="d5e389"></a><p class="title"><b>Table&nbsp;2.13.&nbsp;The table</b></p><div class="table-contents">
                       
                       <table summary="The table" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tbody><tr><td>1</td><td>2</td><td>3</td></tr><tr><td>4</td><td>5</td><td>6</td></tr></tbody></table>
                     </div></div><br class="table-break">
@@ -350,7 +347,7 @@ The second paragraph of the section 2.</pre></div>
         <div class="section" title="Groups"><div class="titlepage"><div><div><h4 class="title"><a name="group_section"></a>Groups </h4></div></div></div>
           
           <p>Groups are mostly useful for embedding complex structure inside a table. A grou is declared inside a block like (((...))).</p>
-          <div class="table"><a name="d5e413"></a><p class="title"><b>Table&nbsp;2.14.&nbsp;A list inside a table with a group block</b></p><div class="table-contents">
+          <div class="table"><a name="d5e411"></a><p class="title"><b>Table&nbsp;2.14.&nbsp;A list inside a table with a group block</b></p><div class="table-contents">
             
             <table summary="A list inside a table with a group block" border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">|(((
@@ -370,10 +367,10 @@ The second paragraph of the section 2.</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
         </div>
-        <div class="section" title="Images"><div class="titlepage"><div><div><h4 class="title"><a name="d5e433"></a>Images</h4></div></div></div>
+        <div class="section" title="Images"><div class="titlepage"><div><div><h4 class="title"><a name="d5e431"></a>Images</h4></div></div></div>
           
           <p>Simple images can be displayed by using the image syntax.</p>
-          <div class="table"><a name="d5e436"></a><p class="title"><b>Table&nbsp;2.15.&nbsp;Image example</b></p><div class="table-contents">
+          <div class="table"><a name="d5e434"></a><p class="title"><b>Table&nbsp;2.15.&nbsp;Image example</b></p><div class="table-contents">
             
             <table summary="Image example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">[[image:images/controller.png]]</pre></div>
@@ -384,7 +381,7 @@ The second paragraph of the section 2.</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
           <p>Images can naturally be inlined when some text is around the image.</p>
-          <div class="table"><a name="d5e454"></a><p class="title"><b>Table&nbsp;2.16.&nbsp;Image example</b></p><div class="table-contents">
+          <div class="table"><a name="d5e452"></a><p class="title"><b>Table&nbsp;2.16.&nbsp;Image example</b></p><div class="table-contents">
             
             <table summary="Image example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">An inline [[image:images/smallcontroller.png]] image</pre></div>
@@ -393,13 +390,13 @@ The second paragraph of the section 2.</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
           <p>Image display can be parameterized for all output but it is possible to target a specific output with a prefix. The <span class="italic">fo</span> prefix affects the PDF output and the <span class="italic">html</span> targets the HTML content. More details about docbook images parameterization can be found in the docbook <a class="ulink" href="http://www.docbook.org/tdg/en/html/imagedata.html" target="_top">imagedata</a> reference.</p>
-          <div class="table"><a name="d5e475"></a><p class="title"><b>Table&nbsp;2.17.&nbsp;Image example</b></p><div class="table-contents">
+          <div class="table"><a name="d5e473"></a><p class="title"><b>Table&nbsp;2.17.&nbsp;Image example</b></p><div class="table-contents">
             
             <table summary="Image example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">[[image:images/controller.png||title="The controller" align="center" html:scale="50" fo:width="50mm]]</pre></div>
                   </td></tr><tr><td>
                     <p>
-                      </p><div class="figure"><a name="d5e487"></a><p class="title"><b>Figure&nbsp;2.1.&nbsp;The controller</b></p><div class="figure-contents">
+                      </p><div class="figure"><a name="d5e485"></a><p class="title"><b>Figure&nbsp;2.1.&nbsp;The controller</b></p><div class="figure-contents">
                         
                         <div class="mediaobject" align="center"><img src="images/controller.png" align="middle" width="270" alt="The controller"></div>
                       </div></div><p><br class="figure-break">
@@ -407,9 +404,9 @@ The second paragraph of the section 2.</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
         </div>
-        <div class="section" title="Admonitions"><div class="titlepage"><div><div><h4 class="title"><a name="d5e494"></a>Admonitions</h4></div></div></div>
+        <div class="section" title="Admonitions"><div class="titlepage"><div><div><h4 class="title"><a name="d5e492"></a>Admonitions</h4></div></div></div>
           
-          <div class="table"><a name="d5e496"></a><p class="title"><b>Table&nbsp;2.18.&nbsp;Admonitions</b></p><div class="table-contents">
+          <div class="table"><a name="d5e494"></a><p class="title"><b>Table&nbsp;2.18.&nbsp;Admonitions</b></p><div class="table-contents">
             
             <table summary="Admonitions" border="1"><colgroup><col width="33%"><col width="33%"><col width="34%"></colgroup><tbody><tr><td>Note</td><td>{{note}}Some noticeable text{{/note}}</td><td>
                     <div class="success alert-message block-message" title="Note" style="margin-left: 0.5in; margin-right: 0.5in;"><h3 class="title">Note</h3>
@@ -434,7 +431,7 @@ The second paragraph of the section 2.</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
         </div>
-        <div class="section" title="Special blocks"><div class="titlepage"><div><div><h4 class="title"><a name="d5e530"></a>Special blocks</h4></div></div></div>
+        <div class="section" title="Special blocks"><div class="titlepage"><div><div><h4 class="title"><a name="d5e528"></a>Special blocks</h4></div></div></div>
           
           <p>A set of special blocks are available, they allow to give a special representation to the emboddied text.</p>
           <p>The <span class="italic">code</span> macro creates a docbook programlisting XML element to display anything related to code. Special features are available that makes it very powerful</p>
@@ -443,7 +440,7 @@ The second paragraph of the section 2.</pre></div>
             </li><li class="listitem">
               <p>External Java code can be embedded inside the document</p>
             </li></ul></div>
-          <div class="table"><a name="d5e540"></a><p class="title"><b>Table&nbsp;2.19.&nbsp;A sample generic code</b></p><div class="table-contents">
+          <div class="table"><a name="d5e538"></a><p class="title"><b>Table&nbsp;2.19.&nbsp;A sample generic code</b></p><div class="table-contents">
             
             <table summary="A sample generic code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">{{code}}x = x + 1;{{/code}}</pre></div>
@@ -451,7 +448,7 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint">x = x + 1;</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
-          <div class="table"><a name="d5e554"></a><p class="title"><b>Table&nbsp;2.20.&nbsp;A sample Java code</b></p><div class="table-contents">
+          <div class="table"><a name="d5e552"></a><p class="title"><b>Table&nbsp;2.20.&nbsp;A sample Java code</b></p><div class="table-contents">
             
             <table summary="A sample Java code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">{{code language=java}}x = x + 1;{{/code}}</pre></div>
@@ -459,7 +456,7 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint language-java">x = x + 1;</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
-          <div class="table"><a name="d5e568"></a><p class="title"><b>Table&nbsp;2.21.&nbsp;A sample Groovy code</b></p><div class="table-contents">
+          <div class="table"><a name="d5e566"></a><p class="title"><b>Table&nbsp;2.21.&nbsp;A sample Groovy code</b></p><div class="table-contents">
             
             <table summary="A sample Groovy code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">{{code language=groovy}}x = x + 2;{{/code}}</pre></div>
@@ -467,7 +464,7 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint language-java">x = x + 2;</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
-          <div class="table"><a name="d5e582"></a><p class="title"><b>Table&nbsp;2.22.&nbsp;A sample XML code</b></p><div class="table-contents">
+          <div class="table"><a name="d5e580"></a><p class="title"><b>Table&nbsp;2.22.&nbsp;A sample XML code</b></p><div class="table-contents">
             
             <table summary="A sample XML code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">{{code language=xml}}&lt;valid/&gt;{{/code}}</pre></div>
@@ -475,7 +472,7 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint language-xml">&lt;valid/&gt;</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
-          <div class="table"><a name="d5e596"></a><p class="title"><b>Table&nbsp;2.23.&nbsp;A sample code from a file</b></p><div class="table-contents">
+          <div class="table"><a name="d5e594"></a><p class="title"><b>Table&nbsp;2.23.&nbsp;A sample code from a file</b></p><div class="table-contents">
             
             <table summary="A sample code from a file" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                     <div class="programlistingco"><pre class="prettyprint">{{code language=java href="org/wikbook/A.java"/}}{{/code}}</pre></div>
@@ -483,12 +480,12 @@ The second paragraph of the section 2.</pre></div>
                     <div class="programlistingco"><pre class="prettyprint language-java">// Content of the A.java file</pre></div>
                   </td></tr></tbody></table>
           </div></div><br class="table-break">
-          <div class="section" title="Java code"><div class="titlepage"><div><div><h5 class="title"><a name="d5e610"></a>Java code</h5></div></div></div>
+          <div class="section" title="Java code"><div class="titlepage"><div><div><h5 class="title"><a name="d5e608"></a>Java code</h5></div></div></div>
             
-            <div class="section" title="Declaring a code section"><div class="titlepage"><div><div><h6 class="title"><a name="d5e612"></a>Declaring a code section</h6></div></div></div>
+            <div class="section" title="Declaring a code section"><div class="titlepage"><div><div><h6 class="title"><a name="d5e610"></a>Declaring a code section</h6></div></div></div>
               
               <p>Code section can be declared with the generic <code class="code">code</code> macro with the language attribute set to <span class="italic">java</span>. To make it shorter, the <code class="code">java</code> macro can be used directly.</p>
-              <div class="table"><a name="d5e618"></a><p class="title"><b>Table&nbsp;2.24.&nbsp;Java code</b></p><div class="table-contents">
+              <div class="table"><a name="d5e616"></a><p class="title"><b>Table&nbsp;2.24.&nbsp;Java code</b></p><div class="table-contents">
                 
                 <table summary="Java code" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{java}}x = x + 1;{{/java}}</pre></div>
@@ -501,7 +498,7 @@ The second paragraph of the section 2.</pre></div>
               
               <p>Wikbook has a special integration with Java project allowing to cite Java code inside the documentation from the existing source code. This feature requires the code source and binary to be available when Wikbook compiles the wikbook sources, the integration inside a Maven build is trivial and is covered in the <a class="xref" href="#maven_code_citation_section" title="Integration of code block citation">the section called &#8220;Integration of code block citation &#8221;</a>.</p>
               <p>The syntax is taken from the Javadoc syntax that allows to create reference to code elements via the {@link ref} where ref is a reference to a code element such as a class, a method or a field.</p>
-              <div class="table"><a name="d5e637"></a><p class="title"><b>Table&nbsp;2.25.&nbsp;A class citation</b></p><div class="table-contents">
+              <div class="table"><a name="d5e635"></a><p class="title"><b>Table&nbsp;2.25.&nbsp;A class citation</b></p><div class="table-contents">
                 
                 <table summary="A class citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{code language=java}}{@include org.wikbook.doc.AnObject}{{/code}}</pre></div>
@@ -537,7 +534,7 @@ The second paragraph of the section 2.</pre></div>
 }</pre></div>
                       </td></tr></tbody></table>
               </div></div><br class="table-break">
-              <div class="table"><a name="d5e651"></a><p class="title"><b>Table&nbsp;2.26.&nbsp;A inner class citation</b></p><div class="table-contents">
+              <div class="table"><a name="d5e649"></a><p class="title"><b>Table&nbsp;2.26.&nbsp;A inner class citation</b></p><div class="table-contents">
                 
                 <table summary="A inner class citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{code language=java}}{@include org.wikbook.doc.AnObject.Inner}{{/code}}</pre></div>
@@ -548,7 +545,7 @@ The second paragraph of the section 2.</pre></div>
                       </td></tr></tbody></table>
               </div></div><br class="table-break">
               <p>Citing an whole class is often cumbersome and Wikbook gives the capability to cite class members, i.e methods or fields.</p>
-              <div class="table"><a name="d5e666"></a><p class="title"><b>Table&nbsp;2.27.&nbsp;A method citation</b></p><div class="table-contents">
+              <div class="table"><a name="d5e664"></a><p class="title"><b>Table&nbsp;2.27.&nbsp;A method citation</b></p><div class="table-contents">
                 
                 <table summary="A method citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{code language=java}}{@include org.wikbook.doc.AnObject#foo(java.lang.String)}{{/code}}</pre></div>
@@ -561,14 +558,14 @@ The second paragraph of the section 2.</pre></div>
               </div></div><br class="table-break">
               <p>Going farther is even possible thanks to the code block citation feature. First let's define the notion of code block. A code block is a block of code inside a method that begins with a special comment like <code class="code">// -1-</code> and terminates with a blank line or the end of the method, the number indicating a reference that can be used within an include instruction:</p>
               <p>
-                </p><div class="example"><a name="d5e683"></a><p class="title"><b>Example&nbsp;2.1.&nbsp;A code block</b></p><div class="example-contents">
+                </p><div class="example"><a name="d5e681"></a><p class="title"><b>Example&nbsp;2.1.&nbsp;A code block</b></p><div class="example-contents">
                   
                   <div class="programlistingco"><pre class="prettyprint">// -1-
 int a = 0;</pre></div>
                 </div></div><p><br class="example-break">
               </p>
               <p>Code blocks can be cited by adding a curly brace list of the blocks to cite inside an include instruction.</p>
-              <div class="table"><a name="d5e689"></a><p class="title"><b>Table&nbsp;2.28.&nbsp;A block code citation</b></p><div class="table-contents">
+              <div class="table"><a name="d5e687"></a><p class="title"><b>Table&nbsp;2.28.&nbsp;A block code citation</b></p><div class="table-contents">
                 
                 <table summary="A block code citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{code language=java}}{@include org.wikbook.doc.AnObject#foo() {1}}{{/code}}</pre></div>
@@ -583,7 +580,7 @@ int a = 0;</pre></div>
                       </td></tr></tbody></table>
               </div></div><br class="table-break">
               <p>Code block citations can be combined</p>
-              <div class="table"><a name="d5e704"></a><p class="title"><b>Table&nbsp;2.29.&nbsp;A block code citation</b></p><div class="table-contents">
+              <div class="table"><a name="d5e702"></a><p class="title"><b>Table&nbsp;2.29.&nbsp;A block code citation</b></p><div class="table-contents">
                 
                 <table summary="A block code citation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{code language=java}}{@include org.wikbook.doc.AnObject#foo() {1,2}}{{/code}}</pre></div>
@@ -603,13 +600,13 @@ int a = 0;</pre></div>
               <p>Code block citation never cites the method declaration itself.</p>
             </div>
           </div>
-          <div class="section" title="XML code"><div class="titlepage"><div><div><h5 class="title"><a name="d5e719"></a>XML code</h5></div></div></div>
+          <div class="section" title="XML code"><div class="titlepage"><div><div><h5 class="title"><a name="d5e717"></a>XML code</h5></div></div></div>
             
             <p>Code section can be declared with the generic <code class="code">code</code> macro with the language attribute set to <span class="italic">xml</span>. To make it shorter the <code class="code">xml</code> macro can be used directly.</p>
-            <div class="section" title="XML code reformat"><div class="titlepage"><div><div><h6 class="title"><a name="d5e725"></a>XML code reformat</h6></div></div></div>
+            <div class="section" title="XML code reformat"><div class="titlepage"><div><div><h6 class="title"><a name="d5e723"></a>XML code reformat</h6></div></div></div>
               
               <p>XML code is formatted when the <span class="italic">indent</span> macro attribute with a valid value.</p>
-              <div class="table"><a name="d5e729"></a><p class="title"><b>Table&nbsp;2.30.&nbsp;XML pretty printed</b></p><div class="table-contents">
+              <div class="table"><a name="d5e727"></a><p class="title"><b>Table&nbsp;2.30.&nbsp;XML pretty printed</b></p><div class="table-contents">
                 
                 <table summary="XML pretty printed" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{code language=xml indent=2}}
@@ -632,7 +629,7 @@ int a = 0;</pre></div>
             <div class="section" title="XML inclusion"><div class="titlepage"><div><div><h6 class="title"><a name="xml_code_inclusion_section"></a>XML inclusion </h6></div></div></div>
               
               <p>Like Java code citation, Wikbook can also include XML documents. The same kind of integration is available with Maven explained in the <a class="xref" href="#maven_code_citation_section" title="Integration of code block citation">the section called &#8220;Integration of code block citation &#8221;</a>. The syntax uses a special implicitely declared namespace, mapped to the <code class="code">wikbook</code> prefix.</p>
-              <div class="table"><a name="d5e750"></a><p class="title"><b>Table&nbsp;2.31.&nbsp;XML inclusion</b></p><div class="table-contents">
+              <div class="table"><a name="d5e748"></a><p class="title"><b>Table&nbsp;2.31.&nbsp;XML inclusion</b></p><div class="table-contents">
                 
                 <table summary="XML inclusion" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{xml}}&lt;wikbook:include href="document.xml"/&gt;{{/xml}}</pre></div>
@@ -643,7 +640,7 @@ int a = 0;</pre></div>
                       </td></tr></tbody></table>
               </div></div><br class="table-break">
               <p>The inclusion can be combined with an xpath attribute to select a fragment of the included document.</p>
-              <div class="table"><a name="d5e765"></a><p class="title"><b>Table&nbsp;2.32.&nbsp;XML inclusion</b></p><div class="table-contents">
+              <div class="table"><a name="d5e763"></a><p class="title"><b>Table&nbsp;2.32.&nbsp;XML inclusion</b></p><div class="table-contents">
                 
                 <table summary="XML inclusion" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                         <div class="programlistingco"><pre class="prettyprint">{{xml}}&lt;wikbook:include href="document.xml" xpath="//bar"/&gt;{{/xml}}</pre></div>
@@ -656,10 +653,10 @@ int a = 0;</pre></div>
               </div>
             </div>
           </div>
-          <div class="section" title="Screen output"><div class="titlepage"><div><div><h5 class="title"><a name="d5e781"></a>Screen output</h5></div></div></div>
+          <div class="section" title="Screen output"><div class="titlepage"><div><div><h5 class="title"><a name="d5e779"></a>Screen output</h5></div></div></div>
             
             <p>The <span class="italic">screen</span> macro creates a docbook screen XML element to display anything related to the computer screen:</p>
-            <div class="table"><a name="d5e785"></a><p class="title"><b>Table&nbsp;2.33.&nbsp;A screen example</b></p><div class="table-contents">
+            <div class="table"><a name="d5e783"></a><p class="title"><b>Table&nbsp;2.33.&nbsp;A screen example</b></p><div class="table-contents">
               
               <table summary="A screen example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                       <div class="programlistingco"><pre class="prettyprint">{{screen}}
@@ -680,10 +677,10 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                     </td></tr></tbody></table>
             </div></div><br class="table-break">
           </div>
-          <div class="section" title="Callouts"><div class="titlepage"><div><div><h5 class="title"><a name="d5e797"></a>Callouts</h5></div></div></div>
+          <div class="section" title="Callouts"><div class="titlepage"><div><div><h5 class="title"><a name="d5e795"></a>Callouts</h5></div></div></div>
             
             <p>Callouts are useful for creating a set of references that refers to the code source. At the moment they are only available for Java<sup>tm</sup> language. A callout is declared inside a code block using comments in special format.</p>
-            <div class="table"><a name="d5e801"></a><p class="title"><b>Table&nbsp;2.34.&nbsp;A simple callout</b></p><div class="table-contents">
+            <div class="table"><a name="d5e799"></a><p class="title"><b>Table&nbsp;2.34.&nbsp;A simple callout</b></p><div class="table-contents">
               
               <table summary="A simple callout" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                       <div class="programlistingco"><pre class="prettyprint">{{code language=java}}public void foo()
@@ -694,7 +691,7 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                     </td></tr><tr><td>
                       <div class="programlistingco"><pre class="prettyprint language-java">public void foo()
 {
-   System.out.println("This is going to the output"); <span class="co" id="1181466300554673967-co"><img src="images/callouts/1.png" alt="(1)"></span> 
+   System.out.println("This is going to the output"); <span class="co" id="8302381098314447296-co"><img src="images/callouts/1.png" alt="(1)"></span> 
 }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/1.png" alt="1" border="0"></p></td><td valign="top" align="left">
                             <p>A callout</p>
                           </td></tr></table></div></div>
@@ -702,7 +699,7 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
             </div></div><br class="table-break">
             <p>The syntax use angle brackets like <span class="bold"><strong> &lt;1&gt; </strong></span> to define a callout because visually it is very similar to a callout bug. The value inside the brackets must be a number or it can be empty. The callout list will use this numbering to sort the callouts.</p>
             <p>Most of the time it is not necessary to declare a number and the callout index can be empty. In that case, it uses a number that is greater than the previous index and lower than the next one. Eventually it is possible to use only empty callout, it is displayed in the definition order.</p>
-            <div class="table"><a name="d5e822"></a><p class="title"><b>Table&nbsp;2.35.&nbsp;Anonymous callouts</b></p><div class="table-contents">
+            <div class="table"><a name="d5e820"></a><p class="title"><b>Table&nbsp;2.35.&nbsp;Anonymous callouts</b></p><div class="table-contents">
               
               <table summary="Anonymous callouts" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                       <div class="programlistingco"><pre class="prettyprint">{{code language=java}}public void foo()
@@ -716,10 +713,10 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                     </td></tr><tr><td>
                       <div class="programlistingco"><pre class="prettyprint language-java">public void foo()
 {
-   System.out.println("This is going to the output"); <span class="co" id="6571765895636427790-co"><img src="images/callouts/1.png" alt="(1)"></span> 
-   System.out.println("This is going to the output"); <span class="co" id="6587370444238484839-co"><img src="images/callouts/2.png" alt="(2)"></span> 
-   System.out.println("This is going to the output"); <span class="co" id="6688381627851592167-co"><img src="images/callouts/4.png" alt="(4)"></span> 
-   System.out.println("This is going to the output"); <span class="co" id="995530484892523663-co"><img src="images/callouts/3.png" alt="(3)"></span> 
+   System.out.println("This is going to the output"); <span class="co" id="7296242463233107751-co"><img src="images/callouts/1.png" alt="(1)"></span> 
+   System.out.println("This is going to the output"); <span class="co" id="934162682106483299-co"><img src="images/callouts/2.png" alt="(2)"></span> 
+   System.out.println("This is going to the output"); <span class="co" id="1296281689035262084-co"><img src="images/callouts/4.png" alt="(4)"></span> 
+   System.out.println("This is going to the output"); <span class="co" id="5159461074749651583-co"><img src="images/callouts/3.png" alt="(3)"></span> 
 }</pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/1.png" alt="1" border="0"></p></td><td valign="top" align="left">
                             <p>Callout 1</p>
                           </td></tr><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/2.png" alt="2" border="0"></p></td><td valign="top" align="left">
@@ -732,7 +729,7 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                     </td></tr></tbody></table>
             </div></div><br class="table-break">
             <p>Callout anchor don't have to be mixed inside the text, a simple declaration without any text will just create an anchor. Somewhere else in the code block, the callout text can be declared by adding an equal sign between the right angle bracket and the text. As a consequence, several lines can be referenced with the same callout.</p>
-            <div class="table"><a name="d5e850"></a><p class="title"><b>Table&nbsp;2.36.&nbsp;A callout anchor and its text</b></p><div class="table-contents">
+            <div class="table"><a name="d5e848"></a><p class="title"><b>Table&nbsp;2.36.&nbsp;A callout anchor and its text</b></p><div class="table-contents">
               
               <table summary="A callout anchor and its text" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                       <div class="programlistingco"><pre class="prettyprint">{{code language=java}}public void foo()
@@ -745,8 +742,8 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                     </td></tr><tr><td>
                       <div class="programlistingco"><pre class="prettyprint language-java">public void foo()
 {
-   int a = 0; <span class="co" id="3767966731647661822-co"><img src="images/callouts/1.png" alt="(1)"></span> 
-   int b = 0; <span class="co" id="1386853754472890295-co"><img src="images/callouts/2.png" alt="(2)"></span> 
+   int a = 0; <span class="co" id="5034532629335035944-co"><img src="images/callouts/1.png" alt="(1)"></span> 
+   int b = 0; <span class="co" id="7474572516784350429-co"><img src="images/callouts/2.png" alt="(2)"></span> 
 }
 </pre><div class="calloutlist"><table border="0" summary="Callout list"><tr><td width="5%" valign="top" align="left"><p><img src="images/callouts/1.png" alt="1" border="0"><img src="images/callouts/2.png" alt="2" border="0"></p></td><td valign="top" align="left">
                             <p>An assignment</p>
@@ -756,10 +753,10 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
           </div>
         </div>
       </div>
-      <div class="section" title="Definition list"><div class="titlepage"><div><div><h3 class="title"><a name="d5e869"></a>Definition list</h3></div></div></div>
+      <div class="section" title="Definition list"><div class="titlepage"><div><div><h3 class="title"><a name="d5e867"></a>Definition list</h3></div></div></div>
         
         <p>Wiki definition lists are managed as docbook variable lists.</p>
-        <div class="table"><a name="d5e872"></a><p class="title"><b>Table&nbsp;2.37.&nbsp;Definition lists</b></p><div class="table-contents">
+        <div class="table"><a name="d5e870"></a><p class="title"><b>Table&nbsp;2.37.&nbsp;Definition lists</b></p><div class="table-contents">
           
           <table summary="Definition lists" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">; term
@@ -803,10 +800,10 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                 </td></tr></tbody></table>
         </div>
       </div>
-      <div class="section" title="Example"><div class="titlepage"><div><div><h3 class="title"><a name="d5e914"></a>Example</h3></div></div></div>
+      <div class="section" title="Example"><div class="titlepage"><div><div><h3 class="title"><a name="d5e912"></a>Example</h3></div></div></div>
         
         <p>Docbook defines a tag for creating examples. It gives the capability to give the example a title. Most importantly it generates a list of all examples in the book.</p>
-        <div class="table"><a name="d5e917"></a><p class="title"><b>Table&nbsp;2.38.&nbsp;An example</b></p><div class="table-contents">
+        <div class="table"><a name="d5e915"></a><p class="title"><b>Table&nbsp;2.38.&nbsp;An example</b></p><div class="table-contents">
           
           <table summary="An example" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">{{example}}an example{{/example}}</pre></div>
@@ -830,13 +827,13 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                 </td></tr></tbody></table>
         </div>
         <p>The example macro can easily be combined, for instance a code example can be created by combining the example and code macros.</p>
-        <div class="table"><a name="d5e945"></a><p class="title"><b>Table&nbsp;2.39.&nbsp;A code example combining the example and code macros</b></p><div class="table-contents">
+        <div class="table"><a name="d5e943"></a><p class="title"><b>Table&nbsp;2.39.&nbsp;A code example combining the example and code macros</b></p><div class="table-contents">
           
           <table summary="A code example combining the example and code macros" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">{{example title="increment x"}}{{code}}x = x + 1;{{/code}}{{/example}}</pre></div>
                 </td></tr><tr><td>
                   <p>
-                    </p><div class="example"><a name="d5e957"></a><p class="title"><b>Example&nbsp;2.2.&nbsp;increment x</b></p><div class="example-contents">
+                    </p><div class="example"><a name="d5e955"></a><p class="title"><b>Example&nbsp;2.2.&nbsp;increment x</b></p><div class="example-contents">
                       
                       <div class="programlistingco"><pre class="prettyprint">x = x + 1;</pre></div>
                     </div></div><p><br class="example-break">
@@ -844,10 +841,10 @@ drwxr-xr-x  5 julien  staff   170 Apr 26 18:46 target
                 </td></tr></tbody></table>
         </div></div><br class="table-break">
       </div>
-      <div class="section" title="Quotation"><div class="titlepage"><div><div><h3 class="title"><a name="d5e962"></a>Quotation</h3></div></div></div>
+      <div class="section" title="Quotation"><div class="titlepage"><div><div><h3 class="title"><a name="d5e960"></a>Quotation</h3></div></div></div>
         
         <p>Quotation generates a set of DocBook blockquote structure. </p>
-        <div class="table"><a name="d5e965"></a><p class="title"><b>Table&nbsp;2.40.&nbsp;Quotation</b></p><div class="table-contents">
+        <div class="table"><a name="d5e963"></a><p class="title"><b>Table&nbsp;2.40.&nbsp;Quotation</b></p><div class="table-contents">
           
           <table summary="Quotation" border="1"><colgroup><col width="100%"></colgroup><tbody><tr><td>
                   <div class="programlistingco"><pre class="prettyprint">&gt;John said this
@@ -864,11 +861,11 @@ I said ok</pre></div>
                 </td></tr></tbody></table>
         </div></div><br class="table-break">
       </div>
-      <div class="section" title="Modularization"><div class="titlepage"><div><div><h3 class="title"><a name="d5e981"></a>Modularization</h3></div></div></div>
+      <div class="section" title="Modularization"><div class="titlepage"><div><div><h3 class="title"><a name="d5e979"></a>Modularization</h3></div></div></div>
         
         <p>The <span class="italic">include</span> macro is a good way to provide modularization of a complex document.</p>
         <p>
-          </p><div class="example"><a name="d5e986"></a><p class="title"><b>Example&nbsp;2.3.&nbsp;Document embedding</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e984"></a><p class="title"><b>Example&nbsp;2.3.&nbsp;Document embedding</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint">{{include document="embedded.wiki" /}}</pre></div>
           </div></div><p><br class="example-break">
@@ -879,22 +876,22 @@ I said ok</pre></div>
       </div>
     </div>
   </div>
-  <div class="chapter" title="Chapter&nbsp;3.&nbsp;Project integration"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="integration"></a>Chapter&nbsp;3.&nbsp;Project integration </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e996">Java<sup>tm</sup> code embedding</a></span></dt><dt><span class="section"><a href="#d5e1002">Maven integration</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1005">The Maven Wikbook plugin</a></span></dt><dt><span class="section"><a href="#d5e1128">The Maven transformation plugins</a></span></dt><dt><span class="section"><a href="#d5e1139">The Maven Wikbook archetype</a></span></dt><dt><span class="section"><a href="#maven_code_citation_section">Integration of code block citation </a></span></dt></dl></dd></dl></div>
+  <div class="chapter" title="Chapter&nbsp;3.&nbsp;Project integration"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="integration"></a>Chapter&nbsp;3.&nbsp;Project integration </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e994">Java<sup>tm</sup> code embedding</a></span></dt><dt><span class="section"><a href="#d5e1000">Maven integration</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1003">The Maven Wikbook plugin</a></span></dt><dt><span class="section"><a href="#d5e1126">The Maven transformation plugins</a></span></dt><dt><span class="section"><a href="#d5e1137">The Maven Wikbook archetype</a></span></dt><dt><span class="section"><a href="#maven_code_citation_section">Integration of code block citation </a></span></dt></dl></dd></dl></div>
     
     <p>This chapter focuses on the integration of the documentation with the project it documents.</p>
-    <div class="section" title="Javatm code embedding"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e996"></a>Java<sup>tm</sup> code embedding</h2></div></div></div>
+    <div class="section" title="Javatm code embedding"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e994"></a>Java<sup>tm</sup> code embedding</h2></div></div></div>
       
       <p>Wikbook allows to embbed Java<sup>tm</sup> source code inside the documentation. It is very powerful when it comes to explain a tutorial or to explain an API.</p>
       <p>todo</p>
     </div>
-    <div class="section" title="Maven integration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1002"></a>Maven integration</h2></div></div></div>
+    <div class="section" title="Maven integration"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1000"></a>Maven integration</h2></div></div></div>
       
       <p>The Maven Wikbook plugin converts wiki document to a Docbook document. In order to produce final consumable documents (PDF, HTML), the Docbook document must be converted to new documents, this process is usually done via an XSL stylesheet that takes the Docbook document and transforms it.</p>
-      <div class="section" title="The Maven Wikbook plugin"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1005"></a>The Maven Wikbook plugin</h3></div></div></div>
+      <div class="section" title="The Maven Wikbook plugin"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1003"></a>The Maven Wikbook plugin</h3></div></div></div>
         
         <p>The Maven Wikbook plugin focus on transforming the Wiki content into a compliant DocBook XML document.</p>
         <p>
-          </p><div class="example"><a name="d5e1009"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Example of Wikbook Maven plugin</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1007"></a><p class="title"><b>Example&nbsp;3.1.&nbsp;Example of Wikbook Maven plugin</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-xml">&lt;plugin&gt;
   &lt;groupId&gt;org.wikbook&lt;/groupId&gt;
@@ -918,7 +915,7 @@ I said ok</pre></div>
 </pre></div>
           </div></div><p><br class="example-break">
         </p>
-        <div class="section" title="Source directory"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1014"></a>Source directory</h4></div></div></div>
+        <div class="section" title="Source directory"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1012"></a>Source directory</h4></div></div></div>
           
           <p>Specify the source directory where to find the wiki files:</p>
           <p>
@@ -931,7 +928,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Extra source directory"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1022"></a>Extra source directory</h4></div></div></div>
+        <div class="section" title="Extra source directory"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1020"></a>Extra source directory</h4></div></div></div>
           
           <p>Like source directory but an extra one:</p>
           <p>
@@ -944,7 +941,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Source file name"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1030"></a>Source file name</h4></div></div></div>
+        <div class="section" title="Source file name"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1028"></a>Source file name</h4></div></div></div>
           
           <p>Specify the file name of the root wiki file of the source to transform:</p>
           <p>
@@ -957,7 +954,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Destination directory"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1038"></a>Destination directory</h4></div></div></div>
+        <div class="section" title="Destination directory"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1036"></a>Destination directory</h4></div></div></div>
           
           <p>Specify the destination directory where Wikbook will create the corresponding Docbook XML:</p>
           <p>
@@ -970,7 +967,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Destination file name"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1046"></a>Destination file name</h4></div></div></div>
+        <div class="section" title="Destination file name"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1044"></a>Destination file name</h4></div></div></div>
           
           <p>Specify the file name of the produced Docbook XML document:</p>
           <p>
@@ -983,7 +980,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Emit doctype"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1054"></a>Emit doctype</h4></div></div></div>
+        <div class="section" title="Emit doctype"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1052"></a>Emit doctype</h4></div></div></div>
           
           <p>Emit or not the doctype of the Docbook XML document, the default value is <code class="code">true</code>:</p>
           <p>
@@ -996,7 +993,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Validation mode"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1063"></a>Validation mode</h4></div></div></div>
+        <div class="section" title="Validation mode"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1061"></a>Validation mode</h4></div></div></div>
           
           <p>Controls how Wikbook reacts when a parse error is found, the possible values are</p>
           <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
@@ -1017,7 +1014,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Before book body XML"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1080"></a>Before book body  XML</h4></div></div></div>
+        <div class="section" title="Before book body XML"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1078"></a>Before book body  XML</h4></div></div></div>
           
           <p>A literal declaration of XML prepended to the book body, useful to include a cover page for instance:</p>
           <p>
@@ -1033,7 +1030,7 @@ I said ok</pre></div>
             <p>The XML should be escape with CDATA to avoid confusion with the Maven pom XML file.</p>
           </div>
         </div>
-        <div class="section" title="After book body XML"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1090"></a>After book body  XML</h4></div></div></div>
+        <div class="section" title="After book body XML"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1088"></a>After book body  XML</h4></div></div></div>
           
           <p>A literal declaration of XML appended to the book body:</p>
           <p>
@@ -1046,7 +1043,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Syntax identifier"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1098"></a>Syntax identifier</h4></div></div></div>
+        <div class="section" title="Syntax identifier"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1096"></a>Syntax identifier</h4></div></div></div>
           
           <p>Specify the syntax of the root file as Wikbook cannot guess it. When it is not specified, the <span class="italic">xwiki</span> syntax is used.</p>
           <p>
@@ -1059,7 +1056,7 @@ I said ok</pre></div>
             </div><p>
           </p>
         </div>
-        <div class="section" title="Charset configuration"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1107"></a>Charset configuration</h4></div></div></div>
+        <div class="section" title="Charset configuration"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1105"></a>Charset configuration</h4></div></div></div>
           
           <p>The charset configuration is used when loading the wiki files, the charset must be a charset recognized by the Java Virtual Machine executing the plugin.</p>
           <p>
@@ -1071,7 +1068,7 @@ I said ok</pre></div>
 &lt;/configuration&gt;</pre></div>
             </div><p>
           </p>
-          <div class="section" title="Book identifier"><div class="titlepage"><div><div><h5 class="title"><a name="d5e1115"></a>Book identifier</h5></div></div></div>
+          <div class="section" title="Book identifier"><div class="titlepage"><div><div><h5 class="title"><a name="d5e1113"></a>Book identifier</h5></div></div></div>
             
             <p>The book identifier configuration is used to define the identifier of a book and produce docbook XML. For instance the plugin configuration:</p>
             <p>
@@ -1089,7 +1086,7 @@ I said ok</pre></div>
           </div>
         </div>
       </div>
-      <div class="section" title="The Maven transformation plugins"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1128"></a>The Maven transformation plugins</h3></div></div></div>
+      <div class="section" title="The Maven transformation plugins"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1126"></a>The Maven transformation plugins</h3></div></div></div>
         
         <p>A transformation plugin plays an important role in the documentation generation because it takes the docbook generated  by wikbook and transforms it into the real documentation. There are at least two plugins that provides this functionnality:</p>
         <div class="itemizedlist"><ul class="itemizedlist" type="disc"><li class="listitem">
@@ -1099,11 +1096,11 @@ I said ok</pre></div>
           </li></ul></div>
         <p>Configuration of these plugins is not covered in this guide, however each of them contain a fairly good documentation, both are comparable in term of feature and can generate the main formats like HTML or PDF.</p>
       </div>
-      <div class="section" title="The Maven Wikbook archetype"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1139"></a>The Maven Wikbook archetype</h3></div></div></div>
+      <div class="section" title="The Maven Wikbook archetype"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1137"></a>The Maven Wikbook archetype</h3></div></div></div>
         
         <p>The Wikbook archetype creates a Wikbook module that contains a basic documentation and its POM contains the plugin configuration to generate HTML and PDF formats. Its usage is very simple:</p>
         <p>
-          </p><div class="example"><a name="d5e1143"></a><p class="title"><b>Example&nbsp;3.2.&nbsp;Wikbook archetype usage</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1141"></a><p class="title"><b>Example&nbsp;3.2.&nbsp;Wikbook archetype usage</b></p><div class="example-contents">
             
             <pre class="screen">&gt;mvn archetype:generate \
   -DarchetypeGroupId=org.wikbook \
@@ -1118,11 +1115,11 @@ I said ok</pre></div>
       <div class="section" title="Integration of code block citation"><div class="titlepage"><div><div><h3 class="title"><a name="maven_code_citation_section"></a>Integration of code block citation </h3></div></div></div>
         
         <p>We have covered how code can be cited in the <a class="xref" href="#java_code_citation_section" title="Java code citation">the section called &#8220;Java code citation &#8221;</a> and the <a class="xref" href="#xml_code_inclusion_section" title="XML inclusion">the section called &#8220;XML inclusion &#8221;</a>. Inside a Maven project, the Wikbook plugin requires access to the dependencies containing the code, source and binaries.</p>
-        <div class="section" title="Producing the source dependencies"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1152"></a>Producing the source dependencies</h4></div></div></div>
+        <div class="section" title="Producing the source dependencies"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1150"></a>Producing the source dependencies</h4></div></div></div>
           
           <p>By default Maven does not create source code artifacts, however the <span class="italic">maven-source-plugin</span> does. Here is an example of the plugin configuration that can be added to a project to activate the generation of the source code artifact along with the compiled code artifact:</p>
           <p>
-            </p><div class="example"><a name="d5e1157"></a><p class="title"><b>Example&nbsp;3.3.&nbsp;Configuration of the maven-source-plugin</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1155"></a><p class="title"><b>Example&nbsp;3.3.&nbsp;Configuration of the maven-source-plugin</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint language-xml">&lt;plugin&gt;
   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -1140,11 +1137,11 @@ I said ok</pre></div>
             </div></div><p><br class="example-break">
           </p>
         </div>
-        <div class="section" title="Declaring the right dependency"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1162"></a>Declaring the right dependency</h4></div></div></div>
+        <div class="section" title="Declaring the right dependency"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1160"></a>Declaring the right dependency</h4></div></div></div>
           
           <p>The source code artifact needs to be declared as a dependency of the Maven module processing the Wikbook document:</p>
           <p>
-            </p><div class="example"><a name="d5e1166"></a><p class="title"><b>Example&nbsp;3.4.&nbsp;Declaring the right dependency</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1164"></a><p class="title"><b>Example&nbsp;3.4.&nbsp;Declaring the right dependency</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint language-xml">&lt;!-- Declares a dependency on the code --&gt;
 &lt;dependency&gt;
@@ -1166,14 +1163,14 @@ I said ok</pre></div>
       </div>
     </div>
   </div>
-  <div class="chapter" title="Chapter&nbsp;4.&nbsp;Generation"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="generation"></a>Chapter&nbsp;4.&nbsp;Generation </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e1173">Setup</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1175">Create your processing module</a></span></dt><dt><span class="section"><a href="#d5e1184">Create your processor</a></span></dt><dt><span class="section"><a href="#d5e1208">Enable processing with service</a></span></dt><dt><span class="section"><a href="#d5e1218">Create your template</a></span></dt><dt><span class="section"><a href="#d5e1221">Package template with classifier</a></span></dt><dt><span class="section"><a href="#d5e1230">Generate !</a></span></dt></dl></dd><dt><span class="section"><a href="#d5e1249">Templates</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1254">Root elements</a></span></dt><dt><span class="section"><a href="#d5e1257">Annotation name</a></span></dt><dt><span class="section"><a href="#d5e1284">Element name</a></span></dt><dt><span class="section"><a href="#d5e1357">Type</a></span></dt><dt><span class="section"><a href="#d5e1486">Javadoc</a></span></dt><dt><span class="section"><a href="#d5e1644">Browse children</a></span></dt><dt><span class="section"><a href="#d5e1671">Get sibling</a></span></dt><dt><span class="section"><a href="#d5e1699">Get attributes</a></span></dt><dt><span class="section"><a href="#d5e1799">Browse package</a></span></dt><dt><span class="section"><a href="#d5e1832">Full sample</a></span></dt></dl></dd></dl></div>
+  <div class="chapter" title="Chapter&nbsp;4.&nbsp;Generation"><div class="titlepage"><div><div><div xmlns:d="http://docbook.org/ns/docbook" class="page-header"><h1><a name="generation"></a>Chapter&nbsp;4.&nbsp;Generation </h1></div></div></div></div><div class="toc"><p><b>Table of Contents</b></p><dl><dt><span class="section"><a href="#d5e1171">Setup</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1173">Create your processing module</a></span></dt><dt><span class="section"><a href="#d5e1182">Create your processor</a></span></dt><dt><span class="section"><a href="#d5e1206">Enable processing with service</a></span></dt><dt><span class="section"><a href="#d5e1216">Create your template</a></span></dt><dt><span class="section"><a href="#d5e1219">Package template with classifier</a></span></dt><dt><span class="section"><a href="#d5e1228">Generate !</a></span></dt></dl></dd><dt><span class="section"><a href="#d5e1247">Templates</a></span></dt><dd><dl><dt><span class="section"><a href="#d5e1252">Root elements</a></span></dt><dt><span class="section"><a href="#d5e1255">Annotation name</a></span></dt><dt><span class="section"><a href="#d5e1282">Element name</a></span></dt><dt><span class="section"><a href="#d5e1355">Type</a></span></dt><dt><span class="section"><a href="#d5e1484">Javadoc</a></span></dt><dt><span class="section"><a href="#d5e1642">Browse children</a></span></dt><dt><span class="section"><a href="#d5e1669">Get sibling</a></span></dt><dt><span class="section"><a href="#d5e1697">Get attributes</a></span></dt><dt><span class="section"><a href="#d5e1797">Browse package</a></span></dt><dt><span class="section"><a href="#d5e1830">Full sample</a></span></dt></dl></dd></dl></div>
     
-    <div class="section" title="Setup"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1173"></a>Setup</h2></div></div></div>
+    <div class="section" title="Setup"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1171"></a>Setup</h2></div></div></div>
       
-      <div class="section" title="Create your processing module"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1175"></a>Create your processing module</h3></div></div></div>
+      <div class="section" title="Create your processing module"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1173"></a>Create your processing module</h3></div></div></div>
         
         <p>The documentation generation use annotation processing. Wikbook module only provide an abstract processing : AbstractTemplateProcessor In this module you will extend the abstract processor and write your templates.</p>
-        <p>You need to use wikbook/template/core module : </p><div class="example"><a name="d5e1179"></a><p class="title"><b>Example&nbsp;4.1.&nbsp;Maven wikbook dependency</b></p><div class="example-contents">
+        <p>You need to use wikbook/template/core module : </p><div class="example"><a name="d5e1177"></a><p class="title"><b>Example&nbsp;4.1.&nbsp;Maven wikbook dependency</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-xml">&lt;dependency&gt;
   &lt;groupId&gt;org.wikbook&lt;/groupId&gt;
@@ -1183,7 +1180,7 @@ I said ok</pre></div>
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Create your processor"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1184"></a>Create your processor</h3></div></div></div>
+      <div class="section" title="Create your processor"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1182"></a>Create your processor</h3></div></div></div>
         
         <p>Don't freak out, your processor will not be a full processor. All the processing will be done by AbstractTemplateProcessor, you only have to configure it.</p>
         <p>The requited values data are :</p>
@@ -1197,7 +1194,7 @@ I said ok</pre></div>
             <p>Generated extension as String (only used for file name)</p>
           </li></ul></div>
         <p>
-          </p><div class="example"><a name="d5e1198"></a><p class="title"><b>Example&nbsp;4.2.&nbsp;Typical jaxrs processor</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1196"></a><p class="title"><b>Example&nbsp;4.2.&nbsp;Typical jaxrs processor</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-java">@SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
@@ -1234,7 +1231,7 @@ public class JaxrsTemplateProcessor extends AbstractTemplateProcessor {
 
 }</pre></div>
           </div></div><p><br class="example-break">
-          </p><div class="example"><a name="d5e1203"></a><p class="title"><b>Example&nbsp;4.3.&nbsp;Typical chromattic processor</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1201"></a><p class="title"><b>Example&nbsp;4.3.&nbsp;Typical chromattic processor</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-java">@SupportedSourceVersion(SourceVersion.RELEASE_5)
 @SupportedAnnotationTypes({"*"})
@@ -1274,9 +1271,9 @@ public class ChromatticTemplateProcessor extends AbstractTemplateProcessor {
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Enable processing with service"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1208"></a>Enable processing with service</h3></div></div></div>
+      <div class="section" title="Enable processing with service"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1206"></a>Enable processing with service</h3></div></div></div>
         
-        <p>To enable your processors as service just create the following file : </p><div class="example"><a name="d5e1211"></a><p class="title"><b>Example&nbsp;4.4.&nbsp;META-INF/services/javax.annotation.processing.Processor</b></p><div class="example-contents">
+        <p>To enable your processors as service just create the following file : </p><div class="example"><a name="d5e1209"></a><p class="title"><b>Example&nbsp;4.4.&nbsp;META-INF/services/javax.annotation.processing.Processor</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint">org.wikbook.doc.JaxrsTemplateProcessor
 org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
@@ -1286,15 +1283,15 @@ org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
           <p>You can have only one processor.</p>
         </div>
       </div>
-      <div class="section" title="Create your template"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1218"></a>Create your template</h3></div></div></div>
+      <div class="section" title="Create your template"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1216"></a>Create your template</h3></div></div></div>
         
         <p>Each processor will use a template. A section is dedicated to these templates.</p>
       </div>
-      <div class="section" title="Package template with classifier"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1221"></a>Package template with classifier</h3></div></div></div>
+      <div class="section" title="Package template with classifier"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1219"></a>Package template with classifier</h3></div></div></div>
         
         <p>To be able to use the templates during the processing, you have to package your templates with a classifier (we will use "templates" classifier).</p>
         <p>
-          </p><div class="example"><a name="d5e1225"></a><p class="title"><b>Example&nbsp;4.5.&nbsp;Package templates with maven</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1223"></a><p class="title"><b>Example&nbsp;4.5.&nbsp;Package templates with maven</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-xml">&lt;build&gt;
   &lt;plugins&gt;
@@ -1321,11 +1318,11 @@ org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Generate !"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1230"></a>Generate !</h3></div></div></div>
+      <div class="section" title="Generate !"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1228"></a>Generate !</h3></div></div></div>
         
         <p>Now you are ready to generate the documentation of existing module. Since you have declared your processors as service, just add it to classpath. You need to add some maven configuration to perform some stuff like unpack templates, use it, and package the generated files.</p>
         <p>
-          </p><div class="example"><a name="d5e1234"></a><p class="title"><b>Example&nbsp;4.6.&nbsp;Add your processors to the classpath</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1232"></a><p class="title"><b>Example&nbsp;4.6.&nbsp;Add your processors to the classpath</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-xml">&lt;dependency&gt;
   &lt;groupId&gt;my.group.id&lt;/groupId&gt;
@@ -1340,7 +1337,7 @@ org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
   &lt;classifier&gt;templates&lt;/classifier&gt;
 &lt;/dependency&gt;</pre></div>
           </div></div><p><br class="example-break">
-          </p><div class="example"><a name="d5e1239"></a><p class="title"><b>Example&nbsp;4.7.&nbsp;Unpack your templates and use it</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1237"></a><p class="title"><b>Example&nbsp;4.7.&nbsp;Unpack your templates and use it</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-xml">&lt;plugin&gt;
   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -1384,7 +1381,7 @@ org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
   &lt;/executions&gt;
 &lt;/plugin&gt;</pre></div>
           </div></div><p><br class="example-break">
-          </p><div class="example"><a name="d5e1244"></a><p class="title"><b>Example&nbsp;4.8.&nbsp;Package generated files</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1242"></a><p class="title"><b>Example&nbsp;4.8.&nbsp;Package generated files</b></p><div class="example-contents">
             
             <div class="programlistingco"><pre class="prettyprint language-xml">&lt;plugin&gt;
   &lt;groupId&gt;org.apache.maven.plugins&lt;/groupId&gt;
@@ -1408,18 +1405,18 @@ org.wikbook.doc.ChromatticTemplateProcessor</pre></div>
         </p>
       </div>
     </div>
-    <div class="section" title="Templates"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1249"></a>Templates</h2></div></div></div>
+    <div class="section" title="Templates"><div class="titlepage"><div><div><h2 class="title" style="clear: both"><a name="d5e1247"></a>Templates</h2></div></div></div>
       
       <p>Each type which are annoted by one processed annotation will generate a file. When a file is generated the template is applied. In the template you can print and browse the annotation. Freemarker is used as template engine, that means you can use all freemarker feature like loop or conditional structure. Please have a look to the freemarker documentaton : <a class="ulink" href="http://freemarker.sourceforge.net/docs" target="_top">http://freemarker.sourceforge.net/docs</a>
       </p>
       <p>In the template you can do simple actions like print type name, element name, but you can also do more complex operations like get children, get sibling, get the javadoc and more things.</p>
-      <div class="section" title="Root elements"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1254"></a>Root elements</h3></div></div></div>
+      <div class="section" title="Root elements"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1252"></a>Root elements</h3></div></div></div>
         
         <p>The root data are the annotation name like "@Path" for jaxrs using. Only the type annotations are considered as root data.</p>
       </div>
-      <div class="section" title="Annotation name"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1257"></a>Annotation name</h3></div></div></div>
+      <div class="section" title="Annotation name"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1255"></a>Annotation name</h3></div></div></div>
         
-        <p>To print the annotation name you can use "name" property. </p><div class="example"><a name="d5e1260"></a><p class="title"><b>Example&nbsp;4.9.&nbsp;Simple annotation name</b></p><div class="example-contents">
+        <p>To print the annotation name you can use "name" property. </p><div class="example"><a name="d5e1258"></a><p class="title"><b>Example&nbsp;4.9.&nbsp;Simple annotation name</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1435,11 +1432,11 @@ class A {}</pre></div>
         </p>
         <p>Actually this time we already know the name, but sometimes it can be useful (when you don't know which annotation you are working on).</p>
       </div>
-      <div class="section" title="Element name"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1284"></a>Element name</h3></div></div></div>
+      <div class="section" title="Element name"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1282"></a>Element name</h3></div></div></div>
         
         <p>It's the element's name. It can be the class name, method name, or parameter name which are annoted by the current annotation.</p>
         <p>
-          </p><div class="example"><a name="d5e1288"></a><p class="title"><b>Example&nbsp;4.10.&nbsp;Class element name</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1286"></a><p class="title"><b>Example&nbsp;4.10.&nbsp;Class element name</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1452,7 +1449,7 @@ class A {}</pre></div>
                     </td></tr></tbody></table>
             </div>
           </div></div><p><br class="example-break">
-          </p><div class="example"><a name="d5e1311"></a><p class="title"><b>Example&nbsp;4.11.&nbsp;Method element name</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1309"></a><p class="title"><b>Example&nbsp;4.11.&nbsp;Method element name</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1471,7 +1468,7 @@ Name : m
                     </td></tr></tbody></table>
             </div>
           </div></div><p><br class="example-break">
-          </p><div class="example"><a name="d5e1334"></a><p class="title"><b>Example&nbsp;4.12.&nbsp;Parameter element name</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1332"></a><p class="title"><b>Example&nbsp;4.12.&nbsp;Parameter element name</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1491,13 +1488,13 @@ Name : p
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Type"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1357"></a>Type</h3></div></div></div>
+      <div class="section" title="Type"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1355"></a>Type</h3></div></div></div>
         
-        <div class="section" title="Data"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1359"></a>Data</h4></div></div></div>
+        <div class="section" title="Data"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1357"></a>Data</h4></div></div></div>
           
           <p>The type property have many values and provide a way to get more things about the type. It returns type, parameter type.</p>
           <p>
-            </p><div class="example"><a name="d5e1363"></a><p class="title"><b>Example&nbsp;4.13.&nbsp;Class type values</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1361"></a><p class="title"><b>Example&nbsp;4.13.&nbsp;Class type values</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1516,7 +1513,7 @@ Is array : false</pre></div>
                       </td></tr></tbody></table>
               </div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1386"></a><p class="title"><b>Example&nbsp;4.14.&nbsp;Method type values</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1384"></a><p class="title"><b>Example&nbsp;4.14.&nbsp;Method type values</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1539,7 +1536,7 @@ Is array : true
                       </td></tr></tbody></table>
               </div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1409"></a><p class="title"><b>Example&nbsp;4.15.&nbsp;Parameter type values</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1407"></a><p class="title"><b>Example&nbsp;4.15.&nbsp;Parameter type values</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1563,11 +1560,11 @@ Is array : false
             </div></div><p><br class="example-break">
           </p>
         </div>
-        <div class="section" title="Type parameter"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1432"></a>Type parameter</h4></div></div></div>
+        <div class="section" title="Type parameter"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1430"></a>Type parameter</h4></div></div></div>
           
           <p>Generics type parameter are also supported. You can reach the parameters with "parameter" value.</p>
           <p>
-            </p><div class="example"><a name="d5e1436"></a><p class="title"><b>Example&nbsp;4.16.&nbsp;Reach type parameter</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1434"></a><p class="title"><b>Example&nbsp;4.16.&nbsp;Reach type parameter</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1604,11 +1601,11 @@ Is Array : true
             </div></div><p><br class="example-break">
           </p>
         </div>
-        <div class="section" title="Get annotation"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1459"></a>Get annotation</h4></div></div></div>
+        <div class="section" title="Get annotation"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1457"></a>Get annotation</h4></div></div></div>
           
           <p>Type data have special member "annotation" which allow to get annotations data of return type.</p>
           <p>
-            </p><div class="example"><a name="d5e1463"></a><p class="title"><b>Example&nbsp;4.17.&nbsp;Reach annotation of type</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1461"></a><p class="title"><b>Example&nbsp;4.17.&nbsp;Reach annotation of type</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1636,13 +1633,13 @@ Value : foo
           </p>
         </div>
       </div>
-      <div class="section" title="Javadoc"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1486"></a>Javadoc</h3></div></div></div>
+      <div class="section" title="Javadoc"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1484"></a>Javadoc</h3></div></div></div>
         
         <p>The javadoc is accessible with the "doc" property.</p>
-        <div class="section" title="General Javadoc"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1489"></a>General Javadoc</h4></div></div></div>
+        <div class="section" title="General Javadoc"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1487"></a>General Javadoc</h4></div></div></div>
           
           <p>
-            </p><div class="example"><a name="d5e1492"></a><p class="title"><b>Example&nbsp;4.18.&nbsp;Class or method general documentation</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1490"></a><p class="title"><b>Example&nbsp;4.18.&nbsp;Class or method general documentation</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1662,7 +1659,7 @@ class A {}</pre></div>
           </p>
           <p>You can use doc() for class or method documentation. You can also get the javadoc from a parameter. In this case you have only default javadoc which are corresponding do the parameter's javadoc</p>
           <p>
-            </p><div class="example"><a name="d5e1517"></a><p class="title"><b>Example&nbsp;4.19.&nbsp;Parameter documentation</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1515"></a><p class="title"><b>Example&nbsp;4.19.&nbsp;Parameter documentation</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1687,11 +1684,11 @@ Documentation : The parameter documentation
             </div></div><p><br class="example-break">
           </p>
         </div>
-        <div class="section" title="Javadoc with one key"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1540"></a>Javadoc with one key</h4></div></div></div>
+        <div class="section" title="Javadoc with one key"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1538"></a>Javadoc with one key</h4></div></div></div>
           
           <p>You can get a specific documentation part like "author" in this way :</p>
           <p>
-            </p><div class="example"><a name="d5e1544"></a><p class="title"><b>Example&nbsp;4.20.&nbsp;Get the author</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1542"></a><p class="title"><b>Example&nbsp;4.20.&nbsp;Get the author</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1713,11 +1710,11 @@ Author : foo</pre></div>
             </div></div><p><br class="example-break">
           </p>
         </div>
-        <div class="section" title="Javadoc with many keys"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1567"></a>Javadoc with many keys</h4></div></div></div>
+        <div class="section" title="Javadoc with many keys"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1565"></a>Javadoc with many keys</h4></div></div></div>
           
           <p>Sometimes the documentation can have many times the same key. You can either iterate on each key, or ask wikbook to display all items.</p>
           <p>
-            </p><div class="example"><a name="d5e1571"></a><p class="title"><b>Example&nbsp;4.21.&nbsp;Use 'flat' prefix to display all values separated by coma</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1569"></a><p class="title"><b>Example&nbsp;4.21.&nbsp;Use 'flat' prefix to display all values separated by coma</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1738,7 +1735,7 @@ Authors : foo, bar</pre></div>
                       </td></tr></tbody></table>
               </div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1594"></a><p class="title"><b>Example&nbsp;4.22.&nbsp;Use 'list' prefix to make iteration possible</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1592"></a><p class="title"><b>Example&nbsp;4.22.&nbsp;Use 'list' prefix to make iteration possible</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1762,11 +1759,11 @@ Author : bar</pre></div>
             </div></div><p><br class="example-break">
           </p>
         </div>
-        <div class="section" title="Get documentation as block"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1617"></a>Get documentation as block</h4></div></div></div>
+        <div class="section" title="Get documentation as block"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1615"></a>Get documentation as block</h4></div></div></div>
           
           <p>You could need to keep the documentation as it. For exemple you could wish to store some exemple without remove formatting.</p>
           <p>
-            </p><div class="example"><a name="d5e1621"></a><p class="title"><b>Example&nbsp;4.23.&nbsp;Use 'block' prefix to keep formatting</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1619"></a><p class="title"><b>Example&nbsp;4.23.&nbsp;Use 'block' prefix to keep formatting</b></p><div class="example-contents">
               
               <div class="informaltable">
                 <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1795,11 +1792,11 @@ class A {
           </p>
         </div>
       </div>
-      <div class="section" title="Browse children"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1644"></a>Browse children</h3></div></div></div>
+      <div class="section" title="Browse children"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1642"></a>Browse children</h3></div></div></div>
         
         <p>Each annotation allow to get children annotations. You just need to provide what annotation you are looking for and iterate. You can also set many param to look for many annotations in the same browsing.</p>
         <p>
-          </p><div class="example"><a name="d5e1648"></a><p class="title"><b>Example&nbsp;4.24.&nbsp;Browse children</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1646"></a><p class="title"><b>Example&nbsp;4.24.&nbsp;Browse children</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1840,11 +1837,11 @@ Method : m3 (A)</pre></div>
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Get sibling"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1671"></a>Get sibling</h3></div></div></div>
+      <div class="section" title="Get sibling"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1669"></a>Get sibling</h3></div></div></div>
         
         <p>Each annotation can reach a sibling annotations.</p>
         <p>
-          </p><div class="example"><a name="d5e1675"></a><p class="title"><b>Example&nbsp;4.25.&nbsp;Get sibiling</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1673"></a><p class="title"><b>Example&nbsp;4.25.&nbsp;Get sibiling</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1869,11 +1866,11 @@ Sibling @B : B
         </p>
         <p>After got sibling annotation you can reach the attribute then (see next section)</p>
       </div>
-      <div class="section" title="Get attributes"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1699"></a>Get attributes</h3></div></div></div>
+      <div class="section" title="Get attributes"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1697"></a>Get attributes</h3></div></div></div>
         
         <p>The attribute method allow to enter inside the annotation to get any contained value by the annotation. To use it you only have to call "attribute" method with member name. Don't forget that the default value name is "value".</p>
         <p>
-          </p><div class="example"><a name="d5e1703"></a><p class="title"><b>Example&nbsp;4.26.&nbsp;Get simple value</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1701"></a><p class="title"><b>Example&nbsp;4.26.&nbsp;Get simple value</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1891,7 +1888,7 @@ Value : bar</pre></div>
         </p>
         <p>Some annotation can have more complex value like array, you can print or iterate on it.</p>
         <p>
-          </p><div class="example"><a name="d5e1728"></a><p class="title"><b>Example&nbsp;4.27.&nbsp;Get array value</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1726"></a><p class="title"><b>Example&nbsp;4.27.&nbsp;Get array value</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1918,7 +1915,7 @@ Value : bar</pre></div>
         </p>
         <p>An annotation can also contains another nested annotation. Let use attribute in the same way to get it.</p>
         <p>
-          </p><div class="example"><a name="d5e1753"></a><p class="title"><b>Example&nbsp;4.28.&nbsp;Get annotation value</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1751"></a><p class="title"><b>Example&nbsp;4.28.&nbsp;Get annotation value</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1933,7 +1930,7 @@ Name : bar</pre></div>
                     </td></tr></tbody></table>
             </div>
           </div></div><p><br class="example-break">
-          </p><div class="example"><a name="d5e1776"></a><p class="title"><b>Example&nbsp;4.29.&nbsp;Get array annotation value</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1774"></a><p class="title"><b>Example&nbsp;4.29.&nbsp;Get array annotation value</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1951,11 +1948,11 @@ Value : bar</pre></div>
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Browse package"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1799"></a>Browse package</h3></div></div></div>
+      <div class="section" title="Browse package"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1797"></a>Browse package</h3></div></div></div>
         
         <p>Some framework use package annotation and wikbook templating allow to use these annotations. The only one difference is that package annotation doesn't have type member. You can use attribute, doc, name and children member to browse package content.</p>
         <p>
-          </p><div class="example"><a name="d5e1803"></a><p class="title"><b>Example&nbsp;4.30.&nbsp;Browse package annotation</b></p><div class="example-contents">
+          </p><div class="example"><a name="d5e1801"></a><p class="title"><b>Example&nbsp;4.30.&nbsp;Browse package annotation</b></p><div class="example-contents">
             
             <div class="informaltable">
               <table border="1"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td>Code</td><td>
@@ -1989,13 +1986,13 @@ Found : p.B (b)</pre></div>
           </div></div><p><br class="example-break">
         </p>
       </div>
-      <div class="section" title="Full sample"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1832"></a>Full sample</h3></div></div></div>
+      <div class="section" title="Full sample"><div class="titlepage"><div><div><h3 class="title"><a name="d5e1830"></a>Full sample</h3></div></div></div>
         
         <p>Now we will see a concrete use case with typical source class and full template. Two use cases will be considered : JAX-RS API and Chromattic API. Meanwhile you can create yours.</p>
-        <div class="section" title="JAX-RS"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1835"></a>JAX-RS</h4></div></div></div>
+        <div class="section" title="JAX-RS"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1833"></a>JAX-RS</h4></div></div></div>
           
           <p>
-            </p><div class="example"><a name="d5e1838"></a><p class="title"><b>Example&nbsp;4.31.&nbsp;Source code</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1836"></a><p class="title"><b>Example&nbsp;4.31.&nbsp;Source code</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint language-java">/**
  * User end point.
@@ -2085,7 +2082,7 @@ public class MyRestService {
 
   }</pre></div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1843"></a><p class="title"><b>Example&nbsp;4.32.&nbsp;Template</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1841"></a><p class="title"><b>Example&nbsp;4.32.&nbsp;Template</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint">&lt;#list @Path.children("@GET", "@POST", "@PUT", "@DELETE") as verb&gt;
 h3. ${verb.name} ${verb.sibling("@Path").attribute("flat:value")?replace("{", "")?replace("}", "")}
@@ -2126,7 +2123,7 @@ ${verb.doc("bloc:response")}
 
 &lt;/#list&gt;</pre></div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1848"></a><p class="title"><b>Example&nbsp;4.33.&nbsp;Output</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1846"></a><p class="title"><b>Example&nbsp;4.33.&nbsp;Output</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint">h3. GET user/userId.format
 
@@ -2214,16 +2211,16 @@ GET: http://my.domain.lan/rest/private/api/project/v1/portal/users.json
             </div></div><p><br class="example-break">
           </p>
           <p>
-            </p><div class="figure"><a name="d5e1854"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;JAX-RS generation result</b></p><div class="figure-contents">
+            </p><div class="figure"><a name="d5e1852"></a><p class="title"><b>Figure&nbsp;4.1.&nbsp;JAX-RS generation result</b></p><div class="figure-contents">
               
               <div class="mediaobject" align="center"><img src="images/jaxrsCapture.png" align="middle" alt="JAX-RS generation result"></div>
             </div></div><p><br class="figure-break">
           </p>
         </div>
-        <div class="section" title="Chromattic"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1861"></a>Chromattic</h4></div></div></div>
+        <div class="section" title="Chromattic"><div class="titlepage"><div><div><h4 class="title"><a name="d5e1859"></a>Chromattic</h4></div></div></div>
           
           <p>
-            </p><div class="example"><a name="d5e1864"></a><p class="title"><b>Example&nbsp;4.34.&nbsp;Source code</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1862"></a><p class="title"><b>Example&nbsp;4.34.&nbsp;Source code</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint language-java">@PrimaryType(name = "ns:myentity")
 public abstract class MyEntity {
@@ -2266,7 +2263,7 @@ public abstract class MyEntity {
   public abstract void setChild(AnotherEntity anotherEntity);
 }</pre></div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1869"></a><p class="title"><b>Example&nbsp;4.35.&nbsp;Template</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1867"></a><p class="title"><b>Example&nbsp;4.35.&nbsp;Template</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint">The _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has the following properties:
 || Property Name || Required Type ||Mutiple|| Description ||
@@ -2287,7 +2284,7 @@ And the _{noformat}${@PrimaryType.attribute("name")}{noformat}_ node type has th
 &lt;/#if&gt;
 &lt;/#list&gt;</pre></div>
             </div></div><p><br class="example-break">
-            </p><div class="example"><a name="d5e1874"></a><p class="title"><b>Example&nbsp;4.36.&nbsp;Output</b></p><div class="example-contents">
+            </p><div class="example"><a name="d5e1872"></a><p class="title"><b>Example&nbsp;4.36.&nbsp;Output</b></p><div class="example-contents">
               
               <div class="programlistingco"><pre class="prettyprint language-java">The _{noformat}ns:myentity{noformat}_ node type has the following properties:
 || Property Name || Required Type ||Mutiple|| Description ||
@@ -2303,7 +2300,7 @@ And the _{noformat}ns:myentity{noformat}_ node type has the following child node
             </div></div><p><br class="example-break">
           </p>
           <p>
-            </p><div class="figure"><a name="d5e1880"></a><p class="title"><b>Figure&nbsp;4.2.&nbsp;Chromattic generation result</b></p><div class="figure-contents">
+            </p><div class="figure"><a name="d5e1878"></a><p class="title"><b>Figure&nbsp;4.2.&nbsp;Chromattic generation result</b></p><div class="figure-contents">
               
               <div class="mediaobject" align="center"><img src="images/chromatticCapture.png" align="middle" alt="Chromattic generation result"></div>
             </div></div><p><br class="figure-break">
