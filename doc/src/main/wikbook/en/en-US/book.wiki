@@ -16,18 +16,18 @@ open Docbook format.
 
 {{important}}This document is a work in progress and will get richer over time.{{/important}}
 
-= Introduction =
+= Introduction {{anchor id=introduction /}} =
 
 {{include document="chapter1.wiki" /}}
 
-= How-to =
+= How-to {{anchor id=how-to /}} =
 
 {{include document="chapter2.wiki" /}}
 
-= Project integration =
+= Project integration {{anchor id=integration /}} =
 
 {{include document="chapter3.wiki" /}}
 
-= Generation =
+= Generation {{anchor id=generation /}} =
 
 {{include document="chapter4.wiki" /}}
