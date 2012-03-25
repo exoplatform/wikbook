@@ -151,6 +151,39 @@
             </configuration>
           </execution>
           <execution>
+            <id>generate-chunked</id>
+            <goals>
+              <goal>generate-html</goal>
+            </goals>
+            <phase>package</phase>
+            <configuration>
+
+              <!-- Output -->
+              <targetDirectory>${project.build.directory}/wikbook/output/chunked</targetDirectory>
+
+              <!-- Stylesheets -->
+              <htmlCustomization>${project.build.directory}/wikbook/src/resources/xsl/bootstrap/chunked.xsl</htmlCustomization>
+
+              <!-- Copy the image -->
+              <postProcess>
+                <copy todir="${project.build.directory}/wikbook/output/chunked/images">
+                  <fileset dir="${pom.basedir}/src/main/wikbook/images">
+                    <include name="**" />
+                  </fileset>
+                </copy>
+                <copy todir="${project.build.directory}/wikbook/output/chunked">
+                  <fileset dir="${project.build.directory}/wikbook/src/resources">
+                    <include name="**/*.css" />
+                    <include name="**/*.js" />
+                    <include name="**/*.png" />
+                    <include name="**/*.gif" />
+                    <include name="**/*.jpg" />
+                  </fileset>
+                </copy>
+              </postProcess>
+            </configuration>
+          </execution>
+          <execution>
             <id>generate-xhtml</id>
             <goals>
               <goal>generate-xhtml</goal>
@@ -218,6 +251,7 @@
         <artifactId>maven-assembly-plugin</artifactId>
         <executions>
           <execution>
+            <id>zip-html</id>
             <phase>package</phase>
             <goals>
               <goal>single</goal>
@@ -225,6 +259,25 @@
             <configuration>
               <descriptors>
                 <descriptor>src/main/assembly/html.xml</descriptor>
+              </descriptors>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <!-- Attach the chunkedchunked zip -->
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>zip-chunked</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+            <configuration>
+              <descriptors>
+                <descriptor>src/main/assembly/chunked.xml</descriptor>
               </descriptors>
             </configuration>
           </execution>

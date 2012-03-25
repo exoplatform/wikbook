@@ -79,7 +79,7 @@
     <arguments>-Prelease,sign-artifacts</arguments>
     <autoVersionSubmodules>true</autoVersionSubmodules>
 
-    <docbkx.version>2.0.13</docbkx.version>
+    <docbkx.version>2.0.14</docbkx.version>
     <dependency.version>2.1</dependency.version>
 
     <!-- site-maven-plugin -->
