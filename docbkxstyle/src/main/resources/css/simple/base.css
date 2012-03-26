@@ -91,12 +91,12 @@ pre {
     /*overflow-x: auto;*/
 }
 
-.example, .figure, .table, .informaltable {
+.example, .figure, table {
     margin-top: 0;
     margin-bottom: 1.8em;
 }
 
-.example .title, .figure .title, .table .title, .informaltable .title {
+.example .title, .figure .title, table .title {
     white-space: nowrap;
     /*overflow-x: hidden;*/
     margin-top: 0;
@@ -144,14 +144,14 @@ pre {
  * Tables
  */
 
-.table table, .informaltable table {
+table {
     border-collapse: collapse;
     font-size: 100%;
     min-width: 50%;
     border: solid #d0d0d0 1px;
 }
 
-.table table td, .informaltable table td {
+table td {
     text-align: left;
     vertical-align: text-top;
     padding-left: 0.8em;
@@ -160,7 +160,7 @@ pre {
     padding-bottom: 0.3em;
 }
 
-.table table thead td, .informaltable table thead td {
+table thead td {
     font-weight: bold;
     border-bottom: solid #d0d0d0 1px;
     background-color: #f2f2f2;
@@ -254,3 +254,10 @@ pre {
 .hl-comment, .hl-doccomment { color: #929292; }
 
 .hl-annotation { color: #777744; }
+
+/*
+* Remove border on callout
+*/
+.calloutlist table {
+   border: none;
+}

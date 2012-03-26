@@ -3,30 +3,26 @@
   <preface>
     <title>Preface</title>
     <informaltable>
-      <tgroup cols="1">
-        <tbody>
-          <row>
-            <entry>
-              <para>a</para>
-            </entry>
-          </row>
-        </tbody>
-      </tgroup>
+      <tbody>
+        <tr>
+          <td>
+            <para>a</para>
+          </td>
+        </tr>
+      </tbody>
     </informaltable>
     <informaltable>
-      <tgroup cols="1">
-        <tbody>
-          <row>
-            <entry>
-              <itemizedlist>
-                <listitem>
-                  <para>a</para>
-                </listitem>
-              </itemizedlist>
-            </entry>
-          </row>
-        </tbody>
-      </tgroup>
+      <tbody>
+        <tr>
+          <td>
+            <itemizedlist>
+              <listitem>
+                <para>a</para>
+              </listitem>
+            </itemizedlist>
+          </td>
+        </tr>
+      </tbody>
     </informaltable>
   </preface>
 </book>

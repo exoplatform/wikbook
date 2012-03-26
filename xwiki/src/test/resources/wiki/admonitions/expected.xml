@@ -42,14 +42,12 @@
     </note>
     <note>
       <informaltable>
-        <tgroup cols="2">
-          <tbody>
-            <row>
-              <entry>one</entry>
-              <entry>two</entry>
-            </row>
-          </tbody>
-        </tgroup>
+        <tbody>
+          <tr>
+            <td>one</td>
+            <td>two</td>
+          </tr>
+        </tbody>
       </informaltable>
     </note>
   </preface>

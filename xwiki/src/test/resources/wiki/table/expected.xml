@@ -3,91 +3,79 @@
   <preface>
     <title>Preface</title>
     <informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry>a</entry>
-            <entry>b</entry>
-          </row>
-        </tbody>
-      </tgroup>
+      <tbody>
+        <tr>
+          <td>a</td>
+          <td>b</td>
+        </tr>
+      </tbody>
     </informaltable>
     <informaltable>
-      <tgroup cols="2">
-        <thead>
-          <row>
-            <entry>a</entry>
-            <entry>b</entry>
-          </row>
-        </thead>
-      </tgroup>
+      <thead>
+        <tr>
+          <th>a</th>
+          <th>b</th>
+        </tr>
+      </thead>
     </informaltable>
     <informaltable>
-      <tgroup cols="2">
-        <thead>
-          <row>
-            <entry>a</entry>
-            <entry>b</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>c</entry>
-            <entry>d</entry>
-          </row>
-        </tbody>
-      </tgroup>
+      <thead>
+        <tr>
+          <th>a</th>
+          <th>b</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>c</td>
+          <td>d</td>
+        </tr>
+      </tbody>
     </informaltable>
     <informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry>a</entry>
-            <entry>b</entry>
-          </row>
-        </tbody>
-        <tfoot>
-          <row>
-            <entry>c</entry>
-            <entry>d</entry>
-          </row>
-        </tfoot>
-      </tgroup>
+      <tbody>
+        <tr>
+          <td>a</td>
+          <td>b</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>c</td>
+          <td>d</td>
+        </tr>
+      </tfoot>
     </informaltable>
     <informaltable>
-      <tgroup cols="2">
-        <thead>
-          <row>
-            <entry>a</entry>
-            <entry>b</entry>
-          </row>
-        </thead>
-        <tbody>
-          <row>
-            <entry>c</entry>
-            <entry>d</entry>
-          </row>
-        </tbody>
-        <tfoot>
-          <row>
-            <entry>e</entry>
-            <entry>f</entry>
-          </row>
-        </tfoot>
-      </tgroup>
+      <thead>
+        <tr>
+          <th>a</th>
+          <th>b</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>c</td>
+          <td>d</td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td>e</td>
+          <td>f</td>
+        </tr>
+      </tfoot>
     </informaltable>
     <informaltable>
-      <tgroup cols="2">
-        <tbody>
-          <row>
-            <entry>a</entry>
-          </row>
-          <row>
-            <entry>b</entry>
-            <entry>c</entry>
-          </row>
-        </tbody>
-      </tgroup>
+      <tbody>
+        <tr>
+          <td>a</td>
+        </tr>
+        <tr>
+          <td>b</td>
+          <td>c</td>
+        </tr>
+      </tbody>
     </informaltable>
   </preface>
 </book>

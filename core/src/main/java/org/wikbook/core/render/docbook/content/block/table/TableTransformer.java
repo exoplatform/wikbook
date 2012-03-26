@@ -43,7 +43,7 @@ public class TableTransformer extends ElementTransformer<TableElement>
       if (element.getTitle() != null)
       {
          tableXML = emitter.element("table");
-         tableXML.element("title").content(element.getTitle());
+         tableXML.element("caption").content(element.getTitle());
       }
       else
       {
@@ -62,35 +62,42 @@ public class TableTransformer extends ElementTransformer<TableElement>
       //
       Iterable<TableRowElement> body = element.getBody();
 
-      //
-      ElementEmitter tgroup = tableXML.element("tgroup").withAttribute("cols", "" + maxColumn);
+      // for now we dont use cols anymore
+      // ElementEmitter tgroup = tableXML.element("tgroup").withAttribute("cols", "" + maxColumn);
+
+     //
+      ElementEmitter tgroup = (ElementEmitter)tableXML;
       for (Iterable<TableRowElement> a : Arrays.asList(header, body, footer))
       {
          if (a.iterator().hasNext())
          {
             ElementEmitter elementXML;
+            boolean head;
             if (a == header)
             {
                elementXML = tgroup.element("thead");
+               head = true;
             }
             else if (a == body)
             {
                elementXML = tgroup.element("tbody");
+               head = false;
             }
             else
             {
                elementXML = tgroup.element("tfoot");
+               head = false;
             }
             for (TableRowElement row : a)
             {
-               ElementEmitter rowXML = elementXML.element("row");
+               ElementEmitter rowXML = elementXML.element("tr");
                if (row.getVAlign() != null)
                {
                   rowXML.withAttribute("valign", row.getVAlign().toString().toLowerCase());
                }
                for (TableCellElement cell : row.getCells())
                {
-                  ElementEmitter entryXML = rowXML.element("entry");
+                  ElementEmitter entryXML = rowXML.element(head ? "th" : "td");
                   if (cell.getAlign() != null)
                   {
                      entryXML.withAttribute("align", cell.getAlign().toString().toLowerCase());
