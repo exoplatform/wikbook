@@ -15,6 +15,7 @@
   -->
 <xsl:stylesheet xmlns:xsl="http://www.w3.org/1999/XSL/Transform"
                 xmlns:d="http://docbook.org/ns/docbook"
+                exclude-result-prefixes="d"
                 version="1.0">
 
   <xsl:import href="urn:docbkx:stylesheet"/>
@@ -22,8 +23,7 @@
 
   <xsl:template name="user.head.content">
     <script src="js/bootstrap/jquery-1.7.1.min.js"></script>
-    <script src="js/bootstrap/bootstrap-dropdown.js"></script>
-    <script src="js/bootstrap/bootstrap-modal.js"></script>
+    <script src="js/bootstrap/bootstrap-2.0.2.min.js"></script>
     <script src="js/bootstrap/docbook.js"></script>
     <script src="js/bootstrap/google-code-prettify/prettify.js"></script>
   </xsl:template>

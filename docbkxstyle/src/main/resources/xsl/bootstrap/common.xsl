@@ -17,6 +17,11 @@
                 xmlns:d="http://docbook.org/ns/docbook"
                 version="1.0">
 
+  <xsl:output method="html"
+              encoding="ISO-8859-1"
+              indent="no"
+              doctype-system=""/>
+
   <xsl:param name="html.stylesheet">css/bootstrap/bootstrap.css</xsl:param>
 
   <!-- Customize the body attribute:
@@ -35,19 +40,19 @@
 
   <!-- Admonitions -->
   <xsl:template match="d:warning" mode="class.value">
-    <xsl:value-of select="'alert-message block-message'"/>
+    <xsl:value-of select="'alert alert-block'"/>
   </xsl:template>
   <xsl:template match="d:note" mode="class.value">
-    <xsl:value-of select="'success alert-message block-message'"/>
+    <xsl:value-of select="'alert alert-success alert-block'"/>
   </xsl:template>
   <xsl:template match="d:tip" mode="class.value">
-    <xsl:value-of select="'info alert-message block-message'"/>
+    <xsl:value-of select="'alert alert-info alert-block'"/>
   </xsl:template>
   <xsl:template match="d:important" mode="class.value">
-    <xsl:value-of select="'error alert-message block-message'"/>
+    <xsl:value-of select="'alert alert-error alert-block'"/>
   </xsl:template>
   <xsl:template match="d:caution" mode="class.value">
-    <xsl:value-of select="'warning alert-message block-message'"/>
+    <xsl:value-of select="'alert alert-error alert-block'"/>
   </xsl:template>
 
   <xsl:template match="d:programlisting" mode="class.value">
@@ -73,6 +78,30 @@
         <xsl:apply-templates select=".." mode="object.title.markup"/>
       </h1>
     </div>
+  </xsl:template>
+
+  <!-- We redefine this template to add the class="class" attribute -->
+  <xsl:template name="htmlTable">
+    <xsl:if test="d:tgroup/d:tbody/d:row
+                  |d:tgroup/d:thead/d:row
+                  |d:tgroup/d:tfoot/d:row">
+      <xsl:message terminate="yes">Broken table: row descendent of HTML table.</xsl:message>
+    </xsl:if>
+
+    <!-- Make table use the table class -->
+    <xsl:attribute name="class">table table-condensed</xsl:attribute>
+
+    <xsl:apply-templates mode="htmlTable"/>
+
+    <xsl:if test=".//d:footnote|../d:title//d:footnote">
+      <tbody class="footnotes">
+        <tr>
+          <td colspan="50">
+            <xsl:apply-templates select=".//d:footnote|../d:title//d:footnote" mode="table.footnote.mode"/>
+          </td>
+        </tr>
+      </tbody>
+    </xsl:if>
   </xsl:template>
 
 </xsl:stylesheet>
