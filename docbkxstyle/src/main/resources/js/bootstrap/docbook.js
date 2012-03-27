@@ -1,43 +1,5 @@
 $(document).ready(function() {
 
-  // Topbar
-  var topbar =
-      "<div class='navbar navbar-fixed-top'>" +
-          "<div class='navbar-inner'>" +
-          "<div class='container'>" +
-
-        // Project name
-          "<a id='topbar' class='brand'>" +
-          "</a>" +
-
-        // Open collapse
-          "<div class='nav-collapse'>" +
-
-        // Primary nav
-          "<ul id='primarynav' class='nav'></ul>" +
-
-        // Secondary nav
-          "<ul class='nav pull-right'>" +
-          "<li class='dropdown'>" +
-          "<a href='#' class='dropdown-toggle' data-toggle='dropdown'>Powered by Wikbook</a>" +
-          "<ul class='dropdown-menu'>" +
-          "<li><a href='http://www.github.com/vietj/wikbook'>Project</a></li>" +
-          "<li><a href='http://vietj.github.com/wikbook/'>Documentation</a></li>" +
-          "<li><a href='http://jira.exoplatform.org/browse/WKBK'>Issue tracker</a></li>" +
-          "</ul>" +
-          "</li>" +
-          "</ul>" +
-
-        // Close collapse
-          "</div>" +
-
-        // Close bar
-          "</div>" +
-          "</div>" +
-          "</div>";
-  $("div.book").before(topbar);
-  $("body").css("padding-top", "40px");
-
   //
   var addModal = function(id, heading, elements, bodyClass) {
     // The modal window

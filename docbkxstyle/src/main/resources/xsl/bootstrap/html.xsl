@@ -21,11 +21,50 @@
   <xsl:import href="urn:docbkx:stylesheet"/>
   <xsl:import href="common.xsl"/>
 
+  <!-- Need a doctype -->
+  <xsl:output method="html"
+              encoding="ISO-8859-1"
+              indent="no"
+              doctype-system=""/>
+
+  <!-- Stylesheet -->
+  <xsl:param name="html.stylesheet">css/bootstrap/html.css</xsl:param>
+
+  <!-- Javascript -->
   <xsl:template name="user.head.content">
     <script src="js/bootstrap/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap/bootstrap-2.0.2.min.js"></script>
     <script src="js/bootstrap/docbook.js"></script>
     <script src="js/bootstrap/google-code-prettify/prettify.js"></script>
+  </xsl:template>
+
+  <xsl:template name="user.header.content">
+    <div class='navbar navbar-fixed-top'>
+      <div class='navbar-inner'>
+        <div class='container'>
+
+          <a id='topbar' class='brand'></a>
+
+          <div class='nav-collapse'>
+
+            <!-- Primary nav -->
+            <ul id='primarynav' class='nav'></ul>
+
+            <!-- Secondary nav -->
+            <ul class='nav pull-right'>
+              <li class='dropdown'>
+                <a href='#' class='dropdown-toggle' data-toggle='dropdown'>Powered by Wikbook</a>
+                <ul class='dropdown-menu'>
+                  <li><a href='http://www.github.com/vietj/wikbook'>Project</a></li>
+                  <li><a href='http://vietj.github.com/wikbook/'>Documentation</a></li>
+                  <li><a href='http://jira.exoplatform.org/browse/WKBK'>Issue tracker</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </xsl:template>
 
 </xsl:stylesheet>

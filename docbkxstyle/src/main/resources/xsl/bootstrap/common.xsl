@@ -17,13 +17,6 @@
                 xmlns:d="http://docbook.org/ns/docbook"
                 version="1.0">
 
-  <xsl:output method="html"
-              encoding="ISO-8859-1"
-              indent="no"
-              doctype-system=""/>
-
-  <xsl:param name="html.stylesheet">css/bootstrap/bootstrap.css</xsl:param>
-
   <!-- Customize the body attribute:
        - add onload for pretty printing if it is here
        - remove all other cssififed attributes (bgcolor, text, link, vlink, alink)

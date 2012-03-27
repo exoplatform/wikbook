@@ -6,6 +6,9 @@
   <xsl:import href="urn:docbkx:stylesheet/chunkfast.xsl"/>
   <xsl:import href="common.xsl"/>
 
+  <!-- Stylesheet -->
+  <xsl:param name="html.stylesheet">css/bootstrap/chunked.css</xsl:param>
+
   <!-- Chunker configuration -->
   <xsl:param name="chunk.section.depth">0</xsl:param>
   <xsl:param name="chunk.quietly">1</xsl:param>

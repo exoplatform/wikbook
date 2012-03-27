@@ -2,6 +2,10 @@
 @import "prettify.css";
 @import "../wikbook.css";
 
+body {
+  padding-top: 40px;
+}
+
 .modal-overflow {
     height:512px;
     overflow:auto
