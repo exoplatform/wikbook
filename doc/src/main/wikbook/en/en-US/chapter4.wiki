@@ -10,7 +10,7 @@ You need to use wikbook/template/core module :
 <dependency>
   <groupId>org.wikbook</groupId>
   <artifactId>wikbook.template.core</artifactId>
-  <version>0.9.33</version>
+  <version>${wikbook.version}</version>
 </dependency>
 {{/code}}
 {{/example}}
@@ -40,8 +40,6 @@ org.wikbook.doc.JaxrsTemplateProcessor
 org.wikbook.doc.ChromatticTemplateProcessor
 {{/code}}
 {{/example}}
-
-{{important}}You can have only one processor.{{/important}}
 
 == Create your template ==
 Each processor will use a template. A section is dedicated to these templates.
@@ -759,7 +757,7 @@ class B {}
 |Template|(((
 {{code}}
 @P value : ${@P.attribute("value")}
-<#list ${@P.children("@Annotation") as c}
+<#list @P.children("@Annotation") as c>
 Found : ${c.type.fqn} (${c.attribute("value")})
 </#list>
 {{/code}})))
@@ -768,6 +766,44 @@ Found : ${c.type.fqn} (${c.attribute("value")})
 @P value : foo
 Found : p.A (a)
 Found : p.B (b)
+{{/code}})))
+{{/example}}
+
+== Global template ==
+
+Sometimes you could need to apply your template for all handled types once without generate a file per type.
+
+To change the processor behavior, you only need to override globalTemplate method in your processor in this way :
+{{code language=java}}
+@Override
+protected boolean globalTemplate() {
+return true;
+}
+{{/code}}
+{{example title="Global template"}}
+|Code|((({{code language=java}}
+// A.java
+
+@AnnotationA
+class A {}
+{{/code}})))
+((({{code language=java}}
+// B.java
+
+@AnnotationA
+class B {}
+{{/code}})))
+|Template|(((
+{{code}}
+<#list @AnnotationA as a>
+Found : ${a.type.name}
+</#list>
+{{/code}})))
+((({{important}}@AnnotationA is not an element anymore but a list now.{{/important}})))
+|Output|(((
+{{code}}
+Found : A
+Found : B
 {{/code}})))
 {{/example}}
 

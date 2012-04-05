@@ -33,17 +33,49 @@ public abstract class AbstractFreemarkerTestCase extends AbstractProcessorTestCa
   public static Map<String, Map<String, Object>> builtData = new HashMap<String, Map<String, Object>>();
 
   public Map<String, Object> buildModel(String className, String ext) throws ClassNotFoundException, IOException {
+    return buildModel(array(className), ext, "model." + className);
+  }
 
-    if (!builtData.containsKey(className)) {
+  public Map<String, Object> buildModel(String[] classNames, String ext, String modelName) throws ClassNotFoundException, IOException {
+    return buildModel(classNames, ext, modelName, false);
+  }
+
+  public Map<String, Object> buildModel(String[] classNames, String ext, String modelName, boolean global) throws ClassNotFoundException, IOException {
+
+    String key = key(classNames);
+
+    if (!builtData.containsKey(key)) {
 
       FreemarkerModelBuilder builder = new FreemarkerModelBuilder();
-      buildClass(className);
-      MetaModel model = readMetaModel("model." + className + "." + ext);
-      builtData.put(className, builder.build(model, model.getElements().get(0)));
+      buildClass(classNames);
+      MetaModel model = readMetaModel(modelName + "." + ext);
+      if (global) {
+        builtData.put(key, (Map<String, Object>) builder.build(model));
+      }
+      else {
+        builtData.put(key, (Map<String, Object>) builder.build(model, model.getElements().get(0)));
+      }
 
     }
 
-    return builtData.get(className);
+    return builtData.get(key);
 
   }
+
+  protected String[] array(String... values) {
+    return values;
+  }
+
+  private String key(String... ns) {
+
+    StringBuffer sb = new StringBuffer();
+
+    for (String n : ns) {
+      sb.append(n);
+    }
+
+    return sb.toString();
+
+  }
+
 }
