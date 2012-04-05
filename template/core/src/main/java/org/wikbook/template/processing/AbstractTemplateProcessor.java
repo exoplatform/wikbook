@@ -107,40 +107,83 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
       }
     }
 
-    if (roundEnvironment.processingOver()) {
+    if (roundEnvironment.processingOver() && metaModel.getElements().size() > 0) {
 
-      String fileName = null;
+      try {
 
-      for (TemplateElement el : metaModel.getElements()) {
+       if (globalTemplate()) {
 
-        try {
+         writeGlobalFile();
 
-          if (el.getType() != null) {
-            fileName = el.getType().getFqn();
-          }
-          else {
-            fileName = el.getName();
-          }
+       }
+       else {
 
-          FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + fileName + ext, null);
-          OutputStream os = file.openOutputStream();
+         writeFiles();
 
-          new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);
+       }
 
-          if (writeModel()) {
-            writeState(metaModel, fileName + ext);
-          }
-
-        } catch (IOException e) {
-          throw new RuntimeException(e);
-        }
-        
+      } catch (IOException e) {
+        throw new RuntimeException(e);
       }
+
 
     }
 
     return false;
     
+  }
+
+  private void writeFiles() throws IOException {
+
+    String fileName;
+    for (TemplateElement el : metaModel.getElements()) {
+
+      //
+      if (el.getType() != null) {
+        fileName = el.getType().getFqn();
+      }
+      else {
+        fileName = el.getName();
+      }
+      OutputStream os = createdFileOS(fileName);
+
+      //
+      new FreemarkerRenderer().render(metaModel, templateName, el, os, filer);
+
+      //
+      finalizeWriting(fileName);
+
+    }
+
+  }
+
+  private void writeGlobalFile() throws IOException {
+
+    //
+    String fileName = getClass().getName();
+    OutputStream os = createdFileOS(fileName);
+
+    //
+    new FreemarkerRenderer().render(metaModel, templateName, os, filer);
+
+    //
+    finalizeWriting(fileName);
+
+  }
+
+  private void finalizeWriting(String fileName) {
+
+    if (writeModel()) {
+      writeState(metaModel, fileName + ext);
+    }
+
+  }
+
+  private OutputStream createdFileOS(String name) throws IOException {
+
+    FileObject file = filer.createResource(StandardLocation.SOURCE_OUTPUT, generatedDirectory, "" + name + ext, null);
+    return file.openOutputStream();
+
   }
 
   private List<TemplateElement> buildElements(Element el, ModelContext ctx) {
@@ -169,6 +212,10 @@ public abstract class AbstractTemplateProcessor extends AbstractProcessor {
   }
 
   protected boolean writeModel() {
+    return false;
+  }
+
+  protected boolean globalTemplate() {
     return false;
   }
 

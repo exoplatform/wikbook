@@ -61,6 +61,12 @@ public class ExpectationTestCase extends AbstractProcessorTestCase {
 
   }
 
+  public void testGlobalSrc() throws Exception {
+
+    assertTrue(sameContent("expected/global-model.src", "target/test-classes/generated/org.wikbook.template.test.TestGlobalTemplateProcessor.src"));
+
+  }
+
   private boolean sameContent(String location1, String location2) throws IOException {
 
     InputStream is1 = Thread.currentThread().getContextClassLoader().getResourceAsStream(location1);

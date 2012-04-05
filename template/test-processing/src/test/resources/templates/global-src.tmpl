@@ -1,0 +1,10 @@
+<#list @AnnotationA as annoted>
+<#if annoted.type.name == "B">
+${annoted.type.fqn}
+</#if>
+</#list>
+<#list @AnnotationA as annoted>
+<#if annoted.type.name == "C">
+${annoted.type.fqn}
+</#if>
+</#list>

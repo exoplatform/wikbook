@@ -27,7 +27,20 @@ public class FreemarkerRenderer {
 
   public void render(MetaModel model, String templateName, TemplateElement element, OutputStream os, Filer filer) throws IOException {
 
-    Map<String, Object> data = builder.build(model, element);
+    Map<String, ? extends Object> data = builder.build(model, element);
+    render(data, templateName, os, filer);
+
+  }
+
+  public void render(MetaModel model, String templateName, OutputStream os, Filer filer) throws IOException {
+
+    Map<String, ? extends Object> data = builder.build(model);
+    render(data, templateName, os, filer);
+
+  }
+
+  private void render(Map<String, ? extends Object> data, String templateName, OutputStream os, Filer filer) throws IOException {
+
     Configuration cfg = new Configuration();
 
     try {
@@ -37,7 +50,7 @@ public class FreemarkerRenderer {
 
       Template temp = cfg.getTemplate(templateName);
       OutputStreamWriter osw = new OutputStreamWriter(os);
-      
+
       temp.process(data, osw);
 
       osw.flush();
