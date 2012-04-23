@@ -7,6 +7,14 @@ import org.wikbook.template.api.AnnotationC;
 @AnnotationA("d")
 public class D {
 
+  enum Toto {
+    A
+  }
+
+  class Inner {
+    void a() {}
+  }
+  
   /**
    * General comment.
    * @author foo
