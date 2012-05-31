@@ -23,7 +23,7 @@
 
   <xsl:template name="user.head.content">
     <script src="js/bootstrap/jquery-1.7.1.min.js"></script>
-    <script src="js/bootstrap/bootstrap-2.0.2.min.js"></script>
+    <script src="js/bootstrap/bootstrap-2.0.3.min.js"></script>
     <script src="js/bootstrap/docbook.js"></script>
     <script src="js/bootstrap/google-code-prettify/prettify.js"></script>
   </xsl:template>
