@@ -123,10 +123,12 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       File base = new File(System.getProperty("basedir"));
       File path = new File(base, "src/test/resources/wiki" + testPath);
       assertTrue(path.isDirectory());
-      SimpleXDOMDocbookBuilderContext context = new SimpleXDOMDocbookBuilderContext(path);
-      context.setProperty("property_name", "propertyvalue");
       for (Test test : tests)
       {
+         // We reinstantiate the context per test in order to reset the same initial state (matters for some unit
+         // test like program listing with code citations
+         SimpleXDOMDocbookBuilderContext context = new SimpleXDOMDocbookBuilderContext(path);
+         context.setProperty("property_name", "propertyvalue");
          File file = new File(path, test.fileName + ".wiki");
          if (file.exists())
          {

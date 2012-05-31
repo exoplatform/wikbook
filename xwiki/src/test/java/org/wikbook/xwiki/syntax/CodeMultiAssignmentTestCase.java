@@ -17,38 +17,20 @@
  * 02110-1301 USA, or see the FSF site: http://www.fsf.org.
  */
 
-package org.wikbook.core.render.docbook.content.block;
-
-import org.wikbook.core.model.content.block.CalloutElement;
-import org.wikbook.core.render.docbook.ElementTransformer;
-import org.wikbook.core.xml.ElementEmitter;
-import org.wikbook.core.xml.XMLEmitter;
-import org.wikbook.text.Position;
-
-import java.util.LinkedHashMap;
+package org.wikbook.xwiki.syntax;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
  * @version $Revision$
  */
-public class CalloutTransformer extends ElementTransformer<CalloutElement>
+public class CodeMultiAssignmentTestCase extends AbstractSyntaxTestCase
 {
 
    @Override
-   public void write(CalloutElement element, XMLEmitter emitter)
+   public String getFolderName()
    {
-      ElementEmitter calloutXML = emitter.element("callout");
-
-      //
-      LinkedHashMap<String,Position> ids = element.getIds();
-      if (ids.size() > 0)
-      {
-         calloutXML.withAttribute("arearefs", ids.keySet().iterator().next() + "_");
-      }
-
-      //
-
-      //
-      write(element.getContent(), false, calloutXML);
+      return "/codemultiassignment";
    }
+
+
 }

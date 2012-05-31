@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<book>
+  <preface>
+    <title>Preface</title>
+    <programlistingco>
+      <areaspec units="linecolumn">
+        <areaset coords="" id="callout-0_">
+          <area coords="1 5" id="callout-0__" linkends="callout-0"/>
+          <area coords="2 5" id="callout-1__" linkends="callout-1"/>
+        </areaset>
+      </areaspec>
+      <programlisting language="java">foo  
+bar  
+</programlisting>
+      <calloutlist>
+        <callout arearefs="callout-0_">
+          <para>juu</para>
+        </callout>
+      </calloutlist>
+    </programlistingco>
+  </preface>
+</book>

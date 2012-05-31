@@ -60,8 +60,9 @@ import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import java.util.TreeMap;
+import java.util.WeakHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author <a href="mailto:julien.viet@exoplatform.com">Julien Viet</a>
@@ -320,6 +321,9 @@ public class ProgramListingElement extends BlockElement
       return callouts.append(elt);
    }
 
+   /** . */
+   private static final WeakHashMap<DocbookBuilderContext, AtomicInteger> sequences = new WeakHashMap<DocbookBuilderContext, AtomicInteger>();
+
    private class CodeContextImpl implements CodeContext
    {
 
@@ -328,9 +332,6 @@ public class ProgramListingElement extends BlockElement
 
       /** . */
       private final TreeMap<String, Callout> callouts = new TreeMap<String, Callout>();
-
-      /** . */
-      private final Random random = new Random();
 
       private CodeContextImpl()
       {
@@ -343,7 +344,13 @@ public class ProgramListingElement extends BlockElement
 
       public void writeCallout(String index)
       {
-         String coId = "" + Math.abs(random.nextLong());
+         DocbookBuilderContext key = ProgramListingElement.this.context;
+         AtomicInteger sequence = sequences.get(key);
+         if (sequence == null)
+         {
+            sequences.put(key, sequence = new AtomicInteger());
+         }
+         String coId = "callout-" + sequence.getAndIncrement();
 
          //
          TextArea ta = new TextArea(sb.toString());

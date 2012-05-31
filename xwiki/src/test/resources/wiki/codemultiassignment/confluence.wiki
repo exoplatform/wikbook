@@ -1,0 +1,4 @@
+{code:language=java}foo // <1>
+bar // <1>
+// =1= juu
+{code}
