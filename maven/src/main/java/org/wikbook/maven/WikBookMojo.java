@@ -39,9 +39,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.StringReader;
+import java.io.Writer;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
@@ -283,7 +285,7 @@ public class WikBookMojo extends AbstractMojo
       File destination = new File(destinationDirectory, destinationFileName);
 
       //
-      FileWriter out = null;
+      Writer out = null;
       try
       {
          if (hasTrimmedContent(beforeBookBodyXML))
@@ -300,7 +302,7 @@ public class WikBookMojo extends AbstractMojo
          }
 
          //
-         out = new FileWriter(destination);
+         out = new OutputStreamWriter(new FileOutputStream(destination), charset);
          StreamResult result = new StreamResult(out);
          converter.convert(sourceFileName, result);
       }
