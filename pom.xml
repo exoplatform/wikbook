@@ -5,7 +5,7 @@
   <groupId>org.wikbook</groupId>
   <artifactId>wikbook.parent</artifactId>
   <packaging>pom</packaging>
-  <version>0.9.42</version>
+  <version>0.9.43-SNAPSHOT</version>
 
   <name>Wikbook parent</name>
   <description>The Wikbook project</description>
@@ -93,59 +93,59 @@
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.codesource</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.core</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.xwiki</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.maven</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.docbkxstyle</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.doc</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.doc</artifactId>
         <classifier>html</classifier>
         <type>zip</type>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.template</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.template.core</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.template.test-processor</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
       <dependency>
         <groupId>org.wikbook</groupId>
         <artifactId>wikbook.template.test-processing</artifactId>
-        <version>0.9.42</version>
+        <version>0.9.43-SNAPSHOT</version>
       </dependency>
 
       <dependency>
@@ -269,7 +269,7 @@
         <plugin>
           <groupId>org.wikbook</groupId>
           <artifactId>wikbook.maven</artifactId>
-          <version>0.9.42</version>
+          <version>0.9.43-SNAPSHOT</version>
         </plugin>
         <plugin>
           <groupId>com.github.github</groupId>
