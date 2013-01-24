@@ -270,6 +270,10 @@ public class CodeProcessor
          printJavaSource(s.substring(prev, matcher.start()), ctx);
 
          TypeSource typeSource = builder.buildClass(l.getFQN());
+         if (typeSource == null)
+         {
+            throw new RuntimeException("Could not resolve type " + l.getFQN());
+         }
          CodeSource source;
          if (l.getMember() != null)
          {
