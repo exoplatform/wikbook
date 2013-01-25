@@ -88,6 +88,11 @@ public class ElementContainer<E extends DocbookElement> implements Iterable<E>
       return elements.isEmpty();
    }
 
+   public E peekFirst()
+   {
+      return elements.peekFirst();
+   }
+
    public E getLast()
    {
       return elements.getLast();

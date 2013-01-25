@@ -36,6 +36,7 @@ The Maven Wikbook plugin focus on transforming the Wiki content into a compliant
    <destinationDirectory>${project.build.directory}/wikbook/src</destinationDirectory>
    <destinationFileName>index.xml</destinationFileName>
    <emitDoctype>false</emitDoctype>
+   <format>book</format>
  </configuration>
 </plugin>
 {{/xml}}
@@ -199,6 +200,21 @@ Virtual Machine executing the plugin.
 <configuration>
    ...
    <charset>UTF-8</charset>
+   ...
+</configuration>
+{{/xml}}
+{{/example}}
+
+=== Output format ===
+
+By default, the plugin will produce a Docbook book element. It can be changed to output the first chapter
+of a book. This is useful when working with composite books that are merged via XML inclusion:
+
+{{example}}
+{{xml}}
+<configuration>
+   ...
+   <format>chapter</format>
    ...
 </configuration>
 {{/xml}}

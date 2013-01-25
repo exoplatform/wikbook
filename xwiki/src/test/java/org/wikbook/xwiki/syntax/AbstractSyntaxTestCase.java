@@ -26,6 +26,7 @@ import org.custommonkey.xmlunit.Diff;
 import org.custommonkey.xmlunit.XMLUnit;
 import org.w3c.dom.Document;
 import org.wikbook.core.Utils;
+import org.wikbook.xwiki.Format;
 import org.wikbook.xwiki.SimpleXDOMDocbookBuilderContext;
 import org.wikbook.core.xml.XML;
 import org.wikbook.xwiki.WikbookConverter;
@@ -103,6 +104,11 @@ public abstract class AbstractSyntaxTestCase extends TestCase
       }
    }
 
+   protected Format getFormat()
+   {
+      return Format.BOOK;
+   }
+
    public void testSyntax()
    {
       String folderName = getFolderName();
@@ -136,6 +142,7 @@ public abstract class AbstractSyntaxTestCase extends TestCase
             WikbookConverter converter = new WikbookConverter(context);
             converter.setEmitDoctype(false);
             converter.setSyntaxId(test.syntaxId);
+            converter.setFormat(getFormat());
             converter.convert(test.fileName + ".wiki", dom);
             Document document = (Document)dom.getNode();
             

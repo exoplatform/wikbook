@@ -24,6 +24,7 @@ import org.w3c.dom.DocumentFragment;
 import org.wikbook.core.model.DocbookBuilder;
 import org.wikbook.core.WikbookException;
 import org.wikbook.core.model.structural.BookElement;
+import org.wikbook.core.model.structural.ComponentElement;
 import org.wikbook.core.render.docbook.ElementTransformer;
 import org.wikbook.core.xml.DocumentEmitter;
 import org.wikbook.core.xml.OutputFormat;
@@ -67,6 +68,9 @@ public class WikbookConverter
    /** . */
    private String bookId;
 
+   /** . */
+   private Format format;
+
    public WikbookConverter(AbstractXDOMDocbookBuilderContext context) throws IOException, ClassNotFoundException
    {
       this.context = context;
@@ -74,6 +78,7 @@ public class WikbookConverter
       this.syntaxId = null;
       this.charsetName = "UTF-8";
       this.bookId = null;
+      this.format = Format.BOOK;
    }
 
    public boolean getEmitDoctype()
@@ -104,6 +109,16 @@ public class WikbookConverter
    public void setSyntaxId(String syntaxId)
    {
       this.syntaxId = syntaxId;
+   }
+
+   public Format getFormat()
+   {
+      return format;
+   }
+
+   public void setFormat(Format format)
+   {
+      this.format = format;
    }
 
    public DocumentFragment getBeforeBookBodyXML()
@@ -196,9 +211,21 @@ public class WikbookConverter
       //
       Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().newDocument();
 
-      //
-      ElementTransformer<BookElement> writer = ElementTransformer.getWriter(elt);
-      writer.write(elt, new DocumentEmitter(doc));
+      // For now we handle this here
+      if (format == null || format == Format.BOOK)
+      {
+         ElementTransformer<BookElement> writer = ElementTransformer.getWriter(elt);
+         writer.write(elt, new DocumentEmitter(doc));
+      }
+      else
+      {
+         ComponentElement chapterElt = elt.getChapters().peekFirst();
+         if (chapterElt != null)
+         {
+            ElementTransformer<ComponentElement> writer = ElementTransformer.getWriter(chapterElt);
+            writer.write(chapterElt, new DocumentEmitter(doc));
+         }
+      }
 
       //
       Transformer transformer = XML.createTransformer(new OutputFormat(

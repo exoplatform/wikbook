@@ -30,6 +30,7 @@ import org.wikbook.core.ResourceType;
 import org.wikbook.core.ValidationMode;
 import org.wikbook.core.xml.XML;
 import org.wikbook.xwiki.AbstractXDOMDocbookBuilderContext;
+import org.wikbook.xwiki.Format;
 import org.wikbook.xwiki.WikbookConverter;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
@@ -118,6 +119,13 @@ public class WikBookMojo extends AbstractMojo
     * @parameter default-value="true"
     */
    private boolean emitDoctype;
+
+   /**
+    * The output format of the document: book or chapter.
+    *
+    * @parameter default-value="book"
+    */
+   private String format;
 
    /**
     * The wikbook validation mode, can either be <code>lax</code> or <code>strict</code>.
@@ -274,6 +282,12 @@ public class WikBookMojo extends AbstractMojo
       catch (Exception e)
       {
          throw new MojoFailureException("", e);
+      }
+
+      // Set the format
+      if (format != null)
+      {
+         converter.setFormat(Format.valueOf(format.toUpperCase().trim()));
       }
 
       //
