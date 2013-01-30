@@ -274,7 +274,7 @@
         <plugin>
           <groupId>com.github.github</groupId>
           <artifactId>site-maven-plugin</artifactId>
-          <version>0.3</version>
+          <version>0.7</version>
         </plugin>
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
