@@ -101,7 +101,18 @@ $(document).ready(function() {
     $(".list-of-examples").remove();
   }
 
-  // Callout
+  // Callout in program listing
+  $("span.co").each(function() {
+    var text = "";
+    $(this).find("img").each(function() {
+      var index = $(this).attr("alt");
+      text = text + index.substring(1, index.length - 1);
+    }).remove();
+    $(this).text(text);
+    $(this).addClass("badge").addClass("nocode").removeClass("co");
+  });
+
+  // Replace callout tables with ordered lists
   $(".calloutlist").each(function() {
     var ol = $("<ol></ol>").appendTo($(this));
     $(this).find("tr").each(function() {
