@@ -22,9 +22,10 @@
   <xsl:import href="common.xsl"/>
 
   <xsl:template name="user.head.content">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
     <script src="js/bootstrap/jquery-1.7.1.min.js"></script>
     <script src="js/bootstrap/bootstrap-2.2.2.min.js"></script>
-    <script src="js/bootstrap/docbook.js"></script>
+    <script src="js/bootstrap/docbook-sidebar.js"></script>
     <script src="js/bootstrap/google-code-prettify/prettify.js"></script>
   </xsl:template>
 
