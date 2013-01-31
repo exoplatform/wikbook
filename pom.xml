@@ -216,6 +216,12 @@
         <artifactId>xwiki-rendering-syntax-xwiki2</artifactId>
         <version>4.0-milestone-1</version>
       </dependency>
+
+      <dependency>
+        <groupId>com.agilejava.docbkx</groupId>
+        <artifactId>docbkx-maven-plugin</artifactId>
+        <version>${docbkx.version}</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 
@@ -264,6 +270,11 @@
         <plugin>
           <groupId>com.agilejava.docbkx</groupId>
           <artifactId>docbkx-maven-plugin</artifactId>
+          <version>${docbkx.version}</version>
+        </plugin>
+        <plugin>
+          <groupId>com.agilejava.docbkx</groupId>
+          <artifactId>docbkx-builder-maven-plugin</artifactId>
           <version>${docbkx.version}</version>
         </plugin>
         <plugin>

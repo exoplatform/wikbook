@@ -256,6 +256,49 @@ by the Wikbook archetype.
 Configuration of these plugins is not covered in this guide, however each of them contain a fairly good documentation,
 both are comparable in term of feature and can generate the main formats like HTML or PDF.
 
+Wikbook provides its own plugin based on the Docbkx plugin for generating styled documentation with a Twitter
+Bootstrap responsive skin:
+
+{{example title="Wikbook transformation plugin"}}
+{{xml}}
+ <plugin>
+    <groupId>org.wikbook</groupId>
+    <artifactId>wikbook.docbkxstyle</artifactId>
+    <version>$[wikbook.version]</version>
+   <configuration>
+     <sourceDirectory>${wikbook.target}/src</sourceDirectory>
+     <includes>index.xml</includes>
+     <highlightSource>1</highlightSource>
+     <xincludeSupported>true</xincludeSupported>
+     <useExtensions>1</useExtensions>
+     <calloutsExtension>1</calloutsExtension>
+   </configuration>
+   <executions>
+     <execution>
+       <goals>
+         <goal>generate-html</goal>
+       </goals>
+       <phase>package</phase>
+       <configuration>
+         <targetDirectory>${wikbook.target}/output/html</targetDirectory>
+         <htmlCustomization>xsl/bootstrap/html.xsl</htmlCustomization>
+       </configuration>
+     </execution>
+   </executions>
+   <dependencies>
+     <dependency>
+       <groupId>org.docbook</groupId>
+       <artifactId>docbook-xml</artifactId>
+       <version>4.4</version>
+       <scope>runtime</scope>
+     </dependency>
+   </dependencies>
+ </plugin>
+{{/xml}}
+{{/example}}
+
+{{note}}The Wikbook Maven Wikbook archetype provides default configuration of this plugin{{/note}}
+
 == The Maven Wikbook archetype ==
 
 The Wikbook archetype creates a Wikbook module that contains a basic documentation and its POM contains the plugin

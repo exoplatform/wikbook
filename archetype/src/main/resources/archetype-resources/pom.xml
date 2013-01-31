@@ -11,14 +11,6 @@
 
   <name>A documentation module</name>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.wikbook</groupId>
-      <artifactId>wikbook.docbkxstyle</artifactId>
-      <version>${pom.version}</version>
-    </dependency>
-  </dependencies>
-
   <properties>
     <wikbook.source>\${pom.basedir}/src/main/wikbook</wikbook.source>
     <wikbook.target>\${project.build.directory}/wikbook</wikbook.target>
@@ -52,33 +44,11 @@
             </configuration>
           </plugin>
 
-         <!-- Unpacks the docbook style resources for the docbkx plugin -->
-         <plugin>
-           <groupId>org.apache.maven.plugins</groupId>
-           <artifactId>maven-dependency-plugin</artifactId>
-           <version>${dependency.version}</version>
-           <executions>
-             <execution>
-               <id>a</id>
-               <phase>prepare-package</phase>
-               <goals>
-                 <goal>unpack-dependencies</goal>
-               </goals>
-               <configuration>
-                 <includeGroupIds>org.wikbook</includeGroupIds>
-                 <includeArtifactIds>wikbook.docbkxstyle</includeArtifactIds>
-                 <excludes>META-INF/**</excludes>
-                 <outputDirectory>\${wikbook.target}/src/resources</outputDirectory>
-               </configuration>
-             </execution>
-           </executions>
-         </plugin>
-
          <!-- Dockbx plugin that generates content -->
          <plugin>
-           <groupId>com.agilejava.docbkx</groupId>
-           <artifactId>docbkx-maven-plugin</artifactId>
-           <version>${docbkx.version}</version>
+            <groupId>org.wikbook</groupId>
+            <artifactId>wikbook.docbkxstyle</artifactId>
+            <version>${pom.version}</version>
            <configuration>
 
              <!-- Source -->
@@ -116,31 +86,8 @@
                </goals>
                <phase>package</phase>
                <configuration>
-
-                 <!-- Output -->
                  <targetDirectory>\${wikbook.target}/output/html</targetDirectory>
-
-                 <!-- Stylesheet -->
-                 <htmlCustomization>\${wikbook.target}/src/resources/xsl/bootstrap/html.xsl</htmlCustomization>
-
-                 <!-- Copy the image -->
-                 <postProcess>
-                   <copy todir="\${wikbook.target}/output/html/images">
-                     <fileset dir="\${wikbook.source}/images">
-                       <include name="**"/>
-                     </fileset>
-                   </copy>
-                   <copy todir="\${wikbook.target}/output/html">
-                     <fileset dir="\${wikbook.target}/src/resources">
-                       <include name="**/*.css"/>
-                       <include name="**/*.js"/>
-                       <include name="**/*.png"/>
-                       <include name="**/*.gif"/>
-                       <include name="**/*.jpg"/>
-                     </fileset>
-                   </copy>
-                 </postProcess>
-
+                 <htmlCustomization>xsl/bootstrap/html.xsl</htmlCustomization>
                </configuration>
              </execution>
              <execution>
@@ -150,32 +97,9 @@
                </goals>
                <phase>package</phase>
                <configuration>
-
-                 <!-- Output -->
                  <targetDirectory>\${wikbook.target}/output/xhtml</targetDirectory>
                  <targetFileExtension>html</targetFileExtension>
-
-                 <!-- Stylesheet -->
-                 <xhtmlCustomization>\${wikbook.target}/src/resources/xsl/simple/pdf.xsl</xhtmlCustomization>
-
-                 <!-- Copy the image -->
-                 <postProcess>
-                   <copy todir="\${wikbook.target}/output/xhtml/images">
-                     <fileset dir="\${wikbook.source}/images">
-                       <include name="**"/>
-                     </fileset>
-                   </copy>
-                   <copy todir="\${wikbook.target}/output/xhtml">
-                     <fileset dir="\${wikbook.target}/src/resources">
-                       <include name="**/*.css"/>
-                       <include name="**/*.js"/>
-                       <include name="**/*.png"/>
-                       <include name="**/*.gif"/>
-                       <include name="**/*.jpg"/>
-                     </fileset>
-                   </copy>
-                 </postProcess>
-
+                 <xhtmlCustomization>xsl/simple/pdf.xsl</xhtmlCustomization>
                </configuration>
              </execution>
            </executions>

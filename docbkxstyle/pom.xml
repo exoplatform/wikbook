@@ -8,9 +8,56 @@
   
   <modelVersion>4.0.0</modelVersion>
   <artifactId>wikbook.docbkxstyle</artifactId>
-  <packaging>jar</packaging>
+  <packaging>maven-plugin</packaging>
 
   <name>Reusable style for docbkx</name>
+
+  <dependencies>
+    <dependency>
+      <groupId>com.agilejava.docbkx</groupId>
+      <artifactId>docbkx-maven-plugin</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>net.sf.docbook</groupId>
+      <artifactId>docbook-xsl</artifactId>
+      <version>1.76.1</version>
+      <type>zip</type>
+      <classifier>ns-resources</classifier>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>com.agilejava.docbkx</groupId>
+        <artifactId>docbkx-builder-maven-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>generate-html</id>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <configuration>
+              <type>html</type>
+              <packageName>com.agilejava.docbkx.maven</packageName>
+              <superClassName>com.agilejava.docbkx.maven.WikbookMojo</superClassName>
+            </configuration>
+          </execution>
+          <execution>
+            <id>generate-xhtml</id>
+            <goals>
+              <goal>build</goal>
+            </goals>
+            <configuration>
+              <type>xhtml</type>
+              <packageName>com.agilejava.docbkx.maven</packageName>
+              <superClassName>com.agilejava.docbkx.maven.WikbookMojo</superClassName>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
 
 </project>
     
